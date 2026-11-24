@@ -1,0 +1,33 @@
+[package]
+name = "answerer-webrtc"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+webrtc = { version = "=0.21.1", default-features = false, features = ["runtime-tokio"] }
+rtc = { version = "=0.21.1", default-features = false }
+async-trait = "0.1"
+tokio = { version = "=1.54.1", features = ["full"] }
+serde_json = "=1.0.154"
+if-addrs = "=0.13.4"
+
+[[bin]]
+name = "answerer-webrtc"
+path = "src/main.rs"
+
+[[bin]]
+name = "prod"
+path = "src/prod.rs"
+
+[features]
+default = ["ring"]
+ring = ["webrtc/crypto-ring"]
+aws-lc = ["webrtc/crypto-aws-lc-rs"]
+
+[workspace]
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true

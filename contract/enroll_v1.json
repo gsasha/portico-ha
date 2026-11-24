@@ -1,0 +1,341 @@
+{
+  "contract": "enroll/v1",
+  "about": "Shared fixture between portico-ha (server) and portico-app (client) for DEV-544, the one-time enrollment code: what the QR carries (format 2), the redemption request and every response, the Home Assistant refresh grant the app must follow afterwards, the limits, and the wording of each failure. The server's tests/test_enroll_redeem.py replays every entry of `cases` against the real redemption view and pins this file's sha256; portico-app vendors the file byte for byte, pins the same sha256 and drives its fake server from `cases`. Any change is a contract bump on both sides. Every value below is a fixture, not a secret.",
+  "qr": {
+    "format": 2,
+    "fields": {
+      "portico": "the number 2 (never true, never a string). An app that does not know the number refuses the QR with 'update the app' and saves nothing.",
+      "ha_url": "as in format 1",
+      "code": "the one-time code, 22..128 characters of [A-Za-z0-9_-]; the server makes 32 (192 random bits). Good for ttl_s seconds and one redemption.",
+      "phone_name": "as in format 1",
+      "enroll_id": "as in format 1 (16..128 of [A-Za-z0-9_-]); also what the registration string carries",
+      "tailscale_authkey": "optional, as in format 1",
+      "ha_dial": "optional, as in format 1",
+      "fcm": "optional, as in format 1"
+    },
+    "removed": [
+      "ha_token"
+    ],
+    "refuse": "a QR that carries ha_token (a format-1 QR, or a format-2 QR that also has one), or has no code, is refused; nothing is saved",
+    "ttl_s": 600,
+    "tailscale_authkey_note": "in Portico-minted-key mode the key lives 600 s, like the code; an Approve-in-Tailscale key lives one hour (Tailscale fixes that)"
+  },
+  "redeem": {
+    "method": "POST",
+    "path": "/api/portico/enroll/redeem",
+    "authorization": "none: the phone holds no Home Assistant token yet. Send no Authorization header.",
+    "request_content_type": "application/json",
+    "max_body_bytes": 640,
+    "request": {
+      "code": "^[A-Za-z0-9_-]{22,128}$ (from the QR)",
+      "enroll_id": "^[A-Za-z0-9_-]{16,128}$ (from the QR)",
+      "installation_id": "^[A-Za-z0-9_.:-]{1,128}$ (the app's own installation id, the one it registers push with)",
+      "nonce": "^[A-Za-z0-9_-]{16,64}$ (made by the app once per QR scan and kept with the pending redemption; the SAME value on every retry of that scan)"
+    },
+    "request_rules": "Content-Type must be application/json (a charset parameter is fine); anything else is a 415 that counts toward nothing. Exactly these four keys, all strings, nothing else; any other body is the same refusal as a wrong code. Never log the request body (it holds the nonce and installation_id).",
+    "success": {
+      "status": 200,
+      "headers": {
+        "Cache-Control": "no-store"
+      },
+      "body": {
+        "refresh_token": "Home Assistant's refresh token for this phone's user (a 128-character hex string); the secret to keep",
+        "access_token": "a first access token (a JWT), valid expires_in seconds",
+        "token_type": "Bearer",
+        "expires_in": 86400,
+        "client_id": "https://portico.invalid/phone"
+      }
+    },
+    "errors": {
+      "invalid_or_expired": {
+        "status": 400,
+        "body": {
+          "error": "invalid_or_expired"
+        },
+        "means": "unknown, wrong, expired, already used, cancelled or malformed. The server never says which. Do not retry the same QR; show the 'expired or used' wording."
+      },
+      "rate_limited": {
+        "status": 429,
+        "body": {
+          "error": "rate_limited"
+        },
+        "headers": {
+          "Retry-After": "2"
+        },
+        "means": "too many failed attempts in the last minute, from this source or from everyone. This is a throttle, not a lock: one request in two seconds is let through. The code was NOT looked at for the refused request. Wait Retry-After (2) seconds and try again; retry up to 5 times, then show the generic failure."
+      },
+      "unsupported_media_type": {
+        "status": 415,
+        "body": {
+          "error": "unsupported_media_type"
+        },
+        "means": "the request was not application/json. A bug in the app, not something to retry."
+      }
+    },
+    "retry": {
+      "window_s": 120,
+      "rule": "If the response was lost, send the SAME request (same code, installation_id and nonce) again within 120 seconds of the first: the server answers 200 with the SAME refresh_token and a fresh access_token. After 120 seconds the code is dead. A different installation_id or nonce presenting the code after it was used means someone else holds the QR: the server revokes the token it issued and refuses both."
+    },
+    "limits": {
+      "wrong_codes_per_qr": 5,
+      "address_failures": 10,
+      "global_failures": 20,
+      "window_s": 60,
+      "throttle_s": 2
+    },
+    "limits_note": "address_failures counts every failure from one source (a malformed body included); global_failures counts only well-formed redemptions with a wrong code. Requests that carry an X-Forwarded-For / Forwarded / X-Real-IP header share one bucket, so an app should send none of them."
+  },
+  "refresh": {
+    "what": "After redemption the phone keeps refresh_token and client_id (encrypted, never logged) and uses Home Assistant's own /auth/token to obtain access tokens. The WebSocket auth phase takes the access token exactly as it takes the old ha_token today.",
+    "method": "POST",
+    "path": "/auth/token",
+    "request_content_type": "application/x-www-form-urlencoded",
+    "form": {
+      "grant_type": "refresh_token",
+      "refresh_token": "<stored>",
+      "client_id": "https://portico.invalid/phone"
+    },
+    "client_id_rule": "MUST be sent, and equal to the client_id of the redemption response. Home Assistant answers 400 invalid_request to a refresh grant that omits it, because the token has one.",
+    "success": {
+      "status": 200,
+      "body_keys": [
+        "access_token",
+        "token_type",
+        "expires_in"
+      ],
+      "expires_in": 86400
+    },
+    "when": "before each WebSocket connect, when the stored access token has less than 5 minutes left",
+    "failure": {
+      "400 invalid_grant": "the refresh token no longer exists (the phone was removed or signed out in Home Assistant, or the token was idle for 90 days): stop, show 'signed out', do not retry in a loop",
+      "403 access_denied": "the user is disabled: same as invalid_grant",
+      "network error": "not a refusal: keep the stored tokens and retry later"
+    },
+    "refresh_token_idle_expiry_days": 90,
+    "no_rotation": "the refresh token never changes; /auth/token returns no new one"
+  },
+  "messages": {
+    "redeem_invalid_or_expired": "This QR has expired or was already used. Ask for a new one in Home Assistant.",
+    "redeem_rate_limited": "Home Assistant asked this phone to wait a minute.",
+    "refresh_signed_out": "This phone was signed out of Home Assistant. Enroll it again.",
+    "unreachable": "Cannot reach Home Assistant here. Join the home network or enroll again.",
+    "tailnet_node_gone": "The tailnet no longer knows this phone. Enroll it again.",
+    "old_qr_format": "This QR was made by an older Portico integration. Update Portico in Home Assistant, then enroll this phone again."
+  },
+  "fixture_values": {
+    "code": "FIXTURE-code-0123456789abcdef-A",
+    "enroll_id": "fixture-enroll-id-0123456789abcdef",
+    "installation_id": "fixture-install-0001",
+    "nonce": "fixture-nonce-0123456789",
+    "other_installation_id": "fixture-install-0002",
+    "other_nonce": "fixture-nonce-9876543210"
+  },
+  "cases": [
+    {
+      "name": "a pending code, the right request",
+      "given": "pending",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 200,
+        "body_keys": [
+          "access_token",
+          "client_id",
+          "expires_in",
+          "refresh_token",
+          "token_type"
+        ]
+      }
+    },
+    {
+      "name": "the response was lost: the same request again, inside the window",
+      "given": "redeemed_by_this_phone",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 200,
+        "body_keys": [
+          "access_token",
+          "client_id",
+          "expires_in",
+          "refresh_token",
+          "token_type"
+        ],
+        "same_refresh_token": true
+      }
+    },
+    {
+      "name": "another phone presents a code that was just used",
+      "given": "redeemed_by_another_phone",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 400,
+        "body": {
+          "error": "invalid_or_expired"
+        },
+        "token_revoked": true
+      }
+    },
+    {
+      "name": "the code was used and the window has passed",
+      "given": "redeemed_long_ago",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 400,
+        "body": {
+          "error": "invalid_or_expired"
+        }
+      }
+    },
+    {
+      "name": "the code is older than ten minutes",
+      "given": "expired",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 400,
+        "body": {
+          "error": "invalid_or_expired"
+        }
+      }
+    },
+    {
+      "name": "a wrong code",
+      "given": "pending",
+      "send": {
+        "code": "WRONG-code-0123456789abcdef-A",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 400,
+        "body": {
+          "error": "invalid_or_expired"
+        }
+      }
+    },
+    {
+      "name": "an enroll_id nobody has",
+      "given": "pending",
+      "send": {
+        "code": "$code",
+        "enroll_id": "unknown-enroll-id-0123456789abcdef",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 400,
+        "body": {
+          "error": "invalid_or_expired"
+        }
+      }
+    },
+    {
+      "name": "nothing is pending at all (for instance after a Home Assistant restart)",
+      "given": "nothing",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 400,
+        "body": {
+          "error": "invalid_or_expired"
+        }
+      }
+    },
+    {
+      "name": "an extra key",
+      "given": "pending",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce",
+        "extra": "x"
+      },
+      "expect": {
+        "status": 400,
+        "body": {
+          "error": "invalid_or_expired"
+        }
+      }
+    },
+    {
+      "name": "a nonce that is too short",
+      "given": "pending",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "short"
+      },
+      "expect": {
+        "status": 400,
+        "body": {
+          "error": "invalid_or_expired"
+        }
+      }
+    },
+    {
+      "name": "throttled after ten failures from one address",
+      "given": "throttled",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 429,
+        "body": {
+          "error": "rate_limited"
+        },
+        "retry_after": 2,
+        "code_not_looked_at": true
+      }
+    },
+    {
+      "name": "not application/json",
+      "given": "pending",
+      "content_type": "text/plain",
+      "send": {
+        "code": "$code",
+        "enroll_id": "$enroll_id",
+        "installation_id": "$installation_id",
+        "nonce": "$nonce"
+      },
+      "expect": {
+        "status": 415,
+        "body": {
+          "error": "unsupported_media_type"
+        }
+      }
+    }
+  ]
+}

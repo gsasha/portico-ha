@@ -1,0 +1,5 @@
+- RECV 200 OK
++ RECV 403 Forbidden
+-      Expires: 300
+- STATE registered=true ringing=false inCall=false dialogConfirmed=false calls=0 answered=0 rtpIn=0
++ STATE registered=false ringing=false inCall=false dialogConfirmed=false calls=0 answered=0 rtpIn=0

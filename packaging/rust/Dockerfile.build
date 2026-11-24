@@ -1,0 +1,23 @@
+# Build image for the Rust transport (DEV-764 Phase 4). Local only, never pushed.
+#
+#   docker build -f packaging/rust/Dockerfile.build -t local/portico-rs-build:3 packaging/rust
+#
+# What it adds to the stock Rust image: the two musl targets (so no rustup network call is needed at build time)
+# and the C toolchains `aws-lc-sys` needs (musl-gcc for x86_64; the aarch64 cross gcc WITH its libc headers, which
+# --no-install-recommends would otherwise leave out: the build then fails on "bits/libc-header-start.h"; used as the compiler and
+# linker driver while rustc supplies the self-contained musl libc). Built once online; after that
+# build_rust_binaries.sh runs the compile with the network OFF.
+#
+# Pinned (R1-48): the base image by exact rustc version AND index digest, the apt packages by version. Change any of them
+# together with transport-rs/rust-toolchain.toml and the image tag (local/portico-rs-build:N, here and in
+# build_rust_binaries.sh), because a built tag is reused as is. Look the digest up with
+# `docker buildx imagetools inspect rust:<version>-bookworm`. The apt versions are Debian bookworm's; Debian removes
+# superseded versions from the live mirror, so a rebuild months later may need these bumped (the build then fails
+# loudly on a missing version instead of building something different).
+ARG RUST_IMAGE=rust:1.99.1-bookworm@sha256:e6f2cff35d0f309acf8433b4f05878ed77092602c5065cc81801177da0bb3a9c
+FROM ${RUST_IMAGE}
+RUN apt-get update -qq \
+ && apt-get install -y -qq --no-install-recommends musl-tools=1.2.3-1 gcc-aarch64-linux-gnu=4:12.2.0-3 libc6-dev-arm64-cross=2.36-8cross1 \
+ && rm -rf /var/lib/apt/lists/* \
+ && rustup target add x86_64-unknown-linux-musl aarch64-unknown-linux-musl \
+ && chmod -R a+rX /usr/local/rustup /usr/local/cargo

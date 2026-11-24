@@ -1,0 +1,5684 @@
+[
+ {
+  "name": "minimal",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "empty object",
+  "in": "{}",
+  "ok": false,
+  "err": "gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"
+ },
+ {
+  "name": "null config",
+  "in": "null",
+  "ok": false,
+  "err": "gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"
+ },
+ {
+  "name": "sip_listen missing",
+  "in": "{\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"
+ },
+ {
+  "name": "sip_listen blank",
+  "in": "{\"sip_listen\":\"   \",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"
+ },
+ {
+  "name": "sip_listen number",
+  "in": "{\"sip_listen\":5060,\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"
+ },
+ {
+  "name": "sip_listen padded",
+  "in": "{\"sip_listen\":\"  127.0.0.1:5060  \",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "password missing",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\"}",
+  "ok": false,
+  "err": "gate_sip_server: password is required"
+ },
+ {
+  "name": "password blank",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"        \"}",
+  "ok": false,
+  "err": "gate_sip_server: password is required"
+ },
+ {
+  "name": "password number",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":12345678}",
+  "ok": false,
+  "err": "gate_sip_server: password is required"
+ },
+ {
+  "name": "password 7",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"1234567\"}",
+  "ok": false,
+  "err": "gate_sip_server: password is 7 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"
+ },
+ {
+  "name": "password 8",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"12345678\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "12345678",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "password 15",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"123456789012345\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "123456789012345",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "password 16",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"1234567890123456\"}",
+  "ok": false,
+  "err": "gate_sip_server: password is 16 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"
+ },
+ {
+  "name": "password trimmed to 8",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"  12345678  \"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "12345678",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "password trimmed to 7",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"  1234567  \"}",
+  "ok": false,
+  "err": "gate_sip_server: password is 7 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"
+ },
+ {
+  "name": "password 5 chars 10 bytes",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"ééééé\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "ééééé",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "password 8 chars 16 bytes",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"éééééééé\"}",
+  "ok": false,
+  "err": "gate_sip_server: password is 16 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"
+ },
+ {
+  "name": "password with inner spaces",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"ab cd ef gh\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "ab cd ef gh",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "user and realm",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"user\":\"9001\",\"realm\":\"HOME\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "9001",
+   "realm": "HOME",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "user and realm blank",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"user\":\"  \",\"realm\":\"\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "user number ignored",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"user\":9001,\"realm\":5}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "rtp_port 0",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":0}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 0,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "rtp_port 65535",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":65535}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 65535,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "rtp_port 65536",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":65536}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "rtp_port -1",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":-1}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "rtp_port 1.5",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":1.5}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "rtp_port float integral",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":40000.0}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "rtp_port exponent",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":4e3}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 4000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "rtp_port string",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":\"40000\"}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "rtp_port bool",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":true}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "rtp_port null",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":null}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "rtp_port huge",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":1e30}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "rtp_port 2^63",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":9223372036854775808}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "rtp_port -2^63",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":-9223372036854775808}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "rtp_port -0",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":-0}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 0,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "ring_seconds 1",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"ring_seconds\":1}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 1000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "ring_seconds 300",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"ring_seconds\":300}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 300000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "ring_seconds 301",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"ring_seconds\":301}",
+  "ok": false,
+  "err": "gate_sip_server: ring_seconds must be 1-300"
+ },
+ {
+  "name": "ring_seconds 0",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"ring_seconds\":0}",
+  "ok": false,
+  "err": "gate_sip_server: ring_seconds must be 1-300"
+ },
+ {
+  "name": "ring_seconds -5",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"ring_seconds\":-5}",
+  "ok": false,
+  "err": "gate_sip_server: ring_seconds must be 1-300"
+ },
+ {
+  "name": "ring_seconds 2.5",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"ring_seconds\":2.5}",
+  "ok": false,
+  "err": "gate_sip_server: ring_seconds must be 1-300"
+ },
+ {
+  "name": "ring_seconds string",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"ring_seconds\":\"30\"}",
+  "ok": false,
+  "err": "gate_sip_server: ring_seconds must be 1-300"
+ },
+ {
+  "name": "ring_seconds null",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"ring_seconds\":null}",
+  "ok": false,
+  "err": "gate_sip_server: ring_seconds must be 1-300"
+ },
+ {
+  "name": "ring_seconds 30.0",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"ring_seconds\":30.0}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 30000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "orphan_seconds 1",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"orphan_seconds\":1}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 1000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "orphan_seconds 120",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"orphan_seconds\":120}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 120000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "orphan_seconds 121",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"orphan_seconds\":121}",
+  "ok": false,
+  "err": "gate_sip_server: orphan_seconds must be 1-120"
+ },
+ {
+  "name": "orphan_seconds 0",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"orphan_seconds\":0}",
+  "ok": false,
+  "err": "gate_sip_server: orphan_seconds must be 1-120"
+ },
+ {
+  "name": "orphan_seconds object",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"orphan_seconds\":{}}",
+  "ok": false,
+  "err": "gate_sip_server: orphan_seconds must be 1-120"
+ },
+ {
+  "name": "dial_enabled true",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"dial_enabled\":true}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": true
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "dial_enabled false",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"dial_enabled\":false}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "dial_enabled null",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"dial_enabled\":null}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "dial_enabled string true",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"dial_enabled\":\"true\"}",
+  "ok": false,
+  "err": "gate_sip_server: dial_enabled must be true or false"
+ },
+ {
+  "name": "dial_enabled number 1",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"dial_enabled\":1}",
+  "ok": false,
+  "err": "gate_sip_server: dial_enabled must be true or false"
+ },
+ {
+  "name": "dial_enabled string yes",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"dial_enabled\":\"yes\"}",
+  "ok": false,
+  "err": "gate_sip_server: dial_enabled must be true or false"
+ },
+ {
+  "name": "dial_enabled array",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"dial_enabled\":[]}",
+  "ok": false,
+  "err": "gate_sip_server: dial_enabled must be true or false"
+ },
+ {
+  "name": "allow_non_loopback string ignored",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":\"true\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "allow_non_loopback true on loopback",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": true,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "device_id set",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"device_id\":\"srv-1\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "srv-1",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "device_id padded",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"device_id\":\"  srv-1  \"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "srv-1",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "device_id blank",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"device_id\":\"   \"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "device_id number",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"device_id\":5}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "wildcard refused",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: refusing sip_listen \"0.0.0.0:5060\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"
+ },
+ {
+  "name": "public ip refused",
+  "in": "{\"sip_listen\":\"192.168.2.1:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: refusing sip_listen \"192.168.2.1:5060\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"
+ },
+ {
+  "name": "wildcard with switch but no allow_from",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true}",
+  "ok": false,
+  "err": "gate_sip_server: a non-loopback sip_listen needs an allow_from list"
+ },
+ {
+  "name": "wildcard with switch and empty allow_from",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[]}",
+  "ok": false,
+  "err": "gate_sip_server: a non-loopback sip_listen needs an allow_from list"
+ },
+ {
+  "name": "wildcard with switch and blank allow_from entries",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"\", \"  \"]}",
+  "ok": false,
+  "err": "gate_sip_server: a non-loopback sip_listen needs an allow_from list"
+ },
+ {
+  "name": "wildcard with allow_from list",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/8\",\"192.168.1.7\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:0.0.0.0:5060",
+   "sip_listen": "0.0.0.0:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "10.0.0.0/8",
+    "192.168.1.7/32"
+   ],
+   "allow_non_loopback": true,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "wildcard allow_from comma string",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":\"10.0.0.0/8, 192.168.1.7,,  \"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:0.0.0.0:5060",
+   "sip_listen": "0.0.0.0:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "10.0.0.0/8",
+    "192.168.1.7/32"
+   ],
+   "allow_non_loopback": true,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from /0 refused",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"0.0.0.0/0\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"0.0.0.0/0\": a /0 allows everyone"
+ },
+ {
+  "name": "allow_from ::/0 refused",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"::/0\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"::/0\": a /0 allows everyone"
+ },
+ {
+  "name": "allow_from /00",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/00\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"10.0.0.0/00\": netip.ParsePrefix(\"10.0.0.0/00\"): bad bits after slash: \"00\""
+ },
+ {
+  "name": "allow_from /33",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/33\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"10.0.0.0/33\": netip.ParsePrefix(\"10.0.0.0/33\"): prefix length out of range"
+ },
+ {
+  "name": "allow_from /129",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"::1/129\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"::1/129\": netip.ParsePrefix(\"::1/129\"): prefix length out of range"
+ },
+ {
+  "name": "allow_from /32 and /128",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.1.2.3/32\",\"2001:db8::1/128\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:0.0.0.0:5060",
+   "sip_listen": "0.0.0.0:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "10.1.2.3/32",
+    "2001:db8::1/128"
+   ],
+   "allow_non_loopback": true,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from host bits masked",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.1.2.3/8\",\"2001:db8:1:2::5/48\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:0.0.0.0:5060",
+   "sip_listen": "0.0.0.0:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "10.0.0.0/8",
+    "2001:db8:1::/48"
+   ],
+   "allow_non_loopback": true,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from /+5",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/+5\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"10.0.0.0/+5\": netip.ParsePrefix(\"10.0.0.0/+5\"): bad bits after slash: \"+5\""
+ },
+ {
+  "name": "allow_from /-1",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/-1\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"10.0.0.0/-1\": netip.ParsePrefix(\"10.0.0.0/-1\"): bad bits after slash: \"-1\""
+ },
+ {
+  "name": "allow_from / empty bits",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"10.0.0.0/\": netip.ParsePrefix(\"10.0.0.0/\"): bad bits after slash: \"\""
+ },
+ {
+  "name": "allow_from /abc",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/abc\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"10.0.0.0/abc\": netip.ParsePrefix(\"10.0.0.0/abc\"): bad bits after slash: \"abc\""
+ },
+ {
+  "name": "allow_from /99999999999999999999",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/99999999999999999999\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"10.0.0.0/99999999999999999999\": netip.ParsePrefix(\"10.0.0.0/99999999999999999999\"): bad bits after slash: \"99999999999999999999\""
+ },
+ {
+  "name": "allow_from only slash",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"/24\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"/24\": netip.ParsePrefix(\"/24\"): ParseAddr(\"\"): unable to parse IP"
+ },
+ {
+  "name": "allow_from two slashes",
+  "in": "{\"sip_listen\":\"0.0.0.0:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/8/8\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"10.0.0.0/8/8\": netip.ParsePrefix(\"10.0.0.0/8/8\"): ParseAddr(\"10.0.0.0/8\"): unexpected character (at \"/8\")"
+ },
+ {
+  "name": "allow_from garbage",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"nope\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"nope\": ParseAddr(\"nope\"): unable to parse IP"
+ },
+ {
+  "name": "allow_from garbage after good",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"10.0.0.1\",\"nope\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"nope\": ParseAddr(\"nope\"): unable to parse IP"
+ },
+ {
+  "name": "allow_from number entry",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[5]}",
+  "ok": false,
+  "err": "gate_sip_server: allow_from entries must be strings"
+ },
+ {
+  "name": "allow_from number entry after bad string",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"nope\",5]}",
+  "ok": false,
+  "err": "gate_sip_server: allow_from entries must be strings"
+ },
+ {
+  "name": "allow_from number",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":5}",
+  "ok": false,
+  "err": "gate_sip_server: allow_from must be a list of IPs/CIDRs"
+ },
+ {
+  "name": "allow_from null",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":null}",
+  "ok": false,
+  "err": "gate_sip_server: allow_from must be a list of IPs/CIDRs"
+ },
+ {
+  "name": "allow_from object",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":{}}",
+  "ok": false,
+  "err": "gate_sip_server: allow_from must be a list of IPs/CIDRs"
+ },
+ {
+  "name": "allow_from bool",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":true}",
+  "ok": false,
+  "err": "gate_sip_server: allow_from must be a list of IPs/CIDRs"
+ },
+ {
+  "name": "allow_from ipv4 leading zero",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"010.0.0.1\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"010.0.0.1\": ParseAddr(\"010.0.0.1\"): IPv4 field has octet with leading zero"
+ },
+ {
+  "name": "allow_from ipv4 octet 256",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1.2.3.256\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1.2.3.256\": ParseAddr(\"1.2.3.256\"): IPv4 field has value >255"
+ },
+ {
+  "name": "allow_from ipv4 too short",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1.2.3\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1.2.3\": ParseAddr(\"1.2.3\"): IPv4 address too short"
+ },
+ {
+  "name": "allow_from ipv4 too long",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1.2.3.4.5\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1.2.3.4.5\": ParseAddr(\"1.2.3.4.5\"): IPv4 address too long"
+ },
+ {
+  "name": "allow_from ipv4 trailing dot",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1.2.3.4.\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1.2.3.4.\": ParseAddr(\"1.2.3.4.\"): IPv4 field must have at least one digit (at \".\")"
+ },
+ {
+  "name": "allow_from ipv4 double dot",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1..3.4\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1..3.4\": ParseAddr(\"1..3.4\"): IPv4 field must have at least one digit (at \".3.4\")"
+ },
+ {
+  "name": "allow_from ipv4 leading dot",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\".2.3.4\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \".2.3.4\": ParseAddr(\".2.3.4\"): IPv4 field must have at least one digit (at \".2.3.4\")"
+ },
+ {
+  "name": "allow_from ipv4 letter",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1.2.3.x\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1.2.3.x\": ParseAddr(\"1.2.3.x\"): unexpected character (at \"x\")"
+ },
+ {
+  "name": "allow_from ipv6 bare",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"2001:DB8::1\",\"::1\",\"::\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "2001:db8::1/128",
+    "::1/128",
+    "::/128"
+   ],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from ipv6 zone bare",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"fe80::1%eth0\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "fe80::1/128"
+   ],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from ipv6 zone prefix",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"fe80::/10%eth0\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"fe80::/10%eth0\": netip.ParsePrefix(\"fe80::/10%eth0\"): bad bits after slash: \"10%eth0\""
+ },
+ {
+  "name": "allow_from ipv6 zone in prefix",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"fe80::1%eth0/64\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"fe80::1%eth0/64\": netip.ParsePrefix(\"fe80::1%eth0/64\"): IPv6 zones cannot be present in a prefix"
+ },
+ {
+  "name": "allow_from ipv6 empty zone",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"fe80::1%\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"fe80::1%\": ParseAddr(\"fe80::1%\"): zone must be a non-empty string"
+ },
+ {
+  "name": "allow_from zone without address",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"%eth0\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"%eth0\": ParseAddr(\"%eth0\"): missing IPv6 address"
+ },
+ {
+  "name": "allow_from ipv4-mapped bare unmapped",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"::ffff:10.1.2.3\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "10.1.2.3/32"
+   ],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from ipv4-mapped prefix kept v6",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"::ffff:10.1.2.0/120\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "::ffff:10.1.2.0/120"
+   ],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from ipv6 five digits",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"12345::1\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"12345::1\": ParseAddr(\"12345::1\"): each group must have 4 or less digits (at \"12345::1\")"
+ },
+ {
+  "name": "allow_from ipv6 triple colon",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\":::1\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \":::1\": ParseAddr(\":::1\"): each colon-separated field must have at least one digit (at \":1\")"
+ },
+ {
+  "name": "allow_from ipv6 two ellipses",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1::2::3\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1::2::3\": ParseAddr(\"1::2::3\"): multiple :: in address (at \":3\")"
+ },
+ {
+  "name": "allow_from ipv6 too short",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1:2:3\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1:2:3\": ParseAddr(\"1:2:3\"): address string too short"
+ },
+ {
+  "name": "allow_from ipv6 too long",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1:2:3:4:5:6:7:8:9\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1:2:3:4:5:6:7:8:9\": ParseAddr(\"1:2:3:4:5:6:7:8:9\"): trailing garbage after address (at \"9\")"
+ },
+ {
+  "name": "allow_from ipv6 trailing colon",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1:2:3:4:5:6:7:\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1:2:3:4:5:6:7:\": ParseAddr(\"1:2:3:4:5:6:7:\"): colon must be followed by more characters (at \":\")"
+ },
+ {
+  "name": "allow_from ipv6 ellipsis expands nothing",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1:2:3:4:5:6:7::8\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1:2:3:4:5:6:7::8\": ParseAddr(\"1:2:3:4:5:6:7::8\"): the :: must expand to at least one field of zeros"
+ },
+ {
+  "name": "allow_from ipv6 embedded v4",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"::1.2.3.4\",\"64:ff9b::192.168.2.33\",\"1:2:3:4:5:6:1.2.3.4\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "::102:304/128",
+    "64:ff9b::c0a8:221/128",
+    "1:2:3:4:5:6:102:304/128"
+   ],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from ipv6 embedded v4 wrong place",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1:2:3:1.2.3.4\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1:2:3:1.2.3.4\": ParseAddr(\"1:2:3:1.2.3.4\"): embedded IPv4 address must replace the final 2 fields of the address (at \"1.2.3.4\")"
+ },
+ {
+  "name": "allow_from ipv6 embedded v4 bad",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"::1.2.3\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"::1.2.3\": ParseAddr(\"::1.2.3\"): IPv4 address too short"
+ },
+ {
+  "name": "allow_from ipv6 bad char",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"1:2:3:4:5:6:7:g\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"1:2:3:4:5:6:7:g\": ParseAddr(\"1:2:3:4:5:6:7:g\"): each colon-separated field must have at least one digit (at \"g\")"
+ },
+ {
+  "name": "allow_from ipv6 longest zero run",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"2001:0:0:1:0:0:0:1\",\"1:0:0:2:0:0:3:4\",\"0:0:1:0:0:1:0:0\",\"1:0:2:3:4:5:6:7\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "2001:0:0:1::1/128",
+    "1::2:0:0:3:4/128",
+    "::1:0:0:1:0:0/128",
+    "1:0:2:3:4:5:6:7/128"
+   ],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from unicode",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"１０.0.0.1\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"１０.0.0.1\": ParseAddr(\"１０.0.0.1\"): unexpected character (at \"１０.0.0.1\")"
+ },
+ {
+  "name": "allow_from quote in entry",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"a\\\"b\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"a\\\"b\": ParseAddr(\"a\\\"b\"): unable to parse IP"
+ },
+ {
+  "name": "allow_from control in entry",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"a\\u0001b\\n\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"a\\x01b\": ParseAddr(\"a\\x01b\"): unable to parse IP"
+ },
+ {
+  "name": "allow_from tab padded entry",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"\\t10.0.0.1\\n\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "10.0.0.1/32"
+   ],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "allow_from html in entry",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"allow_from\":[\"<a&b>\"]}",
+  "ok": false,
+  "err": "gate_sip_server: bad allow_from entry \"<a&b>\": ParseAddr(\"<a&b>\"): unable to parse IP"
+ },
+ {
+  "name": "loopback ipv6",
+  "in": "{\"sip_listen\":\"[::1]:5060\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:[::1]:5060",
+   "sip_listen": "[::1]:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "loopback 127.x",
+  "in": "{\"sip_listen\":\"127.1.2.3:5060\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.1.2.3:5060",
+   "sip_listen": "127.1.2.3:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "loopback ipv4-mapped",
+  "in": "{\"sip_listen\":\"[::ffff:127.0.0.1]:5060\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:[::ffff:127.0.0.1]:5060",
+   "sip_listen": "[::ffff:127.0.0.1]:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "not loopback ipv4-mapped",
+  "in": "{\"sip_listen\":\"[::ffff:10.0.0.1]:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: refusing sip_listen \"[::ffff:10.0.0.1]:5060\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"
+ },
+ {
+  "name": "ipv6 wildcard refused",
+  "in": "{\"sip_listen\":\"[::]:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: refusing sip_listen \"[::]:5060\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"
+ },
+ {
+  "name": "empty host refused",
+  "in": "{\"sip_listen\":\":5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: refusing sip_listen \":5060\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"
+ },
+ {
+  "name": "empty host with switch and allow_from",
+  "in": "{\"sip_listen\":\":5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"10.0.0.0/8\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server::5060",
+   "sip_listen": ":5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "10.0.0.0/8"
+   ],
+   "allow_non_loopback": true,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "localhost",
+  "in": "{\"sip_listen\":\"localhost:5060\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:localhost:5060",
+   "sip_listen": "localhost:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "127.0.0.2",
+  "in": "{\"sip_listen\":\"127.0.0.2:5060\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.2:5060",
+   "sip_listen": "127.0.0.2:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "126.255.255.255",
+  "in": "{\"sip_listen\":\"126.255.255.255:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: refusing sip_listen \"126.255.255.255:5060\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"
+ },
+ {
+  "name": "128.0.0.1",
+  "in": "{\"sip_listen\":\"128.0.0.1:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: refusing sip_listen \"128.0.0.1:5060\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"
+ },
+ {
+  "name": "ipv6 zone loopback",
+  "in": "{\"sip_listen\":\"[::1%lo]:5060\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:[::1%lo]:5060",
+   "sip_listen": "[::1%lo]:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "ipv6 link-local with switch",
+  "in": "{\"sip_listen\":\"[fe80::1%eth0]:5060\",\"password\":\"s3cretpass\",\"allow_non_loopback\":true,\"allow_from\":[\"fe80::/10\"]}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:[fe80::1%eth0]:5060",
+   "sip_listen": "[fe80::1%eth0]:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [
+    "fe80::/10"
+   ],
+   "allow_non_loopback": true,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "port missing",
+  "in": "{\"sip_listen\":\"127.0.0.1\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.0.1\": address 127.0.0.1: missing port in address"
+ },
+ {
+  "name": "port empty",
+  "in": "{\"sip_listen\":\"127.0.0.1:\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:",
+   "sip_listen": "127.0.0.1:",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "port 0",
+  "in": "{\"sip_listen\":\"127.0.0.1:0\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:0",
+   "sip_listen": "127.0.0.1:0",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "port 65535",
+  "in": "{\"sip_listen\":\"127.0.0.1:65535\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:65535",
+   "sip_listen": "127.0.0.1:65535",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "port 65536",
+  "in": "{\"sip_listen\":\"127.0.0.1:65536\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.0.1:65536\": address 65536: invalid port"
+ },
+ {
+  "name": "port 99999999999999",
+  "in": "{\"sip_listen\":\"127.0.0.1:99999999999999\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.0.1:99999999999999\": address 99999999999999: invalid port"
+ },
+ {
+  "name": "port -1",
+  "in": "{\"sip_listen\":\"127.0.0.1:-1\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.0.1:-1\": address -1: invalid port"
+ },
+ {
+  "name": "port +5060",
+  "in": "{\"sip_listen\":\"127.0.0.1:+5060\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:+5060",
+   "sip_listen": "127.0.0.1:+5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "port -0",
+  "in": "{\"sip_listen\":\"127.0.0.1:-0\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:-0",
+   "sip_listen": "127.0.0.1:-0",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "port 0x10",
+  "in": "{\"sip_listen\":\"127.0.0.1:0x10\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.0.1:0x10\": lookup udp/0x10: unknown port"
+ },
+ {
+  "name": "port 12a",
+  "in": "{\"sip_listen\":\"127.0.0.1:12a\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.0.1:12a\": lookup udp/12a: unknown port"
+ },
+ {
+  "name": "port unknown name",
+  "in": "{\"sip_listen\":\"127.0.0.1:nosuchservice\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.0.1:nosuchservice\": lookup udp/nosuchservice: unknown port"
+ },
+ {
+  "name": "port domain",
+  "in": "{\"sip_listen\":\"127.0.0.1:domain\",\"password\":\"s3cretpass\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:domain",
+   "sip_listen": "127.0.0.1:domain",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "too many colons",
+  "in": "{\"sip_listen\":\"::1\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"::1\": address ::1: too many colons in address"
+ },
+ {
+  "name": "too many colons host",
+  "in": "{\"sip_listen\":\"1:2:3\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"1:2:3\": address 1:2:3: too many colons in address"
+ },
+ {
+  "name": "bracket missing close",
+  "in": "{\"sip_listen\":\"[::1:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"[::1:5060\": address [::1:5060: missing ']' in address"
+ },
+ {
+  "name": "bracket no port",
+  "in": "{\"sip_listen\":\"[::1]\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"[::1]\": address [::1]: missing port in address"
+ },
+ {
+  "name": "bracket extra colon",
+  "in": "{\"sip_listen\":\"[::1]:5060:1\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"[::1]:5060:1\": address [::1]:5060:1: too many colons in address"
+ },
+ {
+  "name": "bracket junk after",
+  "in": "{\"sip_listen\":\"[::1]x5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"[::1]x5060\": address [::1]x5060: missing port in address"
+ },
+ {
+  "name": "bracket in host",
+  "in": "{\"sip_listen\":\"a[b:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"a[b:5060\": address a[b:5060: unexpected '[' in address"
+ },
+ {
+  "name": "close bracket in host",
+  "in": "{\"sip_listen\":\"a]b:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"a]b:5060\": address a]b:5060: unexpected ']' in address"
+ },
+ {
+  "name": "bracket after colon",
+  "in": "{\"sip_listen\":\"127.0.0.1:50[60\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.0.1:50[60\": address 127.0.0.1:50[60: unexpected '[' in address"
+ },
+ {
+  "name": "bracket empty host",
+  "in": "{\"sip_listen\":\"[]:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: refusing sip_listen \"[]:5060\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"
+ },
+ {
+  "name": "host ipv4 leading zero",
+  "in": "{\"sip_listen\":\"010.0.0.1:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"010.0.0.1:5060\": lookup 010.0.0.1: no such host"
+ },
+ {
+  "name": "inet_aton two parts",
+  "in": "{\"sip_listen\":\"127.1:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.1:5060\": lookup 127.1: no such host"
+ },
+ {
+  "name": "inet_aton three parts",
+  "in": "{\"sip_listen\":\"127.0.1:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.1:5060\": lookup 127.0.1: no such host"
+ },
+ {
+  "name": "inet_aton one number",
+  "in": "{\"sip_listen\":\"2130706433:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"2130706433:5060\": lookup 2130706433: no such host"
+ },
+ {
+  "name": "inet_aton octal",
+  "in": "{\"sip_listen\":\"0177.0.0.1:5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"0177.0.0.1:5060\": lookup 0177.0.0.1: no such host"
+ },
+ {
+  "name": "ipv4 with spaces inside",
+  "in": "{\"sip_listen\":\"127.0.0.1 :5060\",\"password\":\"s3cretpass\"}",
+  "ok": false,
+  "err": "gate_sip_server: bad sip_listen \"127.0.0.1 :5060\": lookup 127.0.0.1 : no such host"
+ },
+ {
+  "name": "all fields",
+  "in": "{\"sip_listen\":\"127.0.0.1:15060\",\"password\":\"s3cretpass\",\"user\":\"7001\",\"realm\":\"R\",\"rtp_port\":41000.0,\"ring_seconds\":30.0,\"orphan_seconds\":20.0,\"dial_enabled\":true,\"allow_from\":[\"127.0.0.1\",\"10.0.0.0/8\"],\"allow_non_loopback\":false,\"device_id\":\"srv-9\"}",
+  "ok": true,
+  "cfg": {
+   "device_id": "srv-9",
+   "sip_listen": "127.0.0.1:15060",
+   "rtp_port": 41000,
+   "user": "7001",
+   "realm": "R",
+   "password": "s3cretpass",
+   "ring_ms": 30000,
+   "orphan_ms": 20000,
+   "allow_from": [
+    "127.0.0.1/32",
+    "10.0.0.0/8"
+   ],
+   "allow_non_loopback": false,
+   "dial_enabled": true
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": false
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": false
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": false
+   },
+   {
+    "ip_hex": "",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": false
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": false
+   }
+  ]
+ },
+ {
+  "name": "extra unknown keys",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"nope\":1,\"another\":{\"x\":[1,2]}}",
+  "ok": true,
+  "cfg": {
+   "device_id": "gate-sip-server:127.0.0.1:5060",
+   "sip_listen": "127.0.0.1:5060",
+   "rtp_port": 40000,
+   "user": "8001",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "ring_ms": 45000,
+   "orphan_ms": 15000,
+   "allow_from": [],
+   "allow_non_loopback": false,
+   "dial_enabled": false
+  },
+  "allowed": [
+   {
+    "ip_hex": "7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "c0a80101",
+    "allowed": true
+   },
+   {
+    "ip_hex": "08080808",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "fe800000000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010203",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000000000000000000000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff7f000001",
+    "allowed": true
+   },
+   {
+    "ip_hex": "20010db8000100020000000000000005",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000ffff0a010200",
+    "allowed": true
+   },
+   {
+    "ip_hex": "00000000000000000000000000000000",
+    "allowed": true
+   },
+   {
+    "ip_hex": "",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a0102",
+    "allowed": true
+   },
+   {
+    "ip_hex": "0a01020304",
+    "allowed": true
+   }
+  ]
+ },
+ {
+  "name": "duplicate keys last wins",
+  "in": "{\"sip_listen\":\"127.0.0.1:1\",\"sip_listen\":\"127.0.0.1:2\",\"password\":\"s3cretpass\",\"password\":\"short\"}",
+  "ok": false,
+  "err": "gate_sip_server: password is 5 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"
+ },
+ {
+  "name": "error order password before rtp_port",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"x\",\"rtp_port\":-1}",
+  "ok": false,
+  "err": "gate_sip_server: password is 1 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"
+ },
+ {
+  "name": "error order rtp_port before ring",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"rtp_port\":-1,\"ring_seconds\":0}",
+  "ok": false,
+  "err": "gate_sip_server: rtp_port must be 0-65535"
+ },
+ {
+  "name": "error order dial before allow_from",
+  "in": "{\"sip_listen\":\"127.0.0.1:5060\",\"password\":\"s3cretpass\",\"dial_enabled\":\"x\",\"allow_from\":5}",
+  "ok": false,
+  "err": "gate_sip_server: dial_enabled must be true or false"
+ },
+ {
+  "name": "error order allow_from before listen",
+  "in": "{\"sip_listen\":\"bogus\",\"password\":\"s3cretpass\",\"allow_from\":5}",
+  "ok": false,
+  "err": "gate_sip_server: allow_from must be a list of IPs/CIDRs"
+ },
+ {
+  "name": "error order listen before dial? no, dial first",
+  "in": "{\"sip_listen\":\"bogus\",\"password\":\"s3cretpass\",\"dial_enabled\":3}",
+  "ok": false,
+  "err": "gate_sip_server: dial_enabled must be true or false"
+ }
+]

@@ -1,0 +1,79 @@
+<!doctype html>
+<!-- Visual check of the editor (portico-panel.js) with a fake `hass` that answers the E2 commands in memory
+     (a save is applied, so Save / Discard / conflict can be tried). Open it in a browser, or:
+     firefox --headless --screenshot out.png --window-size=1100,1400 file://.../panel_harness.html
+     Add ?old for a server without the editor commands (the restart message). -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root { --primary-background-color:#fafafa; --card-background-color:#fff; --primary-text-color:#212121;
+          --secondary-text-color:#727272; --divider-color:#e0e0e0; --primary-color:#03a9f4;
+          --secondary-background-color:#e5e5e5; --error-color:#db4437; font-family: Roboto, Arial, sans-serif; }
+  body { margin:0; background: var(--primary-background-color); }
+  ha-icon { font-size: 11px; }
+</style>
+</head>
+<body>
+<script>
+  // Stand-in for HA's own <ha-icon>: show the icon name's last word.
+  customElements.define("ha-icon", class extends HTMLElement {
+    connectedCallback() { this.textContent = (this.getAttribute("icon") || "").split(":").pop().slice(0, 3); }
+  });
+  function pic(text, color) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="${color}"/>` +
+      `<text x="320" y="190" font-size="40" fill="#fff" text-anchor="middle" font-family="Arial">${text}</text></svg>`;
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+  }
+  const mode = location.search.slice(1);
+  const doc = { schema_version: 3, home_name: "My Home",
+    template: { rules: [], roster: ["*"], pages: [
+      { id: "home", label: "Home",
+        cameras: [{ id: "gate", label: "Gate", entity_id: "camera.gate_main" }, { id: "yard", label: "Yard", entity_id: "camera.yard" }],
+        actions: [{ id: "front", label: "Front door", kind: "lock_open", entity_id: "lock.front", icon: "door-open", confirm: true },
+                  { id: "evening", label: "Evening", kind: "scene_activate", entity_id: "scene.evening", confirm: false }] },
+      { id: "garden", label: "Garden", cameras: [], actions: [] }] },
+    overrides: { phone1: { pages: [], rules: [], roster_hide: [] },
+                 "old-user": { pages: [{ id: "home", label: "Home", cameras: [], actions: [{ id: "g", label: "Garage", kind: "button_press", entity_id: "button.garage", confirm: false }] }], rules: [], roster_hide: [] } },
+    dashboards: {}, endpoints: {} };
+  let stored = JSON.parse(JSON.stringify(doc)), rev = 1;
+  const endpoints = [
+    { id: "phone1", kind: "phone", name: "Alice phone", label: "Alice phone (enrolled 2026-10-08)", available: true },
+    { id: "kitchen", kind: "dashboard", name: "Kitchen tablet", label: "Kitchen tablet", available: true },
+    { id: "portico_intercom:http://10.6.0.7:8091", kind: "door", name: "Gate", label: "Gate", available: true }];
+  const resolve = (d, ep) => ({ endpoint: ep, kind: "phone", home_name: d.home_name, rev: "x", callers: {}, roster: [],
+    pages: [...d.template.pages, ...((d.overrides[ep] || {}).pages || [])].map((p) => ({ id: p.id, label: p.label,
+      cameras: p.cameras.map((c) => ({ ...c, name: c.label, available: true })), actions: p.actions.map((a) => ({ ...a, name: a.label, available: true }))})) });
+  const states = {
+    "camera.gate_main": { attributes: { friendly_name: "Gate camera", entity_picture: pic("Gate", "#37474f") } },
+    "camera.yard": { attributes: { friendly_name: "Yard camera", entity_picture: pic("Yard", "#2e7d32") } },
+    "camera.porch": { attributes: { friendly_name: "Porch camera" } },
+    "lock.front": { attributes: { friendly_name: "Front door lock" } }, "lock.gate": { attributes: { friendly_name: "Gate lock" } },
+    "scene.evening": { attributes: { friendly_name: "Evening" } }, "script.garage": { attributes: { friendly_name: "Open garage" } },
+  };
+  const orphans = () => Object.keys(stored.overrides).filter((k) => !["phone1", "kitchen"].includes(k));
+  const hass = {
+    states, hassUrl: (p) => p, user: { is_admin: true },
+    callWS: async (msg) => {
+      if (mode === "old") throw { code: "unknown_command", message: "Unknown command." };
+      if (msg.type === "portico/content/document") return JSON.parse(JSON.stringify({ document: stored, doc_rev: "rev" + rev,
+        resolved: { phone1: resolve(stored, "phone1") }, endpoints, orphans: orphans(), ha_users: [] }));
+      if (msg.type === "portico/content/preview") return resolve(msg.document, msg.endpoint);
+      if (msg.type === "portico/content/save") {
+        if (msg.base_doc_rev !== "rev" + rev) throw { code: "conflict", message: "stale" };
+        stored = JSON.parse(JSON.stringify(msg.document)); for (const k of msg.drop_orphans || []) delete stored.overrides[k];
+        rev++; return { doc_rev: "rev" + rev };
+      }
+      throw { code: "unknown_command", message: "Unknown command." };
+    },
+    connection: { subscribeMessage: async () => () => {} },
+  };
+</script>
+<script src="../portico-panel.js"></script>
+<script>
+  const panel = document.createElement("portico-panel");
+  document.body.append(panel);
+  panel.hass = hass;
+</script>
+</body>
+</html>

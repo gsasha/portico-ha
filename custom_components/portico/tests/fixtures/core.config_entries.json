@@ -1,0 +1,134 @@
+{
+  "_comment": "A redacted copy of the shape of the box's real .storage/core.config_entries, the portico entries only (S-2, Q5). It is HAND-BUILT from the documented live shape (the plan's D4.2, the repo's tests, enrollment_flow's writes), NOT an export: the builder was told to read no live secret and contact no live system. EVERY value is a fake of the same shape: the entry ids (ULID-like, distinct from each other and from every id in the other tests), the hosts and URLs (example domains), the SIP and RTSP passwords, the Tailscale client id and API key, the Firebase service-account fields, the HA user ids and the enroll ids. The Tailscale OAuth client secret is not in this file (it lives in .storage/portico.tailscale_oauth_app.<entry id>, a private Store): the test writes a fake one. version and minor_version of the storage file and of the entries are the builder's assumption for HA 2026.9/2026.10 (1/5 and 1/1); compare them with the real file at M5.0 (D4.6) and correct this fixture if they differ.",
+  "version": 1,
+  "minor_version": 5,
+  "key": "core.config_entries",
+  "data": {
+    "entries": [
+      {
+        "created_at": "2026-10-01T08:00:00.000000+00:00",
+        "data": {
+          "driver": "gate_sip_observer",
+          "gate_sip_url": "http://gate-sip.example:8091",
+          "interval": 1.0,
+          "device_id": "http://gate-sip.example:8091",
+          "existing_camera_entity": "camera.gate",
+          "open_relay_action": [],
+          "tailscale_mode": "approve",
+          "tailscale_client_id": "kFAKEclientCNTRL",
+          "tailscale_redirect_uri": "https://ha.example.org/api/portico/tailscale/callback",
+          "ha_dial": "10.6.0.5:443",
+          "enrolled_phones": [
+            {
+              "ha_user_id": "0f1e2d3c4b5a69788796a5b4c3d2e1f1",
+              "name": "Alice's Pixel",
+              "enrolled_at": "2026-10-01T10:00:00.000000+00:00",
+              "enroll_id": "fake-enroll-id-0001-a1b2c3d4e5f6"
+            },
+            {
+              "ha_user_id": "0f1e2d3c4b5a69788796a5b4c3d2e1f2",
+              "name": "Alice's Pixel",
+              "enrolled_at": "2026-10-02T10:00:00.000000+00:00",
+              "enroll_id": "fake-enroll-id-0002-a1b2c3d4e5f6"
+            },
+            {
+              "ha_user_id": "0f1e2d3c4b5a69788796a5b4c3d2e1f3",
+              "name": "Alice's Pixel",
+              "enrolled_at": "2026-10-03T10:00:00.000000+00:00",
+              "enroll_id": "fake-enroll-id-0003-a1b2c3d4e5f6"
+            }
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "portico",
+        "entry_id": "01JSPLITFX0BSERVER00000001",
+        "minor_version": 1,
+        "modified_at": "2026-10-12T09:30:00.000000+00:00",
+        "options": {
+          "away_media": true
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Portico (gate_sip_observer)",
+        "unique_id": "gate_sip_observer:http://gate-sip.example:8091",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-01T08:00:00.000000+00:00",
+        "data": {
+          "driver": "dahua_sip",
+          "host": "vto.example",
+          "sip_user": "9901#0",
+          "sip_password": "FAKE-sip-password",
+          "rtsp_username": "viewer",
+          "rtsp_password": "FAKE-rtsp-password",
+          "existing_camera_entity": "camera.vto",
+          "open_relay_action": [],
+          "tailscale_mode": "auto",
+          "tailscale_api_key": "tskey-api-FAKE-0123456789",
+          "tailscale_tailnet": "example.ts.net",
+          "tailscale_tag": "tag:portico-phone",
+          "enrolled_phones": [
+            {
+              "ha_user_id": "0f1e2d3c4b5a69788796a5b4c3d2e1f9",
+              "name": "Old tablet",
+              "enrolled_at": "2026-09-20T10:00:00.000000+00:00"
+            }
+          ]
+        },
+        "disabled_by": "user",
+        "discovery_keys": {},
+        "domain": "portico",
+        "entry_id": "01JSPLITFX0DAHUASIP00000002",
+        "minor_version": 1,
+        "modified_at": "2026-10-12T09:30:00.000000+00:00",
+        "options": {},
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Portico (dahua_sip)",
+        "unique_id": "dahua_sip:vto.example",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-01T08:00:00.000000+00:00",
+        "data": {
+          "entry_type": "push",
+          "project_id": "portico-test",
+          "client_email": "fcm-sender@portico-test.iam.example.invalid",
+          "private_key_id": "test-kid-0001",
+          "package": "com.meda.portico",
+          "firebase": {
+            "project_id": "portico-test",
+            "sender_id": "123456789012",
+            "app_id": "1:123456789012:android:0123abcd4567ef89",
+            "api_key": "AIzaSyFAKE-not-a-real-key_0123456789abc"
+          }
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "portico",
+        "entry_id": "01JSPLITFX0PUSHENTRY0000003",
+        "minor_version": 1,
+        "modified_at": "2026-10-12T09:30:00.000000+00:00",
+        "options": {
+          "enabled": true,
+          "ring_window": 45,
+          "new_phones_enabled": true,
+          "test_phones": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Portico away ring",
+        "unique_id": "push",
+        "version": 1
+      }
+    ]
+  }
+}

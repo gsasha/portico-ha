@@ -1,0 +1,337 @@
+[
+ {
+  "name": "fresh driver",
+  "ops": [
+   {
+    "op": "device_id"
+   },
+   {
+    "op": "caps"
+   },
+   {
+    "op": "dial"
+   },
+   {
+    "op": "open_relay"
+   },
+   {
+    "op": "answer"
+   },
+   {
+    "op": "answer",
+    "host": "127.0.0.1",
+    "port": 9
+   },
+   {
+    "op": "dial_call",
+    "id": "out-1"
+   },
+   {
+    "op": "answer_with_audio",
+    "id": "c"
+   },
+   {
+    "op": "ringing_call",
+    "id": "c"
+   },
+   {
+    "op": "claimed_audio",
+    "id": "c"
+   },
+   {
+    "op": "hangup_call",
+    "id": "c"
+   },
+   {
+    "op": "stop"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "caps": {
+     "InboundAudio": 0,
+     "OutboundAudio": 0,
+     "DirectCapable": false,
+     "HasRelay": false,
+     "RTSPTemplate": "",
+     "ReportsAvailability": false
+    }
+   },
+   {
+    "err": "gate_sip_server: Dial: not_supported (outbound calls are not part of E1)",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: OpenRelay: not_supported",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: not started"
+   },
+   {
+    "err": "gate_sip_server: Answer with a media target: not_supported (media is bridged in-process)",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: Dial: not_supported (outbound calls are not part of E1)",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: not started: no_such_call",
+    "no_such_call": true,
+    "bool": false
+   },
+   {
+    "bool": false
+   },
+   {
+    "bool": false
+   },
+   {
+    "err": "no_such_call",
+    "no_such_call": true
+   },
+   {}
+  ]
+ },
+ {
+  "name": "configured",
+  "ops": [
+   {
+    "op": "configure",
+    "json": "{\"sip_listen\":\"127.0.0.1:0\",\"password\":\"s3cretpass\"}"
+   },
+   {
+    "op": "device_id"
+   },
+   {
+    "op": "caps"
+   },
+   {
+    "op": "dial"
+   },
+   {
+    "op": "open_relay"
+   },
+   {
+    "op": "answer"
+   },
+   {
+    "op": "answer",
+    "host": "h"
+   },
+   {
+    "op": "answer",
+    "port": 1
+   },
+   {
+    "op": "dial_call",
+    "id": "out-1"
+   },
+   {
+    "op": "answer_with_audio",
+    "id": "c"
+   },
+   {
+    "op": "ringing_call",
+    "id": "c"
+   },
+   {
+    "op": "claimed_audio",
+    "id": "c"
+   },
+   {
+    "op": "hangup_call",
+    "id": "c"
+   },
+   {
+    "op": "stop"
+   },
+   {
+    "op": "stop"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "str": "gate-sip-server:127.0.0.1:0"
+   },
+   {
+    "caps": {
+     "InboundAudio": 0,
+     "OutboundAudio": 0,
+     "DirectCapable": false,
+     "HasRelay": false,
+     "RTSPTemplate": "",
+     "ReportsAvailability": false
+    }
+   },
+   {
+    "err": "gate_sip_server: Dial: not_supported (outbound calls are not part of E1)",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: OpenRelay: not_supported",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: not started"
+   },
+   {
+    "err": "gate_sip_server: Answer with a media target: not_supported (media is bridged in-process)",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: Answer with a media target: not_supported (media is bridged in-process)",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: Dial: not_supported (outbound calls are not part of E1)",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: not started: no_such_call",
+    "no_such_call": true,
+    "bool": false
+   },
+   {
+    "bool": false
+   },
+   {
+    "bool": false
+   },
+   {
+    "err": "no_such_call",
+    "no_such_call": true
+   },
+   {},
+   {}
+  ]
+ },
+ {
+  "name": "dial enabled",
+  "ops": [
+   {
+    "op": "configure",
+    "json": "{\"sip_listen\":\"127.0.0.1:0\",\"password\":\"s3cretpass\",\"dial_enabled\":true}"
+   },
+   {
+    "op": "caps"
+   },
+   {
+    "op": "dial"
+   },
+   {
+    "op": "dial_call",
+    "id": "out-1"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "caps": {
+     "InboundAudio": 0,
+     "OutboundAudio": 0,
+     "DirectCapable": false,
+     "HasRelay": false,
+     "RTSPTemplate": "",
+     "ReportsAvailability": false
+    }
+   },
+   {
+    "err": "gate_sip_server: Dial: not_supported (outbound calls are not part of E1)",
+    "not_supported": true
+   },
+   {
+    "err": "gate_sip_server: DialCall: not started"
+   }
+  ]
+ },
+ {
+  "name": "failed configure leaves the old config",
+  "ops": [
+   {
+    "op": "configure",
+    "json": "{\"device_id\":\"first\",\"sip_listen\":\"127.0.0.1:1\",\"password\":\"s3cretpass\",\"dial_enabled\":true}"
+   },
+   {
+    "op": "device_id"
+   },
+   {
+    "op": "configure",
+    "json": "{\"device_id\":\"second\",\"sip_listen\":\"127.0.0.1:1\",\"password\":\"x\"}"
+   },
+   {
+    "op": "device_id"
+   },
+   {
+    "op": "caps"
+   },
+   {
+    "op": "configure",
+    "json": "{\"device_id\":\"third\",\"sip_listen\":\"127.0.0.1:2\",\"password\":\"s3cretpass\"}"
+   },
+   {
+    "op": "device_id"
+   },
+   {
+    "op": "caps"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "str": "first"
+   },
+   {
+    "err": "gate_sip_server: password is 1 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"
+   },
+   {
+    "str": "first"
+   },
+   {
+    "caps": {
+     "InboundAudio": 0,
+     "OutboundAudio": 0,
+     "DirectCapable": false,
+     "HasRelay": false,
+     "RTSPTemplate": "",
+     "ReportsAvailability": false
+    }
+   },
+   {},
+   {
+    "str": "third"
+   },
+   {
+    "caps": {
+     "InboundAudio": 0,
+     "OutboundAudio": 0,
+     "DirectCapable": false,
+     "HasRelay": false,
+     "RTSPTemplate": "",
+     "ReportsAvailability": false
+    }
+   }
+  ]
+ },
+ {
+  "name": "default device id",
+  "ops": [
+   {
+    "op": "configure",
+    "json": "{\"sip_listen\":\"127.0.0.1:15060\",\"password\":\"12345678\"}"
+   },
+   {
+    "op": "device_id"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "str": "gate-sip-server:127.0.0.1:15060"
+   }
+  ]
+ }
+]

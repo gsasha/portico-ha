@@ -1,0 +1,22 @@
+{
+  "domain": "portico",
+  "name": "Portico",
+  "after_dependencies": [
+    "network",
+    "frontend"
+  ],
+  "codeowners": [
+    "@gsasha"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "file_upload"
+  ],
+  "documentation": "https://github.com/gsasha/portico-ha",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/gsasha/portico-ha/issues",
+  "requirements": [
+    "qrcode>=7.4"
+  ],
+  "version": "0.3.0"
+}

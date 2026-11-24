@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "description": "The button colour palette of Portico blocks (DEV-658): eight names, a solid fill with white text in the light theme and a pale fill with dark text in the dark theme. The plugin accepts exactly these names for a button's `color`; the app, the card and the panel draw them. Kept equal to the app copy (core/src/test/resources/palette_v1.json in gsasha/portico-app) by tests on each side. Each text:fill ratio is at least 4.5 and each fill:page ratio at least 3 (WCAG 2.x), on #FFFFFF in light and on #121212 and #1c1c1c in dark; tests/test_palette.py recomputes them.",
+  "pages": {
+    "light": "#FFFFFF",
+    "dark": "#121212",
+    "dark_card": "#1C1C1C"
+  },
+  "colors": [
+    {
+      "name": "blue",
+      "light": {
+        "fill": "#1565C0",
+        "text": "#FFFFFF"
+      },
+      "dark": {
+        "fill": "#90CAF9",
+        "text": "#0D2B4E"
+      }
+    },
+    {
+      "name": "green",
+      "light": {
+        "fill": "#2E7D32",
+        "text": "#FFFFFF"
+      },
+      "dark": {
+        "fill": "#A5D6A7",
+        "text": "#0F3A14"
+      }
+    },
+    {
+      "name": "amber",
+      "light": {
+        "fill": "#8A5A00",
+        "text": "#FFFFFF"
+      },
+      "dark": {
+        "fill": "#FFD54F",
+        "text": "#3D2A00"
+      }
+    },
+    {
+      "name": "red",
+      "light": {
+        "fill": "#C62828",
+        "text": "#FFFFFF"
+      },
+      "dark": {
+        "fill": "#EF9A9A",
+        "text": "#5A0E0E"
+      }
+    },
+    {
+      "name": "purple",
+      "light": {
+        "fill": "#6A1B9A",
+        "text": "#FFFFFF"
+      },
+      "dark": {
+        "fill": "#CE93D8",
+        "text": "#3B0F52"
+      }
+    },
+    {
+      "name": "teal",
+      "light": {
+        "fill": "#00796B",
+        "text": "#FFFFFF"
+      },
+      "dark": {
+        "fill": "#80CBC4",
+        "text": "#00332D"
+      }
+    },
+    {
+      "name": "pink",
+      "light": {
+        "fill": "#AD1457",
+        "text": "#FFFFFF"
+      },
+      "dark": {
+        "fill": "#F48FB1",
+        "text": "#4F0A27"
+      }
+    },
+    {
+      "name": "grey",
+      "light": {
+        "fill": "#546E7A",
+        "text": "#FFFFFF"
+      },
+      "dark": {
+        "fill": "#B0BEC5",
+        "text": "#1F2A30"
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+# source: SYNTHETIC
+# title: The feared case: SDP c= names 127.0.0.3 but the station really sends media from 127.0.0.1
+# verdict: DIFFERS
+# basis: the open question the live capture must settle: does the real station send RTP from its SDP c= address?
+# reason: if the station's RTP source differs from its SDP c=, gate-sip plays the audio and Portico silently drops it (rtpIn stays 0). Needs a live capture
+
+>>> send
+INVITE sip:9901@{{SRV}} SIP/2.0
+Via: SIP/2.0/UDP {{ST}};branch=z9hG4bKinv1
+From: <sip:8001@{{ST}}>;tag=st-call-1
+To: <sip:9901@{{SRV}}>
+Call-ID: call-1
+CSeq: 1 INVITE
+Contact: <sip:8001@{{ST}}>
+Content-Type: application/sdp
+Max-Forwards: 70
+
+v=0
+o=- 0 0 IN IP4 {{STIP}}
+s=-
+c=IN IP4 127.0.0.3
+t=0 0
+m=audio {{RTP}} RTP/AVP 8
+a=rtpmap:8 PCMA/8000
+.
+>>> recv
+>>> answer
+>>> recv
+>>> send
+ACK sip:9901@{{SRV}} SIP/2.0
+Via: SIP/2.0/UDP {{ST}};branch=z9hG4bKack1
+From: <sip:8001@{{ST}}>;tag=st-call-1
+To: <sip:9901@{{SRV}}>
+Call-ID: call-1
+CSeq: 1 ACK
+Max-Forwards: 70
+.
+>>> rtp from=station n=3 pt=8
+>>> state

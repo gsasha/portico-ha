@@ -1,0 +1,1081 @@
+{
+ "auto_mint": {
+  "live_codes": 1,
+  "log": [
+   "INFO Portico: enrolling phone 'auto phone' (HA user <user0>) for entry <push>"
+  ],
+  "payloads": [
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "ha_dial": "10.10.10.10:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "auto phone",
+    "portico": 2,
+    "tailscale_authkey": "tskey-auth-MINTED-0123456789"
+   }
+  ],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "auto phone",
+    "pending_since": "<ts>",
+    "refresh_state": "pending",
+    "state": "pending",
+    "tailscale_mode": "auto",
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "refresh"
+   }
+  ],
+  "settings_entry": {
+   "tailscale_mode": "auto"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:443`",
+     "manual_note": "",
+     "phone_name": "auto phone",
+     "qr_image": "![Enrollment QR](png 292 px wide)",
+     "reenroll_note": ""
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — auto phone"
+  ]
+ },
+ "auto_mint_failure": {
+  "live_codes": 0,
+  "log": [
+   "WARNING Portico: could not mint a Tailscale key for entry <push> (ClientError, HTTP status None)"
+  ],
+  "payloads": [],
+  "phones": [],
+  "settings_entry": {
+   "tailscale_mode": "auto"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": {
+     "base": "tailscale_mint_failed"
+    },
+    "fields": [
+     [
+      "phone_name",
+      "auto phone",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   }
+  ],
+  "users": []
+ },
+ "backfill_auto": {
+  "live_codes": 1,
+  "log": [
+   "INFO Portico: enrolling phone 'old entry' (HA user <user0>) for entry <push>"
+  ],
+  "payloads": [
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "ha_dial": "10.10.10.10:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "old entry",
+    "portico": 2,
+    "tailscale_authkey": "tskey-auth-MINTED-0123456789"
+   }
+  ],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "old entry",
+    "pending_since": "<ts>",
+    "refresh_state": "pending",
+    "state": "pending",
+    "tailscale_mode": "auto",
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "refresh"
+   }
+  ],
+  "settings_entry": {
+   "tailscale_mode": "auto"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:443`",
+     "manual_note": "",
+     "phone_name": "old entry",
+     "qr_image": "![Enrollment QR](png 276 px wide)",
+     "reenroll_note": ""
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — old entry"
+  ]
+ },
+ "blank_dial_forgets": {
+  "live_codes": 1,
+  "log": [
+   "INFO Portico: enrolling phone 'p' (HA user <user0>) for entry <push>"
+  ],
+  "payloads": [
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "ha_dial": "10.10.10.10:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "p",
+    "portico": 2
+   }
+  ],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "p",
+    "pending_since": "<ts>",
+    "refresh_state": "pending",
+    "state": "pending",
+    "tailscale_mode": "manual",
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "refresh"
+   }
+  ],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      "10.9.9.9:443"
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:443`",
+     "manual_note": "\n\n⚠️ **This QR carries no Tailscale key.** This device's Tailscale enrollment is manual, so the phone does not join your tailnet through Portico. It reaches Home Assistant only another way: on the home network, or through the official Tailscale app on the phone. To reach Home Assistant away from home through Portico's own Tailscale, choose Approve in Tailscale or Mint keys under Configure > \"Change the Tailscale enrollment mode\", then enroll this phone again.",
+     "phone_name": "p",
+     "qr_image": "![Enrollment QR](png 260 px wide)",
+     "reenroll_note": ""
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — p"
+  ]
+ },
+ "fcm_then_skipped": {
+  "live_codes": 2,
+  "log": [
+   "INFO Portico: enrolling phone 'no fcm' (HA user <user0>) for entry <push>",
+   "INFO Portico: enrolling phone 'with fcm' (HA user <user1>) for entry <push>"
+  ],
+  "payloads": [
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "fcm": {
+     "api_key": "AIzaSyFAKE-not-a-real-key_0123456789abc",
+     "app_id": "1:123456789012:android:0123abcd4567ef89",
+     "project_id": "portico-test",
+     "sender_id": "123456789012",
+     "v": 1
+    },
+    "ha_dial": "10.10.10.10:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "with fcm",
+    "portico": 2
+   },
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "fcm": {
+     "api_key": "x",
+     "app_id": "1:123456789012:android:0123abcd4567ef89",
+     "project_id": "portico-test",
+     "sender_id": "123456789012",
+     "v": 1
+    },
+    "ha_dial": "10.10.10.10:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "no fcm",
+    "portico": 2
+   }
+  ],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "no fcm",
+    "pending_since": "<ts>",
+    "refresh_state": "pending",
+    "state": "pending",
+    "tailscale_mode": "manual",
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "refresh"
+   },
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user1>",
+    "name": "with fcm",
+    "pending_since": "<ts>",
+    "refresh_state": "pending",
+    "state": "pending",
+    "tailscale_mode": "manual",
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "refresh"
+   }
+  ],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:443`",
+     "manual_note": "\n\n⚠️ **This QR carries no Tailscale key.** This device's Tailscale enrollment is manual, so the phone does not join your tailnet through Portico. It reaches Home Assistant only another way: on the home network, or through the official Tailscale app on the phone. To reach Home Assistant away from home through Portico's own Tailscale, choose Approve in Tailscale or Mint keys under Configure > \"Change the Tailscale enrollment mode\", then enroll this phone again.",
+     "phone_name": "with fcm",
+     "qr_image": "![Enrollment QR](png 340 px wide)",
+     "reenroll_note": ""
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:443`",
+     "manual_note": "\n\n⚠️ **This QR carries no Tailscale key.** This device's Tailscale enrollment is manual, so the phone does not join your tailnet through Portico. It reaches Home Assistant only another way: on the home network, or through the official Tailscale app on the phone. To reach Home Assistant away from home through Portico's own Tailscale, choose Approve in Tailscale or Mint keys under Configure > \"Change the Tailscale enrollment mode\", then enroll this phone again.",
+     "phone_name": "no fcm",
+     "qr_image": "![Enrollment QR](png 308 px wide)",
+     "reenroll_note": ""
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — no fcm",
+   "Portico — with fcm"
+  ]
+ },
+ "http_refused_then_allowed": {
+  "live_codes": 1,
+  "log": [
+   "INFO Portico: enrolling phone 'p' (HA user <user0>) for entry <push>"
+  ],
+  "payloads": [
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "ha_dial": "10.10.10.10:8123",
+    "ha_url": "http://ha.lan:8123",
+    "phone_name": "p",
+    "portico": 2
+   }
+  ],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "p",
+    "pending_since": "<ts>",
+    "refresh_state": "pending",
+    "state": "pending",
+    "tailscale_mode": "manual",
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "refresh"
+   }
+  ],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": {
+     "base": "no_https_url"
+    },
+    "fields": [
+     [
+      "phone_name",
+      "p",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:8123`",
+     "manual_note": "\n\n⚠️ **This QR carries no Tailscale key.** This device's Tailscale enrollment is manual, so the phone does not join your tailnet through Portico. It reaches Home Assistant only another way: on the home network, or through the official Tailscale app on the phone. To reach Home Assistant away from home through Portico's own Tailscale, choose Approve in Tailscale or Mint keys under Configure > \"Change the Tailscale enrollment mode\", then enroll this phone again.",
+     "phone_name": "p",
+     "qr_image": "![Enrollment QR](png 260 px wide)",
+     "reenroll_note": ""
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — p"
+  ]
+ },
+ "invalid_dial": {
+  "live_codes": 0,
+  "log": [],
+  "payloads": [],
+  "phones": [],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": {
+     "ha_dial": "invalid_ha_dial"
+    },
+    "fields": [
+     [
+      "phone_name",
+      "p",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      "ha.local:443"
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   }
+  ],
+  "users": []
+ },
+ "llat_confirmed": {
+  "live_codes": 1,
+  "log": [
+   "INFO Portico: drew a new enrollment QR for phone 'Old Pixel' (HA user <user0>) for entry <push>"
+  ],
+  "payloads": [
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "ha_dial": "10.10.10.10:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "Old Pixel",
+    "portico": 2
+   }
+  ],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "Old Pixel",
+    "pending_since": null,
+    "refresh_state": "none",
+    "state": "enrolled",
+    "tailscale_mode": null,
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "llat"
+   }
+  ],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [
+     [
+      "confirm",
+      "False",
+      null
+     ]
+    ],
+    "placeholders": {
+     "enrolled_on": "2026-10-08",
+     "last_seen": "never or unknown",
+     "phone_name": "Old Pixel"
+    },
+    "step_id": "confirm_reenroll",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:443`",
+     "manual_note": "\n\n⚠️ **This QR carries no Tailscale key.** This device's Tailscale enrollment is manual, so the phone does not join your tailnet through Portico. It reaches Home Assistant only another way: on the home network, or through the official Tailscale app on the phone. To reach Home Assistant away from home through Portico's own Tailscale, choose Approve in Tailscale or Mint keys under Configure > \"Change the Tailscale enrollment mode\", then enroll this phone again.",
+     "phone_name": "Old Pixel",
+     "qr_image": "![Enrollment QR](png 260 px wide)",
+     "reenroll_note": "\n\n**This phone is already enrolled with a long-lived token.** Scanning this QR enrolls it again: its old token keeps working until this QR is used, then stops."
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — Old Pixel"
+  ]
+ },
+ "llat_declined": {
+  "live_codes": 0,
+  "log": [],
+  "payloads": [],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id0>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "Old Pixel",
+    "pending_since": null,
+    "refresh_state": "none",
+    "state": "enrolled",
+    "tailscale_mode": null,
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "llat"
+   }
+  ],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [
+     [
+      "confirm",
+      "False",
+      null
+     ]
+    ],
+    "placeholders": {
+     "enrolled_on": "2026-10-08",
+     "last_seen": "never or unknown",
+     "phone_name": "Old Pixel"
+    },
+    "step_id": "confirm_reenroll",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "Old Pixel",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — Old Pixel"
+  ]
+ },
+ "manual_hebrew_typed_dial": {
+  "live_codes": 1,
+  "log": [
+   "INFO Portico: enrolling phone 'הטלפון של יעל' (HA user <user0>) for entry <push>"
+  ],
+  "payloads": [
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "ha_dial": "10.6.0.5:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "הטלפון של יעל",
+    "portico": 2
+   }
+  ],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "הטלפון של יעל",
+    "pending_since": "<ts>",
+    "refresh_state": "pending",
+    "state": "pending",
+    "tailscale_mode": "manual",
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "refresh"
+   }
+  ],
+  "settings_entry": {
+   "ha_dial": "10.6.0.5:443",
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.6.0.5:443`",
+     "manual_note": "\n\n⚠️ **This QR carries no Tailscale key.** This device's Tailscale enrollment is manual, so the phone does not join your tailnet through Portico. It reaches Home Assistant only another way: on the home network, or through the official Tailscale app on the phone. To reach Home Assistant away from home through Portico's own Tailscale, choose Approve in Tailscale or Mint keys under Configure > \"Change the Tailscale enrollment mode\", then enroll this phone again.",
+     "phone_name": "הטלפון של יעל",
+     "qr_image": "![Enrollment QR](png 260 px wide)",
+     "reenroll_note": ""
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — הטלפון של יעל"
+  ]
+ },
+ "manual_new_phone": {
+  "live_codes": 1,
+  "log": [
+   "INFO Portico: enrolling phone \"Alice's Pixel\" (HA user <user0>) for entry <push>"
+  ],
+  "payloads": [
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "ha_dial": "10.10.10.10:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "Alice's Pixel",
+    "portico": 2
+   }
+  ],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "Alice's Pixel",
+    "pending_since": "<ts>",
+    "refresh_state": "pending",
+    "state": "pending",
+    "tailscale_mode": "manual",
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "refresh"
+   }
+  ],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:443`",
+     "manual_note": "\n\n⚠️ **This QR carries no Tailscale key.** This device's Tailscale enrollment is manual, so the phone does not join your tailnet through Portico. It reaches Home Assistant only another way: on the home network, or through the official Tailscale app on the phone. To reach Home Assistant away from home through Portico's own Tailscale, choose Approve in Tailscale or Mint keys under Configure > \"Change the Tailscale enrollment mode\", then enroll this phone again.",
+     "phone_name": "Alice's Pixel",
+     "qr_image": "![Enrollment QR](png 260 px wide)",
+     "reenroll_note": ""
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — Alice's Pixel"
+  ]
+ },
+ "no_url": {
+  "live_codes": 0,
+  "log": [],
+  "payloads": [],
+  "phones": [],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": {
+     "base": "no_ha_url"
+    },
+    "fields": [
+     [
+      "phone_name",
+      "p",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   }
+  ],
+  "users": []
+ },
+ "qr_failure": {
+  "live_codes": 0,
+  "payloads": [],
+  "phones": [],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [],
+  "users": []
+ },
+ "redraw_pending": {
+  "live_codes": 1,
+  "log": [
+   "INFO Portico: drew a new enrollment QR for phone 'Pixel' (HA user <user0>) for entry <push>",
+   "INFO Portico: enrolling phone 'Pixel' (HA user <user0>) for entry <push>"
+  ],
+  "payloads": [
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "ha_dial": "10.10.10.10:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "Pixel",
+    "portico": 2
+   },
+   {
+    "code": "<code>",
+    "enroll_id": "<enroll_id>",
+    "ha_dial": "10.10.10.10:443",
+    "ha_url": "https://ha.example.org",
+    "phone_name": "Pixel",
+    "portico": 2
+   }
+  ],
+  "phones": [
+   {
+    "enroll_id": "<enroll_id>",
+    "enrolled_at": "<ts>",
+    "entry_type": "phone",
+    "ha_user_id": "<user0>",
+    "name": "Pixel",
+    "pending_since": "<ts>",
+    "refresh_state": "pending",
+    "state": "pending",
+    "tailscale_mode": "manual",
+    "tailscale_node": null,
+    "token_expires_at": null,
+    "token_kind": "refresh"
+   }
+  ],
+  "settings_entry": {
+   "tailscale_mode": "manual"
+  },
+  "steps": [
+   {
+    "errors": null,
+    "fields": [
+     [
+      "phone_name",
+      "",
+      null
+     ],
+     [
+      "allow_http",
+      "False",
+      null
+     ],
+     [
+      "ha_dial",
+      "<undefined>",
+      null
+     ]
+    ],
+    "step_id": "phone_details",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:443`",
+     "manual_note": "\n\n⚠️ **This QR carries no Tailscale key.** This device's Tailscale enrollment is manual, so the phone does not join your tailnet through Portico. It reaches Home Assistant only another way: on the home network, or through the official Tailscale app on the phone. To reach Home Assistant away from home through Portico's own Tailscale, choose Approve in Tailscale or Mint keys under Configure > \"Change the Tailscale enrollment mode\", then enroll this phone again.",
+     "phone_name": "Pixel",
+     "qr_image": "![Enrollment QR](png 260 px wide)",
+     "reenroll_note": ""
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   },
+   {
+    "errors": null,
+    "fields": [],
+    "placeholders": {
+     "expires_at": "<hh:mm>",
+     "ha_dial": "`10.10.10.10:443`",
+     "manual_note": "\n\n⚠️ **This QR carries no Tailscale key.** This device's Tailscale enrollment is manual, so the phone does not join your tailnet through Portico. It reaches Home Assistant only another way: on the home network, or through the official Tailscale app on the phone. To reach Home Assistant away from home through Portico's own Tailscale, choose Approve in Tailscale or Mint keys under Configure > \"Change the Tailscale enrollment mode\", then enroll this phone again.",
+     "phone_name": "Pixel",
+     "qr_image": "![Enrollment QR](png 260 px wide)",
+     "reenroll_note": "\n\n**This replaces the earlier QR for this phone;** the earlier one no longer works."
+    },
+    "step_id": "show_qr",
+    "type": "form"
+   }
+  ],
+  "users": [
+   "Portico — Pixel"
+  ]
+ }
+}

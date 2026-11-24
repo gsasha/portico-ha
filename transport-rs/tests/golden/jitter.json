@@ -1,0 +1,2801 @@
+[
+ {
+  "name": "in order",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "reordered",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 12
+   },
+   {
+    "op": "push",
+    "fill": 10
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 11
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 14
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 13
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "0a0a0a0a"
+   },
+   {
+    "out": "0b0b0b0b"
+   },
+   {
+    "out": "0c0c0c0c"
+   },
+   {
+    "out": "0d0d0d0d"
+   },
+   {
+    "out": "0e0e0e0e"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "duplicates last wins before playout",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 3
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 4
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 5
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "02020202"
+   },
+   {
+    "out": "04040404"
+   },
+   {
+    "out": "05050505"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "lost packet",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 5
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "02020202"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "04040404"
+   },
+   {
+    "out": "05050505"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "lost run",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 6
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "06060606"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "wraparound",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 65534,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 65535,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "fill": 3
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 4
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 5
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "02020202"
+   },
+   {
+    "out": "03030303"
+   },
+   {
+    "out": "04040404"
+   },
+   {
+    "out": "05050505"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "wraparound reordered",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 4
+   },
+   {
+    "op": "push",
+    "seq": 65535,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "fill": 3
+   },
+   {
+    "op": "push",
+    "seq": 65534,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "02020202"
+   },
+   {
+    "out": "03030303"
+   },
+   {
+    "out": "04040404"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "first arrival is not earliest",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 100,
+    "fill": 9
+   },
+   {
+    "op": "push",
+    "seq": 98,
+    "fill": 7
+   },
+   {
+    "op": "push",
+    "seq": 99,
+    "fill": 8
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "07070707"
+   },
+   {
+    "out": "08080808"
+   },
+   {
+    "out": "09090909"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "earlier packet arrives within the window after a sleep",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 12
+   },
+   {
+    "op": "sleep",
+    "ms": 20
+   },
+   {
+    "op": "push",
+    "fill": 10
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 11
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "0a0a0a0a"
+   },
+   {
+    "out": "0b0b0b0b"
+   },
+   {
+    "out": "0c0c0c0c"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "earlier packet arrives after the window closed",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 15
+   },
+   {
+    "op": "sleep",
+    "ms": 50
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 13
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "0f0f0f0f"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "late duplicate of played frame",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "fill": 99
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 98
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "04040404"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "future packet inside window",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 6,
+    "fill": 7
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "07070707"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "window edge: packet 8 ahead admitted, 9 ahead refused",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 100,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 109,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 110,
+    "fill": 3
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "02020202"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "behind edge: five outliers resync to the last",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 100,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 101,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 102,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 103,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 104,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 105,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 106,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 107,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 108,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 109,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 110,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 111,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 101,
+    "fill": 70
+   },
+   {
+    "op": "push",
+    "seq": 100,
+    "fill": 71
+   },
+   {
+    "op": "push",
+    "seq": 99,
+    "fill": 72
+   },
+   {
+    "op": "push",
+    "seq": 98,
+    "fill": 73
+   },
+   {
+    "op": "push",
+    "seq": 97,
+    "fill": 74
+   },
+   {
+    "op": "push",
+    "seq": 98,
+    "fill": 75
+   },
+   {
+    "op": "push",
+    "seq": 99,
+    "fill": 76
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "4a4a4a4a"
+   },
+   {
+    "out": "4b4b4b4b"
+   },
+   {
+    "out": "4c4c4c4c"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "behind edge: eight back is admitted and resets the count",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 100,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 101,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 102,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 103,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 104,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 105,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 106,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 107,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 108,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 109,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 110,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 111,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 101,
+    "fill": 70
+   },
+   {
+    "op": "push",
+    "seq": 100,
+    "fill": 71
+   },
+   {
+    "op": "push",
+    "seq": 99,
+    "fill": 72
+   },
+   {
+    "op": "push",
+    "seq": 98,
+    "fill": 73
+   },
+   {
+    "op": "push",
+    "seq": 102,
+    "fill": 74
+   },
+   {
+    "op": "push",
+    "seq": 97,
+    "fill": 75
+   },
+   {
+    "op": "push",
+    "seq": 111,
+    "fill": 76
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "4c4c4c4c"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "resync forward after five outliers",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 30000,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30001,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30002,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30003,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30004,
+    "fill": 2
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 30005,
+    "fill": 3
+   },
+   {
+    "op": "push",
+    "seq": 30006,
+    "fill": 3
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "02020202"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {},
+   {},
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "resync backward after five outliers",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "seq": 30000,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 30001,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 30002,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 100,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 101,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 102,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 103,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 104,
+    "fill": 2
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 105,
+    "fill": 3
+   },
+   {
+    "op": "push",
+    "seq": 106,
+    "fill": 3
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "02020202"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {},
+   {},
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "four outliers do not resync",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 30000,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30001,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30002,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30003,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 5
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "05050505"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "scattered outliers never resync",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 5000,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 20000,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 40000,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 60000,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 9000,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30000,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 7
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "07070707"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "outlier run interrupted by in-window packet",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 30000,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30001,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30002,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30003,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 6
+   },
+   {
+    "op": "push",
+    "seq": 30004,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 30005,
+    "fill": 2
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "06060606"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "overflow drops frames when nobody reads",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 6,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 7,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 8,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 9,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 10,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 11,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 12,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 13,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 14,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 15,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 16,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 17,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 18,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 19,
+    "fill": 1
+   },
+   {
+    "op": "sleep",
+    "ms": 450
+   },
+   {
+    "op": "drain"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "outs": [
+     "01010101",
+     "01010101",
+     "01010101",
+     "01010101",
+     "01010101",
+     "01010101",
+     "01010101",
+     "01010101"
+    ]
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "slow reader recovers",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 1
+   },
+   {
+    "op": "sleep",
+    "ms": 190
+   },
+   {
+    "op": "drain"
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 2
+   },
+   {
+    "op": "push",
+    "seq": 6,
+    "fill": 2
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "outs": [
+     "01010101",
+     "01010101",
+     "01010101",
+     "01010101",
+     "00000000",
+     "00000000",
+     "00000000"
+    ]
+   },
+   {},
+   {},
+   {},
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "idle then silence",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "nothing pushed",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "recv",
+    "timeout_ms": 150
+   },
+   {
+    "op": "drain"
+   }
+  ],
+  "results": [
+   {
+    "out": "timeout"
+   },
+   {}
+  ]
+ },
+ {
+  "name": "close stops playout",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "close"
+   },
+   {
+    "op": "sleep",
+    "ms": 100
+   },
+   {
+    "op": "drain"
+   },
+   {
+    "op": "recv",
+    "timeout_ms": 150
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {},
+   {
+    "out": "timeout"
+   }
+  ]
+ },
+ {
+  "name": "pcmu silence byte",
+  "ptime_ms": 20,
+  "delay_ms": 60,
+  "frame_len": 4,
+  "silence": 255,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "ffffffff"
+   },
+   {
+    "out": "03030303"
+   },
+   {
+    "out": "ffffffff"
+   },
+   {
+    "out": "ffffffff"
+   }
+  ]
+ },
+ {
+  "name": "delay under floor window of 8",
+  "ptime_ms": 20,
+  "delay_ms": 20,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 9,
+    "fill": 5
+   },
+   {
+    "op": "push",
+    "seq": 10,
+    "fill": 6
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "01010101"
+   },
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "05050505"
+   },
+   {
+    "out": "06060606"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "long delay wider window",
+  "ptime_ms": 10,
+  "delay_ms": 100,
+  "frame_len": 4,
+  "silence": 0,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 30,
+    "fill": 5
+   },
+   {
+    "op": "push",
+    "seq": 31,
+    "fill": 6
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "out": "01010101"
+   },
+   {},
+   {},
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "00000000"
+   },
+   {
+    "out": "05050505"
+   },
+   {
+    "out": "06060606"
+   },
+   {
+    "out": "00000000"
+   }
+  ]
+ },
+ {
+  "name": "single byte frames",
+  "ptime_ms": 20,
+  "delay_ms": 40,
+  "frame_len": 1,
+  "silence": 127,
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "01"
+   },
+   {
+    "out": "7f"
+   },
+   {
+    "out": "7f"
+   },
+   {
+    "out": "04"
+   },
+   {
+    "out": "7f"
+   }
+  ]
+ }
+]

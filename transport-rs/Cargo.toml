@@ -1,0 +1,110 @@
+[package]
+name = "portico-transport"
+version = "0.0.1"
+edition = "2021"
+rust-version = "1.91"
+description = "Rust port of the Portico transport binary (DEV-764): the IPC server and dispatcher, pkg/sip, the gate_sip_server, dahua_sip and unifi_protect drivers, the SFU and WebRTC session, the house bridge, the phone WebSocket media path and the standalone mode"
+license = "MIT"
+publish = false
+
+# Version: this crate's number is its own and is not the wheel's. The `portico_transport` wheel
+# is versioned by packaging/rust/build_wheels.py (--version) and the crate is `publish = false`; the
+# binary does not print this number anywhere. The two are tied only by the merge that changes the
+# wheel's binary, so there is nothing to derive.
+
+[lib]
+name = "transport_rs"
+path = "src/lib.rs"
+
+[[bin]]
+name = "portico-transport"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { version = "=1.54.1", default-features = false, features = ["macros", "rt", "net", "io-util", "sync", "time", "signal", "process"] }
+serde = { version = "=1.0.229", default-features = false }
+# float_roundtrip: Go's ParseFloat is exact; without it serde_json parses a long literal "best effort"
+# (up to 1 ULP off). The tests used to switch it on alone, so they ran a different parser from the
+# shipped binary (R2-5): it is on in the normal build too.
+serde_json = { version = "=1.0.154", features = ["raw_value", "float_roundtrip"] }
+md-5 = { version = "=0.10.6", default-features = false }
+getrandom = "=0.2.16"
+str0m = { version = "=0.25.0", default-features = false, features = ["aws-lc-rs"] }
+if-addrs = "=0.13.4"
+# unifi_protect (slice 7a): HTTPS and wss to the Protect console. rustls with the aws-lc-rs provider
+# that str0m already compiles (no OpenSSL, no `ring`); the CA bundle is read from the same places
+# Go reads it (src/gostd/tls.rs), so no root-store crate is added.
+rustls = { version = "=0.23.46", default-features = false, features = ["std", "aws_lc_rs", "tls12"] }
+tokio-rustls = { version = "=0.26.6", default-features = false, features = ["aws_lc_rs", "tls12"] }
+rustls-pki-types = { version = "=1.16.0", features = ["std"] }
+aws-lc-rs = "=1.19.0"
+# standalone TCP IPC (slice 10): Go enables TCP keep-alive (15 s idle, 15 s interval, 9 probes) on every
+# accepted TCP connection, which is what detects a hub host that vanished while the server serves one
+# connection at a time. socket2 is already in the tree (tokio uses it); no new crate.
+socket2 = { version = "=0.6.5", features = ["all"] }
+
+[features]
+# Test seams (R1-62): setters, accessors and panic-injection flags that the tests reach into the
+# production types with. Off in every shipped build (`cargo build --release` has none of them and
+# reads no injection flag on a hot path); the crate's own dev-dependency below switches it on for
+# `cargo test` / `cargo clippy --all-targets`.
+test-seams = []
+
+[dev-dependencies]
+# the crate itself with its test seams on
+portico-transport = { path = ".", features = ["test-seams"] }
+tokio = { version = "=1.54.1", default-features = false, features = ["macros", "rt", "rt-multi-thread", "net", "io-util", "sync", "time", "test-util", "process"] }
+libc = "=0.2.191"
+# a self-signed certificate for the fake TLS console (already in the tree through dimpl)
+rcgen = { version = "=0.14.10", default-features = false, features = ["crypto", "aws_lc_rs"] }
+
+# Panic strategy: UNWIND, pinned explicitly in both profiles (it is also the default). The Go
+# binary has no `recover()` (a panic there ends the process), whereas the Rust port isolates a
+# session, a handler or a task with `catch_unwind` / a join handle, which only works with
+# unwinding: `panic = "abort"` would turn every one of those into a process exit (S1b spike review, spikes/RESULTS_S1b.md). Do not
+# change it without reading PARITY.md ("Go oddities": the odd-length G.722 frame).
+[profile.dev]
+panic = "unwind"
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true
+codegen-units = 1
+panic = "unwind"
+
+# Lint policy (R1-142). `cargo clippy --all-targets -- -D warnings` is the gate (README, "Build and
+# test"), so a lint listed here at "warn" is an error in that run. Enabled below is what the code
+# already satisfies, so nothing can grow back. Not enabled, with the count when it was measured
+# (2026-11): clippy::unwrap_used / expect_used / indexing_slicing / string_slice /
+# arithmetic_side_effects / cast_possible_truncation (some thousands of sites, most of them in the
+# tests; the network-facing parsers - sip/message.rs, sfu/sdp.rs, gostd/http1.rs,
+# unifiprotect/ws.rs, gostd/parse.rs - hold about a hundred of the src ones, each guarded by a
+# length check next to it), clippy::too_many_lines / cognitive_complexity (dispatch/,
+# gatesipserver/server/ and house/ have functions of 100 to 330
+# lines; the splits into directories are done, the lint can be measured again), clippy::let_underscore_must_use,
+# clippy::panic, missing_debug_implementations (73 types) and unreachable_pub (360 items).
+# `clippy::print_stdout` / `print_stderr` are denied in the library and the binary (not in the
+# tests) by `#![cfg_attr(not(test), deny(..))]` in src/lib.rs and src/main.rs: a Cargo lint table
+# cannot exempt test code, and `println!` panics on a closed stdout where
+# `panic_hook::out_line` does not.
+[lints.rust]
+# The one `unsafe` left is a `libc::umask` / `libc::kill` call in tests, each with a local allow.
+unsafe_code = "deny"
+unused_lifetimes = "warn"
+unused_import_braces = "warn"
+explicit_outlives_requirements = "warn"
+
+[lints.clippy]
+await_holding_lock = "deny"
+await_holding_refcell_ref = "deny"
+dbg_macro = "deny"
+todo = "deny"
+unimplemented = "deny"
+mem_forget = "deny"
+rc_mutex = "warn"
+empty_drop = "warn"
+mutex_atomic = "warn"
+verbose_file_reads = "warn"
+large_futures = "warn"
+unnecessary_self_imports = "warn"

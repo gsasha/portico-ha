@@ -1,0 +1,825 @@
+{
+ "authorization_for": [
+  {
+   "name": "basic no qop",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", algorithm=MD5",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "no algorithm",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "algorithm lower case",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", algorithm=md5",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "algorithm quoted",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", algorithm=\"MD5\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "algorithm MD5-sess",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", algorithm=MD5-sess",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: unsupported digest algorithm \"MD5-sess\""
+  },
+  {
+   "name": "algorithm SHA-256",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", algorithm=SHA-256",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: unsupported digest algorithm \"SHA-256\""
+  },
+  {
+   "name": "algorithm empty",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", algorithm=",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "algorithm spaces",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", algorithm=\" MD5 \"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "opaque",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", opaque=\"xyz789\", algorithm=MD5",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5, opaque=\"xyz789\""
+  },
+  {
+   "name": "opaque empty",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", opaque=\"\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "qop auth",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", qop=\"auth\", algorithm=MD5",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"8a0b3ef51d0c4ea2e25bf7af05d943da\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"ce6a69366836b7d2\"",
+   "random_cnonce": true
+  },
+  {
+   "name": "qop auth unquoted",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", qop=auth",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"2e37de929dfd8444ed4a23e072a16454\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"b98e5a154f729cbe\"",
+   "random_cnonce": true
+  },
+  {
+   "name": "qop auth,auth-int",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", qop=\"auth,auth-int\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"2c0dc08fc6c11e2eba6f269e7963f991\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"cfd54534699f6227\"",
+   "random_cnonce": true
+  },
+  {
+   "name": "qop auth-int only",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", qop=\"auth-int\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"0684f599ee9faa52488c69bbad2e3abb\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"0bcd018908480b52\"",
+   "random_cnonce": true
+  },
+  {
+   "name": "qop other",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", qop=\"none\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "qop and opaque",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", qop=\"auth\", opaque=\"o1\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"d03696cc1c66468347f58cb9396dfe70\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"8c46576a6868a2fd\", opaque=\"o1\"",
+   "random_cnonce": true
+  },
+  {
+   "name": "missing realm",
+   "challenge": "Digest nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: incomplete Digest challenge: \"Digest nonce=\\\"abc123\\\"\""
+  },
+  {
+   "name": "missing nonce",
+   "challenge": "Digest realm=\"VTO\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: incomplete Digest challenge: \"Digest realm=\\\"VTO\\\"\""
+  },
+  {
+   "name": "empty realm",
+   "challenge": "Digest realm=\"\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: incomplete Digest challenge: \"Digest realm=\\\"\\\", nonce=\\\"abc123\\\"\""
+  },
+  {
+   "name": "empty nonce",
+   "challenge": "Digest realm=\"VTO\", nonce=\"\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: incomplete Digest challenge: \"Digest realm=\\\"VTO\\\", nonce=\\\"\\\"\""
+  },
+  {
+   "name": "not digest",
+   "challenge": "Basic realm=\"VTO\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: not a Digest challenge: \"Basic realm=\\\"VTO\\\"\""
+  },
+  {
+   "name": "lower case scheme",
+   "challenge": "digest realm=\"VTO\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: not a Digest challenge: \"digest realm=\\\"VTO\\\", nonce=\\\"abc123\\\"\""
+  },
+  {
+   "name": "digest no space",
+   "challenge": "Digest",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: not a Digest challenge: \"Digest\""
+  },
+  {
+   "name": "empty header",
+   "challenge": "",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: not a Digest challenge: \"\""
+  },
+  {
+   "name": "leading spaces",
+   "challenge": "   Digest realm=\"VTO\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "trailing spaces",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\"   ",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "upper case keys",
+   "challenge": "Digest REALM=\"VTO\", NONCE=\"abc123\", QOP=\"auth\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"f383cfcb93177abddd87ef0c6daf276f\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"8b8014a603958e81\"",
+   "random_cnonce": true
+  },
+  {
+   "name": "spaces around equals",
+   "challenge": "Digest realm = \"VTO\" , nonce = \"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\" VTO \", nonce=\" abc123\", uri=\"sip:10.0.0.2\", response=\"7c49b540919aadb6dafc2b1944636efc\", algorithm=MD5"
+  },
+  {
+   "name": "no spaces after commas",
+   "challenge": "Digest realm=\"VTO\",nonce=\"abc123\",algorithm=MD5",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "comma in quoted value",
+   "challenge": "Digest realm=\"V,TO\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"V,TO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"73d4fbc00278d23b35097e5e513ff1d2\", algorithm=MD5"
+  },
+  {
+   "name": "equals in quoted value",
+   "challenge": "Digest realm=\"V=TO\", nonce=\"a=b=c\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"V=TO\", nonce=\"a=b=c\", uri=\"sip:10.0.0.2\", response=\"b2c079d4dc5eb94603095cad03f4fe8f\", algorithm=MD5"
+  },
+  {
+   "name": "equals in unquoted value",
+   "challenge": "Digest realm=VTO, nonce=a=b",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"a=b\", uri=\"sip:10.0.0.2\", response=\"8a21e300bb2c26bf56a8b81f011daf0f\", algorithm=MD5"
+  },
+  {
+   "name": "unquoted values",
+   "challenge": "Digest realm=VTO, nonce=abc123",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "duplicate keys",
+   "challenge": "Digest realm=\"A\", nonce=\"n1\", realm=\"B\", nonce=\"n2\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"B\", nonce=\"n2\", uri=\"sip:10.0.0.2\", response=\"b41af56abea99c6009e59330adf3ab60\", algorithm=MD5"
+  },
+  {
+   "name": "escaped quote",
+   "challenge": "Digest realm=\"V\\\"TO\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: incomplete Digest challenge: \"Digest realm=\\\"V\\\\\\\"TO\\\", nonce=\\\"abc123\\\"\""
+  },
+  {
+   "name": "unterminated quote",
+   "challenge": "Digest realm=\"VTO, nonce=\"abc123",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": false,
+   "err": "sip: incomplete Digest challenge: \"Digest realm=\\\"VTO, nonce=\\\"abc123\""
+  },
+  {
+   "name": "unknown params",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\", stale=true, domain=\"/x\", charset=UTF-8",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "trailing comma",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abc123\",",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "leading comma",
+   "challenge": "Digest , realm=\"VTO\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "empty key",
+   "challenge": "Digest =\"x\", realm=\"VTO\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "key with spaces",
+   "challenge": "Digest my key=\"x\", realm=\"VTO\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"245e14538e5392569d76c5788d263cbb\", algorithm=MD5"
+  },
+  {
+   "name": "unicode realm",
+   "challenge": "Digest realm=\"VéTO中\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VéTO中\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"0baf16c4f1193a1a3f33cf1fdc1f3649\", algorithm=MD5"
+  },
+  {
+   "name": "realm with space",
+   "challenge": "Digest realm=\"My Realm 1\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"My Realm 1\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"2aa06a7caa32a5718da62746a0c85ee8\", algorithm=MD5"
+  },
+  {
+   "name": "long nonce",
+   "challenge": "Digest realm=\"VTO\", nonce=\"abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"VTO\", nonce=\"abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab\", uri=\"sip:10.0.0.2\", response=\"69f43a3b415e2fe1cb958add8fb1b172\", algorithm=MD5"
+  },
+  {
+   "name": "newline in value",
+   "challenge": "Digest realm=\"V\nTO\", nonce=\"abc123\"",
+   "user": "alice",
+   "pass": "secret",
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "ok": true,
+   "header": "Digest username=\"alice\", realm=\"V\nTO\", nonce=\"abc123\", uri=\"sip:10.0.0.2\", response=\"2ecd5a9add6c8c1f644861f21c23993c\", algorithm=MD5"
+  },
+  {
+   "name": "credentials 0",
+   "challenge": "Digest realm=\"VDP\", nonce=\"fixednonce\", algorithm=MD5",
+   "user": "8001",
+   "pass": "s3cretpass",
+   "method": "INVITE",
+   "uri": "sip:9901@10.8.0.39",
+   "ok": true,
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"fixednonce\", uri=\"sip:9901@10.8.0.39\", response=\"672c39c36c2ed0367e174dcf8ca29969\", algorithm=MD5"
+  },
+  {
+   "name": "credentials 1",
+   "challenge": "Digest realm=\"VDP\", nonce=\"fixednonce\", algorithm=MD5",
+   "user": "user#0",
+   "pass": "p w",
+   "method": "REGISTER",
+   "uri": "sip:host:5060",
+   "ok": true,
+   "header": "Digest username=\"user#0\", realm=\"VDP\", nonce=\"fixednonce\", uri=\"sip:host:5060\", response=\"1321007d81e497d781169b9b50838f0a\", algorithm=MD5"
+  },
+  {
+   "name": "credentials 2",
+   "challenge": "Digest realm=\"VDP\", nonce=\"fixednonce\", algorithm=MD5",
+   "user": "",
+   "pass": "",
+   "method": "OPTIONS",
+   "uri": "",
+   "ok": true,
+   "header": "Digest username=\"\", realm=\"VDP\", nonce=\"fixednonce\", uri=\"\", response=\"f46f2b4f6136ff9982b7aab4ee2aeeac\", algorithm=MD5"
+  },
+  {
+   "name": "credentials 3",
+   "challenge": "Digest realm=\"VDP\", nonce=\"fixednonce\", algorithm=MD5",
+   "user": "üser",
+   "pass": "päss",
+   "method": "BYE",
+   "uri": "sip:x",
+   "ok": true,
+   "header": "Digest username=\"üser\", realm=\"VDP\", nonce=\"fixednonce\", uri=\"sip:x\", response=\"317e3e7999ec2ee8813a3ac0d207abe6\", algorithm=MD5"
+  },
+  {
+   "name": "credentials 4",
+   "challenge": "Digest realm=\"VDP\", nonce=\"fixednonce\", algorithm=MD5",
+   "user": "a\"b",
+   "pass": "c,d",
+   "method": "ACK",
+   "uri": "sip:x;y=z",
+   "ok": true,
+   "header": "Digest username=\"a\"b\", realm=\"VDP\", nonce=\"fixednonce\", uri=\"sip:x;y=z\", response=\"b874c540deb192d5a0f7bcfeb2c5989d\", algorithm=MD5"
+  }
+ ],
+ "known_response": {
+  "alice:test-realm:secret REGISTER:sip:127.0.0.1 test-nonce-1234": "254153973b80a878f650000d397f3bc0"
+ },
+ "verify": [
+  {
+   "name": "correct",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"6ea40291fbd30974cf9b7ad32f566eeb\", uri=\"sip:127.0.0.1:5060\", response=\"b9411450e282e77b20eb9e3f394b51c6\", algorithm=MD5",
+   "nonce": "6ea40291fbd30974cf9b7ad32f566eeb",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "ok"
+  },
+  {
+   "name": "wrong password",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"95b303c38a5263b328bdf9e4e8b88082\", uri=\"sip:127.0.0.1:5060\", response=\"7d69f3a76759f74848b95733df804f32\", algorithm=MD5",
+   "nonce": "95b303c38a5263b328bdf9e4e8b88082",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "otherpass1",
+   "result": "bad"
+  },
+  {
+   "name": "wrong realm",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"27e374f4033aa25db9e999f23496b6d8\", uri=\"sip:127.0.0.1:5060\", response=\"1eff76ec40fe443d1484a882b1a21ef3\", algorithm=MD5",
+   "nonce": "27e374f4033aa25db9e999f23496b6d8",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "XXX",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "wrong method",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"f2138945fc690b2d07ccf84405269ca9\", uri=\"sip:127.0.0.1:5060\", response=\"21c8be008da9bf142c88806d845a4198\", algorithm=MD5",
+   "nonce": "f2138945fc690b2d07ccf84405269ca9",
+   "nonce_issued": true,
+   "method": "INVITE",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "unknown nonce",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"notissued0000000000000000000000\", uri=\"sip:127.0.0.1:5060\", response=\"0052f67f84e2c52e5892a7eedabbdf94\", algorithm=MD5",
+   "nonce": "notissued0000000000000000000000",
+   "nonce_issued": false,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "stale"
+  },
+  {
+   "name": "unknown nonce wrong password",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"notissued0000000000000000000000\", uri=\"sip:127.0.0.1:5060\", response=\"0052f67f84e2c52e5892a7eedabbdf94\", algorithm=MD5",
+   "nonce": "notissued0000000000000000000000",
+   "nonce_issued": false,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "otherpass1",
+   "result": "stale"
+  },
+  {
+   "name": "empty header",
+   "header": "",
+   "nonce": "3ed38bc6c76bdc6426b6fd87cd2a3b85",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "no response",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"48fe05ac5231cb60b0654e3b3bdf86a4\", uri=\"sip:127.0.0.1:5060\"",
+   "nonce": "48fe05ac5231cb60b0654e3b3bdf86a4",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "no username",
+   "header": "Digest realm=\"VDP\", nonce=\"93e3609ec310e6dab36acd8b0a41374f\", uri=\"sip:127.0.0.1:5060\", response=\"x\"",
+   "nonce": "93e3609ec310e6dab36acd8b0a41374f",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "no uri",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"7fc057e7c6b7bd47e8a39cdf7a254de3\", response=\"x\"",
+   "nonce": "7fc057e7c6b7bd47e8a39cdf7a254de3",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "no nonce",
+   "header": "Digest username=\"8001\", realm=\"VDP\", uri=\"sip:127.0.0.1:5060\", response=\"x\"",
+   "nonce": "b81f635b64f97252d31936d40ef127bf",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "empty username",
+   "header": "Digest username=\"\", realm=\"VDP\", nonce=\"98544a6f3b6d83e43bc28aa38ca90b26\", uri=\"sip:127.0.0.1:5060\", response=\"278dd6ffd17da77d7a43e7568b8c9286\", algorithm=MD5",
+   "nonce": "98544a6f3b6d83e43bc28aa38ca90b26",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "empty response",
+   "header": "Digest username=\"8001\", nonce=\"7a0c6ad38f408f06a5cfa8145fb25796\", uri=\"sip:127.0.0.1:5060\", response=\"\"",
+   "nonce": "7a0c6ad38f408f06a5cfa8145fb25796",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "upper case keys",
+   "header": "Digest USERNAME=\"8001\", realm=\"VDP\", NONCE=\"8daa7afb8164f79bd7c8ef7493fe76d0\", uri=\"sip:127.0.0.1:5060\", Response=\"2bc2ceb7c31f61409754ce5c58bb3244\", algorithm=MD5",
+   "nonce": "8daa7afb8164f79bd7c8ef7493fe76d0",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "ok"
+  },
+  {
+   "name": "unquoted values",
+   "header": "Digest username=8001, realm=VDP, nonce=e8bf3ff962e7bf869f801bf6836fc3d5, uri=sip:127.0.0.1:5060, response=baf0a3500ff70a1cc4d377a9a788b33d",
+   "nonce": "e8bf3ff962e7bf869f801bf6836fc3d5",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "duplicate response last wins bad",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"a6ae555a95e6a08714ffeec8a784f83b\", uri=\"sip:127.0.0.1:5060\", response=\"442cc69eb4c658b757bcb5b8fd20865d\", algorithm=MD5, response=\"deadbeef\"",
+   "nonce": "a6ae555a95e6a08714ffeec8a784f83b",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "duplicate response last wins good",
+   "header": "response=\"deadbeef\", Digest username=\"8001\", realm=\"VDP\", nonce=\"83e43fc9e5d44bba6020b9716bc0d274\", uri=\"sip:127.0.0.1:5060\", response=\"cb9e2301999d3ae7eb2dbd1b9c435354\", algorithm=MD5",
+   "nonce": "83e43fc9e5d44bba6020b9716bc0d274",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "ok"
+  },
+  {
+   "name": "tampered response",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"975fcedee2305b2bed13d5972da3d50f\", uri=\"sip:127.0.0.1:5060\", response=\"0291ec1a8920b3aac9e1a4b8fdff89914\", algorithm=MD5",
+   "nonce": "975fcedee2305b2bed13d5972da3d50f",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "response upper case hex",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"165f8c6bcb4ed0d54543a681a453e9cb\", uri=\"sip:127.0.0.1:5060\", response=\"784B83D133BCE14B232192384DE2C843\", algorithm=MD5",
+   "nonce": "165f8c6bcb4ed0d54543a681a453e9cb",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "uri differs from signed",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"bd9830ecc69cdadba226869227c9d1a3\", uri=\"sip:evil\", response=\"2ff2060a907832dac3bcd0410ae598d9\", algorithm=MD5",
+   "nonce": "bd9830ecc69cdadba226869227c9d1a3",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "username differs from signed",
+   "header": "Digest username=\"8002\", realm=\"VDP\", nonce=\"276df6bfbb9f75d6dfbf15988062c055\", uri=\"sip:127.0.0.1:5060\", response=\"8e6298b705e6f1dab8753be55dd84511\", algorithm=MD5",
+   "nonce": "276df6bfbb9f75d6dfbf15988062c055",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "extra whitespace and newlines",
+   "header": "Digest username=\"8001\" ,\n  realm=\"VDP\" ,\n  nonce=\"1e841643ea07e37a8b78cd4957e1747c\" ,\n  uri=\"sip:127.0.0.1:5060\" ,\n  response=\"169772e549c20a8b3c58ac844f5709f5\" ,\n  algorithm=MD5",
+   "nonce": "1e841643ea07e37a8b78cd4957e1747c",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "ok"
+  },
+  {
+   "name": "no digest prefix",
+   "header": "username=\"8001\", realm=\"VDP\", nonce=\"659abbb5bfa757bf9dc2f490544a0c98\", uri=\"sip:127.0.0.1:5060\", response=\"8ca48954bf8d73d7691ce9b6a2f35dfd\", algorithm=MD5",
+   "nonce": "659abbb5bfa757bf9dc2f490544a0c98",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "ok"
+  },
+  {
+   "name": "basic scheme with fields",
+   "header": "Basic username=\"8001\", realm=\"VDP\", nonce=\"ee89ca2a87bc3995196828725c39b4e7\", uri=\"sip:127.0.0.1:5060\", response=\"5c3ce27bd15337d91367d81e098b7584\", algorithm=MD5",
+   "nonce": "ee89ca2a87bc3995196828725c39b4e7",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "ok"
+  },
+  {
+   "name": "qop form is not understood",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"e6c972ef6ff76a327ec0771f6b72c24f\", uri=\"sip:127.0.0.1:5060\", response=\"5f47a126912673ce8da63edeeda5ff33\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"0123456789abcdef\"",
+   "nonce": "e6c972ef6ff76a327ec0771f6b72c24f",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "empty password both sides",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"3ca81c147413d8ae278836d62d0f463f\", uri=\"sip:127.0.0.1:5060\", response=\"e3bd9b3aa247a28539d2bd9dba11a439\", algorithm=MD5",
+   "nonce": "3ca81c147413d8ae278836d62d0f463f",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "",
+   "result": "ok"
+  },
+  {
+   "name": "unicode credentials",
+   "header": "Digest username=\"üser\", realm=\"VDP\", nonce=\"ec839942da00d487dfc7c2ca970ea2a2\", uri=\"sip:127.0.0.1:5060\", response=\"f123575290552add108ec4f8037e827b\", algorithm=MD5",
+   "nonce": "ec839942da00d487dfc7c2ca970ea2a2",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "päss",
+   "result": "ok"
+  },
+  {
+   "name": "key prefixed by word chars",
+   "header": "Digest xusername=\"8001\", realm=\"VDP\", nonce=\"495266fd537b79fc4ee062b9b091403e\", uri=\"sip:127.0.0.1:5060\", response=\"91a8d07c350f28452c91f770dc3604a1\", algorithm=MD5",
+   "nonce": "495266fd537b79fc4ee062b9b091403e",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "quoted value spanning key",
+   "header": "Digest username=\"8001, uri=\"sip:127.0.0.1:5060\", nonce=\"d8c123e3aec8fb315bd7baf80d6e3aae\", response=\"x\"",
+   "nonce": "d8c123e3aec8fb315bd7baf80d6e3aae",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  },
+  {
+   "name": "AuthorizationFor output",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"376fc63b8a51e73eee3b1fc77f8fdb98\", uri=\"sip:127.0.0.1:5060\", response=\"21db1440adc5ee9ab5348949d2ee1896\", algorithm=MD5",
+   "nonce": "376fc63b8a51e73eee3b1fc77f8fdb98",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "ok"
+  },
+  {
+   "name": "AuthorizationFor output wrong method",
+   "header": "Digest username=\"8001\", realm=\"VDP\", nonce=\"7d1aba63bcbc9919b1f66197eeca4d6c\", uri=\"sip:127.0.0.1:5060\", response=\"1b308e0734291daca64f73814e628df4\", algorithm=MD5",
+   "nonce": "7d1aba63bcbc9919b1f66197eeca4d6c",
+   "nonce_issued": true,
+   "method": "REGISTER",
+   "realm": "VDP",
+   "password": "s3cretpass",
+   "result": "bad"
+  }
+ ]
+}

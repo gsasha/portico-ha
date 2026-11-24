@@ -1,0 +1,518 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add Portico",
+        "description": "Portico is one integration. Add a door (the gate or an entrance: its transport, call state and entities), or the push ring notification (push notifications for phones that are away). Phones are enrolled from the Portico panel.",
+        "menu_options": {
+          "door": "Add a door",
+          "push_credentials": "Push ring notification (Firebase)",
+          "sip_server_door": "SIP-server door (advanced, not live)",
+          "sip_server_remote": "SIP-server door, remote container (advanced, not live)"
+        }
+      },
+      "door": {
+        "title": "Add a Portico door",
+        "description": "Pick the driver that matches your door (§4.2).",
+        "data": {
+          "driver": "Driver"
+        }
+      },
+      "driver_config": {
+        "title": "Configure {driver}",
+        "data": {
+          "host": "Device IP / hostname",
+          "sip_user": "SIP user (user#index form, e.g. 9901#0)",
+          "sip_password": "SIP password",
+          "rtsp_username": "RTSP username",
+          "rtsp_password": "RTSP password",
+          "nvr_host": "Protect console / NVR IP / hostname",
+          "nvr_api_key": "Protect API key",
+          "verify_ssl": "Verify the console certificate (turn off for the default self-signed one)",
+          "ring_events": "Listen for the doorbell ring on the console's events stream (opens a connection to the console)",
+          "camera_id": "Camera ID",
+          "gate_sip_url": "gate-sip control URL (base only, e.g. http://host:8091)",
+          "interval": "Poll interval, seconds (minimum 0.25)",
+          "sip_host": "Bind address (an IP; 127.0.0.1 unless you unlock the LAN below)",
+          "sip_port": "SIP port (high port; 5060 and anything below 1024 need the LAN unlock)",
+          "rtp_port": "RTP port (not gate-sip's 40000 unless unlocked)",
+          "password": "Station SIP password (8-15 characters, the station's SIP.AuthPassword)",
+          "user": "Station SIP user (default 8001)",
+          "realm": "SIP realm (default VDP)",
+          "allow_non_loopback": "Allow a LAN bind (also needs the allow list)",
+          "allow_from": "Allow only these station addresses (comma-separated IPs or CIDRs)",
+          "dial_enabled": "Talk to the gate from Portico (off by default; a press on a Talk button then calls the station)",
+          "ring_answered_entity": "Ring-answered helper (an input_boolean turned on when Portico answers; optional)",
+          "confirm": "I understand this is Portico's own SIP server for the gate station, it replaces nothing by itself, and it must not use gate-sip's ports",
+          "name": "Door name",
+          "event_entity": "Doorbell event entity (event.*, e.g. the UniFi Protect doorbell's)",
+          "event_type": "Event type that rings (default: ring)",
+          "ring_hold": "Seconds a ring lasts if nobody dismisses it (5 to 120)",
+          "talkback": "Answer and talk through the doorbell (leave off unless you have set up a Protect key for Portico; needs wheel 0.6.5 or newer)",
+          "protect_host": "Protect console host or address (required with talkback)",
+          "protect_api_key": "Protect API key (a key of its own for Portico; required with talkback)",
+          "downlink_url": "RTSP URL of the doorbell's audio (required with talkback)",
+          "guard_url": "URL of the old intercom's /health, which tells whether it holds the talkback session (only with talkback). Leave empty when the old intercom is gone: there is then no external guard",
+          "gain": "Visitor audio gain, 1 to 16 (default 1; only with talkback)"
+        }
+      },
+      "camera_config": {
+        "title": "Video for this device",
+        "description": "Optional. If this camera is already configured elsewhere in Home Assistant — a UniFi Protect or Frigate camera entity for the same physical device — point Portico at it here instead of creating a duplicate. Leave empty to let Portico create its own camera entity, streamed through Home Assistant's bundled go2rtc.",
+        "data": {
+          "existing_camera_entity": "Existing camera entity"
+        }
+      },
+      "relay_action": {
+        "title": "Opening this device's relay",
+        "description": "Optional. Pick an action to run when this device's relay lock is opened — e.g. a switch that actually triggers your gate or door strike. Leave empty to use the device's own built-in relay, if it has one.",
+        "data": {
+          "open_relay_action": "Action to run"
+        }
+      },
+      "reconfigure_server": {
+        "title": "SIP-server door: Talk and ring-answered helper",
+        "description": "Only these two switches of a SIP-server door can change here; ports, password and the LAN unlock cannot (remove the door and add it again for those). A door that connects to a container also shows the container's address, port and token here (stars mean a token is stored: leave them to keep it). **Talk to the gate (off by default).** When ON, a person pressing a Talk button on their phone makes this server call the station; it places no call by itself. Only one gate door (this one or the gate-sip observer) can offer Talk at a time: if both are able to, Talk is refused on both until one is off or down. **Ring-answered helper (optional).** An `input_boolean` Portico turns ON when its user has answered, so every phone's ring screen closes as taken elsewhere.",
+        "data": {
+          "dial_enabled": "Talk to the gate from Portico (off by default)",
+          "ring_answered_entity": "Ring-answered helper (an input_boolean, optional)",
+          "open_relay_action": "Door-open action (runs when a Portico button opens this door; optional, saved without a reload)",
+          "remote_host": "Container IP address",
+          "remote_port": "Container IPC port",
+          "remote_token": "IPC token (leave the stars to keep it)",
+          "house_calls": "House calls: carry phone-to-phone calls' audio (takes effect when the transport next starts; saved without a reload)"
+        }
+      },
+      "push_credentials": {
+        "title": "Push ring notification (Firebase push notifications)",
+        "description": "Lets Home Assistant wake a Portico phone that is away from home when the door rings, through Firebase Cloud Messaging. Phones at home still ring over the tailnet; this only adds the push ring notification. You need your own Firebase project with an Android app for package `{package}`.\n\n**Service account (required).** Upload or paste a service-account JSON key. Recommended: in the Google Cloud console create a dedicated service account with only the *Firebase Cloud Messaging API Admin* role and make a key for it, so a leaked backup can ring phones but cannot administer your project. Quick path: Firebase console, Project settings, Service accounts, *Generate new private key* (that default account has broad rights). The key is checked with Google once (no message is sent) and then stored only in Home Assistant's private storage (file mode 0600), never in this integration's settings. It is still part of HA backups: keep backups encrypted.\n\n**google-services.json (optional).** The file the Firebase console offers for the Android app. Portico reads the app's four public client values from it for the enrollment QR.\n\n**New phones get the push ring notification.** On: a phone that registers from the Portico app gets push ring notifications right away. Off: it gets none until you switch it on under Configure, Phones (choose this if a phone also runs another intercom app that rings on its own). Existing phones keep their own switch when you change this later.\n\nNothing is sent to any phone until a phone registers from the Portico app.",
+        "data": {
+          "service_account_file": "Service-account key (JSON file)",
+          "service_account_json": "…or paste the service-account JSON",
+          "google_services_file": "google-services.json (optional)",
+          "google_services_json": "…or paste google-services.json (optional)",
+          "new_phones_enabled": "New phones get the push ring notification"
+        }
+      },
+      "sip_server_remote": {
+        "title": "SIP-server door in a container (advanced)",
+        "description": "Portico's own SIP server runs in a `portico-transport` container (host networking, its own secrets) and this door only connects to it over a TCP link: nothing is spawned here and no SIP password is kept in Home Assistant (the container holds it). **Container address, port and token.** The container's `-listen` address (an IP address on your private network or 127.0.0.1; never one of gate-sip's ports 8091, 8092, 8095) and the shared secret it was started with (at least 24 characters). The stream is not encrypted: keep it on a network you trust. **SIP address.** The container's `PORTICO_SIP_LISTEN` (it only names this door, as `gate-sip-server:<address>`; set a device id if the container uses `PORTICO_SIP_DEVICE_ID`). Saving this makes Home Assistant connect to the container in the background; it changes nothing at the station, and it is unavailable (not an error) while the container is down. A ring that happens while the link is down is not replayed. Only one gate door (this one or the gate-sip observer) can offer Talk at a time.",
+        "data": {
+          "remote_host": "Container IP address",
+          "remote_port": "Container IPC port",
+          "remote_token": "IPC token (at least 24 characters)",
+          "sip_host": "Container SIP address (PORTICO_SIP_LISTEN host)",
+          "sip_port": "Container SIP port",
+          "device_id": "Device id (only if the container sets PORTICO_SIP_DEVICE_ID)",
+          "dial_enabled": "Talk to the gate from Portico (off by default; the container must allow it too)",
+          "ring_answered_entity": "Ring-answered helper (an input_boolean, optional)",
+          "confirm": "I understand this only connects to a container I run; it replaces nothing by itself"
+        }
+      }
+    },
+    "error": {
+      "service_account_required": "Upload or paste the service-account JSON.",
+      "sa_invalid_json": "This is not valid JSON.",
+      "sa_not_service_account": "This JSON is not a service-account key (its \"type\" is not \"service_account\").",
+      "sa_missing_fields": "The key is missing project_id, client_email, private_key or token_uri.",
+      "sa_invalid_project_id": "The key's project_id is not a valid Google project id.",
+      "sa_invalid_key": "The private key in this JSON is not a readable RSA key.",
+      "sa_token_uri_not_allowed": "The key's token_uri is not Google's (https://oauth2.googleapis.com/token).",
+      "sa_rejected": "Google refused this key (deleted, disabled, or without the Firebase Cloud Messaging role).",
+      "cannot_connect": "Could not reach Google to check the key. Try again.",
+      "gs_invalid_json": "This google-services.json is not valid JSON.",
+      "gs_missing_fields": "This google-services.json is missing project or client fields.",
+      "gs_package_not_found": "This google-services.json has no Android app for the Portico package.",
+      "gs_project_mismatch": "This google-services.json is for a different Firebase project than the service account.",
+      "gs_invalid_values": "This google-services.json has an unusable value: a placeholder, a malformed app id or API key, or an app id from a different Firebase project than its project number. Download the file again from the Firebase console.",
+      "invalid_url": "Enter the listener's base URL: http or https, a host, no user name or password, no path, query or fragment (/health is added by Portico).",
+      "invalid_interval": "The poll interval must be between 0.25 and 3600 seconds.",
+      "invalid_event_entity": "Enter an event entity id, starting with event.",
+      "invalid_ring_hold": "The ring hold must be between 5 and 120 seconds.",
+      "invalid_talkback": "The talkback option must be on or off.",
+      "talkback_not_ready": "Answering and talking at this door is not available yet. Leave the option off.",
+      "protect_api_key_required": "Answering and talking needs a Protect API key made for Portico.",
+      "invalid_talkback_option": "A talkback setting has the wrong type.",
+      "peer_token_required": "Enter gate-sip's peer token to switch the listen leg on.",
+      "invalid_peer_token": "The peer token must be 1 to 256 characters with no spaces or control characters.",
+      "secret_mask_edited": "This field still holds some of the stars. To keep the stored token, leave the stars exactly as shown (or clear the field); to replace it, clear the field and type only the new token.",
+      "claims_need_listen": "Answering needs the listen leg switched on as well.",
+      "dial_needs_claims": "Talk to the gate needs Answer from Portico switched on (and saved) as well. Switch this off, or switch Answer on.",
+      "house_needs_wheel": "House calls need the Portico transport package 0.6.0 or newer, and this Home Assistant has an older one. Switch this off, or update the package first.",
+      "ring_entity_required": "Choose the input_boolean Portico turns on when it answers.",
+      "confirm_required": "Tick the confirmation to continue.",
+      "invalid_sip_host": "Enter an IP address (no host names).",
+      "invalid_port": "Enter a port from 1 to 65535.",
+      "ports_equal": "The SIP and RTP ports must differ.",
+      "password_length": "The password must be 8 to 15 characters (the station sends no REGISTER at all otherwise).",
+      "lan_bind_needs_flags": "A bind that is not 127.0.0.1 needs both 'Allow a LAN bind' and an allow list.",
+      "standard_port_locked": "Port 5060, gate-sip's ports and anything below 1024 need the LAN unlock (LAN bind plus allow list).",
+      "invalid_dial": "Talk to the gate must be on or off.",
+      "invalid_ring_entity": "Choose an input_boolean.",
+      "invalid_action": "The door-open action must be a list of actions.",
+      "invalid_allow_from": "Enter IP addresses or CIDRs separated by commas.",
+      "allow_from_any": "A /0 allows everyone; list the station's address instead.",
+      "port_in_use_by_entry": "Another SIP-server entry already uses this port.",
+      "invalid_remote_host": "Enter an IP address (no host names).",
+      "remote_host_not_private": "The container must be on a private network (10.x, 172.16-31.x, 192.168.x) or 127.0.0.1: the link is not encrypted.",
+      "remote_port_is_gate_sip": "8091, 8092 and 8095 are gate-sip's ports; use the container's own IPC port.",
+      "remote_token_length": "The token must be 24 to 256 characters.",
+      "remote_token_chars": "The token may not contain spaces or control characters.",
+      "remote_in_use_by_entry": "Another door already connects to this container address and port.",
+      "invalid_device_id": "The device id may not contain spaces and is at most 128 characters."
+    },
+    "abort": {
+      "already_configured": "This door or the push ring notification is already set up.",
+      "invalid_phone": "This is not a valid phone record.",
+      "reconfigure_successful": "Saved. The listen settings apply as soon as the device reloads.",
+      "reconfigure_not_supported": "Only a SIP-server device has settings to reconfigure here."
+    }
+  },
+  "options": {
+    "step": {
+      "tailscale_mode": {
+        "title": "How should Tailscale enrollment work?",
+        "description": "How phones join your tailnet. **Approve in Tailscale** (recommended): for each phone you approve it on Tailscale's own sign-in page, and Portico puts the single-use key Tailscale returns into the phone's QR; family phones need no Tailscale account of their own (the phones are owned by you, the approving admin). Needs a Tailscale OAuth app, set up once in the next step. **Mint keys automatically**: Portico mints a tagged key per phone with a Tailscale credential it keeps (an OAuth client with the `auth_keys` scope, recommended, or an API access token, which expires), with no approval per phone. **No Tailscale key in the QR** (manual): Portico stores no Tailscale credential, the QR carries no Tailscale key, and the phone does not join your tailnet through Portico; choose it when phones reach Home Assistant another way (the home network, or the official Tailscale app on the phone). Reaching Home Assistant away from home through Portico's own Tailscale needs one of the first two. You can change this later under Configure > \"Change the Tailscale enrollment mode\".",
+        "data": {
+          "tailscale_mode": "Tailscale enrollment"
+        }
+      },
+      "tailscale_change_mode": {
+        "title": "Change the Tailscale enrollment mode",
+        "description": "The current mode is preselected. The new mode applies to the next phone you enroll; phones already enrolled keep working as they are. What is already stored is reused: the Tailscale API credential for **Mint keys automatically**, and the OAuth app for **Approve in Tailscale** while Home Assistant's https URL is the one it was registered with; anything missing is asked for next. Nothing is saved until the new mode is complete, and switching away deletes nothing, so you can switch back. **No Tailscale key in the QR** (manual): the phone does not join your tailnet through Portico and reaches Home Assistant only another way (the home network, or the official Tailscale app on the phone).",
+        "data": {
+          "tailscale_mode": "Tailscale enrollment"
+        }
+      },
+      "tailscale_oauth_app_choice": {
+        "title": "Tailscale OAuth app (one-time)",
+        "description": "Approving phones needs a Tailscale OAuth app with the `auth_keys:create:once` scope and this redirect URI registered on it, exactly:\n\n`{redirect_uri}`\n\nCreating the app needs a Tailscale API access token of an Owner or Admin (Tailscale's own requirement); after that only the app's client secret is used. Create the app yourself (README, \"Tailscale: approve in Tailscale\") and paste its client secret, or let Portico create it with a one-time API access token.",
+        "menu_options": {
+          "tailscale_oauth_app": "I have the OAuth app's client secret",
+          "tailscale_oauth_app_create": "Create the OAuth app for me (one-time admin API access token)"
+        }
+      },
+      "tailscale_oauth_app_choice_redirect_changed": {
+        "title": "Tailscale OAuth app: the redirect URI changed",
+        "description": "The stored OAuth app was registered with the redirect URI\n\n`{old_redirect_uri}`\n\nbut Home Assistant's https URL has changed since, so Portico's callback is now\n\n`{redirect_uri}`\n\nTailscale refuses an approval for a redirect URI that is not registered on the app, so the app has to be set up again. Add this new redirect URI to the app (it must keep the `auth_keys:create:once` scope), then keep its stored client secret (the stars) or paste a new one, or let Portico create a new app with a one-time API access token.",
+        "menu_options": {
+          "tailscale_oauth_app": "I have the OAuth app's client secret",
+          "tailscale_oauth_app_create": "Create the OAuth app for me (one-time admin API access token)"
+        }
+      },
+      "tailscale_oauth_app": {
+        "title": "Tailscale OAuth app client secret",
+        "description": "Paste the `clientSecret` Tailscale returned when you created the OAuth app (`tskey-app-…`, shown by Tailscale only once). The app must have the `auth_keys:create:once` scope and this redirect URI, exactly:\n\n`{redirect_uri}`\n\nThe secret is kept in Home Assistant's private storage, never in the integration's settings or diagnostics.\n\nIf the field shows a row of stars: stars mean a secret is already stored; leave them to keep it, or type a new one to replace it.",
+        "data": {
+          "client_secret": "Client secret (tskey-app-…)",
+          "client_id": "Client id (only if Tailscale gave you one that the secret does not show)"
+        },
+        "data_description": {
+          "client_secret": "The stars mean a secret is already stored; leave them to keep it, or type a new one to replace it. A blank field keeps it too."
+        }
+      },
+      "tailscale_oauth_app_create": {
+        "title": "Create the Tailscale OAuth app",
+        "description": "Paste a Tailscale API access token of an Owner or Admin (admin console > Settings > Keys > Generate access token, a short expiry is fine). Portico uses it once to create an OAuth app named \"Portico (Home Assistant)\" with the `auth_keys:create:once` scope and the redirect URI\n\n`{redirect_uri}`\n\nThe token is not stored anywhere; revoke it in the admin console afterwards.",
+        "data": {
+          "api_access_token": "Tailscale API access token (Owner or Admin)"
+        }
+      },
+      "tailscale_approve": {
+        "title": "Approve this phone in Tailscale",
+        "description": "Tailscale's sign-in page opens in a new tab: sign in as an Owner or Admin of your tailnet and approve. The tab then says it is done, and this dialog goes on by itself. Nothing is created until you approve. If Tailscale shows an error instead of an approval page, the OAuth app's client id or redirect URI does not match: close this dialog, fix the OAuth app, or choose another mode under Configure > \"Change the Tailscale enrollment mode\"."
+      },
+      "tailscale_credentials": {
+        "title": "Tailscale credential",
+        "description": "Portico mints a single-use, pre-authorized Tailscale key for each enrolled phone (§4.8), so it needs a credential for Tailscale's API. It is kept in Home Assistant and mints a key for every later phone without asking again (unlike **Approve in Tailscale**, where an admin approves each phone).\n\n**Recommended: an OAuth client.** In the Tailscale admin console open Settings > Trust credentials, select **Credential**, then **OAuth**. Give it the auth keys scope (`auth_keys`) with **Write**, and select the device tag below as its tag (Tailscale requires tags on keys an OAuth client creates). Select **Generate credential** and paste the client secret (`tskey-client-…`, shown only once). Portico exchanges it for a one-hour access token each time it mints a key. The exact labels may differ: check your console.\n\n**Also works: an API access token** (`tskey-api-…`, generated under Settings > Keys; check your console). It expires after the 1-90 days you chose when generating it; after that, minting fails until you enter a new one.\n\n**The device tag** (suggested: `tag:portico-phone`) must be one the OAuth client was created with, and it must exist in your tailnet policy file (`tagOwners`, owned so that this credential may apply it); otherwise Tailscale refuses every key. Do not reuse another app's tag: it carries that app's rules.\n\n**Before the first phone:** the policy must let that tag reach Home Assistant, for example a rule from `tag:portico-phone` to `10.6.0.5:443` (an example only; use your own address and check your console). Portico can't do that part for you.\n\nChanging these later (Configure > \"Change the Tailscale enrollment mode\" > \"Portico mints a Tailscale key for each phone automatically\"): the stored tailnet and tag are filled in, and the secret field shows a row of stars: stars mean a secret is already stored; leave them to keep it, or type a new one to replace it. A blank field keeps it too.",
+        "data": {
+          "tailscale_api_key": "OAuth client secret (tskey-client-…) or API access token (tskey-api-…)",
+          "tailscale_tailnet": "Tailnet name (e.g. example.com, or your-org.github)",
+          "tailscale_tag": "Device tag to apply to enrolled phones"
+        },
+        "data_description": {
+          "tailscale_api_key": "The stars mean a secret is already stored; leave them to keep it, or type a new one to replace it. A blank field keeps it too.",
+          "tailscale_tag": "A tag of the form `tag:name` (letters, digits and dashes) that the OAuth client was created with, for example `tag:portico-phone`."
+        }
+      },
+      "phone_details": {
+        "title": "Enroll a device",
+        "description": "Name this phone (e.g. \"Alice's phone\") — used for its dedicated Home Assistant user and to tell enrolled phones apart later. The QR carries Home Assistant's https URL: the external URL if it is https, else the internal one. After the scan the phone needs to reach Home Assistant once to register itself (for example on the home Wi-Fi); if it cannot, it shows a registration string to paste under the push ring notification's Configure instead. Typing the name of a phone that is still waiting for its QR shows a new QR for it (the old one stops working). Typing the name of a phone enrolled before one-time codes enrolls that phone again: its old sign-in keeps working until the new QR is used.",
+        "data": {
+          "phone_name": "Phone name",
+          "allow_http": "Allow plain http on my own network",
+          "ha_dial": "Address phones use over Tailscale"
+        },
+        "data_description": {
+          "allow_http": "Only when Home Assistant has no https URL. The phone's connection to Home Assistant, and its sign-in token, are then not encrypted: use this only on a trusted private network you control. Off by default.",
+          "ha_dial": "Leave blank for automatic: Home Assistant's own LAN address with the port of the URL above. Away from home the phone reaches Home Assistant through Tailscale, which cannot look up your internal host name, so it needs an IP address and port, like 10.6.0.5:443 (or [fd7a:115c:a1e0::5]:443). Type one when Home Assistant sits behind a reverse proxy on another machine or port. Your tailnet must route that address to the phone (a subnet router advertising the LAN, and an ACL that allows it)."
+        }
+      },
+      "show_qr": {
+        "title": "Scan this on the phone",
+        "description": "Make sure the whole code is on screen (scroll up) before scanning.\n\n{qr_image}\n\nThis QR works **once, for 10 minutes** (until {expires_at}), for {phone_name}. It carries a one-time code, not a password. Unless you chose manual Tailscale enrollment it also carries a single-use Tailscale key (valid ten minutes, one hour with Approve in Tailscale).{manual_note}{reenroll_note}\n\n**Away from home, over Tailscale,** this phone connects to {ha_dial}.\n\nExpired or not scanned? Choose Enroll a device again with the same name: the new QR replaces this one. The phone must reach this Home Assistant when it scans (for example on the home Wi-Fi); if the app says it cannot, it offers a registration string: paste it under Portico > Push ring notification > Configure > \"Add a phone's registration\". When you remove this phone, also remove its machine in the Tailscale admin console (Machines)."
+      },
+      "init": {
+        "title": "Push ring notification",
+        "menu_options": {
+          "push_settings": "On/off and ring window",
+          "push_phones": "Phones",
+          "push_test_phones": "Test phones (staged test)",
+          "push_key": "Replace the service-account key",
+          "add_phone_registration": "Add a phone's registration",
+          "enroll_phone": "Enroll a device",
+          "tailscale_change_mode": "Change the Tailscale enrollment mode"
+        }
+      },
+      "push_settings": {
+        "title": "Push ring notification settings",
+        "description": "The ring window is how long a ring push stays valid (it should match how long the door rings; gate-sip rings for 45 seconds). \"New phones get the push ring notification\" decides whether a phone that registers for the first time starts switched on; it never changes a phone that has already registered (switch those under Phones).",
+        "data": {
+          "enabled": "Send push ring notifications",
+          "ring_window": "Ring window (seconds)",
+          "new_phones_enabled": "New phones get the push ring notification",
+          "wheel_base_url": "Wheel web root (optional)",
+          "kiosk_background_url": "Kiosk page background picture (optional)",
+          "kiosk_back_path": "Kiosk back-rail route (optional)"
+        },
+        "data_description": {
+          "wheel_base_url": "An http(s) web root to fetch the transport wheel from instead of GitHub, for example https://git.example.com/owner/portico-ha. Leave blank for the default.",
+          "kiosk_background_url": "A picture shown behind the kiosk page: an http(s) URL or a path on this Home Assistant (for example /local/kiosk.jpg). Leave blank for a plain black page. Any logged-in user can read it, so put no secret in it.",
+          "kiosk_back_path": "The in-app route the kiosk card's back rail goes to, for example /lovelace/home. Leave blank to go back in history. Any logged-in user can read it."
+        }
+      },
+      "push_phones": {
+        "title": "Phones ({count})",
+        "description": "Phones register themselves from the Portico app. A newly registered phone starts on or off as \"New phones get the push ring notification\" says (On/off and ring window); switch each phone here.{hint}",
+        "data": {
+          "enabled_phones": "Send pushes to",
+          "remove_phones": "Remove"
+        }
+      },
+      "push_test_phones": {
+        "title": "Test phones (staged test)",
+        "description": "For a staged test on a real phone. The `portico.push_test` action (admin only) sends one quiet test notification to each phone listed here, whether or not its push ring notification is on, and refuses every other phone. Empty: it sends nothing.\n\nWhile this list is not empty, a real door ring is pushed ONLY to listed phones whose push ring notification is on, so a test cannot ring the household. Clear the list when the test is over.",
+        "data": {
+          "test_phones": "Test phones"
+        }
+      },
+      "push_key": {
+        "title": "Replace the service-account key",
+        "description": "Rotation: create a new key for the same service account (or another account in the same Firebase project) in the console, upload it here, then delete the old key in the console.",
+        "data": {
+          "service_account_file": "Service-account key (JSON file)",
+          "service_account_json": "…or paste the service-account JSON"
+        }
+      },
+      "show_qr_fcm_skipped": {
+        "title": "Scan this on the phone",
+        "description": "Make sure the whole code is on screen (scroll up) before scanning.\n\n{qr_image}\n\nThis QR works **once, for 10 minutes** (until {expires_at}), for {phone_name}. It carries a one-time code, not a password. Unless you chose manual Tailscale enrollment it also carries a single-use Tailscale key (valid ten minutes, one hour with Approve in Tailscale).{manual_note}{reenroll_note}\n\n**Away from home, over Tailscale,** this phone connects to {ha_dial}.\n\nExpired or not scanned? Choose Enroll a device again with the same name: the new QR replaces this one. The phone must reach this Home Assistant when it scans (for example on the home Wi-Fi); if the app says it cannot, it offers a registration string: paste it under Portico > Push ring notification > Configure > \"Add a phone's registration\". When you remove this phone, also remove its machine in the Tailscale admin console (Machines).\n\n⚠️ **The push ring notification was not set up by this QR.** The push ring notification entry's Firebase values are not ones the Portico app accepts, so they were left out; the phone keeps its existing Firebase settings. Add the `google-services.json` for the `com.meda.portico` app to the push ring notification entry again, then enroll this phone again, or paste that file into the app's Setup (its \"Firebase\" field)."
+      },
+      "add_phone_registration": {
+        "title": "Add a phone's registration",
+        "description": "Only needed when a phone could not reach Home Assistant after scanning its enrollment QR. The Portico app then shows a registration string: copy it (by message, email or any other way) and paste it below. Home Assistant registers that phone for the push ring notification as if it had connected itself. Spaces and line breaks added while copying do not matter. The string holds no password or key.",
+        "data": {
+          "registration_string": "Registration string"
+        }
+      },
+      "phone_doors": {
+        "title": "Doors this phone is enrolled for",
+        "description": "A phone gets a door's sign-in details (and its call audio over the connection) only for the doors it is enrolled for. Leave \"All doors\" on for every door, including doors added later; turn it off to choose.",
+        "data": {
+          "all_doors": "All doors",
+          "doors": "Only these doors"
+        }
+      },
+      "confirm_reenroll": {
+        "title": "Enroll this phone again?",
+        "description": "A phone named **{phone_name}** is already enrolled (enrolled {enrolled_on}, last seen {last_seen}). Continuing makes a QR that ENROLLS THAT PHONE AGAIN: it keeps its Home Assistant user, push ring notification registration and content, and its old sign-in stops working the moment the new QR is used. Whichever device scans the QR first takes the place of the old phone. If this is a different phone, go back and give it another name.",
+        "data": {
+          "confirm": "Yes, enroll that phone again and replace its old sign-in"
+        }
+      },
+      "door_init": {
+        "title": "Door settings",
+        "description": "This door has no settings here. A phone that is away from home always carries the call audio over its existing connection to Home Assistant."
+      },
+      "door_talk_init": {
+        "title": "Front door settings",
+        "description": "Answer and talk (front door only, needs wheel 0.6.5 or newer): turn talk-back on and give Portico its own Protect API key. The Protect key is {key_state}. It is never shown again: leave the key field blank to keep the stored key, type a new one to replace it. Turning talk-back off keeps the key; tick the remove box (with talk-back off) to delete it. Saving a change reconnects this door.",
+        "data": {
+          "talkback": "Answer and talk through the doorbell",
+          "protect_api_key": "Protect API key (blank keeps the stored key)",
+          "clear_protect_api_key": "Remove the stored Protect key (talk-back must be off)",
+          "protect_host": "Protect console host",
+          "camera_id": "Doorbell camera id in Protect",
+          "downlink_url": "RTSP URL of the doorbell's audio",
+          "guard_url": "URL of the old intercom's /health (empty: no external guard)",
+          "verify_ssl": "Check the console's TLS certificate",
+          "gain": "Visitor audio gain, 1 to 16"
+        }
+      }
+    },
+    "error": {
+      "service_account_required": "Upload or paste the service-account JSON.",
+      "sa_invalid_json": "This is not valid JSON.",
+      "sa_not_service_account": "This JSON is not a service-account key (its \"type\" is not \"service_account\").",
+      "sa_missing_fields": "The key is missing project_id, client_email, private_key or token_uri.",
+      "sa_invalid_project_id": "The key's project_id is not a valid Google project id.",
+      "sa_invalid_key": "The private key in this JSON is not a readable RSA key.",
+      "sa_token_uri_not_allowed": "The key's token_uri is not Google's (https://oauth2.googleapis.com/token).",
+      "sa_rejected": "Google refused this key (deleted, disabled, or without the Firebase Cloud Messaging role).",
+      "cannot_connect": "Could not reach Google to check the key. Try again.",
+      "sa_project_changed": "This key is for a different Firebase project. Phones are registered to the current one; remove and re-add the push ring notification to change projects.",
+      "no_ha_url": "Home Assistant has no URL a phone can reach it at, so no enrollment QR was made. Set an external URL (or at least an internal URL) under Settings > System > Network, then enroll this phone again.",
+      "invalid_ha_dial": "This is not an address the phone can use over Tailscale, so no enrollment QR was made. Type a private IP address and a port, like 10.6.0.5:443 or [fd7a:115c:a1e0::5]:443 (10.x, 172.16-31.x, 192.168.x, 100.64-127.x or an fc00::/7 IPv6 address; no host names, no leading zeros), or leave the field blank for automatic.",
+      "bad_name": "The phone name must be 1 to 24 characters (spaces at either end are dropped), so no enrollment QR was made.",
+      "pending_cap": "Five phones already have a QR waiting to be scanned, so no new one was made. Scan one of them, or remove a phone that is still waiting (Settings > Devices & services > Portico), then try again.",
+      "no_https_url": "Home Assistant has only a plain http URL, so no enrollment QR was made. Set an https external URL or an https internal URL under Settings > System > Network, or tick \"Allow plain http on my own network\" if this phone only ever connects over a trusted private network.",
+      "tailscale_mint_failed": "The Tailscale key for this phone could not be created, so no enrollment QR was made and no user was added. Check the OAuth client secret (or API access token, which expires) and the tailnet name, that the OAuth client has the `auth_keys` scope with Write, and that the credential may apply the device tag, then try again. Or choose another mode (Approve in Tailscale, or manual) under Configure > \"Change the Tailscale enrollment mode\".",
+      "tailscale_client_secret_invalid": "This is not an OAuth app client secret. It starts with `tskey-app-`, then the client id, a dash and the secret, with no spaces.",
+      "tailscale_client_id_invalid": "This client id is not the one the client secret was issued for. Leave the field empty unless Tailscale gave you a separate client id.",
+      "tailscale_api_token_rejected": "Tailscale refused this API access token. It must be a current access token of an Owner or Admin of the tailnet. Nothing was saved.",
+      "tailscale_create_app_failed": "The OAuth app could not be created (Tailscale did not answer, or answered with something unexpected). Nothing was saved. Try again, or create the app yourself and paste its client secret.",
+      "tailscale_approval_denied": "The phone was not approved in Tailscale (the approval was declined or failed), so no enrollment QR was made and no user was added. Enroll it again to retry.",
+      "tailscale_exchange_rejected": "Tailscale refused the approval for this OAuth app, so no enrollment QR was made and no user was added. Check that the OAuth app still exists, that its client secret is current, and that its redirect URI is exactly the one Portico showed, then try again. Or choose another mode under Configure > \"Change the Tailscale enrollment mode\".",
+      "tailscale_exchange_failed": "Tailscale could not turn the approval into a key (no answer, or an unexpected one), so no enrollment QR was made and no user was added. Enroll the phone again in a minute.",
+      "reg_not_a_string": "This is not a Portico registration string. In the Portico app, copy the registration string again and paste the whole of it.",
+      "reg_damaged": "This registration string is incomplete or was changed while copying. Copy the whole string again from the Portico app and paste it unchanged.",
+      "reg_version": "This registration string comes from a newer Portico app than this Home Assistant integration reads. Update the Portico integration, then paste it again.",
+      "reg_invalid": "This registration string is not one Portico can use (the app that made it is not compatible). Update the Portico app, then copy the string again.",
+      "reg_too_long": "This text is far too long to be a Portico registration string. Copy only the registration string from the Portico app.",
+      "reg_project_mismatch": "This registration string was made for another Firebase project than this push ring notification uses. Enroll the phone again from this Home Assistant (its QR sets the right project), then copy the new string.",
+      "reg_package_mismatch": "This registration string is not from the Portico app. Registrations are accepted for the Portico app only.",
+      "reg_invalid_registration": "The phone has no usable push registration yet. Open the Portico app on the phone, let it finish setting up notifications, then copy the string again.",
+      "reg_unknown_enrollment": "No phone enrolled on this Home Assistant matches this registration string. The phone was enrolled by a different Home Assistant, from an older QR, or its user was removed: enroll the phone again (Portico device > Configure), scan the new QR, then copy the new string.",
+      "push_not_configured": "The push ring notification is not running, so no phone can be registered. Check its credentials repair issue, then try again.",
+      "tailscale_api_key_blank": "Enter the OAuth client secret (tskey-client-…) or API access token (tskey-api-…).",
+      "tailscale_tailnet_blank": "Enter the tailnet name (for example example.com, or `-` for the tailnet of the credential).",
+      "tailscale_tag_blank": "Enter the device tag, for example `tag:portico-phone`.",
+      "tailscale_tag_invalid": "This is not a Tailscale tag. Write `tag:` followed by letters, digits and dashes only, for example `tag:portico-phone`, with no spaces and one tag only.",
+      "secret_mask_edited": "This field still holds some of the stars. To keep the stored secret, leave the stars exactly as shown (or clear the field); to replace it, clear the field and type only the new secret.",
+      "invalid_talkback": "The talkback option must be on or off.",
+      "talkback_not_ready": "Answering and talking at this door is not available yet. Leave the option off.",
+      "protect_api_key_required": "Answering and talking needs a Protect API key made for Portico.",
+      "invalid_talkback_option": "A talkback setting has the wrong type.",
+      "invalid_wheel_base_url": "The wheel web root must be an http:// or https:// address with no spaces, query or fragment.",
+      "invalid_kiosk_background_url": "The background must be an http:// or https:// URL, or a path starting with a single /, with no spaces or quote characters.",
+      "invalid_kiosk_back_path": "The back route must start with a single / (for example /lovelace/home) and contain no spaces or backslashes."
+    },
+    "abort": {
+      "not_loaded": "The push ring notification is not running (check its credentials repair issue).",
+      "phone_registered_on": "Registered {phone}. Its push ring notification is switched on.",
+      "phone_registered_off": "Registered {phone}. Its push ring notification is switched off: switch it on under Configure > Phones.",
+      "phone_registered_not_test_listed": "Registered {phone}. Its push ring notification is switched on, but a staged test is set up (Configure > Test phones) and this phone is not on that list, so it does not ring until you add it or clear the list.",
+      "tailscale_mode_saved_approve": "Saved: Tailscale enrollment is now Approve in Tailscale. Open Configure again and choose \"Enroll a device\" to enroll one.",
+      "tailscale_mode_saved_auto": "Saved: Portico now mints a Tailscale key for each phone. Open Configure again and choose \"Enroll a device\" to enroll one.",
+      "tailscale_mode_saved_manual": "Saved: enrollment QRs now carry no Tailscale key, so phones do not join your tailnet through Portico; they reach Home Assistant another way. Open Configure again and choose \"Enroll a device\" to enroll one.",
+      "door_entry_moved": "This is an old-format Portico door entry (from before doors moved into the Portico entry kinds). Delete it, then add the door again under Settings > Add integration > Portico > Add a door."
+    }
+  },
+  "issues": {
+    "push_credentials_invalid": {
+      "title": "Portico push ring notification: the Firebase service account is not accepted",
+      "description": "Google refused the service account Portico uses to send push ring notifications ({error}). Phones still ring over the tailnet; only the push to a phone that is away is affected.\n\nCreate a new key for the service account in the Google Cloud or Firebase console (a dedicated account with only the Firebase Cloud Messaging role is recommended) and upload it with the Portico push ring notification entry's Reconfigure option. This clears itself after the next successful send."
+    },
+    "push_project_mismatch": {
+      "title": "Portico push ring notification: {phone} uses a different Firebase project",
+      "description": "Google refused a push to {phone} because the Portico app on it registered with a different Firebase project than the service account in Home Assistant. Re-scan an enrollment QR on that phone so it gets this installation's Firebase settings. Until then that phone gets no push ring notification."
+    },
+    "push_payload_rejected": {
+      "title": "Portico push ring notification: Google rejected a message",
+      "description": "Google refused a push message as malformed ({error}). This is a bug in Portico, not in your setup: please report it. Phones still ring over the tailnet. This clears itself after the next successful send."
+    },
+    "push_rate_limited": {
+      "title": "Portico push ring notification: pushes paused",
+      "description": "Portico sent more than 60 push messages in one minute, which only a fault can cause, so it paused all push ring notifications for 5 minutes to protect your phones. Phones still ring over the tailnet. Check the log for what was ringing. This clears itself after the next successful send."
+    },
+    "enroll_qr_reused": {
+      "title": "Portico: the enrollment QR for {phone} was used twice",
+      "description": "The one-time code in the enrollment QR for {phone} was presented by two different devices. Home Assistant revoked the sign-in it had issued and let neither of them keep it. Someone else may have seen or copied the QR. Enroll the phone again (Settings > Devices & services > Portico, the push ring notification, Configure > Enroll a device, with the same name) and keep the new QR to yourself. Until then the phone cannot sign in."
+    },
+    "enroll_code_burned": {
+      "title": "Portico: the enrollment code for {phone} was guessed at",
+      "description": "Five wrong codes were sent for {phone}'s enrollment, so its code was cancelled. Draw a new QR (Enroll a device, with the same name). If nobody on your network tried it, something is probing the enrollment address."
+    },
+    "enroll_pending_expired": {
+      "title": "Portico: {phone} was never enrolled and was removed",
+      "description": "The enrollment QR for {phone} was not used within 24 hours, so the phone and its Home Assistant user were removed. Enroll it again if you still want it."
+    },
+    "enroll_endpoint_throttled": {
+      "title": "Portico: the enrollment endpoint is being hit with failed attempts",
+      "description": "Many failed enrollment attempts reached Home Assistant in the last minute, so Portico now accepts only one enrollment request every two seconds until they stop. Phones can still enroll, a little slower. A wrong code is not a way in (codes are 192 random bits and are cancelled after five wrong tries), but something on your network or tailnet is sending junk to /api/portico/enroll/redeem. This notice clears after the next successful enrollment or an hour of quiet."
+    },
+    "driver_error": {
+      "title": "Portico device {device}: driver error",
+      "description": "The Portico transport reported an error for {device} (driver {driver}): {message}\n\nThis clears when the device is reconfigured or the transport restarts cleanly."
+    },
+    "listen_leg_down": {
+      "title": "Portico device {device}: the gate-sip listen leg is down",
+      "description": "The listen leg to gate-sip for {device} has been {state} for {minutes} minutes (reason: {reason}). While it is down, Portico cannot tell that another phone answered a ring, so a ring screen can stay up after the call was taken elsewhere. Calls and the gate-sip health check are not affected.\n\nCheck that gate-sip is running and that the peer token on the Reconfigure form is the one gate-sip expects (GATE_SIP_PEER_TOKEN). This clears itself when the leg recovers or is switched off."
+    },
+    "call_held_too_long": {
+      "title": "Portico device {device}: an answered call is stuck",
+      "description": "A call on {device} has been answered for {minutes} minutes, longer than gate-sip's 300 second call cap plus a minute. gate-sip should have hung it up, so the call state here is probably stale or the call is stuck on the gate-sip side.\n\nCheck gate-sip's /health and logs. This clears itself when the call ends."
+    },
+    "wheel_too_old": {
+      "title": "The Portico transport package is too old",
+      "description": "Portico needs the portico-transport package {required} or newer, but {installed} is installed, so no door has been started. Portico installs the pinned package itself when a door starts; if that failed (the package host was unreachable), restart Home Assistant once the host is up, or install the package by hand."
+    },
+    "wheel_install_failed": {
+      "title": "The Portico transport package could not be installed",
+      "description": "Portico needs the portico-transport package {required} but could not install it ({reason}). The doors stay unavailable; phones, push and the panel are not affected. Check that the package host is reachable from Home Assistant, then reload the Portico door entry."
+    },
+    "config_files_pending": {
+      "title": "Portico: {count} configuration file(s) edited by hand and not yet reloaded",
+      "description": "A file under /config/portico/ differs from what Portico last wrote or applied, so the editor's latest save left it exactly as it is. Run the portico.reload_config action to apply the edit, or portico.export_config with overwrite on to rewrite the files from the live configuration."
+    },
+    "config_files_not_written": {
+      "title": "Portico: the configuration files could not be written",
+      "description": "The last save is live, but Portico could not write {count} file(s) under /config/portico/ (see the Home Assistant log). The next save tries again; portico.export_config with overwrite on rewrites them all."
+    }
+  },
+  "services": {
+    "push_test": {
+      "name": "Send a push ring notification test",
+      "description": "Sends one quiet test notification (never a ring) through Firebase to the phones on the push ring notification entry's test allow-list (Configure, Test phones). Refuses any other phone. Admin only.",
+      "fields": {
+        "phones": {
+          "name": "Phones",
+          "description": "Optional: only these allow-listed phones (registration ids from the push ring notification diagnostics). Default: every phone on the allow-list."
+        }
+      }
+    },
+    "call_everyone": {
+      "name": "Call everyone from the panel",
+      "description": "Asks a panel's Portico app to come to the front and place a house call to Everyone, with a ringing tone. Returns an error saying why when the panel cannot (not connected, Panel mode or house calls off, already on a call). Any logged-in user or script may call it; it can only ring the phones set to receive house calls, from a panel.",
+      "fields": {
+        "panel": {
+          "name": "Panel",
+          "description": "The panel's name or endpoint id. Optional when there is only one panel."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "push_test_no_allow_list": {
+      "message": "No test phone is set: add one under the Portico push ring notification entry, Configure, Test phones. Nothing was sent."
+    },
+    "push_test_not_allowed": {
+      "message": "A phone given is not on the push ring notification test allow-list. Nothing was sent."
+    },
+    "push_test_no_live_phone": {
+      "message": "No phone on the test allow-list has a current registration: open the Portico app on it so it registers again. Nothing was sent."
+    },
+    "push_test_rate_limited": {
+      "message": "Test pushes are limited to one every 10 seconds and 10 an hour. Nothing was sent."
+    }
+  },
+  "selector": {
+    "tailscale_mode": {
+      "options": {
+        "approve": "Approve each phone in Tailscale (recommended)",
+        "auto": "Portico mints a Tailscale key for each phone automatically",
+        "manual": "No Tailscale key in the QR (phones reach Home Assistant another way)"
+      }
+    }
+  }
+}

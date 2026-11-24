@@ -1,0 +1,21 @@
+- RECV 100 Trying
+-      Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+-      From: <sip:8001@<ST>>;tag=st-nocid
+-      To: <sip:9901@<SRV>>;tag=<T1>
+-      Call-ID: 
+-      CSeq: 1 INVITE
+-      Contact: <sip:8001@<SRV>>
+-      Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+-      Content-Length: 0
+- RECV 180 Ringing
+-      Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+-      From: <sip:8001@<ST>>;tag=st-nocid
+-      To: <sip:9901@<SRV>>;tag=<T1>
+-      Call-ID: 
+-      CSeq: 1 INVITE
+-      Contact: <sip:8001@<SRV>>
+-      Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+-      Content-Length: 0
+- STATE registered=false ringing=true inCall=false dialogConfirmed=false calls=1 answered=0 rtpIn=0
++ RECV (nothing)
++ STATE registered=false ringing=false inCall=false dialogConfirmed=false calls=0 answered=0 rtpIn=0

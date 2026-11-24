@@ -1,0 +1,105 @@
+# house calls: -house-calls
+## house_open hso-1
+  {"id":1,"result":{"legs":[{"codec":"l16","frame_bytes":1280,"frame_ms":40,"kind":"frames","leg_id":"house-S1-from","side":"from","state":"attached"},{"codec":"pcmu","frame_bytes":320,"frame_ms":40,"kind":"frames","leg_id":"house-S1-to","side":"to","state":"attached"}],"session":"house-S1"}}
+## l16 frame from the from-phone: first_frame, mu-law to the to-phone, reply (the reply floats: PARITY 360)
+  {"id":2,"result":{"ok":true}}
+  {"method":"house_leg_state","params":{"call_id":"hso-1","leg":"from","state":"first_frame"}}
+  {"method":"media_frame","params":{"call_id":"house-S1-to","d":"jSA9s52QGCnqqJcSHje6nw2LJlarCo4cL8KilBUiR6+aD4os0KUMjR87tZ2RGCh6qZcRHTW8nw2MJU+sCo8cLsajlBQhQ7CbD4or2KYLjR85t56RFydlqpgRHTO+oA2MJEutCY8aLcqklRQgP7KbDooq4acLjR43uZ6SFyZaq5gQiTHAoQ2MI0euCY8aLM6llRMfPbScDosp9KgLjh41u5+SFiVWrJkQiS/EogyMIkOvCY8ZK9SmlhMfO7acDosobakLjh0zvaCTFiRPrZkPiS7IowyNIT+xCZAZKtynlhIeObieDosnXqoKjh0xv6GTFSNLrpoPii3MpAyNID2znZAYKeqolxIeN7qfDYsmVqsKjhwvwqKUFSJHr5oPiizQpQyNHzu1nZEYKHqplxEdNbyfDYwlT6wKjxwuxqOUFCE="}}
+## mu-law frame from the to-phone: first_frame, l16 to the from-phone, reply (the reply floats: PARITY 360)
+  {"id":3,"result":{"ok":true}}
+  {"method":"house_leg_state","params":{"call_id":"hso-1","leg":"to","state":"first_frame"}}
+  {"method":"media_frame","params":{"call_id":"house-S1-from","d":"hIKEgoSGhIaEioSKhI6EjoSShJKEloSWhJqEmoSehJ6EooSihKaEpoSqhKqEroSuhLKEsoS2hLaEuoS6hL6EvoTBhMGEw4TDhMWExYTHhMeEyYTJhMuEy4TNhM2Ez4TPhNGE0YTThNOE1YTVhNeE14TZhNmE24TbhN2E3YTfhN8E4QThBOIE4gTjBOME5ATkBOUE5QTmBOYE5wTnBOgE6ATpBOkE6gTqBOsE6wTsBOwE7QTtBO4E7gTvBO8E8ATwxPDE8ETxRPHE8cTxRPJE8sTyxPJE80TzxPPE80T0RPTE9MT0RPVE9cT1xPVE9kT2xPbE9kT3RPfE98T3RPhE+KT4pPjk+OT4JPkk+WT5ZPmk+aT55Pnk+ST6JPpk+mT6pPqk+uT65Pok+yT7ZPtk+6T7pPvk++T7JPwk/GT8ZPyU/JT8tPy0/NT81Pz0/PT8FP0U/TT9NP1U/VT9dP10/ZT9lP20/bT91P3U/fT99P0U/hT+NP40/lT+VP50/nT+jP6M/pz+nP6s/qz+vP68/sz+zP7c/tz+7P7s/vz+/P4M/wz/HP8c/yz/LP88/zz/TP9M/1z/XP9s/2z/fP98/4j/iP+Q/5D/mP+Y/6D/oP+o/6j/sP+w/7j/uP/A/8D/yP/I/9D/0P/Y/9j/4P/g/+j/6P/w//D/+P/4/wAAAAB8fXx9fHl8eXx1fHV8cXxxfG18bXxpfGl8ZXxlfGF8YXxdfF18WXxZfFV8VXxRfFF8TXxNfEl8SXxFfEV8QXxBfD58Pnw8fDx8Onw6fDh8OHw2fDZ8NHw0fDJ8MnwwfDB8LnwufCx8LHwqfCp8KHwofCZ8JnwkfCR8InwifCB8IPwe/B78Hfwd/Bz8HPwb/Bv8Gvwa/Bn8GfwY/Bj8F/wX/Bb8FvwV/BX8FPwU/BP8E/wS/BL8EfwR/BD8EPwP/A88DzwPvA68DjwOPA68DbwNPA08DbwMvAw8DDwMvAu8CzwLPAu8CrwKPAo8CrwJvAk8CTwJvAi8CDwIPAi8B7wHXAdcBxwHHAfcBtwGnAacBlwGXAYcBhwG3AXcBZwFnAVcBVwFHAUcBdwE3AScBJwEXARcBBwEHATcA9wDnAOcA2wDbANMA0wDLAMsAwwDDAPsAuwCzALMAqwCrAKMAowCbAJsAkwCTAIsAiwCDAIMAuwB7AHMAcwBrAGsAYwBjAF0AXQBZAFkAVQBVAFEAUQBNAE0ASQBJAEUARQBBAEEAfQA9ADkAOQA1ADUAMQAxAC0ALQApACkAJQAlACEAIQAeAB4AHAAcABoAGgAYABgAFgAWABQAFAASABIAEAAQAA4ADgAMAAwACgAKAAgACAAGAAYABAAEAAIAAgAAAAAAISChIKEhoSGhIqEioSOhI6EkoSShJaEloSahJqEnoSehKKEooSmhKaEqoSqhK6EroSyhLKEtoS2hLqEuoS+hL6EwYTBhMOEw4TFhMWEx4THhMmEyYTLhMuEzYTNhM+Ez4TRhNGE04TThNWE1YTXhNeE2YTZhNuE24TdhN2E34TfBOEE4QTiBOIE4wTjBOQE5ATlBOUE5gTmBOcE5wToBOgE6QTpBOoE6gTrBOsE7ATsBO0E7QTuBO4E7wTvBPAE8MTwxPBE8UTxxPHE8UTyRPLE8sTyRPNE88TzxPNE9ET0xPTE9ET1RPXE9cT1RPZE9sT2xPZE90T3xPfE90T4RPg="}}
+## wrong size
+  {"error":{"code":"bad_frame","message":"wsmedia: frame has the wrong size for the codec"},"id":4}
+    raw='{"id":4,"error":{"code":"bad_frame","message":"wsmedia: frame has the wrong size for the codec"}}'
+## not base64
+  {"error":{"code":"bad_params","message":"d is not base64"},"id":5}
+    raw='{"id":5,"error":{"code":"bad_params","message":"d is not base64"}}'
+## unknown house leg
+  {"error":{"code":"unknown_session","message":"house-S2-from"},"id":6}
+    raw='{"id":6,"error":{"code":"unknown_session","message":"house-S2-from"}}'
+## a door id still goes to the door path
+  {"error":{"code":"unknown_session","message":"gso-1"},"id":7}
+    raw='{"id":7,"error":{"code":"unknown_session","message":"gso-1"}}'
+## house_close: media_closed for both legs BEFORE the reply
+  {"method":"media_closed","params":{"call_id":"house-S1-from","reason":"hangup"}}
+  {"method":"media_closed","params":{"call_id":"house-S1-to","reason":"hangup"}}
+  {"id":8,"result":{"closed":true,"ok":true}}
+## house_close again
+  {"id":9,"result":{"closed":false,"ok":true}}
+## house_close without an id
+  {"error":{"code":"bad_params","message":"house_close needs call_id"},"id":10}
+    raw='{"id":10,"error":{"code":"bad_params","message":"house_close needs call_id"}}'
+## house_open refused: {}
+  {"error":{"code":"bad_params","message":"house: bad parameters: call_id must start with \"hso-\""},"id":20}
+    raw='{"id":20,"error":{"code":"bad_params","message":"house: bad parameters: call_id must start with \\"hso-\\""}}'
+## house_open refused: null
+  {"error":{"code":"bad_params","message":"house: bad parameters: call_id must start with \"hso-\""},"id":21}
+    raw='{"id":21,"error":{"code":"bad_params","message":"house: bad parameters: call_id must start with \\"hso-\\""}}'
+## house_open refused: {"call_id":"hso-2"}
+  {"error":{"code":"bad_params","message":"house: bad parameters: a house call has exactly two legs"},"id":22}
+    raw='{"id":22,"error":{"code":"bad_params","message":"house: bad parameters: a house call has exactly two legs"}}'
+## house_open refused: {"call_id":"gso-2","legs":[{"side":"from","kind":"frames","c
+  {"error":{"code":"bad_params","message":"house: bad parameters: call_id must start with \"hso-\""},"id":23}
+    raw='{"id":23,"error":{"code":"bad_params","message":"house: bad parameters: call_id must start with \\"hso-\\""}}'
+## house_open refused: {"call_id":"hso-2","legs":5}
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field houseOpenParams.legs of type []main.houseLegParams"},"id":24}
+    raw='{"id":24,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field houseOpenParams.legs of type []main.houseLegParams"}}'
+## house_open refused: {"call_id":"hso-2","legs":[{"side":3}]}
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field houseLegParams.legs.side of type string"},"id":25}
+    raw='{"id":25,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field houseLegParams.legs.side of type string"}}'
+## house_open refused: {"call_id":"hso-2","legs":[{"side":"from","kind":"frames","c
+  {"error":{"code":"bad_params","message":"house: bad parameters: frames leg codec must be pcmu or l16"},"id":26}
+    raw='{"id":26,"error":{"code":"bad_params","message":"house: bad parameters: frames leg codec must be pcmu or l16"}}'
+## house_open refused: {"call_id":"hso-2","legs":[{"side":"from","kind":"webrtc"},{
+  {"error":{"code":"bad_params","message":"house: bad parameters: webrtc leg needs the phone's offer"},"id":27}
+    raw='{"id":27,"error":{"code":"bad_params","message":"house: bad parameters: webrtc leg needs the phone\'s offer"}}'
+## house_open hso-3
+  {"id":30,"result":{"legs":[{"codec":"l16","frame_bytes":1280,"frame_ms":40,"kind":"frames","leg_id":"house-S3-from","side":"from","state":"attached"},{"codec":"pcmu","frame_bytes":320,"frame_ms":40,"kind":"frames","leg_id":"house-S3-to","side":"to","state":"attached"}],"session":"house-S3"}}
+## duplicate
+  {"error":{"code":"already_open","message":"hso-3"},"id":31}
+    raw='{"id":31,"error":{"code":"already_open","message":"hso-3"}}'
+## a phone's goodbye: both media_closed BEFORE the reply, then both lost (the reply floats after the media_closed: PARITY 360)
+  {"method":"media_closed","params":{"call_id":"house-S3-from","reason":"phone_hung_up"}}
+  {"method":"media_closed","params":{"call_id":"house-S3-to","reason":"phone_hung_up"}}
+  {"id":32,"result":{"ok":true}}
+  {"method":"house_leg_state","params":{"call_id":"hso-3","leg":"from","reason":"phone_hung_up","state":"lost"}}
+  {"method":"house_leg_state","params":{"call_id":"hso-3","leg":"to","reason":"bridge_closed","state":"lost"}}
+## alice's call
+  {"id":44,"result":{"legs":[{"codec":"l16","frame_bytes":1280,"frame_ms":40,"kind":"frames","leg_id":"house-S4-from","side":"from","state":"attached"},{"codec":"l16","frame_bytes":1280,"frame_ms":40,"kind":"frames","leg_id":"house-S4-to","side":"to","state":"attached"}],"session":"house-S4"}}
+## alice's third leg: too_many_calls
+  {"error":{"code":"too_many_calls","message":"house: too many house calls: that phone already holds 2 legs"},"id":45}
+    raw='{"id":45,"error":{"code":"too_many_calls","message":"house: too many house calls: that phone already holds 2 legs"}}'
+## house_open hso-6
+  {"id":56,"result":{"legs":[{"codec":"l16","frame_bytes":1280,"frame_ms":40,"kind":"frames","leg_id":"house-S5-from","side":"from","state":"attached"},{"codec":"pcmu","frame_bytes":320,"frame_ms":40,"kind":"frames","leg_id":"house-S5-to","side":"to","state":"attached"}],"session":"house-S5"}}
+## house_open hso-7
+  {"id":57,"result":{"legs":[{"codec":"l16","frame_bytes":1280,"frame_ms":40,"kind":"frames","leg_id":"house-S6-from","side":"from","state":"attached"},{"codec":"pcmu","frame_bytes":320,"frame_ms":40,"kind":"frames","leg_id":"house-S6-to","side":"to","state":"attached"}],"session":"house-S6"}}
+## house_open hso-8
+  {"id":58,"result":{"legs":[{"codec":"l16","frame_bytes":1280,"frame_ms":40,"kind":"frames","leg_id":"house-S7-from","side":"from","state":"attached"},{"codec":"pcmu","frame_bytes":320,"frame_ms":40,"kind":"frames","leg_id":"house-S7-to","side":"to","state":"attached"}],"session":"house-S7"}}
+## the fifth call: too_many_calls
+  {"error":{"code":"too_many_calls","message":"house: too many house calls: 4 bridges already open"},"id":60}
+    raw='{"id":60,"error":{"code":"too_many_calls","message":"house: too many house calls: 4 bridges already open"}}'
+## a door still gets its leg while the house is full
+  {"id":61,"result":{"codec":"pcmu","frame_bytes":320,"frame_ms":40}}
+## house_close hso-4: the reply and both media_closed
+  {"method":"media_closed","params":{"call_id":"house-S4-from","reason":"hangup"}}
+  {"method":"media_closed","params":{"call_id":"house-S4-to","reason":"hangup"}}
+  {"id":62,"result":{"closed":true,"ok":true}}
+## a webrtc leg with a garbage offer: the open answers first
+  {"id":63,"result":{"legs":[{"kind":"webrtc","side":"from","state":"pending"},{"codec":"l16","frame_bytes":1280,"frame_ms":40,"kind":"frames","leg_id":"house-S8-to","side":"to","state":"attached"}],"session":"house-S8"}}
+  {"method":"media_closed","params":{"call_id":"house-S8-to","reason":"webrtc_failed"}}
+  {"method":"house_leg_state","params":{"call_id":"hso-10","leg":"from","reason":"webrtc_failed","state":"lost"}}
+  {"method":"house_leg_state","params":{"call_id":"hso-10","leg":"to","reason":"bridge_closed","state":"lost"}}
+## hso-11 opened
+  {"id":64,"result":{"legs":[{"codec":"l16","frame_bytes":1280,"frame_ms":40,"kind":"frames","leg_id":"house-S9-from","side":"from","state":"attached"},{"codec":"pcmu","frame_bytes":320,"frame_ms":40,"kind":"frames","leg_id":"house-S9-to","side":"to","state":"attached"}],"session":"house-S9"}}
+## nothing else arrives: []
+## SIGTERM closes every bridge (order open in Go: CloseAll walks a map, house.go:453-466)
+  {"method":"media_closed","params":{"call_id":"house-S5-from","reason":"shutdown"}}
+  {"method":"media_closed","params":{"call_id":"house-S5-to","reason":"shutdown"}}
+  {"method":"media_closed","params":{"call_id":"house-S6-from","reason":"shutdown"}}
+  {"method":"media_closed","params":{"call_id":"house-S6-to","reason":"shutdown"}}
+  {"method":"media_closed","params":{"call_id":"house-S7-from","reason":"shutdown"}}
+  {"method":"media_closed","params":{"call_id":"house-S7-to","reason":"shutdown"}}
+  {"method":"media_closed","params":{"call_id":"house-S9-from","reason":"shutdown"}}
+  {"method":"media_closed","params":{"call_id":"house-S9-to","reason":"shutdown"}}
+  exit code: 0

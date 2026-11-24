@@ -1,0 +1,11 @@
+SEND CANCEL sip:9901@<SRV> SIP/2.0 (as 1 CANCEL)
+RECV 200 OK
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-ghost-1
+     To: <sip:9901@<SRV>>;tag=<T1>
+     Call-ID: ghost-1
+     CSeq: 1 CANCEL
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Length: 0
+STATE registered=false ringing=false inCall=false dialogConfirmed=false calls=0 answered=0 rtpIn=0

@@ -1,0 +1,16 @@
+# source: SYNTHETIC
+# title: CANCEL for a call that does not exist
+# verdict: MATCH
+# basis: main.go: BYE and CANCEL are always answered 200
+
+>>> send
+CANCEL sip:9901@{{SRV}} SIP/2.0
+Via: SIP/2.0/UDP {{ST}};branch=z9hG4bKcancel1
+From: <sip:8001@{{ST}}>;tag=st-ghost-1
+To: <sip:9901@{{SRV}}>
+Call-ID: ghost-1
+CSeq: 1 CANCEL
+Max-Forwards: 70
+.
+>>> recv
+>>> state

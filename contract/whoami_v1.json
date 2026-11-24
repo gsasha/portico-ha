@@ -1,0 +1,44 @@
+{
+  "contract": "whoami/v1",
+  "about": "Shared fixture between portico-ha (server) and portico-app (client) for DEV-798 (SEC-02): Home Assistant proves itself to an enrolled phone before the phone sends it a token over a cleartext address. portico-app vendors this file byte for byte and pins its sha256 (the same rule as enroll_v1.json). A change here is a contract bump on both sides.",
+  "request": {
+    "method": "POST",
+    "path": "/api/portico/whoami",
+    "authorization": "none",
+    "request_content_type": "application/json",
+    "max_body_bytes": 640,
+    "body": {
+      "nonce": "^[A-Za-z0-9_-]{16,64}$ (made by the app for every probe, never reused)",
+      "hint": "^[0-9a-f]{16}$ (the first 8 bytes of SHA-256 of the phone's refresh token, as lowercase hex)"
+    },
+    "rules": "Exactly these two fields. Anything else is a 400."
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Cache-Control": "no-store"
+    },
+    "body": {
+      "proof": "64 lowercase hex: HMAC-SHA256(key = the refresh token as UTF-8, message = \"portico-whoami-v1\" NUL nonce NUL hint, nonce and hint as ASCII)"
+    }
+  },
+  "refusal": {
+    "status": 400,
+    "body": {
+      "error": "invalid_or_expired"
+    },
+    "note": "One answer for a malformed body, an unknown hint and a revoked token. A 415 for any content type but application/json."
+  },
+  "client_rules": [
+    "Send no token (no Authorization header, no refresh token in the body) in this request.",
+    "Verify the proof in constant time against the proof computed from the phone's own refresh token.",
+    "On any other outcome (a refusal, a bad proof, a timeout, no refresh token held) treat the address as UNVERIFIED: send no token to it, and use the tailnet.",
+    "A phone with no refresh token (enrolled the old format-1 way) has no proof; treat it as unverified."
+  ],
+  "vector": {
+    "refresh_token": "vector-refresh-token-0123456789abcdef0123456789abcdef0123456789abcdef0123456789ab",
+    "nonce": "nonce-0123456789abcdef",
+    "hint": "11b60382b3b5c86b",
+    "proof": "7e4da0d426e33cfe9cc25293bb6091087890023a9d69fa79846810f8638dbba0"
+  }
+}

@@ -1,0 +1,6 @@
+# The toolchain the release binaries are built with (R1-48). Keep in step with ARG RUST_IMAGE in
+# packaging/rust/Dockerfile.build (the image ships exactly this toolchain, so rustup never installs one at build time).
+# Cargo.toml's rust-version is only the minimum that compiles; this is the version that is reproduced.
+[toolchain]
+channel = "1.99.1"
+profile = "minimal"

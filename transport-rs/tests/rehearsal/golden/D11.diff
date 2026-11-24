@@ -1,0 +1,8 @@
+-      To: <sip:9901@<SRV>>;tag=<T1>
++      To: <sip:9901@<SRV>>;tag=<T2>
+-      To: <sip:9901@<SRV>>;tag=<T2>
++      To: <sip:9901@<SRV>>;tag=<T3>
+-      To: <sip:9901@<SRV>>;tag=<T3>
++      To: <sip:9901@<SRV>>;tag=<T4>
+-      To: <sip:9901@<SRV>>;tag=<T3>
++      To: <sip:9901@<SRV>>;tag=<T4>

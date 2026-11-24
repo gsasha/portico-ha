@@ -1,0 +1,104 @@
+# standalone: -listen, -sip-from-env, -secrets-env
+  listening: True
+## a first line that is not auth: reply=[] closed=True
+## a wrong token
+  {"error":{"code":"unauthorized","message":"bad token"},"id":1}
+    raw='{"id":1,"error":{"code":"unauthorized","message":"bad token"}}'
+  closed after the refusal: True
+## garbage first line: reply=[] closed=True
+## auth
+  {"id":1,"result":{"ok":true}}
+## keepalive
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":2}
+    raw='{"id":2,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## unknown method
+  {"error":{"code":"unknown_method","message":"nope"},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_method","message":"nope"}}'
+## configure of the preloaded device is adopted (the hub's own config is ignored)
+  {"id":4,"result":{"DirectCapable":false,"HasRelay":false,"InboundAudio":0,"OutboundAudio":0,"RTSPTemplate":"","ReportsAvailability":false}}
+    raw='{"id":4,"result":{"InboundAudio":0,"OutboundAudio":0,"DirectCapable":false,"HasRelay":false,"RTSPTemplate":"","ReportsAvailability":false}}'
+## deconfigure of the preloaded device only detaches
+  {"id":5,"result":{"ok":true}}
+## the device is still there: external_ring reaches its driver
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+## deconfigure of a device nobody owns
+  {"error":{"code":"unknown_device","message":"other"},"id":7}
+    raw='{"id":7,"error":{"code":"unknown_device","message":"other"}}'
+## configure of another driver takes the normal path
+  {"error":{"code":"unknown_driver","message":"nope"},"id":8}
+    raw='{"id":8,"error":{"code":"unknown_driver","message":"nope"}}'
+## configure of another gate_sip_server is validated by the driver
+  {"error":{"code":"configure_failed","message":"gate_sip_server: password is 5 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"},"id":9}
+    raw='{"id":9,"error":{"code":"configure_failed","message":"gate_sip_server: password is 5 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"}}'
+  still running after the hub left: True
+## auth again
+  {"id":1,"result":{"ok":true}}
+## re-adopt after the reconnect
+  {"id":2,"result":{"DirectCapable":false,"HasRelay":false,"InboundAudio":0,"OutboundAudio":0,"RTSPTemplate":"","ReportsAvailability":false}}
+    raw='{"id":2,"result":{"InboundAudio":0,"OutboundAudio":0,"DirectCapable":false,"HasRelay":false,"RTSPTemplate":"","ReportsAvailability":false}}'
+  exit code: 0
+  the port is closed after the exit: True
+  process output: '<TIME> gate_sip_server: SIP on 127.0.0.1:<SIPPORT>, RTP on :<RTP>, realm "VDP", user "8001", ring limit 45s, orphan grace 15s\n'
+  listening with -secrets-env: True
+## auth with the file's token
+  {"id":1,"result":{"ok":true}}
+## adopt the device named by the default id
+  {"id":2,"result":{"DirectCapable":false,"HasRelay":false,"InboundAudio":0,"OutboundAudio":0,"RTSPTemplate":"","ReportsAvailability":false}}
+    raw='{"id":2,"result":{"InboundAudio":0,"OutboundAudio":0,"DirectCapable":false,"HasRelay":false,"RTSPTemplate":"","ReportsAvailability":false}}'
+  exit code: 0
+  process output: '<TIME> gate_sip_server: SIP on 127.0.0.1:<SIPPORT>, RTP on :<RTP>, realm "VDP", user "8001", ring limit 45s, orphan grace 15s\n'
+## refused: ['-listen=127.0.0.1:0'] env=[]
+  exit code: 1
+  | portico-transport: ipc: the TCP listener needs a token of at least 24 characters
+## refused: ['-listen=127.0.0.1:0'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: ipc: the TCP listener needs a token of at least 24 characters
+## refused: ['-listen=0.0.0.0:0'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: ipc: refusing to listen on "0.0.0.0:0": loopback only until the non-loopback flag is set
+## refused: ['-listen=0.0.0.0:0', '-ipc-allow-non-loopback'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: ipc: a non-loopback listen address needs an allow-from list
+## refused: ['-listen=127.0.0.1:0', '-ipc-allow-from=0.0.0.0/0'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: -ipc-allow-from "0.0.0.0/0": a /0 allows everyone
+## refused: ['-listen=127.0.0.1'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: ipc: bad listen address "127.0.0.1": address 127.0.0.1: missing port in address
+## refused: ['-listen=127.0.0.1:70000'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: ipc: bad listen address "127.0.0.1:70000": address 70000: invalid port
+## refused: ['-listen=127.0.0.1:1:2'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: ipc: bad listen address "127.0.0.1:1:2": address 127.0.0.1:1:2: too many colons in address
+## refused: ['-listen=127.0.0.1:0', '-ipc-token-file=/nonexistent/tok'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: reading -ipc-token-file: open /nonexistent/tok: no such file or directory
+## refused: ['-listen=127.0.0.1:0', '-sip-from-env'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: -sip-from-env: PORTICO_SIP_LISTEN is required (no default: this mode never binds by accident)
+## refused: ['-listen=127.0.0.1:0', '-sip-from-env'] env=['PORTICO_IPC_TOKEN', 'PORTICO_SIP_LISTEN', 'PORTICO_SIP_RTP_PORT']
+  exit code: 1
+  | portico-transport: -sip-from-env: PORTICO_SIP_RTP_PORT must be a number
+## refused: ['-listen=127.0.0.1:0', '-sip-from-env'] env=['PORTICO_IPC_TOKEN', 'PORTICO_SIP_LISTEN', 'PORTICO_SIP_PASSWORD']
+  exit code: 1
+  | portico-transport: -sip-from-env: configure_failed: gate_sip_server: refusing sip_listen "0.0.0.0:5060": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)
+## refused: ['-listen=127.0.0.1:0', '-sip-from-env'] env=['PORTICO_IPC_TOKEN', 'PORTICO_SIP_LISTEN', 'PORTICO_SIP_PASSWORD']
+  exit code: 1
+  | portico-transport: -sip-from-env: configure_failed: gate_sip_server: password is 5 characters; Dahua requires 8-15 or the station never sends a REGISTER at all
+## refused: ['-listen=127.0.0.1:0', '-sip-from-env'] env=['PORTICO_IPC_TOKEN', 'PORTICO_SIP_LISTEN', 'PORTICO_SIP_PASSWORD_FILE']
+  exit code: 1
+  | portico-transport: -sip-from-env: reading PORTICO_SIP_PASSWORD_FILE: open /nonexistent/pw: no such file or directory
+## refused: ['-listen=127.0.0.1:0', '-secrets-env=<TMP>/bad.env'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: -secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 5)
+## refused: ['-listen=127.0.0.1:0', '-secrets-env=/nonexistent/.env'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: -secrets-env: cannot open the file: open /nonexistent/.env: no such file or directory
+## refused: ['-listen=127.0.0.1:0', '-socket=<TMP>/z.sock'] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: -socket and -listen are mutually exclusive
+## refused: [] env=['PORTICO_IPC_TOKEN']
+  exit code: 1
+  | portico-transport: -socket or -listen is required

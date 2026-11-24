@@ -1,0 +1,10 @@
+[package]
+name = "s3-ffmpeg"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+tokio = { version = "=1.54.1", features = ["process", "io-util", "rt-multi-thread", "macros", "time"] }
+
+[workspace]

@@ -1,0 +1,9 @@
++ RECV 487 Request Terminated
++      Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
++      From: <sip:8001@<ST>>;tag=st-call-1
++      To: <sip:9901@<SRV>>;tag=<T1>
++      Call-ID: call-1
++      CSeq: 1 INVITE
++      Contact: <sip:8001@<SRV>>
++      Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
++      Content-Length: 0

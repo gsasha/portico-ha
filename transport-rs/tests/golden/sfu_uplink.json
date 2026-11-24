@@ -1,0 +1,2138 @@
+[
+ {
+  "name": "20 ms packets (160 bytes) in order",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 5,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 6,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "02*160"
+   },
+   {
+    "out": "03*160"
+   },
+   {
+    "out": "04*160"
+   },
+   {
+    "out": "05*160"
+   },
+   {
+    "out": "06*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "40 ms packets (320 bytes) in order",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 320
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 320
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 320
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 320
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 5,
+    "len": 320
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01*320"
+   },
+   {
+    "out": "02*320"
+   },
+   {
+    "out": "03*320"
+   },
+   {
+    "out": "04*320"
+   },
+   {
+    "out": "05*320"
+   },
+   {
+    "out": "ff*320"
+   },
+   {
+    "out": "ff*320"
+   }
+  ]
+ },
+ {
+  "name": "10 ms packets (80 bytes) in order",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 80
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 80
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 80
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 80
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 5,
+    "len": 80
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 6,
+    "len": 80
+   },
+   {
+    "op": "push",
+    "seq": 6,
+    "fill": 7,
+    "len": 80
+   },
+   {
+    "op": "push",
+    "seq": 7,
+    "fill": 8,
+    "len": 80
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01*80"
+   },
+   {
+    "out": "02*80"
+   },
+   {
+    "out": "03*80"
+   },
+   {
+    "out": "04*80"
+   },
+   {
+    "out": "05*80"
+   },
+   {
+    "out": "06*80"
+   },
+   {
+    "out": "07*80"
+   },
+   {
+    "out": "08*80"
+   },
+   {
+    "out": "ff*80"
+   },
+   {
+    "out": "ff*80"
+   }
+  ]
+ },
+ {
+  "name": "5 ms packets (40 bytes) are paced at the 10 ms floor",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 40
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 40
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 40
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 40
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 5,
+    "len": 40
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 6,
+    "len": 40
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01*40"
+   },
+   {
+    "out": "02*40"
+   },
+   {
+    "out": "03*40"
+   },
+   {
+    "out": "04*40"
+   },
+   {
+    "out": "05*40"
+   },
+   {
+    "out": "06*40"
+   },
+   {
+    "out": "ff*40"
+   },
+   {
+    "out": "ff*40"
+   }
+  ]
+ },
+ {
+  "name": "1 byte packets: ptime floors at 10 ms, the slot is 1 byte",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 1
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 1
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 1
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01*1"
+   },
+   {
+    "out": "02*1"
+   },
+   {
+    "out": "03*1"
+   },
+   {
+    "out": "04*1"
+   },
+   {
+    "out": "ff*1"
+   },
+   {
+    "out": "ff*1"
+   }
+  ]
+ },
+ {
+  "name": "360 byte packets (45 ms)",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 360
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 360
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 360
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 360
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01*360"
+   },
+   {
+    "out": "02*360"
+   },
+   {
+    "out": "03*360"
+   },
+   {
+    "out": "04*360"
+   },
+   {
+    "out": "ff*360"
+   },
+   {
+    "out": "ff*360"
+   }
+  ]
+ },
+ {
+  "name": "960 byte packets (120 ms, the ceiling)",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 960
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 960
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 960
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01*960"
+   },
+   {
+    "out": "02*960"
+   },
+   {
+    "out": "03*960"
+   },
+   {
+    "out": "ff*960"
+   }
+  ]
+ },
+ {
+  "name": "1920 byte packets are paced at the 120 ms ceiling",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 1920
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 1920
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 1920
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01*1920"
+   },
+   {
+    "out": "02*1920"
+   },
+   {
+    "out": "03*1920"
+   },
+   {
+    "out": "ff*1920"
+   }
+  ]
+ },
+ {
+  "name": "first frame of 160-byte packets is not out before the delay (75 ms early recv times out)",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "recv",
+    "timeout_ms": 75
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "out": "timeout"
+   },
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "first frame of 80-byte packets is not out before the delay (65 ms early recv times out)",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 80
+   },
+   {
+    "op": "recv",
+    "timeout_ms": 65
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "out": "timeout"
+   },
+   {
+    "out": "01*80"
+   },
+   {
+    "out": "ff*80"
+   }
+  ]
+ },
+ {
+  "name": "first frame of 320-byte packets is not out before the delay (115 ms early recv times out)",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 320
+   },
+   {
+    "op": "recv",
+    "timeout_ms": 115
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "out": "timeout"
+   },
+   {
+    "out": "01*320"
+   },
+   {
+    "out": "ff*320"
+   }
+  ]
+ },
+ {
+  "name": "first frame of 360-byte packets is not out before the delay (130 ms early recv times out)",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 360
+   },
+   {
+    "op": "recv",
+    "timeout_ms": 130
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "out": "timeout"
+   },
+   {
+    "out": "01*360"
+   },
+   {
+    "out": "ff*360"
+   }
+  ]
+ },
+ {
+  "name": "first frame of 1920-byte packets is not out before the delay (355 ms early recv times out)",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 1920
+   },
+   {
+    "op": "recv",
+    "timeout_ms": 355
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {
+    "out": "timeout"
+   },
+   {
+    "out": "01*1920"
+   },
+   {
+    "out": "ff*1920"
+   }
+  ]
+ },
+ {
+  "name": "first packet fixes the slot size; a later 320-byte packet is kept whole",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 320
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "02*320"
+   },
+   {
+    "out": "03*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "empty payloads are ignored, even the first",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 9,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 8
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "09*160"
+   },
+   {
+    "out": "03*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "reordered 20 ms packets",
+  "ops": [
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 12,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "fill": 10,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 11,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 14,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 13,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "0a*160"
+   },
+   {
+    "out": "0b*160"
+   },
+   {
+    "out": "0c*160"
+   },
+   {
+    "out": "0d*160"
+   },
+   {
+    "out": "0e*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "lost packet becomes the mu-law silence byte 0xff",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 5,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "02*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "04*160"
+   },
+   {
+    "out": "05*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "lost run of four",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 6,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "06*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "lost packet with the G.722 silence byte (set before the first push)",
+  "ops": [
+   {
+    "op": "silence",
+    "silence": 251
+   },
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "fb*160"
+   },
+   {
+    "out": "03*160"
+   },
+   {
+    "out": "fb*160"
+   },
+   {
+    "out": "fb*160"
+   }
+  ]
+ },
+ {
+  "name": "silence byte 0x00 set before the first push",
+  "ops": [
+   {
+    "op": "silence"
+   },
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "00*160"
+   },
+   {
+    "out": "03*160"
+   },
+   {
+    "out": "00*160"
+   },
+   {
+    "out": "00*160"
+   }
+  ]
+ },
+ {
+  "name": "silence set AFTER the first push has no effect",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "silence",
+    "silence": 85
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "03*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "silence set twice before the first push: last wins",
+  "ops": [
+   {
+    "op": "silence",
+    "silence": 17
+   },
+   {
+    "op": "silence",
+    "silence": 34
+   },
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "22*160"
+   },
+   {
+    "out": "03*160"
+   },
+   {
+    "out": "22*160"
+   },
+   {
+    "out": "22*160"
+   }
+  ]
+ },
+ {
+  "name": "payload bytes survive intact (counting ramp)",
+  "ops": [
+   {
+    "op": "push",
+    "len": 160,
+    "ramp": true
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 160,
+    "len": 160,
+    "ramp": true
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f"
+   },
+   {
+    "out": "a0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "sequence wraparound 65534 65535 0 1",
+  "ops": [
+   {
+    "op": "push",
+    "seq": 65534,
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 65535,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 4,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "02*160"
+   },
+   {
+    "out": "03*160"
+   },
+   {
+    "out": "04*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "late duplicate of a played frame",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "fill": 99,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 98,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "02*160"
+   },
+   {},
+   {},
+   {},
+   {
+    "out": "03*160"
+   },
+   {
+    "out": "04*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "earlier packet arrives after the window closed",
+  "ops": [
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 15,
+    "len": 160
+   },
+   {
+    "op": "sleep",
+    "ms": 130
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 13,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "0f*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "resync forward after five far packets",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "push",
+    "seq": 30000,
+    "fill": 20,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 30001,
+    "fill": 21,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 30002,
+    "fill": 22,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 30003,
+    "fill": 23,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 30004,
+    "fill": 24,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {
+    "out": "02*160"
+   },
+   {
+    "out": "03*160"
+   },
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "18*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "nothing pushed",
+  "ops": [
+   {
+    "op": "recv",
+    "timeout_ms": 200
+   },
+   {
+    "op": "drain"
+   }
+  ],
+  "results": [
+   {
+    "out": "timeout"
+   },
+   {}
+  ]
+ },
+ {
+  "name": "overflow: 20 packets, nobody reads for 600 ms, only the first 8 frames are kept",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 5,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 6,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 6,
+    "fill": 7,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 7,
+    "fill": 8,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 8,
+    "fill": 9,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 9,
+    "fill": 10,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 10,
+    "fill": 11,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 11,
+    "fill": 12,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 12,
+    "fill": 13,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 13,
+    "fill": 14,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 14,
+    "fill": 15,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 15,
+    "fill": 16,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 16,
+    "fill": 17,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 17,
+    "fill": 18,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 18,
+    "fill": 19,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 19,
+    "fill": 20,
+    "len": 160
+   },
+   {
+    "op": "sleep",
+    "ms": 600
+   },
+   {
+    "op": "drain"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "outs": [
+     "01*160",
+     "02*160",
+     "03*160",
+     "04*160",
+     "05*160",
+     "06*160",
+     "07*160",
+     "08*160"
+    ]
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "slow reader recovers",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 2,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 3,
+    "fill": 4,
+    "len": 160
+   },
+   {
+    "op": "sleep",
+    "ms": 190
+   },
+   {
+    "op": "drain"
+   },
+   {
+    "op": "push",
+    "seq": 4,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 3,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 6,
+    "fill": 4,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "recv"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {},
+   {},
+   {},
+   {
+    "outs": [
+     "01*160",
+     "02*160",
+     "03*160",
+     "04*160",
+     "ff*160",
+     "ff*160"
+    ]
+   },
+   {},
+   {},
+   {},
+   {
+    "out": "04*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   },
+   {
+    "out": "ff*160"
+   }
+  ]
+ },
+ {
+  "name": "close stops playout; pushes after close are ignored",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "close"
+   },
+   {
+    "op": "sleep",
+    "ms": 100
+   },
+   {
+    "op": "drain"
+   },
+   {
+    "op": "push",
+    "seq": 5,
+    "fill": 7,
+    "len": 160
+   },
+   {
+    "op": "recv",
+    "timeout_ms": 200
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {},
+   {},
+   {},
+   {},
+   {
+    "out": "timeout"
+   }
+  ]
+ },
+ {
+  "name": "close twice",
+  "ops": [
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "push",
+    "seq": 1,
+    "fill": 2,
+    "len": 160
+   },
+   {
+    "op": "recv"
+   },
+   {
+    "op": "close"
+   },
+   {
+    "op": "close"
+   },
+   {
+    "op": "push",
+    "seq": 9,
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "drain"
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "01*160"
+   },
+   {},
+   {},
+   {},
+   {}
+  ]
+ },
+ {
+  "name": "close before any push, then push",
+  "ops": [
+   {
+    "op": "close"
+   },
+   {
+    "op": "push",
+    "fill": 1,
+    "len": 160
+   },
+   {
+    "op": "recv",
+    "timeout_ms": 200
+   }
+  ],
+  "results": [
+   {},
+   {},
+   {
+    "out": "timeout"
+   }
+  ]
+ }
+]

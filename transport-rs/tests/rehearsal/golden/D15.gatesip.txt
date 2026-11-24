@@ -1,0 +1,49 @@
+SEND INVITE sip:9901@<SRV> SIP/2.0 (as 1 INVITE)
+RECV 100 Trying
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-call-1
+     To: <sip:9901@<SRV>>;tag=<T1>
+     Call-ID: call-1
+     CSeq: 1 INVITE
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Length: 0
+RECV 180 Ringing
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-call-1
+     To: <sip:9901@<SRV>>;tag=<T1>
+     Call-ID: call-1
+     CSeq: 1 INVITE
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Length: 0
+RECV 480 Temporarily Unavailable
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-call-1
+     To: <sip:9901@<SRV>>;tag=<T2>
+     Call-ID: call-1
+     CSeq: 1 INVITE
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Length: 0
+STATE registered=false ringing=false inCall=false dialogConfirmed=false calls=1 answered=0 rtpIn=0
+SEND INVITE sip:9901@<SRV> SIP/2.0 (as 1 INVITE)
+RECV 100 Trying
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-call-5
+     To: <sip:9901@<SRV>>;tag=<T3>
+     Call-ID: call-5
+     CSeq: 1 INVITE
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Length: 0
+RECV 180 Ringing
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-call-5
+     To: <sip:9901@<SRV>>;tag=<T3>
+     Call-ID: call-5
+     CSeq: 1 INVITE
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Length: 0
+STATE registered=false ringing=true inCall=false dialogConfirmed=false calls=2 answered=0 rtpIn=0

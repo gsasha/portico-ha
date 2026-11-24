@@ -1,0 +1,27 @@
+Portico (portico-ha) is released under the MIT License (see LICENSE).
+
+This repository does not vendor third-party source code. It uses the following third-party material, which is
+distributed under its own terms and is not covered by the MIT License above.
+
+Python integration (installed by Home Assistant, not bundled here)
+  - qrcode (BSD-3-Clause) - listed in custom_components/portico/manifest.json
+  - Home Assistant core (Apache-2.0) - the integration runs inside it
+
+Transport binary (transport-rs)
+  Built from the crates pinned in transport-rs/Cargo.lock and linked statically into the release binary.
+  Each crate keeps its own license (predominantly MIT and/or Apache-2.0; ISC and BSD-style licenses for some,
+  e.g. rustls and aws-lc-rs which is Apache-2.0 / ISC / OpenSSL-style). The direct dependencies include
+  tokio, serde, serde_json, str0m, rustls, tokio-rustls, aws-lc-rs, if-addrs, md-5 and getrandom.
+  See `cargo metadata` (or `cargo license`) for the full per-crate list.
+
+Development tooling (downloaded at test time, not shipped)
+  - ZXing core 3.5.3 (Apache-2.0) - scripts/zxing/Dec.java is a small program that calls it to decode QR codes in
+    tests; the library itself is fetched by scripts/qr_decode_check.sh.
+  - jsdom (MIT) - installed by scripts/build_test_venv.sh --node for the card and panel tests.
+  - pytest and pytest-homeassistant-custom-component (MIT / Apache-2.0) - the Python test harness.
+
+Names and data
+  - Icon names in contract/icons_v1.json are Material Design Icons identifiers (Apache-2.0 / the MDI project);
+    only the names are listed, no glyphs are bundled.
+  - Test fixtures under transport-rs/tests/interop/fixtures contain SDP offers recorded from Chrome and Firefox;
+    they are protocol traces, not code.

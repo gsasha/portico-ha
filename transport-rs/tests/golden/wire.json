@@ -1,0 +1,1903 @@
+[
+ {
+  "name": "dial: 180 then 200 then bye",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 180 Ringing\r\n{VIA}Content-Length: 0\r\n\r\n",
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:device@127.0.0.1>;tag=devicetag\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=devicetag\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 45000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "dial: 200 direct, bye",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:device@127.0.0.1>;tag=devtag2\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=devtag2\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=devtag2\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": false,
+   "remote_host": "127.0.0.1",
+   "remote_port": 45000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "dial: 180 183 200",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 180 Ringing\r\n{VIA}Content-Length: 0\r\n\r\n",
+     "SIP/2.0 183 Session Progress\r\n{VIA}Content-Length: 0\r\n\r\n",
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:device@127.0.0.1>;tag=t3\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=t3\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 45000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "dial: 486 busy is acked",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 486 Busy Here\r\n{VIA}To: <sip:device@127.0.0.1>;tag=busytag\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:device@127.0.0.1>;tag=busytag\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "err": "sip: INVITE failed: 486 Busy Here",
+   "ok": false,
+   "rang": false
+  }
+ },
+ {
+  "name": "dial: 404 without To",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 404 Not Found\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: \r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "err": "sip: INVITE failed: 404 Not Found",
+   "ok": false,
+   "rang": false
+  }
+ },
+ {
+  "name": "dial: 603 decline",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 180 Ringing\r\n{VIA}Content-Length: 0\r\n\r\n",
+     "SIP/2.0 603 Decline\r\n{VIA}To: <sip:device@127.0.0.1>;tag=dec\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:device@127.0.0.1>;tag=dec\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "err": "sip: INVITE failed: 603 Decline",
+   "ok": false,
+   "rang": true
+  }
+ },
+ {
+  "name": "dial: 500 with reason spaces",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 500 Server Internal Error Oops\r\n{VIA}To: <sip:d@h>;tag=e5\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:d@h>;tag=e5\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "err": "sip: INVITE failed: 500 Server Internal Error Oops",
+   "ok": false,
+   "rang": false
+  }
+ },
+ {
+  "name": "dial: 202 accepted is a failure and sends no ack",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 202 Accepted\r\n{VIA}To: <sip:d@h>;tag=a2\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+  ],
+  "result": {
+   "err": "sip: INVITE failed: 202 Accepted",
+   "ok": false,
+   "rang": false
+  }
+ },
+ {
+  "name": "dial: 200 without sdp",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:d@h>;tag=n1\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+  ],
+  "result": {
+   "err": "sip: parsing INVITE 200 OK SDP: sip: SDP missing connection address or audio port",
+   "ok": false,
+   "rang": false
+  }
+ },
+ {
+  "name": "dial: 200 with bad sdp",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:d@h>;tag=n2\r\nContent-Length: 40\r\n\r\nc=IN IP4 1.2.3.4\r\nm=audio abc RTP/AVP 0\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+  ],
+  "result": {
+   "err": "sip: parsing INVITE 200 OK SDP: sip: malformed audio port in \"m=audio abc RTP/AVP 0\": strconv.Atoi: parsing \"abc\": invalid syntax",
+   "ok": false,
+   "rang": false
+  }
+ },
+ {
+  "name": "dial: 200 without To",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": false,
+   "remote_host": "127.0.0.1",
+   "remote_port": 45000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "dial: To without tag",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:d@h>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": false,
+   "remote_host": "127.0.0.1",
+   "remote_port": 45000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "dial: To with extra params after tag",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:d@h>;tag=abc;x=y\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=abc\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=abc\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": false,
+   "remote_host": "127.0.0.1",
+   "remote_port": 45000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "dial: To tag with spaces",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:d@h>;tag= spaced ;x=y\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=spaced\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=spaced\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": false,
+   "remote_host": "127.0.0.1",
+   "remote_port": 45000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "dial: sdp with other port and payload",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:d@h>;tag=z\r\nContent-Type: application/sdp\r\nContent-Length: 133\r\n\r\nv=0\r\no=portico 0 0 IN IP4 10.9.8.7\r\ns=portico\r\nc=IN IP4 10.9.8.7\r\nt=0 0\r\nm=audio 5004 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=z\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=z\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": false,
+   "remote_host": "10.9.8.7",
+   "remote_port": 5004,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "dial: bye answered 481",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:d@h>;tag=b1\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 481 Call Does Not Exist\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "portico",
+  "callee_user": "9901#0",
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 40000,
+  "received": [
+   "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=b1\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=b1\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": false,
+   "remote_host": "127.0.0.1",
+   "remote_port": 45000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "dial: reply with extra headers and compact via ignored",
+  "kind": "dial",
+  "rules": [
+   {
+    "prefix": "INVITE ",
+    "replies": [
+     "SIP/2.0 180 Ringing\r\n{VIA}Server: x\r\nContent-Length: 0\r\n\r\n",
+     "SIP/2.0 200 OK\r\n{VIA}To: <sip:d@h>;tag=q\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "ACK ",
+    "replies": null
+   }
+  ],
+  "our_user": "user with#hash",
+  "callee_user": "8000",
+  "media_host": "192.168.2.7",
+  "media_port": 61000,
+  "received": [
+   "INVITE sip:8000@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:user with#hash@127.0.0.1>;tag=<T>\r\nTo: <sip:8000@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 INVITE\r\nContact: <sip:user with#hash@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 140\r\n\r\nv=0\r\no=portico 0 0 IN IP4 192.168.2.7\r\ns=portico\r\nc=IN IP4 192.168.2.7\r\nt=0 0\r\nm=audio 61000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "ACK sip:8000@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:user with#hash@127.0.0.1>;tag=<T>\r\nTo: <sip:8000@127.0.0.1>;tag=q\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "call_id": "Call-ID: <C>@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "rang": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 45000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "register: 401 then 200 with Expires",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "not_contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 401 Unauthorized\r\n{VIA}WWW-Authenticate: Digest realm=\"test-realm\", nonce=\"test-nonce-1234\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "REGISTER ",
+    "contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Expires: 1800\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nAuthorization: Digest username=\"alice\", realm=\"test-realm\", nonce=\"test-nonce-1234\", uri=\"sip:127.0.0.1\", response=\"254153973b80a878f650000d397f3bc0\", algorithm=MD5\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 3 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 4 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nAuthorization: Digest username=\"alice\", realm=\"test-realm\", nonce=\"test-nonce-1234\", uri=\"sip:127.0.0.1\", response=\"254153973b80a878f650000d397f3bc0\", algorithm=MD5\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": true,
+     "err": ""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 401 then 200 without Expires",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "not_contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 401 Unauthorized\r\n{VIA}WWW-Authenticate: Digest realm=\"test-realm\", nonce=\"test-nonce-1234\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "REGISTER ",
+    "contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "expires": 120,
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 120\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 120\r\nAuthorization: Digest username=\"alice\", realm=\"test-realm\", nonce=\"test-nonce-1234\", uri=\"sip:127.0.0.1\", response=\"254153973b80a878f650000d397f3bc0\", algorithm=MD5\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 3 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 4 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nAuthorization: Digest username=\"alice\", realm=\"test-realm\", nonce=\"test-nonce-1234\", uri=\"sip:127.0.0.1\", response=\"254153973b80a878f650000d397f3bc0\", algorithm=MD5\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": true,
+     "err": ""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 200 Expires garbage",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "not_contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 401 Unauthorized\r\n{VIA}WWW-Authenticate: Digest realm=\"test-realm\", nonce=\"test-nonce-1234\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "REGISTER ",
+    "contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Expires: abc\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nAuthorization: Digest username=\"alice\", realm=\"test-realm\", nonce=\"test-nonce-1234\", uri=\"sip:127.0.0.1\", response=\"254153973b80a878f650000d397f3bc0\", algorithm=MD5\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 3 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 4 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nAuthorization: Digest username=\"alice\", realm=\"test-realm\", nonce=\"test-nonce-1234\", uri=\"sip:127.0.0.1\", response=\"254153973b80a878f650000d397f3bc0\", algorithm=MD5\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": true,
+     "err": ""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 200 direct no challenge",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Expires: 3600\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 3 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": true,
+     "err": ""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 200 direct Expires zero",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Expires: 0\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "expires": 600,
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 3 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": true,
+     "err": ""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 407 proxy challenge",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "not_contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 407 Proxy Authentication Required\r\n{VIA}Proxy-Authenticate: Digest realm=\"px\", nonce=\"pn1\", opaque=\"op9\"\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "REGISTER ",
+    "contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Expires: 900\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nAuthorization: Digest username=\"alice\", realm=\"px\", nonce=\"pn1\", uri=\"sip:127.0.0.1\", response=\"a442cd75a726b02315326875c40ecd42\", algorithm=MD5, opaque=\"op9\"\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 3 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 4 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nAuthorization: Digest username=\"alice\", realm=\"px\", nonce=\"pn1\", uri=\"sip:127.0.0.1\", response=\"a442cd75a726b02315326875c40ecd42\", algorithm=MD5, opaque=\"op9\"\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": true,
+     "err": ""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 401 qop auth",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "not_contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 401 Unauthorized\r\n{VIA}WWW-Authenticate: Digest realm=\"VTO\", nonce=\"qn1\", qop=\"auth\", opaque=\"oq\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "REGISTER ",
+    "contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Expires: 60\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "norm_response": true,
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nAuthorization: Digest username=\"alice\", realm=\"VTO\", nonce=\"qn1\", uri=\"sip:127.0.0.1\", response=\"<R>\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"<N>\", opaque=\"oq\"\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 3 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 4 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nAuthorization: Digest username=\"alice\", realm=\"VTO\", nonce=\"qn1\", uri=\"sip:127.0.0.1\", response=\"<R>\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"<N>\", opaque=\"oq\"\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": true,
+     "err": ""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 401 again is auth rejected",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "replies": [
+     "SIP/2.0 401 Unauthorized\r\n{VIA}WWW-Authenticate: Digest realm=\"test-realm\", nonce=\"test-nonce-1234\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nAuthorization: Digest username=\"alice\", realm=\"test-realm\", nonce=\"test-nonce-1234\", uri=\"sip:127.0.0.1\", response=\"254153973b80a878f650000d397f3bc0\", algorithm=MD5\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": false,
+     "err": "sip: registration rejected (authentication failed or forbidden): 401 Unauthorized"
+    }
+   ],
+   "returned_by_itself": true,
+   "run_err": "sip: registration rejected (authentication failed or forbidden): 401 Unauthorized"
+  }
+ },
+ {
+  "name": "register: 403 forbidden",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "replies": [
+     "SIP/2.0 403 Forbidden\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": false,
+     "err": "sip: registration rejected (authentication failed or forbidden): 403 Forbidden"
+    }
+   ],
+   "returned_by_itself": true,
+   "run_err": "sip: registration rejected (authentication failed or forbidden): 403 Forbidden"
+  }
+ },
+ {
+  "name": "register: 486 busy here",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "replies": [
+     "SIP/2.0 486 Busy Here\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": true,
+   "events": [
+    {
+     "ok": false,
+     "err": "sip: 486 Busy Here (session quota exhausted)"
+    }
+   ],
+   "returned_by_itself": true,
+   "run_err": "sip: 486 Busy Here (session quota exhausted)"
+  }
+ },
+ {
+  "name": "register: 401 without challenge header",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "replies": [
+     "SIP/2.0 401 Unauthorized\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": false,
+     "err": "sip: parsing www-authenticate: sip: not a Digest challenge: \"\""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 401 with basic challenge",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "not_contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 401 Unauthorized\r\n{VIA}WWW-Authenticate: Basic realm=\"x\"\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": false,
+     "err": "sip: parsing www-authenticate: sip: not a Digest challenge: \"Basic realm=\\\"x\\\"\""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 401 incomplete challenge",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "not_contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 401 Unauthorized\r\n{VIA}WWW-Authenticate: Digest realm=\"x\"\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": false,
+     "err": "sip: parsing www-authenticate: sip: incomplete Digest challenge: \"Digest realm=\\\"x\\\"\""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 500 is retried not definitive",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "replies": [
+     "SIP/2.0 500 Server Error\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": false,
+     "err": "sip: REGISTER failed: 500 Server Error"
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 404 unexpected",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "replies": [
+     "SIP/2.0 404 Not Found\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": false,
+     "err": "sip: REGISTER failed: 404 Not Found"
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "register: 401 opaque no qop",
+  "kind": "register",
+  "rules": [
+   {
+    "prefix": "REGISTER ",
+    "not_contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 401 Unauthorized\r\n{VIA}WWW-Authenticate: Digest realm=\"r\", nonce=\"n\", opaque=\"keepme\"\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "prefix": "REGISTER ",
+    "contains": "Authorization:",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Expires: 30\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "user": "alice",
+  "pass": "secret",
+  "received": [
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 1 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 2 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 3600\r\nAuthorization: Digest username=\"alice\", realm=\"r\", nonce=\"n\", uri=\"sip:127.0.0.1\", response=\"0bc4c048255fc666a119d2b07f6029cc\", algorithm=MD5, opaque=\"keepme\"\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 3 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n",
+   "REGISTER sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:alice@127.0.0.1>;tag=<T>\r\nTo: <sip:alice@127.0.0.1>\r\nCall-ID: <C>@127.0.0.1\r\nCSeq: 4 REGISTER\r\nContact: <sip:alice@127.0.0.1:<P>>\r\nExpires: 0\r\nAuthorization: Digest username=\"alice\", realm=\"r\", nonce=\"n\", uri=\"sip:127.0.0.1\", response=\"0bc4c048255fc666a119d2b07f6029cc\", algorithm=MD5, opaque=\"keepme\"\r\nUser-Agent: portico-transport/0.1\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "busy": false,
+   "events": [
+    {
+     "ok": true,
+     "err": ""
+    }
+   ],
+   "returned_by_itself": false,
+   "run_err": ""
+  }
+ },
+ {
+  "name": "answer: typical",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:portico@{LOCAL}>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:portico@127.0.0.1:<P>>;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: preset To tag after ringing",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:portico@{LOCAL}>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "set_to_tag": "mytag",
+  "ring": true,
+  "received": [
+   "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:portico@127.0.0.1:<P>>;tag=mytag\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n",
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:portico@127.0.0.1:<P>>;tag=mytag\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=mytag\r\nTo: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: To already tagged",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip:9901#0@127.0.0.1>;tag=ft\r\nTo: <sip:portico@{LOCAL}>;tag=theirs\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "set_to_tag": "mytag",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <sip:9901#0@127.0.0.1>;tag=ft\r\nTo: <sip:portico@127.0.0.1:<P>>;tag=theirs\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=mytag\r\nTo: <sip:9901#0@127.0.0.1>;tag=ft\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: display name From",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: \"Door Station\" <sip:9901#0@10.0.0.2>;tag=ft\r\nTo: \"Me\" <sip:me@{LOCAL}>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: \"Door Station\" <sip:9901#0@10.0.0.2>;tag=ft\r\nTo: \"Me\" <sip:me@127.0.0.1:<P>>;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:me@127.0.0.1>;tag=<T>\r\nTo: <sip:9901#0@127.0.0.1>;tag=ft\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: bare uri headers",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: sip:caller@host;tag=ct\r\nTo: sip:callee@host\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: sip:caller@host;tag=ct\r\nTo: sip:callee@host;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:callee@127.0.0.1>;tag=<T>\r\nTo: <sip:caller@127.0.0.1>;tag=ct\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: tel scheme has no user",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <tel:+1555>;tag=ft\r\nTo: <tel:+1666>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <tel:+1555>;tag=ft\r\nTo: <tel:+1666>;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=ft\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: From without tag",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip:caller@host>\r\nTo: <sip:callee@host>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <sip:caller@host>\r\nTo: <sip:callee@host>;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:callee@127.0.0.1>;tag=<T>\r\nTo: <sip:caller@127.0.0.1>;tag=\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: no user part",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip:hostonly>;tag=x\r\nTo: <sip:hostonly2>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <sip:hostonly>;tag=x\r\nTo: <sip:hostonly2>;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=x\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: user with spaces and semicolon params",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip: spaced @h;transport=udp>;tag=x\r\nTo: <sip:me@h>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <sip: spaced @h;transport=udp>;tag=x\r\nTo: <sip:me@h>;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:me@127.0.0.1>;tag=<T>\r\nTo: <sip:spaced@127.0.0.1>;tag=x\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: two Via headers",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nVia: SIP/2.0/UDP 10.1.1.1:5060;branch=z9hG4bKsecond\r\nFrom: <sip:a@h>;tag=x\r\nTo: <sip:b@h>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "ring": true,
+  "received": [
+   "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nVia: SIP/2.0/UDP 10.1.1.1:5060;branch=z9hG4bKsecond\r\nFrom: <sip:a@h>;tag=x\r\nTo: <sip:b@h>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n",
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nVia: SIP/2.0/UDP 10.1.1.1:5060;branch=z9hG4bKsecond\r\nFrom: <sip:a@h>;tag=x\r\nTo: <sip:b@h>;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:b@127.0.0.1>;tag=<T>\r\nTo: <sip:a@127.0.0.1>;tag=x\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: no sdp in offer",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip:a@h>;tag=x\r\nTo: <sip:b@h>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 0\r\n\r\n",
+  "received": [],
+  "result": {
+   "err": "sip: parsing INVITE SDP: sip: SDP missing connection address or audio port",
+   "ok": false
+  }
+ },
+ {
+  "name": "answer: bad sdp in offer",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip:a@h>;tag=x\r\nTo: <sip:b@h>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 40\r\n\r\nc=IN IP4 1.1.1.1\r\nm=audio zz RTP/AVP 0\r\n",
+  "received": [],
+  "result": {
+   "err": "sip: parsing INVITE SDP: sip: malformed audio port in \"m=audio zz RTP/AVP 0\": strconv.Atoi: parsing \"zz\": invalid syntax",
+   "ok": false
+  }
+ },
+ {
+  "name": "answer: offer with other media",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip:a@h>;tag=x\r\nTo: <sip:b@h>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 139\r\n\r\nv=0\r\no=portico 0 0 IN IP4 203.0.113.9\r\ns=portico\r\nc=IN IP4 203.0.113.9\r\nt=0 0\r\nm=audio 7078 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <sip:a@h>;tag=x\r\nTo: <sip:b@h>;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:b@127.0.0.1>;tag=<T>\r\nTo: <sip:a@127.0.0.1>;tag=x\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "203.0.113.9",
+   "remote_port": 7078,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: lower case header names",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nvia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKlc\r\nfrom: <sip:a@h>;tag=lc\r\nto: <sip:b@h>\r\ncall-id: lc-call\r\ncseq: 7 INVITE\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKlc\r\nFrom: <sip:a@h>;tag=lc\r\nTo: <sip:b@h>;tag=<T>\r\nCall-ID: lc-call\r\nCSeq: 7 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:b@127.0.0.1>;tag=<T>\r\nTo: <sip:a@127.0.0.1>;tag=lc\r\nCall-ID: lc-call\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "lc-call",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: missing From To CSeq",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 200 OK\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKmiss\r\nCall-ID: miss\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKmiss\r\nFrom: \r\nTo: ;tag=<T>\r\nCall-ID: miss\r\nCSeq: \r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:@127.0.0.1>;tag=<T>\r\nTo: <sip:127.0.0.1>;tag=\r\nCall-ID: miss\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "miss",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "answer: bye answered by 481",
+  "kind": "answer",
+  "rules": [
+   {
+    "prefix": "BYE ",
+    "replies": [
+     "SIP/2.0 481 Gone\r\n{VIA}Content-Length: 0\r\n\r\n"
+    ]
+   }
+  ],
+  "bye": true,
+  "media_host": "127.0.0.1",
+  "media_port": 42000,
+  "method": "INVITE",
+  "inbound": "INVITE sip:portico@{LOCAL} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKdevicebranch\r\nFrom: <sip:a@h>;tag=x\r\nTo: <sip:b@h>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 41000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKdevicebranch\r\nFrom: <sip:a@h>;tag=x\r\nTo: <sip:b@h>;tag=<T>\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 42000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+   "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B>\r\nMax-Forwards: 70\r\nFrom: <sip:b@127.0.0.1>;tag=<T>\r\nTo: <sip:a@127.0.0.1>;tag=x\r\nCall-ID: ring-call-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "bye_err": "",
+   "call_id": "ring-call-1@127.0.0.1",
+   "err": "",
+   "ok": true,
+   "remote_host": "127.0.0.1",
+   "remote_port": 41000,
+   "remote_pt": 96
+  }
+ },
+ {
+  "name": "respond: 200 with body",
+  "kind": "respond",
+  "method": "OPTIONS",
+  "inbound": "OPTIONS sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 OPTIONS\r\nContent-Length: 0\r\n\r\n",
+  "responds": [
+   {
+    "status": 200,
+    "reason": "OK",
+    "to_tag": "ttag",
+    "body": "v=0\r\n"
+   }
+  ],
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>;tag=ttag\r\nCall-ID: respond-1\r\nCSeq: 3 OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 5\r\n\r\nv=0\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: 180 with tag no body",
+  "kind": "respond",
+  "method": "INVITE",
+  "inbound": "INVITE sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 INVITE\r\nContent-Length: 0\r\n\r\n",
+  "responds": [
+   {
+    "status": 180,
+    "reason": "Ringing",
+    "to_tag": "rt",
+    "body": ""
+   }
+  ],
+  "received": [
+   "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>;tag=rt\r\nCall-ID: respond-1\r\nCSeq: 3 INVITE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: 481 no tag",
+  "kind": "respond",
+  "method": "BYE",
+  "inbound": "BYE sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n",
+  "responds": [
+   {
+    "status": 481,
+    "reason": "Call/Transaction Does Not Exist",
+    "to_tag": "",
+    "body": ""
+   }
+  ],
+  "received": [
+   "SIP/2.0 481 Call/Transaction Does Not Exist\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: To already tagged keeps its tag",
+  "kind": "respond",
+  "method": "BYE",
+  "inbound": "BYE sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>;tag=orig\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n",
+  "responds": [
+   {
+    "status": 200,
+    "reason": "OK",
+    "to_tag": "new",
+    "body": ""
+   }
+  ],
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>;tag=orig\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: tag only checked by substring",
+  "kind": "respond",
+  "method": "BYE",
+  "inbound": "BYE sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h;x=tag=1>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n",
+  "responds": [
+   {
+    "status": 200,
+    "reason": "OK",
+    "to_tag": "new",
+    "body": ""
+   }
+  ],
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h;x=tag=1>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: several Via headers echoed",
+  "kind": "respond",
+  "method": "BYE",
+  "inbound": "BYE sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nVia: SIP/2.0/UDP 10.9.9.9;branch=z9hG4bKr2\r\nVia: SIP/2.0/UDP 10.8.8.8;branch=z9hG4bKr3\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n",
+  "responds": [
+   {
+    "status": 200,
+    "reason": "OK",
+    "to_tag": "",
+    "body": ""
+   }
+  ],
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nVia: SIP/2.0/UDP 10.9.9.9;branch=z9hG4bKr2\r\nVia: SIP/2.0/UDP 10.8.8.8;branch=z9hG4bKr3\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: empty reason and odd status",
+  "kind": "respond",
+  "method": "BYE",
+  "inbound": "BYE sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n",
+  "responds": [
+   {
+    "status": 0,
+    "reason": "",
+    "to_tag": "",
+    "body": ""
+   },
+   {
+    "status": -5,
+    "reason": "Neg",
+    "to_tag": "",
+    "body": ""
+   },
+   {
+    "status": 700,
+    "reason": "Big Status",
+    "to_tag": "",
+    "body": ""
+   }
+  ],
+  "received": [
+   "SIP/2.0 0 \r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n",
+   "SIP/2.0 -5 Neg\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n",
+   "SIP/2.0 700 Big Status\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 BYE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: utf8 body length in bytes",
+  "kind": "respond",
+  "method": "OPTIONS",
+  "inbound": "OPTIONS sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 OPTIONS\r\nContent-Length: 0\r\n\r\n",
+  "responds": [
+   {
+    "status": 200,
+    "reason": "OK",
+    "to_tag": "",
+    "body": "café 中"
+   }
+  ],
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 9\r\n\r\ncafé 中"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: missing headers",
+  "kind": "respond",
+  "method": "BYE",
+  "inbound": "BYE sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr9\r\nCall-ID: respond-2\r\n\r\n",
+  "responds": [
+   {
+    "status": 200,
+    "reason": "OK",
+    "to_tag": "t",
+    "body": ""
+   }
+  ],
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr9\r\nFrom: \r\nTo: ;tag=t\r\nCall-ID: respond-2\r\nCSeq: \r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: provisional then final share a tag",
+  "kind": "respond",
+  "method": "INVITE",
+  "inbound": "INVITE sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 INVITE\r\nContent-Length: 0\r\n\r\n",
+  "responds": [
+   {
+    "status": 180,
+    "reason": "Ringing",
+    "to_tag": "same",
+    "body": ""
+   },
+   {
+    "status": 487,
+    "reason": "Request Terminated",
+    "to_tag": "same",
+    "body": ""
+   }
+  ],
+  "received": [
+   "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>;tag=same\r\nCall-ID: respond-1\r\nCSeq: 3 INVITE\r\nContent-Length: 0\r\n\r\n",
+   "SIP/2.0 487 Request Terminated\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>;tag=same\r\nCall-ID: respond-1\r\nCSeq: 3 INVITE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ },
+ {
+  "name": "respond: preset ToTag does not affect Respond",
+  "kind": "respond",
+  "method": "INVITE",
+  "inbound": "INVITE sip:x@y SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:{PEERPORT};branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 INVITE\r\nContent-Length: 0\r\n\r\n",
+  "set_to_tag": "preset",
+  "responds": [
+   {
+    "status": 200,
+    "reason": "OK",
+    "to_tag": "",
+    "body": ""
+   }
+  ],
+  "received": [
+   "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bKr1\r\nFrom: <sip:f@h>;tag=ff\r\nTo: <sip:t@h>\r\nCall-ID: respond-1\r\nCSeq: 3 INVITE\r\nContent-Length: 0\r\n\r\n"
+  ],
+  "result": {
+   "local_host": "127.0.0.1"
+  }
+ }
+]

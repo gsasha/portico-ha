@@ -1,0 +1,38 @@
+{
+ "ipc": [
+  [
+   -610.5,
+   "result:1",
+   null
+  ],
+  [
+   -305.3,
+   "capabilities_changed",
+   null
+  ],
+  [
+   0.7,
+   "ringing",
+   null
+  ],
+  [
+   3003.2,
+   "call_state_changed",
+   "ended"
+  ]
+ ],
+ "station_got": [
+  [
+   0.4,
+   "SIP/2.0 100 Trying"
+  ],
+  [
+   0.4,
+   "SIP/2.0 180 Ringing"
+  ],
+  [
+   3002.9,
+   "SIP/2.0 480 Temporarily Unavailable"
+  ]
+ ]
+}

@@ -1,0 +1,2029 @@
+{
+ "choose": [
+  {
+   "name": "empty",
+   "sdp_hex": "",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "no m line",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "narrow",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020380d0a613d7274706d61703a382050434d412f383030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 8 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "wide",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020393620380d0a613d7274706d61703a39362050434d2f31363030300d0a613d7274706d61703a382050434d412f383030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "menu",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039203936203937203820300d0a613d7274706d61703a3920473732322f383030300d0a613d7274706d61703a39362050434d2f31363030300d0a613d7274706d61703a39372050434d2f383030300d0a613d7274706d61703a382050434d412f383030300d0a613d7274706d61703a302050434d552f383030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "g722only",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020390d0a613d7274706d61703a3920473732322f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (9\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "l16",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203130300d0a613d7274706d61703a313030204c31362f31363030300d0a",
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 100 = L16/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "l16 lowercase",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203130300d0a613d7274706d61703a313030206c31362f31363030300d0a",
+   "media": {
+    "pt": 100,
+    "name": "l16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 100 = l16/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 100\r\na=rtpmap:100 l16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pcm lowercase",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203130300d0a613d7274706d61703a3130302070636d2f31363030300d0a",
+   "media": {
+    "pt": 100,
+    "name": "pcm/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 100 = pcm/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 100\r\na=rtpmap:100 pcm/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "l16 8000",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203130300d0a613d7274706d61703a313030204c31362f383030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (100\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pcmuonly",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020300d0a613d7274706d61703a302050434d552f383030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (0\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pcmu static no rtpmap",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (0\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pcma static no rtpmap",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020380d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 8 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pcma dynamic",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203130310d0a613d7274706d61703a3130312050434d412f383030300d0a",
+   "media": {
+    "pt": 101,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 101 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 101\r\na=rtpmap:101 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pcma dynamic lowercase",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203130310d0a613d7274706d61703a3130312070636d612f383030300d0a",
+   "media": {
+    "pt": 101,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 101 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 101\r\na=rtpmap:101 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pcma wrong rate still pcma",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203130310d0a613d7274706d61703a3130312050434d412f31363030300d0a",
+   "media": {
+    "pt": 101,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 101 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 101\r\na=rtpmap:101 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pt 0 named pcma",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020300d0a613d7274706d61703a302050434d412f383030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 8 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pt 08 static",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502030380d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (08\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "pt 008 rtpmap",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203030380d0a613d7274706d61703a3030382050434d412f383030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 8 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "plus pt",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650202b39360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (+96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "huge pt",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039393939393939393939393939393939393939390d0a613d7274706d61703a39393939393939393939393939393939393939392050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (99999999999999999999\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "wide listed later than narrow",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020382039360d0a613d7274706d61703a382050434d412f383030300d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "two wide first wins",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039372039360d0a613d7274706d61703a39362050434d2f31363030300d0a613d7274706d61703a3937204c31362f31363030300d0a",
+   "media": {
+    "pt": 97,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 97 = L16/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 97\r\na=rtpmap:97 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap duplicate last wins",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a393620473732322f31363030300d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap before m line",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a613d7274706d61703a39362050434d2f31363030300d0a6d3d617564696f2035303034205254502f4156502039360d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap with channels",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d2f31363030302f310d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap name has space",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d20582f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap extra spaces",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362020202050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap name only space",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362020202f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap name across newline",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d0a2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap rate 16000x",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d2f3136303030780d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap rate 116000",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d2f3131363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap no rate",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d0d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap indented",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a20613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap uppercase A",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a413d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "LF only",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020393620380a613d7274706d61703a39362050434d2f31363030300a613d7274706d61703a382050434d412f383030300a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "CR only",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020393620380d613d7274706d61703a39362050434d2f31363030300d613d7274706d61703a382050434d412f383030300d",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 8 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line no trailing newline",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502038",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 8 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line tabs",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f0935303034095254502f4156500939360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line two spaces",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f20203530303420205254502f415650202039362020380d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line trailing spaces",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039362020200d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line only after space",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650200d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line no payload then next line",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156500d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (a=rtpmap:96 PCM/16000\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line no payload at end",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156500d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line no payload no newline",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line payload on next line",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650200d0a39360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line blank blank payload",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020090d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line indented",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a206d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line uppercase",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a4d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line savp",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f534156502039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line video only",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d766964656f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line port not digits",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f20616263205254502f4156502039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "m line port missing",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f205254502f4156502039360d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "two m audio lines first wins",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020380d0a613d7274706d61703a382050434d412f383030300d0a6d3d617564696f2035303036205254502f4156502039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 8 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "video then audio",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d766964656f2035303038205254502f4156502039360d0a6d3d617564696f2035303034205254502f41565020380d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "narrowband: payload 8 = PCMA/8000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "nothing we speak",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203020332031380d0a613d7274706d61703a302050434d552f383030300d0a613d7274706d61703a332047534d2f383030300d0a613d7274706d61703a313820473732392f383030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (0 3 18\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "nothing we speak lf",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203020330a613d7274706d61703a302050434d552f383030300a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (0 3) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "nothing we speak unicode",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650203020c3a920c3bc0d0a613d7274706d61703a302050434d552f383030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (0 é ü\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "unicode space in payloads",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502030c2a039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "nbsp after avp",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f415650c2a039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "no m=audio line — assuming PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "rtpmap uppercase hex digits",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "html chars in rtpmap name",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a3936204c31363c263e2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "L16<&>/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = L16<&>/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16<&>/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "name starts with L16",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a3936204c3136582f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "L16X/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = L16X/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 L16X/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "name starts with PCM no slash",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d552f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "name PCM slash only",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a39362050434d2f2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "dotless i",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f4156502039360d0a613d7274706d61703a393620c5bf2f31363030300d0a",
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "note": "offer had nothing we speak (96\r) — answering PCMA",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "name": "many payloads",
+   "sdp_hex": "763d300d0a6f3d2d2030203020494e20495034203132372e302e302e310d0a733d780d0a633d494e204950342031302e312e322e330d0a743d3020300d0a6d3d617564696f2035303034205254502f41565020302031203220332034203520362037203820392031302031312039360d0a613d7274706d61703a39362050434d2f31363030300d0a",
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "note": "wideband: payload 96 = PCM/16000",
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.1.2.3\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.1.2.3\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  }
+ ],
+ "sdp": [
+  {
+   "local_ip": "127.0.0.1",
+   "port": 0,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 0 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 0,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 0 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 0,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 0 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 0,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 0 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 40000,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 40000,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 40000,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 40000,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 40000 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 65535,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 65535 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 65535,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 65535 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 65535,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 65535 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": 65535,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 65535 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": -1,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio -1 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": -1,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio -1 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": -1,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio -1 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "127.0.0.1",
+   "port": -1,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio -1 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 0,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 0 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 0,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 0 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 0,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 0 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 0,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 0 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 40000,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 40000,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 40000,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 40000 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 40000,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 40000 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 65535,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 65535 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 65535,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 65535 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 65535,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 65535 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": 65535,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 65535 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": -1,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio -1 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": -1,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio -1 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": -1,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio -1 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "10.0.0.5",
+   "port": -1,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 10.0.0.5\r\ns=portico-gate-sip-server\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio -1 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 0,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 0 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 0,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 0 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 0,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 0 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 0,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 0 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 40000,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 40000,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 40000,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 40000 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 40000,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 40000 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 65535,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 65535 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 65535,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 65535 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 65535,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 65535 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": 65535,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 65535 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": -1,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio -1 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": -1,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio -1 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": -1,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio -1 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "",
+   "port": -1,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 \r\ns=portico-gate-sip-server\r\nc=IN IP4 \r\nt=0 0\r\nm=audio -1 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 0,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 0 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 0,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 0 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 0,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 0 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 0,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 0 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 40000,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 40000,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 40000,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 40000 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 40000,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 40000 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 65535,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 65535 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 65535,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 65535 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 65535,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 65535 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": 65535,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 65535 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": -1,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio -1 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": -1,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio -1 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": -1,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio -1 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "::1",
+   "port": -1,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 ::1\r\ns=portico-gate-sip-server\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio -1 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 0,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 0 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 0,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 0 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 0,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 0 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 0,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 0 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 40000,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 40000,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 40000,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 40000 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 40000,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 40000 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 65535,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 65535 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 65535,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 65535 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 65535,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 65535 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": 65535,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio 65535 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": -1,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio -1 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": -1,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio -1 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": -1,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio -1 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "a b",
+   "port": -1,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 a b\r\ns=portico-gate-sip-server\r\nc=IN IP4 a b\r\nt=0 0\r\nm=audio -1 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 0,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 0 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 0,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 0 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 0,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 0 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 0,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 0 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 40000,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 40000 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 40000,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 40000 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 40000,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 40000 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 40000,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 40000 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 65535,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 65535 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 65535,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 65535 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 65535,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 65535 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": 65535,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio 65535 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": -1,
+   "media": {
+    "pt": 96,
+    "name": "PCM/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio -1 RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": -1,
+   "media": {
+    "pt": 8,
+    "name": "PCMA/8000",
+    "rate": 8000,
+    "frame_bytes": 320,
+    "alaw": true
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio -1 RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": -1,
+   "media": {
+    "pt": 100,
+    "name": "L16/16000",
+    "rate": 16000,
+    "frame_bytes": 640,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio -1 RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+  },
+  {
+   "local_ip": "é",
+   "port": -1,
+   "media": {
+    "pt": -3,
+    "name": "",
+    "rate": 0,
+    "frame_bytes": 0,
+    "alaw": false
+   },
+   "answer": "v=0\r\no=- 0 0 IN IP4 é\r\ns=portico-gate-sip-server\r\nc=IN IP4 é\r\nt=0 0\r\nm=audio -1 RTP/AVP -3\r\na=rtpmap:-3 \r\na=sendrecv\r\n"
+  }
+ ]
+}

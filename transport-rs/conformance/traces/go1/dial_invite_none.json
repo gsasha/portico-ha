@@ -1,0 +1,20 @@
+{
+ "invite_identical_copies": true,
+ "invite_offsets_ms": [
+  0.39,
+  500.57,
+  1503.28,
+  3511.29
+ ],
+ "ipc_response": {
+  "at_ms": 5001.64,
+  "msg": {
+   "error": {
+    "code": "dial_failed",
+    "message": "dahua_sip: Dial: sip: timed out waiting for a response"
+   },
+   "id": 10
+  }
+ },
+ "others_after_dial": []
+}

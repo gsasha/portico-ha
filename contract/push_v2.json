@@ -1,0 +1,640 @@
+{
+  "contract": "push/v2",
+  "about": "Shared fixture between portico-ha (sender) and portico-app (receiver); sender design §4, §8.2. Each case is a sequence of FCM data maps as delivered to the phone, the phone's clock (now_ms) when the LAST one arrives, and the expected reaction to that last message: ring (full-screen ring), silent (nothing), dismiss (stop ringing, 'Answered elsewhere'), missed (stop or skip the ring, 'Missed call'), quiet (one quiet notification, never a ring, no call state). RECORDED by portico-ha's tests/test_push_wire.py from the real builders; portico-app vendors this file with a pinned sha256 and runs it against its pure decision function. Any change is a contract version bump on both sides. push/v2 (2026-10-20, M6 E3) is v1.1 with pv \"2\", `door_ref` derived from the door's endpoint id (`d-` and 32 hex: never an entry id, never a URL, so a door whose id is a URL still fits the id grammar ^[A-Za-z0-9._:-]{1,128}$), and two optional keys reserved for the house calls (M7): `ct`, the call type, `door` when absent or `house`, and `from_ref`, an opaque caller reference. The app checks `ct` BEFORE it requires `door_ref`: `ct: house` is ignored on 0.5.0 (Ignored(UNKNOWN_KIND), journalled, not rung). From M7 3c (v2.1, cases appended, no version change) the sender sends both keys for an away phone's house ring: ct \"house\", an opaque from_ref and NO door_ref; the v2.1 cases are silent on 0.5.0. kind \"test\" carries only pv, kind and t. A message with pv \"1\" is unknown and ignored.",
+  "ring_window_s": 45,
+  "clock_skew_ms": 15000,
+  "known_door_refs": [
+    "d-59ec143e046dce8b0738c84b3947e9c0"
+  ],
+  "cases": [
+    {
+      "name": "ring",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "ring"
+    },
+    {
+      "name": "ring delivered late but inside the skew allowance",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700060000,
+      "expect": "ring"
+    },
+    {
+      "name": "late ring",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700060001,
+      "expect": "missed"
+    },
+    {
+      "name": "duplicate ring",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700002000,
+      "expect": "silent"
+    },
+    {
+      "name": "answered after ring",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "answered",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "2",
+          "t": "1759700005000",
+          "by": "other"
+        }
+      ],
+      "now_ms": 1759700006000,
+      "expect": "dismiss"
+    },
+    {
+      "name": "ended after ring",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "ended",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "3",
+          "t": "1759700006000"
+        }
+      ],
+      "now_ms": 1759700007000,
+      "expect": "missed"
+    },
+    {
+      "name": "ended after answered",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "answered",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "2",
+          "t": "1759700005000",
+          "by": "other"
+        },
+        {
+          "pv": "2",
+          "kind": "ended",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "3",
+          "t": "1759700009000"
+        }
+      ],
+      "now_ms": 1759700010000,
+      "expect": "silent"
+    },
+    {
+      "name": "duplicate answered",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "answered",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "2",
+          "t": "1759700005000",
+          "by": "other"
+        },
+        {
+          "pv": "2",
+          "kind": "answered",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "2",
+          "t": "1759700005500",
+          "by": "other"
+        }
+      ],
+      "now_ms": 1759700007000,
+      "expect": "silent"
+    },
+    {
+      "name": "answered before ring",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "answered",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "2",
+          "t": "1759700005000",
+          "by": "other"
+        },
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700006000,
+      "expect": "silent"
+    },
+    {
+      "name": "ended before ring",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ended",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "3",
+          "t": "1759700006000"
+        },
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700007000,
+      "expect": "silent"
+    },
+    {
+      "name": "answered with no ring",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "answered",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "2",
+          "t": "1759700005000",
+          "by": "other"
+        }
+      ],
+      "now_ms": 1759700006000,
+      "expect": "silent"
+    },
+    {
+      "name": "second call after the first ended",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "ended",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "3",
+          "t": "1759700006000"
+        },
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700100000000000-2-d4e5f6",
+          "seq": "1",
+          "t": "1759800000000",
+          "exp": "1759800045000"
+        }
+      ],
+      "now_ms": 1759800001000,
+      "expect": "ring"
+    },
+    {
+      "name": "unknown pv (the v1 shape is not sent and not read)",
+      "messages": [
+        {
+          "pv": "1",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "silent"
+    },
+    {
+      "name": "unknown pv (a later version)",
+      "messages": [
+        {
+          "pv": "3",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "silent"
+    },
+    {
+      "name": "missing keys",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "silent"
+    },
+    {
+      "name": "wrong door_ref",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-1b2cd211454e82e7a10556d857a75dcb",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "silent"
+    },
+    {
+      "name": "ended with no ring seen",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ended",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "3",
+          "t": "1759700006000"
+        }
+      ],
+      "now_ms": 1759700007000,
+      "expect": "silent"
+    },
+    {
+      "name": "test",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "test",
+          "t": "1759700000000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "quiet"
+    },
+    {
+      "name": "ring for a door whose id is a URL (the wire carries the derived ref)",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "ring"
+    },
+    {
+      "name": "ring with ct door spelled out",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "ct": "door",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "ring"
+    },
+    {
+      "name": "a house call is ignored on 0.5.0 (ct house, from_ref)",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "ct": "house",
+          "from_ref": "ep-dina",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "silent"
+    },
+    {
+      "name": "a house call does not block a door call with the same ids",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "ct": "house",
+          "from_ref": "ep-dina",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "ring"
+    },
+    {
+      "name": "a house call's answered and ended are ignored too",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "answered",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "2",
+          "t": "1759700005000",
+          "ct": "house",
+          "from_ref": "ep-dina",
+          "by": "other"
+        }
+      ],
+      "now_ms": 1759700006000,
+      "expect": "silent"
+    },
+    {
+      "name": "v2.1 a house ring for an away phone (ct house, from_ref, no door_ref)",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "call_id": "hso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "ct": "house",
+          "from_ref": "e-e6c5285815db23a99cdba7f2af480bdc",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "silent"
+    },
+    {
+      "name": "v2.1 a house ring that arrives late is silent too",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "call_id": "hso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "ct": "house",
+          "from_ref": "e-e6c5285815db23a99cdba7f2af480bdc",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700060001,
+      "expect": "silent"
+    },
+    {
+      "name": "v2.1 a house ring then answered elsewhere",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "call_id": "hso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "ct": "house",
+          "from_ref": "e-e6c5285815db23a99cdba7f2af480bdc",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "answered",
+          "call_id": "hso-1759700000000000000-1-a1b2c3",
+          "seq": "2",
+          "t": "1759700005000",
+          "ct": "house",
+          "from_ref": "e-e6c5285815db23a99cdba7f2af480bdc",
+          "by": "other"
+        }
+      ],
+      "now_ms": 1759700006000,
+      "expect": "silent"
+    },
+    {
+      "name": "v2.1 a house ring then ended",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "call_id": "hso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "ct": "house",
+          "from_ref": "e-e6c5285815db23a99cdba7f2af480bdc",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "ended",
+          "call_id": "hso-1759700000000000000-1-a1b2c3",
+          "seq": "3",
+          "t": "1759700006000",
+          "ct": "house",
+          "from_ref": "e-e6c5285815db23a99cdba7f2af480bdc"
+        }
+      ],
+      "now_ms": 1759700007000,
+      "expect": "silent"
+    },
+    {
+      "name": "v2.1 a house ring does not block a door ring with the same call id",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "ct": "house",
+          "from_ref": "e-e6c5285815db23a99cdba7f2af480bdc",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        }
+      ],
+      "now_ms": 1759700001000,
+      "expect": "ring"
+    },
+    {
+      "name": "v2.1 a house ended does not end a door call with the same call id",
+      "messages": [
+        {
+          "pv": "2",
+          "kind": "ring",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "1",
+          "t": "1759700000000",
+          "exp": "1759700045000"
+        },
+        {
+          "pv": "2",
+          "kind": "ended",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "3",
+          "t": "1759700006000",
+          "ct": "house",
+          "from_ref": "e-e6c5285815db23a99cdba7f2af480bdc"
+        },
+        {
+          "pv": "2",
+          "kind": "answered",
+          "door_ref": "d-59ec143e046dce8b0738c84b3947e9c0",
+          "call_id": "gso-1759700000000000000-1-a1b2c3",
+          "seq": "2",
+          "t": "1759700005000",
+          "by": "other"
+        }
+      ],
+      "now_ms": 1759700006000,
+      "expect": "dismiss"
+    }
+  ]
+}

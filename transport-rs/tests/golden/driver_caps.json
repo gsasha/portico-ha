@@ -1,0 +1,298 @@
+{
+ "bare": [
+  {
+   "name": "bare {InboundAudio:0 OutboundAudio:0 DirectCapable:false HasRelay:false RTSPTemplate: ReportsAvailability:false CanDial:false}",
+   "driver": "",
+   "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}",
+   "inbound_audio": 0,
+   "outbound_audio": 0,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "",
+   "reports_availability": false,
+   "can_dial": false
+  },
+  {
+   "name": "bare {InboundAudio:0 OutboundAudio:0 DirectCapable:false HasRelay:false RTSPTemplate: ReportsAvailability:false CanDial:true}",
+   "driver": "",
+   "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false,\"CanDial\":true}",
+   "inbound_audio": 0,
+   "outbound_audio": 0,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "",
+   "reports_availability": false,
+   "can_dial": true
+  },
+  {
+   "name": "bare {InboundAudio:1 OutboundAudio:2 DirectCapable:false HasRelay:true RTSPTemplate: ReportsAvailability:true CanDial:true}",
+   "driver": "",
+   "wire": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}",
+   "inbound_audio": 1,
+   "outbound_audio": 2,
+   "direct_capable": false,
+   "has_relay": true,
+   "rtsp_template": "",
+   "reports_availability": true,
+   "can_dial": true
+  },
+  {
+   "name": "bare {InboundAudio:3 OutboundAudio:3 DirectCapable:true HasRelay:false RTSPTemplate:rtsp://{host}/cam/realmonitor?channel=1&subtype=1 ReportsAvailability:false CanDial:false}",
+   "driver": "",
+   "wire": "{\"InboundAudio\":3,\"OutboundAudio\":3,\"DirectCapable\":true,\"HasRelay\":false,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":false}",
+   "inbound_audio": 3,
+   "outbound_audio": 3,
+   "direct_capable": true,
+   "has_relay": false,
+   "rtsp_template": "rtsp://{host}/cam/realmonitor?channel=1&subtype=1",
+   "reports_availability": false,
+   "can_dial": false
+  },
+  {
+   "name": "bare {InboundAudio:0 OutboundAudio:0 DirectCapable:false HasRelay:false RTSPTemplate:<a>&\"q\"\\ \u2028 é \u0001 ÿ ReportsAvailability:false CanDial:false}",
+   "driver": "",
+   "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\\u003ca\\u003e\\u0026\\\"q\\\"\\\\ \\u2028 é \\u0001 ÿ\",\"ReportsAvailability\":false}",
+   "inbound_audio": 0,
+   "outbound_audio": 0,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "<a>&\"q\"\\ \u2028 é \u0001 ÿ",
+   "reports_availability": false,
+   "can_dial": false
+  },
+  {
+   "name": "bare {InboundAudio:7 OutboundAudio:-1 DirectCapable:false HasRelay:false RTSPTemplate: ReportsAvailability:false CanDial:false}",
+   "driver": "",
+   "wire": "{\"InboundAudio\":7,\"OutboundAudio\":-1,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}",
+   "inbound_audio": 7,
+   "outbound_audio": -1,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "",
+   "reports_availability": false,
+   "can_dial": false
+  }
+ ],
+ "drivers": [
+  {
+   "name": "dahua_sip",
+   "driver": "dahua_sip",
+   "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}",
+   "inbound_audio": 0,
+   "outbound_audio": 0,
+   "direct_capable": true,
+   "has_relay": true,
+   "rtsp_template": "rtsp://{host}/cam/realmonitor?channel=1&subtype=1",
+   "reports_availability": true,
+   "can_dial": false
+  },
+  {
+   "name": "unifi_protect",
+   "driver": "unifi_protect",
+   "config": {
+    "camera_id": "c",
+    "nvr_api_key": "k",
+    "nvr_host": "h"
+   },
+   "wire": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}",
+   "inbound_audio": 1,
+   "outbound_audio": 2,
+   "direct_capable": false,
+   "has_relay": true,
+   "rtsp_template": "rtsps://{nvr_host}/{camera_id}",
+   "reports_availability": false,
+   "can_dial": false
+  },
+  {
+   "name": "unifi_protect ring_events",
+   "driver": "unifi_protect",
+   "config": {
+    "camera_id": "c",
+    "nvr_api_key": "k",
+    "nvr_host": "h",
+    "ring_events": true
+   },
+   "wire": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":true}",
+   "inbound_audio": 1,
+   "outbound_audio": 2,
+   "direct_capable": false,
+   "has_relay": true,
+   "rtsp_template": "rtsps://{nvr_host}/{camera_id}",
+   "reports_availability": true,
+   "can_dial": false
+  },
+  {
+   "name": "unifi_protect_talk",
+   "driver": "unifi_protect_talk",
+   "config": {
+    "camera_id": "c",
+    "device_id": "ha_event:front",
+    "protect_api_key": "k",
+    "protect_host": "h"
+   },
+   "wire": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}",
+   "inbound_audio": 1,
+   "outbound_audio": 2,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "",
+   "reports_availability": true,
+   "can_dial": true
+  },
+  {
+   "name": "unifi_protect_talk dial_enabled false",
+   "driver": "unifi_protect_talk",
+   "config": {
+    "camera_id": "c",
+    "device_id": "ha_event:front",
+    "dial_enabled": false,
+    "protect_api_key": "k",
+    "protect_host": "h"
+   },
+   "wire": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true}",
+   "inbound_audio": 1,
+   "outbound_audio": 2,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "",
+   "reports_availability": true,
+   "can_dial": false
+  },
+  {
+   "name": "gate_sip_server",
+   "driver": "gate_sip_server",
+   "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}",
+   "inbound_audio": 0,
+   "outbound_audio": 0,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "",
+   "reports_availability": false,
+   "can_dial": false
+  },
+  {
+   "name": "gate_sip_server configured",
+   "driver": "gate_sip_server",
+   "config": {
+    "password": "s3cretpass",
+    "sip_listen": "127.0.0.1:0"
+   },
+   "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}",
+   "inbound_audio": 0,
+   "outbound_audio": 0,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "",
+   "reports_availability": false,
+   "can_dial": false
+  },
+  {
+   "name": "gate_sip_server dial_enabled false",
+   "driver": "gate_sip_server",
+   "config": {
+    "dial_enabled": false,
+    "password": "s3cretpass",
+    "sip_listen": "127.0.0.1:0"
+   },
+   "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}",
+   "inbound_audio": 0,
+   "outbound_audio": 0,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "",
+   "reports_availability": false,
+   "can_dial": false
+  },
+  {
+   "name": "gate_sip_server dial_enabled, not registered",
+   "driver": "gate_sip_server",
+   "config": {
+    "dial_enabled": true,
+    "password": "s3cretpass",
+    "sip_listen": "127.0.0.1:0"
+   },
+   "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}",
+   "inbound_audio": 0,
+   "outbound_audio": 0,
+   "direct_capable": false,
+   "has_relay": false,
+   "rtsp_template": "",
+   "reports_availability": false,
+   "can_dial": false
+  }
+ ],
+ "registered": [
+  {
+   "name": "dial on",
+   "dial_enabled": true,
+   "before": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}",
+   "after": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false,\"CanDial\":true}"
+  },
+  {
+   "name": "dial off",
+   "dial_enabled": false,
+   "before": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}",
+   "after": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "dial unset",
+   "dial_enabled": null,
+   "before": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}",
+   "after": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false}"
+  }
+ ],
+ "registry_keys": [
+  "dahua_sip",
+  "gate_sip_server",
+  "unifi_protect",
+  "unifi_protect_talk"
+ ],
+ "texts": [
+  {
+   "name": "ErrNotSupported",
+   "text": "not_supported"
+  },
+  {
+   "name": "ErrAlreadyAnswered",
+   "text": "already_answered"
+  },
+  {
+   "name": "ErrClaimsDisabled",
+   "text": "claims_disabled"
+  },
+  {
+   "name": "ErrBusy",
+   "text": "busy"
+  },
+  {
+   "name": "ErrNoSuchCall",
+   "text": "no_such_call"
+  },
+  {
+   "name": "state ringing",
+   "text": "ringing"
+  },
+  {
+   "name": "state answered",
+   "text": "answered"
+  },
+  {
+   "name": "state active",
+   "text": "active"
+  },
+  {
+   "name": "state ended",
+   "text": "ended"
+  },
+  {
+   "name": "wrapped is",
+   "text": "true"
+  }
+ ],
+ "topology": [
+  0,
+  1,
+  2,
+  3
+ ]
+}

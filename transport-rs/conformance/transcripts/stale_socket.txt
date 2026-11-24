@@ -1,0 +1,7 @@
+# stale socket file is replaced
+  stale file present before start: True
+## round trip
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":1}
+    raw='{"id":1,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  socket mode: 600
+  exit code: 0

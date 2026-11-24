@@ -1,0 +1,72 @@
+{
+ "configure_to_first_ms": 0.47,
+ "deregister_seen": false,
+ "ipc_lines": [
+  {
+   "id": 1,
+   "result": {
+    "DirectCapable": true,
+    "HasRelay": true,
+    "InboundAudio": 0,
+    "OutboundAudio": 0,
+    "RTSPTemplate": "rtsp://{host}/cam/realmonitor?channel=1&subtype=1",
+    "ReportsAvailability": true
+   }
+  },
+  {
+   "method": "driver_availability",
+   "params": {
+    "available": false,
+    "device_id": "127.0.0.9",
+    "reason": "sip: timed out waiting for a response"
+   }
+  }
+ ],
+ "same_call_id": true,
+ "starts_ms": [
+  0.0,
+  9898.58,
+  25697.65
+ ],
+ "tx": [
+  {
+   "auth": false,
+   "call_id": "4ebe83733fa163fa@127.0.0.1",
+   "cseq": "1 REGISTER",
+   "expires": "3600",
+   "identical_copies": true,
+   "offs": [
+    0.0,
+    501.63,
+    1505.84,
+    3512.9
+   ]
+  },
+  {
+   "auth": false,
+   "call_id": "4ebe83733fa163fa@127.0.0.1",
+   "cseq": "3 REGISTER",
+   "expires": "3600",
+   "identical_copies": true,
+   "offs": [
+    9898.58,
+    10400.37,
+    11404.7,
+    13414.08
+   ]
+  },
+  {
+   "auth": false,
+   "call_id": "4ebe83733fa163fa@127.0.0.1",
+   "cseq": "5 REGISTER",
+   "expires": "3600",
+   "identical_copies": true,
+   "offs": [
+    25697.65,
+    26198.08,
+    27202.45,
+    29211.41
+   ]
+  }
+ ]
+}

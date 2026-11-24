@@ -1,0 +1,4 @@
+- RECV 200 OK
++ RECV 401 Unauthorized
+-      Expires: 300
++      WWW-Authenticate: Digest realm="VDP", nonce="<N1>", algorithm=MD5

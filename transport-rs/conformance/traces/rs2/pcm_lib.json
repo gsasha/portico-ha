@@ -1,0 +1,23 @@
+{
+ "down16to8.raw": {
+  "bytes": 32000,
+  "md5": "5b077f96a55833e83a2456223af670b8"
+ },
+ "g711_to_l16.raw": {
+  "bytes": 64000,
+  "md5": "071b32c53de5164b34df7d28fdaa9b2d"
+ },
+ "input_md5": "ce6a9dd789dd3f73995845b3baf3b1e6",
+ "input_samples": 32000,
+ "l16_to_g711.bin": {
+  "bytes": 16000,
+  "md5": "68829bced9da54bfc909dedbf0ec087f"
+ },
+ "oracle_down_matches": true,
+ "oracle_mulaw_mismatch_bytes": 0,
+ "oracle_up_matches": true,
+ "up8to16.raw": {
+  "bytes": 128000,
+  "md5": "c80d93c8f0743736af42349e24816a94"
+ }
+}

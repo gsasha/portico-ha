@@ -1,0 +1,9962 @@
+{
+ "backoff": [
+  {
+   "In": 0,
+   "Out": 0,
+   "Max": 80000000
+  },
+  {
+   "In": 1000000,
+   "Out": 2000000,
+   "Max": 80000000
+  },
+  {
+   "In": 20000000,
+   "Out": 40000000,
+   "Max": 80000000
+  },
+  {
+   "In": 39000000,
+   "Out": 78000000,
+   "Max": 80000000
+  },
+  {
+   "In": 40000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 41000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 79000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 80000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 1000000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 29000000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 30000000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 31000000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 60000000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 120000000000,
+   "Out": 80000000,
+   "Max": 80000000
+  },
+  {
+   "In": 0,
+   "Out": 0,
+   "Max": 60000000000
+  },
+  {
+   "In": 1000000,
+   "Out": 2000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 20000000,
+   "Out": 40000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 39000000,
+   "Out": 78000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 40000000,
+   "Out": 80000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 41000000,
+   "Out": 82000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 79000000,
+   "Out": 158000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 80000000,
+   "Out": 160000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 1000000000,
+   "Out": 2000000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 29000000000,
+   "Out": 58000000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 30000000000,
+   "Out": 60000000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 31000000000,
+   "Out": 60000000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 60000000000,
+   "Out": 60000000000,
+   "Max": 60000000000
+  },
+  {
+   "In": 120000000000,
+   "Out": 60000000000,
+   "Max": 60000000000
+  }
+ ],
+ "configure": [
+  {
+   "name": "complete",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "empty",
+   "cfg": {},
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "no host",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k"
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "no key",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_host": "nvr.example"
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "no camera",
+   "cfg": {
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example"
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "empty host",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": ""
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "empty key",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "",
+    "nvr_host": "nvr.example"
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "empty camera",
+   "cfg": {
+    "camera_id": "",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example"
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "host number",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": 5
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "host null",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": null
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "host slash",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "h/x"
+   },
+   "err": "unifi_protect: nvr_host must be a bare host or host:port"
+  },
+  {
+   "name": "host at",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "u@h"
+   },
+   "err": "unifi_protect: nvr_host must be a bare host or host:port"
+  },
+  {
+   "name": "host space",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "h h"
+   },
+   "err": "unifi_protect: nvr_host must be a bare host or host:port"
+  },
+  {
+   "name": "host url",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "https://h"
+   },
+   "err": "unifi_protect: nvr_host must be a bare host or host:port"
+  },
+  {
+   "name": "host with port",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "10.9.8.7:7443"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "host v6",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "[::1]:7443"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "host query",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "h?x"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "ring true",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "ring_events": true
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":true}",
+   "ring": true
+  },
+  {
+   "name": "ring false",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "ring_events": false
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "ring null",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "ring_events": null
+   },
+   "err": "unifi_protect: ring_events must be true or false"
+  },
+  {
+   "name": "ring string",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "ring_events": "yes"
+   },
+   "err": "unifi_protect: ring_events must be true or false"
+  },
+  {
+   "name": "ring number",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "ring_events": 1
+   },
+   "err": "unifi_protect: ring_events must be true or false"
+  },
+  {
+   "name": "ring array",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "ring_events": []
+   },
+   "err": "unifi_protect: ring_events must be true or false"
+  },
+  {
+   "name": "verify false",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "verify_ssl": false
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "verify string",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "verify_ssl": "no"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "quality",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "stream_quality": "medium"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "quality number",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "stream_quality": 3
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "quality empty",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "stream_quality": ""
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  },
+  {
+   "name": "ring + verify",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "ring_events": true,
+    "stream_quality": "low",
+    "verify_ssl": false
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":true}",
+   "ring": true
+  },
+  {
+   "name": "key number",
+   "cfg": {
+    "camera_id": "cam1",
+    "nvr_api_key": 5,
+    "nvr_host": "nvr.example"
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "camera bool",
+   "cfg": {
+    "camera_id": true,
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example"
+   },
+   "err": "unifi_protect: nvr_host, nvr_api_key and camera_id are required"
+  },
+  {
+   "name": "extra keys",
+   "cfg": {
+    "camera_id": "cam1",
+    "driver": "unifi_protect",
+    "nvr_api_key": "k",
+    "nvr_host": "nvr.example",
+    "zzz": 1
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+  }
+ ],
+ "events": [
+  {
+   "name": "frame 0",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-e1 HOST"
+     ]
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 1",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":1700000003000}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-e1 HOST"
+     ]
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 2",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":null}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-e1 HOST"
+     ]
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 3",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":1700000003000}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 4",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 5",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"remove\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 6",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 7",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"ADD\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 8",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"other\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 9",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"CAM1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 10",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 11",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 12",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"id with space\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-id with space HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 13",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"ünï\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-ünï HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 14",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"m1\",\"modelKey\":\"event\",\"type\":\"motion\",\"start\":1,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 15",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"m1\",\"modelKey\":\"camera\",\"type\":\"ring\",\"start\":1,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 16",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"m1\",\"modelKey\":\"\",\"type\":\"ring\",\"start\":1,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 17",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"m1\",\"modelKey\":\"Event\",\"type\":\"ring\",\"start\":1,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 18",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"m1\",\"modelKey\":\"event\",\"type\":\"Ring\",\"start\":1,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 19",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"m1\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-m1 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 20",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"TYPE\":\"add\",\"ITEM\":{\"ID\":\"c1\",\"MODELKEY\":\"event\",\"TYPE\":\"ring\",\"DEVICE\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-c1 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 21",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"Type\":\"add\",\"Item\":{\"Id\":\"c2\",\"modelkey\":\"event\",\"Type\":\"ring\",\"Device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-c2 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 22",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": " {\"type\":\"add\",\"item\":{\"id\":\"w1\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}} "
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-w1 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 23",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "\n\t{\"type\":\"add\",\"item\":{\"id\":\"w2\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}\r\n"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-w2 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 24",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"type\":\"update\",\"item\":{\"id\":\"d1\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 25",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"type\":\"add\",\"item\":{\"id\":\"d2\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-d2 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 26",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"d3\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"},\"item\":{\"device\":\"other\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 27",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"d4\"},\"item\":{\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-d4 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 28",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"d5\",\"id\":\"d6\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-d6 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 29",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"n1\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\",\"extra\":{\"a\":[1,2,{\"b\":null}]}},\"zzz\":[1,2,3]}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-n1 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 30",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"n2\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}  trailing"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 31",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"n3\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 32",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":null,\"item\":{\"id\":\"n4\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 33",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":null}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 34",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":\"ring\"}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 35",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":[]}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 36",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":5}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 37",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":5,\"item\":{\"id\":\"t1\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 38",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":true,\"item\":{\"id\":\"t2\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 39",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":5,\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 40",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"t3\",\"modelKey\":[\"event\"],\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 41",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"t4\",\"modelKey\":\"event\",\"type\":{\"a\":1},\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 42",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"t5\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":false}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 43",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"t6\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\",\"start\":\"not a number\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-t6 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 44",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":null,\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 45",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"aA\\n\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-aA\n HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 46",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"q\\\"x\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-q\"x HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 47",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"t7\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-t7 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 48",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"t8\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-t8 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 49",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"t9\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}} {\"x\":1}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 50",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"a\\q\",\"item\":{\"id\":\"t10\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 51",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"t11\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"},}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 52",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{'type':'add'}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 53",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "not json at all"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 54",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 55",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "   "
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 56",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "null"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 57",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "true"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 58",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "5"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 59",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "\"add\""
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 60",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "[]"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 61",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "[{\"type\":\"add\"}]"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 62",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 63",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"item\":{}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 64",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 65",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 66",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"u1\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}                                                                                                    "
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-u1 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 67",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "frame 68",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"u2\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\",\"deep\":[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-u2 HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": true
+    }
+   ]
+  },
+  {
+   "name": "frame 69",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"modelKey\":\"event\",\"type\":\"ring\",\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-e1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-c2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-w2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d2"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d3"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d4"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d5"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-d6"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-n1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u1"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-u2"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "raw 0",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame_hex",
+     "hex": "7b2274797065223a22616464222c226974656d223a7b226964223a22ff222c226d6f64656c4b6579223a226576656e74222c2274797065223a2272696e67222c22646576696365223a2263616d31227d7d"
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "ringing unifi-� HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "raw 1",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame_hex",
+     "hex": "ff"
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    }
+   ]
+  },
+  {
+   "name": "raw 2",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame_hex",
+     "hex": "00"
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    }
+   ]
+  },
+  {
+   "name": "raw 3",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame_hex",
+     "hex": "7b7d00"
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": []
+    }
+   ]
+  },
+  {
+   "name": "timer: no end ends at the max hold",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-a"
+    },
+    {
+     "op": "sleep",
+     "ms": 500
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-a"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST"
+     ]
+    },
+    {
+     "ringing": true
+    },
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "timer: an end after the min hold ends the call at once",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 250
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":5}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 60
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: an end before the min hold waits for it",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 40
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":5}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 40
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "sleep",
+     "ms": 200
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST"
+     ]
+    },
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: an end carried by the add",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":5}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 60
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "sleep",
+     "ms": 250
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST"
+     ]
+    },
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: an end of another event is ignored",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"b\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":5}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-a"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST"
+     ]
+    },
+    {
+     "ringing": true
+    }
+   ]
+  },
+  {
+   "name": "timer: a second ring while ringing is ignored",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"b\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-b"
+    },
+    {
+     "op": "sleep",
+     "ms": 700
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: a new ring after the end",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":5}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"b\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-b"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended",
+      "ringing unifi-b HOST"
+     ]
+    },
+    {
+     "ringing": true
+    }
+   ]
+  },
+  {
+   "name": "timer: the stale timer of an ended call does not end the next",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "hangup",
+     "call": "unifi-a"
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"b\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 450
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-b"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "err": ""
+    },
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended",
+      "ringing unifi-b HOST"
+     ]
+    },
+    {
+     "ringing": true
+    },
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended",
+      "ringing unifi-b HOST",
+      "state unifi-b ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: a second end does not rearm",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":1}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":2}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 250
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: stop drops the live call silently",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "stop"
+    },
+    {
+     "op": "sleep",
+     "ms": 700
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-a"
+    },
+    {
+     "op": "hangup",
+     "call": "unifi-a"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "err": ""
+    },
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "err": "unifi_protect: unifi-a: no_such_call"
+    }
+   ]
+  },
+  {
+   "name": "timer: a ring after stop is not reported, after start it is",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "stop"
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "start"
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"b\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "err": ""
+    },
+    null,
+    {
+     "events": []
+    },
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-b HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: hangup of a ringing call, twice, and of an unknown one",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "hangup",
+     "call": "unifi-a"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "hangup",
+     "call": "unifi-a"
+    },
+    {
+     "op": "hangup",
+     "call": "nope"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-a"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "err": ""
+    },
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    },
+    {
+     "err": "unifi_protect: unifi-a: no_such_call"
+    },
+    {
+     "err": "unifi_protect: nope: no_such_call"
+    },
+    {
+     "ringing": false
+    }
+   ]
+  },
+  {
+   "name": "timer: end value 0",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":0}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value \"\"",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":\"\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value false",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":false}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value true",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":true}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value \"x\"",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":\"x\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value []",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":[]}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value {}",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":{}}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value null",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":null}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value 1700000000000",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":1700000000000}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value -1",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":-1}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "timer: end value 1.5",
+   "no_console": true,
+   "ops": [
+    {
+     "op": "frame",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 20
+    },
+    {
+     "op": "frame",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":1.5}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "ringing unifi-a HOST",
+      "state unifi-a ended"
+     ]
+    }
+   ]
+  }
+ ],
+ "path_escape": [
+  {
+   "In": "cam1",
+   "Out": "cam1"
+  },
+  {
+   "In": "a/b c?d",
+   "Out": "a%2Fb%20c%3Fd"
+  },
+  {
+   "In": "x;y",
+   "Out": "x%3By"
+  },
+  {
+   "In": "é",
+   "Out": "%C3%A9"
+  },
+  {
+   "In": "a%b",
+   "Out": "a%25b"
+  },
+  {
+   "In": "  ",
+   "Out": "%20%20"
+  },
+  {
+   "In": "cam#1",
+   "Out": "cam%231"
+  },
+  {
+   "In": "a+b=c:d@e",
+   "Out": "a+b=c:d@e"
+  },
+  {
+   "In": "a,b",
+   "Out": "a%2Cb"
+  },
+  {
+   "In": "~._-",
+   "Out": "~._-"
+  },
+  {
+   "In": "$&",
+   "Out": "$&"
+  },
+  {
+   "In": "\"<>",
+   "Out": "%22%3C%3E"
+  },
+  {
+   "In": "\u0000",
+   "Out": "%00%7F"
+  },
+  {
+   "In": "日本",
+   "Out": "%E6%97%A5%E6%9C%AC"
+  },
+  {
+   "In": "a\nb",
+   "Out": "a%0Ab"
+  },
+  {
+   "In": "[x]",
+   "Out": "%5Bx%5D"
+  },
+  {
+   "In": "{y}",
+   "Out": "%7By%7D"
+  },
+  {
+   "In": "|\\^`",
+   "Out": "%7C%5C%5E%60"
+  }
+ ],
+ "split_host_port": [
+  {
+   "in": "h:443",
+   "host": "h",
+   "port": "443",
+   "err": false
+  },
+  {
+   "in": "10.0.0.5:7443",
+   "host": "10.0.0.5",
+   "port": "7443",
+   "err": false
+  },
+  {
+   "in": "[::1]:443",
+   "host": "::1",
+   "port": "443",
+   "err": false
+  },
+  {
+   "in": "h:",
+   "host": "h",
+   "port": "",
+   "err": false
+  },
+  {
+   "in": ":80",
+   "host": "",
+   "port": "80",
+   "err": false
+  },
+  {
+   "in": "h",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "::1",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "[::1]",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "[::1",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "a:b:c",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "[::1]x:80",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "h[x:80",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "h]:80",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "[]:80",
+   "host": "",
+   "port": "80",
+   "err": false
+  },
+  {
+   "in": "[a]:",
+   "host": "a",
+   "port": "",
+   "err": false
+  },
+  {
+   "in": "[a]:b:c",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "nvr.example",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "nvr.example:7441",
+   "host": "nvr.example",
+   "port": "7441",
+   "err": false
+  },
+  {
+   "in": "[fe80::1%eth0]:443",
+   "host": "fe80::1%eth0",
+   "port": "443",
+   "err": false
+  },
+  {
+   "in": "h:80:",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "::",
+   "host": "",
+   "port": "",
+   "err": true
+  },
+  {
+   "in": "[::]:1",
+   "host": "::",
+   "port": "1",
+   "err": false
+  },
+  {
+   "in": "h :80",
+   "host": "h ",
+   "port": "80",
+   "err": false
+  }
+ ],
+ "unconfigured_caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":true,\"RTSPTemplate\":\"rtsps://{nvr_host}/{camera_id}\",\"ReportsAvailability\":false}"
+}

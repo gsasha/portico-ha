@@ -1,0 +1,360 @@
+{
+ "configure": [
+  {
+   "name": "ok",
+   "cfg": {
+    "host": "10.8.0.39",
+    "sip_password": "pw",
+    "sip_user": "8001#1"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "ok with rtsp",
+   "cfg": {
+    "host": "h",
+    "rtsp_password": "b",
+    "rtsp_username": "a",
+    "sip_password": "p",
+    "sip_user": "u"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "empty",
+   "cfg": {},
+   "err": "dahua_sip: host, sip_user and sip_password are required",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "no host",
+   "cfg": {
+    "sip_password": "p",
+    "sip_user": "u"
+   },
+   "err": "dahua_sip: host, sip_user and sip_password are required",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "no user",
+   "cfg": {
+    "host": "h",
+    "sip_password": "p"
+   },
+   "err": "dahua_sip: host, sip_user and sip_password are required",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "no password",
+   "cfg": {
+    "host": "h",
+    "sip_user": "u"
+   },
+   "err": "dahua_sip: host, sip_user and sip_password are required",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "empty host",
+   "cfg": {
+    "host": "",
+    "sip_password": "p",
+    "sip_user": "u"
+   },
+   "err": "dahua_sip: host, sip_user and sip_password are required",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "host not a string",
+   "cfg": {
+    "host": 5,
+    "sip_password": "p",
+    "sip_user": "u"
+   },
+   "err": "dahua_sip: host, sip_user and sip_password are required",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "user not a string",
+   "cfg": {
+    "host": "h",
+    "sip_password": "p",
+    "sip_user": true
+   },
+   "err": "dahua_sip: host, sip_user and sip_password are required",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "password a list",
+   "cfg": {
+    "host": "h",
+    "sip_password": [
+     "p"
+    ],
+    "sip_user": "u"
+   },
+   "err": "dahua_sip: host, sip_user and sip_password are required",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "host null",
+   "cfg": {
+    "host": null,
+    "sip_password": "p",
+    "sip_user": "u"
+   },
+   "err": "dahua_sip: host, sip_user and sip_password are required",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "whitespace host is kept",
+   "cfg": {
+    "host": " ",
+    "sip_password": "p",
+    "sip_user": "u"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "unknown keys ignored",
+   "cfg": {
+    "host": "h",
+    "port": 5070,
+    "sip_password": "p",
+    "sip_port": 1,
+    "sip_user": "u"
+   },
+   "err": "",
+   "caps": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":true,\"RTSPTemplate\":\"rtsp://{host}/cam/realmonitor?channel=1\\u0026subtype=1\",\"ReportsAvailability\":true}"
+  }
+ ],
+ "media_host": [
+  {
+   "configured": "100.64.0.9",
+   "routed": "10.0.0.2",
+   "out": "100.64.0.9",
+   "err": ""
+  },
+  {
+   "configured": "",
+   "routed": "10.0.0.2",
+   "out": "10.0.0.2",
+   "err": ""
+  },
+  {
+   "configured": "",
+   "routed": "",
+   "out": "",
+   "err": "call: no media host for the device leg's SDP: -host is not set and the SIP socket has no local address"
+  },
+  {
+   "configured": "0.0.0.0",
+   "routed": "10.0.0.2",
+   "out": "",
+   "err": "call: \"0.0.0.0\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "",
+   "routed": "0.0.0.0",
+   "out": "",
+   "err": "call: \"0.0.0.0\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "tailnet-box",
+   "routed": "10.0.0.2",
+   "out": "",
+   "err": "call: \"tailnet-box\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "fd00::1",
+   "routed": "",
+   "out": "",
+   "err": "call: \"fd00::1\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "",
+   "routed": "not-an-ip",
+   "out": "",
+   "err": "call: \"not-an-ip\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "::",
+   "routed": "10.0.0.2",
+   "out": "",
+   "err": "call: \"::\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "192.168.2.77",
+   "routed": "",
+   "out": "192.168.2.77",
+   "err": ""
+  },
+  {
+   "configured": "127.0.0.1",
+   "routed": "",
+   "out": "127.0.0.1",
+   "err": ""
+  },
+  {
+   "configured": "255.255.255.255",
+   "routed": "",
+   "out": "255.255.255.255",
+   "err": ""
+  },
+  {
+   "configured": "224.0.0.1",
+   "routed": "",
+   "out": "224.0.0.1",
+   "err": ""
+  },
+  {
+   "configured": "::ffff:192.168.2.1",
+   "routed": "",
+   "out": "::ffff:192.168.2.1",
+   "err": ""
+  },
+  {
+   "configured": "::ffff:0.0.0.0",
+   "routed": "",
+   "out": "",
+   "err": "call: \"::ffff:0.0.0.0\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "01.2.3.4",
+   "routed": "",
+   "out": "",
+   "err": "call: \"01.2.3.4\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "1.2.3",
+   "routed": "",
+   "out": "",
+   "err": "call: \"1.2.3\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "1.2.3.4.5",
+   "routed": "",
+   "out": "",
+   "err": "call: \"1.2.3.4.5\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": " 1.2.3.4",
+   "routed": "",
+   "out": "",
+   "err": "call: \" 1.2.3.4\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "1.2.3.4 ",
+   "routed": "",
+   "out": "",
+   "err": "call: \"1.2.3.4 \" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "1.2.3.4/32",
+   "routed": "",
+   "out": "",
+   "err": "call: \"1.2.3.4/32\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "256.1.1.1",
+   "routed": "",
+   "out": "",
+   "err": "call: \"256.1.1.1\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "1.2.3.4:5060",
+   "routed": "",
+   "out": "",
+   "err": "call: \"1.2.3.4:5060\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "[::1]",
+   "routed": "",
+   "out": "",
+   "err": "call: \"[::1]\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "",
+   "routed": "::1",
+   "out": "",
+   "err": "call: \"::1\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "fe80::1%eth0",
+   "routed": "",
+   "out": "",
+   "err": "call: \"fe80::1%eth0\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "0x7f.1",
+   "routed": "",
+   "out": "",
+   "err": "call: \"0x7f.1\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "1.2.3.4\n",
+   "routed": "",
+   "out": "",
+   "err": "call: \"1.2.3.4\\n\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "é",
+   "routed": "",
+   "out": "",
+   "err": "call: \"é\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "a\"b",
+   "routed": "",
+   "out": "",
+   "err": "call: \"a\\\"b\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "\u0001",
+   "routed": "",
+   "out": "",
+   "err": "call: \"\\x01\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "127.1",
+   "routed": "",
+   "out": "",
+   "err": "call: \"127.1\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "2130706433",
+   "routed": "",
+   "out": "",
+   "err": "call: \"2130706433\" is not a usable IPv4 media host for the device leg's SDP"
+  },
+  {
+   "configured": "::ffff:7f00:1",
+   "routed": "",
+   "out": "::ffff:7f00:1",
+   "err": ""
+  },
+  {
+   "configured": "0:0:0:0:0:ffff:1.2.3.4",
+   "routed": "",
+   "out": "0:0:0:0:0:ffff:1.2.3.4",
+   "err": ""
+  },
+  {
+   "configured": "198.51.100.200",
+   "routed": "203.0.113.5",
+   "out": "198.51.100.200",
+   "err": ""
+  }
+ ],
+ "pre_start": {
+  "answer_err": "dahua_sip: Answer called with no call ringing",
+  "open_relay_err": "dahua_sip: OpenRelay not implemented — its real protocol for this driver (in-dialog SIP INFO vs. Dahua's own HTTP RPC2 API) needs checking against the estate's existing gate-sip/bell-talk implementation before building it, not guessing (Phase 1 follow-up)",
+  "pending_ring": false,
+  "pending_ring_for": false,
+  "stop_again_err": "",
+  "stop_err": ""
+ },
+ "stop_timeout_ms": 3000
+}

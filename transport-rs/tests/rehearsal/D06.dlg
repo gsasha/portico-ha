@@ -1,0 +1,15 @@
+# source: SYNTHETIC
+# title: OPTIONS keepalive
+# verdict: MATCH
+# basis: main.go answers OPTIONS 200; that the real station sends OPTIONS at all is not recorded anywhere
+
+>>> send
+OPTIONS sip:{{SRV}} SIP/2.0
+Via: SIP/2.0/UDP {{ST}};branch=z9hG4bKopt1
+From: <sip:8001@{{ST}}>;tag=st-opt
+To: <sip:{{SRV}}>
+Call-ID: opt-1
+CSeq: 1 OPTIONS
+Max-Forwards: 70
+.
+>>> recv

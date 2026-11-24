@@ -1,0 +1,195 @@
+# flags
+## args []
+  exit code: 1
+  | portico-transport: -socket or -listen is required
+## args ['-h']
+  exit code: 0
+  | Usage of <BIN>:
+  |   -host string
+  |     	this host's own tailnet/LAN IPv4 address, for relay-mode device legs' SDP (§9.3, §9.9); empty = the local address of the SIP socket that talks to that device
+  |   -house-calls
+  |     	enable the house-call bridge (house_open / house_close, M7 3b-Go); off, both verbs answer not_supported and nothing is created
+  |   -ipc-allow-from string
+  |     	comma-separated IPs/CIDRs allowed to connect to the TCP IPC (the HA host)
+  |   -ipc-allow-non-loopback
+  |     	allow -listen on a non-loopback address (also needs -ipc-allow-from)
+  |   -ipc-token-file string
+  |     	file holding the TCP IPC token (a docker secret); overrides PORTICO_IPC_TOKEN
+  |   -listen string
+  |     	standalone/container mode (DEV-518 W8): serve the IPC over TCP at host:port instead of -socket; needs a token (PORTICO_IPC_TOKEN or -ipc-token-file); loopback unless -ipc-allow-non-loopback AND -ipc-allow-from
+  |   -secrets-env string
+  |     	read the SIP password/user/realm and the IPC token from this KEY=VALUE .env file (GATE_SIP_PASSWORD, GATE_SIP_USER, GATE_SIP_REALM, GATE_SIP_PEER_TOKEN; every other key is ignored); explicit PORTICO_* variables and -ipc-token-file override it; read once at start
+  |   -sip-from-env
+  |     	configure and start one gate_sip_server from PORTICO_SIP_* variables at start-up; the hub's later configure/deconfigure of it only adopt/detach
+  |   -socket string
+  |     	IPC unix socket path (§9.4)
+## args ['--help']
+  exit code: 0
+  | Usage of <BIN>:
+  |   -host string
+  |     	this host's own tailnet/LAN IPv4 address, for relay-mode device legs' SDP (§9.3, §9.9); empty = the local address of the SIP socket that talks to that device
+  |   -house-calls
+  |     	enable the house-call bridge (house_open / house_close, M7 3b-Go); off, both verbs answer not_supported and nothing is created
+  |   -ipc-allow-from string
+  |     	comma-separated IPs/CIDRs allowed to connect to the TCP IPC (the HA host)
+  |   -ipc-allow-non-loopback
+  |     	allow -listen on a non-loopback address (also needs -ipc-allow-from)
+  |   -ipc-token-file string
+  |     	file holding the TCP IPC token (a docker secret); overrides PORTICO_IPC_TOKEN
+  |   -listen string
+  |     	standalone/container mode (DEV-518 W8): serve the IPC over TCP at host:port instead of -socket; needs a token (PORTICO_IPC_TOKEN or -ipc-token-file); loopback unless -ipc-allow-non-loopback AND -ipc-allow-from
+  |   -secrets-env string
+  |     	read the SIP password/user/realm and the IPC token from this KEY=VALUE .env file (GATE_SIP_PASSWORD, GATE_SIP_USER, GATE_SIP_REALM, GATE_SIP_PEER_TOKEN; every other key is ignored); explicit PORTICO_* variables and -ipc-token-file override it; read once at start
+  |   -sip-from-env
+  |     	configure and start one gate_sip_server from PORTICO_SIP_* variables at start-up; the hub's later configure/deconfigure of it only adopt/detach
+  |   -socket string
+  |     	IPC unix socket path (§9.4)
+## args ['-help']
+  exit code: 0
+  | Usage of <BIN>:
+  |   -host string
+  |     	this host's own tailnet/LAN IPv4 address, for relay-mode device legs' SDP (§9.3, §9.9); empty = the local address of the SIP socket that talks to that device
+  |   -house-calls
+  |     	enable the house-call bridge (house_open / house_close, M7 3b-Go); off, both verbs answer not_supported and nothing is created
+  |   -ipc-allow-from string
+  |     	comma-separated IPs/CIDRs allowed to connect to the TCP IPC (the HA host)
+  |   -ipc-allow-non-loopback
+  |     	allow -listen on a non-loopback address (also needs -ipc-allow-from)
+  |   -ipc-token-file string
+  |     	file holding the TCP IPC token (a docker secret); overrides PORTICO_IPC_TOKEN
+  |   -listen string
+  |     	standalone/container mode (DEV-518 W8): serve the IPC over TCP at host:port instead of -socket; needs a token (PORTICO_IPC_TOKEN or -ipc-token-file); loopback unless -ipc-allow-non-loopback AND -ipc-allow-from
+  |   -secrets-env string
+  |     	read the SIP password/user/realm and the IPC token from this KEY=VALUE .env file (GATE_SIP_PASSWORD, GATE_SIP_USER, GATE_SIP_REALM, GATE_SIP_PEER_TOKEN; every other key is ignored); explicit PORTICO_* variables and -ipc-token-file override it; read once at start
+  |   -sip-from-env
+  |     	configure and start one gate_sip_server from PORTICO_SIP_* variables at start-up; the hub's later configure/deconfigure of it only adopt/detach
+  |   -socket string
+  |     	IPC unix socket path (§9.4)
+## args ['--bogus']
+  exit code: 2
+  | flag provided but not defined: -bogus
+  | Usage of <BIN>:
+  |   -host string
+  |     	this host's own tailnet/LAN IPv4 address, for relay-mode device legs' SDP (§9.3, §9.9); empty = the local address of the SIP socket that talks to that device
+  |   -house-calls
+  |     	enable the house-call bridge (house_open / house_close, M7 3b-Go); off, both verbs answer not_supported and nothing is created
+  |   -ipc-allow-from string
+  |     	comma-separated IPs/CIDRs allowed to connect to the TCP IPC (the HA host)
+  |   -ipc-allow-non-loopback
+  |     	allow -listen on a non-loopback address (also needs -ipc-allow-from)
+  |   -ipc-token-file string
+  |     	file holding the TCP IPC token (a docker secret); overrides PORTICO_IPC_TOKEN
+  |   -listen string
+  |     	standalone/container mode (DEV-518 W8): serve the IPC over TCP at host:port instead of -socket; needs a token (PORTICO_IPC_TOKEN or -ipc-token-file); loopback unless -ipc-allow-non-loopback AND -ipc-allow-from
+  |   -secrets-env string
+  |     	read the SIP password/user/realm and the IPC token from this KEY=VALUE .env file (GATE_SIP_PASSWORD, GATE_SIP_USER, GATE_SIP_REALM, GATE_SIP_PEER_TOKEN; every other key is ignored); explicit PORTICO_* variables and -ipc-token-file override it; read once at start
+  |   -sip-from-env
+  |     	configure and start one gate_sip_server from PORTICO_SIP_* variables at start-up; the hub's later configure/deconfigure of it only adopt/detach
+  |   -socket string
+  |     	IPC unix socket path (§9.4)
+## args ['-socket']
+  exit code: 2
+  | flag needs an argument: -socket
+  | Usage of <BIN>:
+  |   -host string
+  |     	this host's own tailnet/LAN IPv4 address, for relay-mode device legs' SDP (§9.3, §9.9); empty = the local address of the SIP socket that talks to that device
+  |   -house-calls
+  |     	enable the house-call bridge (house_open / house_close, M7 3b-Go); off, both verbs answer not_supported and nothing is created
+  |   -ipc-allow-from string
+  |     	comma-separated IPs/CIDRs allowed to connect to the TCP IPC (the HA host)
+  |   -ipc-allow-non-loopback
+  |     	allow -listen on a non-loopback address (also needs -ipc-allow-from)
+  |   -ipc-token-file string
+  |     	file holding the TCP IPC token (a docker secret); overrides PORTICO_IPC_TOKEN
+  |   -listen string
+  |     	standalone/container mode (DEV-518 W8): serve the IPC over TCP at host:port instead of -socket; needs a token (PORTICO_IPC_TOKEN or -ipc-token-file); loopback unless -ipc-allow-non-loopback AND -ipc-allow-from
+  |   -secrets-env string
+  |     	read the SIP password/user/realm and the IPC token from this KEY=VALUE .env file (GATE_SIP_PASSWORD, GATE_SIP_USER, GATE_SIP_REALM, GATE_SIP_PEER_TOKEN; every other key is ignored); explicit PORTICO_* variables and -ipc-token-file override it; read once at start
+  |   -sip-from-env
+  |     	configure and start one gate_sip_server from PORTICO_SIP_* variables at start-up; the hub's later configure/deconfigure of it only adopt/detach
+  |   -socket string
+  |     	IPC unix socket path (§9.4)
+## args ['-listen=x', '-socket=y']
+  exit code: 1
+  | portico-transport: -socket and -listen are mutually exclusive
+## args ['-socket=<TMP>/nodir/x.sock']
+  exit code: 1
+  | portico-transport: ipc: listening on <TMP>/nodir/x.sock: listen unix <TMP>/nodir/x.sock: bind: no such file or directory
+## args ['--house-calls=maybe', '-socket=a']
+  exit code: 2
+  | invalid boolean value "maybe" for -house-calls: parse error
+  | Usage of <BIN>:
+  |   -host string
+  |     	this host's own tailnet/LAN IPv4 address, for relay-mode device legs' SDP (§9.3, §9.9); empty = the local address of the SIP socket that talks to that device
+  |   -house-calls
+  |     	enable the house-call bridge (house_open / house_close, M7 3b-Go); off, both verbs answer not_supported and nothing is created
+  |   -ipc-allow-from string
+  |     	comma-separated IPs/CIDRs allowed to connect to the TCP IPC (the HA host)
+  |   -ipc-allow-non-loopback
+  |     	allow -listen on a non-loopback address (also needs -ipc-allow-from)
+  |   -ipc-token-file string
+  |     	file holding the TCP IPC token (a docker secret); overrides PORTICO_IPC_TOKEN
+  |   -listen string
+  |     	standalone/container mode (DEV-518 W8): serve the IPC over TCP at host:port instead of -socket; needs a token (PORTICO_IPC_TOKEN or -ipc-token-file); loopback unless -ipc-allow-non-loopback AND -ipc-allow-from
+  |   -secrets-env string
+  |     	read the SIP password/user/realm and the IPC token from this KEY=VALUE .env file (GATE_SIP_PASSWORD, GATE_SIP_USER, GATE_SIP_REALM, GATE_SIP_PEER_TOKEN; every other key is ignored); explicit PORTICO_* variables and -ipc-token-file override it; read once at start
+  |   -sip-from-env
+  |     	configure and start one gate_sip_server from PORTICO_SIP_* variables at start-up; the hub's later configure/deconfigure of it only adopt/detach
+  |   -socket string
+  |     	IPC unix socket path (§9.4)
+## args ['---x']
+  exit code: 2
+  | bad flag syntax: ---x
+  | Usage of <BIN>:
+  |   -host string
+  |     	this host's own tailnet/LAN IPv4 address, for relay-mode device legs' SDP (§9.3, §9.9); empty = the local address of the SIP socket that talks to that device
+  |   -house-calls
+  |     	enable the house-call bridge (house_open / house_close, M7 3b-Go); off, both verbs answer not_supported and nothing is created
+  |   -ipc-allow-from string
+  |     	comma-separated IPs/CIDRs allowed to connect to the TCP IPC (the HA host)
+  |   -ipc-allow-non-loopback
+  |     	allow -listen on a non-loopback address (also needs -ipc-allow-from)
+  |   -ipc-token-file string
+  |     	file holding the TCP IPC token (a docker secret); overrides PORTICO_IPC_TOKEN
+  |   -listen string
+  |     	standalone/container mode (DEV-518 W8): serve the IPC over TCP at host:port instead of -socket; needs a token (PORTICO_IPC_TOKEN or -ipc-token-file); loopback unless -ipc-allow-non-loopback AND -ipc-allow-from
+  |   -secrets-env string
+  |     	read the SIP password/user/realm and the IPC token from this KEY=VALUE .env file (GATE_SIP_PASSWORD, GATE_SIP_USER, GATE_SIP_REALM, GATE_SIP_PEER_TOKEN; every other key is ignored); explicit PORTICO_* variables and -ipc-token-file override it; read once at start
+  |   -sip-from-env
+  |     	configure and start one gate_sip_server from PORTICO_SIP_* variables at start-up; the hub's later configure/deconfigure of it only adopt/detach
+  |   -socket string
+  |     	IPC unix socket path (§9.4)
+## args ['-=x']
+  exit code: 2
+  | bad flag syntax: -=x
+  | Usage of <BIN>:
+  |   -host string
+  |     	this host's own tailnet/LAN IPv4 address, for relay-mode device legs' SDP (§9.3, §9.9); empty = the local address of the SIP socket that talks to that device
+  |   -house-calls
+  |     	enable the house-call bridge (house_open / house_close, M7 3b-Go); off, both verbs answer not_supported and nothing is created
+  |   -ipc-allow-from string
+  |     	comma-separated IPs/CIDRs allowed to connect to the TCP IPC (the HA host)
+  |   -ipc-allow-non-loopback
+  |     	allow -listen on a non-loopback address (also needs -ipc-allow-from)
+  |   -ipc-token-file string
+  |     	file holding the TCP IPC token (a docker secret); overrides PORTICO_IPC_TOKEN
+  |   -listen string
+  |     	standalone/container mode (DEV-518 W8): serve the IPC over TCP at host:port instead of -socket; needs a token (PORTICO_IPC_TOKEN or -ipc-token-file); loopback unless -ipc-allow-non-loopback AND -ipc-allow-from
+  |   -secrets-env string
+  |     	read the SIP password/user/realm and the IPC token from this KEY=VALUE .env file (GATE_SIP_PASSWORD, GATE_SIP_USER, GATE_SIP_REALM, GATE_SIP_PEER_TOKEN; every other key is ignored); explicit PORTICO_* variables and -ipc-token-file override it; read once at start
+  |   -sip-from-env
+  |     	configure and start one gate_sip_server from PORTICO_SIP_* variables at start-up; the hub's later configure/deconfigure of it only adopt/detach
+  |   -socket string
+  |     	IPC unix socket path (§9.4)
+## args ['x', '-socket', 'a']
+  exit code: 1
+  | portico-transport: -socket or -listen is required
+## args ['-secrets-env=/nonexistent', '-socket=a']
+  exit code: 1
+  | portico-transport: -secrets-env: cannot open the file: open /nonexistent: no such file or directory
+## accepted flags ['-host', '10.0.0.1'] -> ['{"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":1}']
+## accepted flags ['--host=10.0.0.1'] -> ['{"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":1}']
+## accepted flags ['-ipc-allow-non-loopback'] -> ['{"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":1}']
+## accepted flags ['-ipc-allow-from', '1.2.3.4'] -> ['{"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":1}']
+## accepted flags ['-ipc-token-file', '/nonexistent'] -> ['{"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":1}']
+## -house-calls house_open -> ['{"error":{"code":"bad_params","message":"house: bad parameters: call_id must start with \\"hso-\\""},"id":1}']

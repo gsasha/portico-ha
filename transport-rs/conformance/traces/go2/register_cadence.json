@@ -1,0 +1,36 @@
+{
+ "auth_follows_401": 6,
+ "cseqs": [
+  "1 REGISTER",
+  "2 REGISTER",
+  "3 REGISTER",
+  "4 REGISTER",
+  "5 REGISTER",
+  "6 REGISTER",
+  "7 REGISTER",
+  "8 REGISTER",
+  "9 REGISTER",
+  "10 REGISTER",
+  "11 REGISTER",
+  "12 REGISTER",
+  "13 REGISTER",
+  "14 REGISTER"
+ ],
+ "deregister_after_sigterm_ms": 0.28,
+ "deregister_n": 2,
+ "refresh_gaps_ms": [
+  2006.1,
+  2008.03,
+  2005.32,
+  2009.96,
+  2008.72
+ ],
+ "unauth_starts_ms": [
+  0.0,
+  2006.1,
+  4014.13,
+  6019.45,
+  8029.41,
+  10038.13
+ ]
+}

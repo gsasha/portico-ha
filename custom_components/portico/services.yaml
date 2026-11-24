@@ -1,0 +1,38 @@
+push_test:
+  fields:
+    phones:
+      required: false
+      selector:
+        text:
+          multiple: true
+
+call_everyone:
+  fields:
+    panel:
+      required: false
+      selector:
+        text:
+
+validate_config:
+  fields: {}
+
+reload_config:
+  fields:
+    dry_run:
+      required: false
+      default: false
+      selector:
+        boolean:
+
+export_config:
+  fields:
+    dry_run:
+      required: false
+      default: false
+      selector:
+        boolean:
+    overwrite:
+      required: false
+      default: false
+      selector:
+        boolean:

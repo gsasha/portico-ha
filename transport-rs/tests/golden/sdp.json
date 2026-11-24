@@ -1,0 +1,296 @@
+{
+ "build": [
+  {
+   "host": "127.0.0.1",
+   "port": 45000,
+   "out": "v=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 45000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+  },
+  {
+   "host": "10.8.0.39",
+   "port": 0,
+   "out": "v=0\r\no=portico 0 0 IN IP4 10.8.0.39\r\ns=portico\r\nc=IN IP4 10.8.0.39\r\nt=0 0\r\nm=audio 0 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+  },
+  {
+   "host": "",
+   "port": 1,
+   "out": "v=0\r\no=portico 0 0 IN IP4 \r\ns=portico\r\nc=IN IP4 \r\nt=0 0\r\nm=audio 1 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+  },
+  {
+   "host": "host.example",
+   "port": 65535,
+   "out": "v=0\r\no=portico 0 0 IN IP4 host.example\r\ns=portico\r\nc=IN IP4 host.example\r\nt=0 0\r\nm=audio 65535 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+  },
+  {
+   "host": "1.2.3.4",
+   "port": -1,
+   "out": "v=0\r\no=portico 0 0 IN IP4 1.2.3.4\r\ns=portico\r\nc=IN IP4 1.2.3.4\r\nt=0 0\r\nm=audio -1 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+  },
+  {
+   "host": "::1",
+   "port": 5,
+   "out": "v=0\r\no=portico 0 0 IN IP4 ::1\r\ns=portico\r\nc=IN IP4 ::1\r\nt=0 0\r\nm=audio 5 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+  }
+ ],
+ "parse": [
+  {
+   "name": "typical",
+   "in_hex": "763d300d0a6f3d2d2030203020494e204950342031302e302e302e310d0a733d2d0d0a633d494e204950342031302e302e302e310d0a743d3020300d0a6d3d617564696f2034303030205254502f415650203020380d0a",
+   "ok": true,
+   "host": "10.0.0.1",
+   "port": 4000
+  },
+  {
+   "name": "built by BuildSDP",
+   "in_hex": "763d300d0a6f3d706f727469636f2030203020494e20495034203139322e3136382e312e350d0a733d706f727469636f0d0a633d494e20495034203139322e3136382e312e350d0a743d3020300d0a6d3d617564696f203430303030205254502f4156502039360d0a613d7274706d61703a3936204c31362f31363030300d0a613d7074696d653a34300d0a",
+   "ok": true,
+   "host": "192.168.1.5",
+   "port": 40000,
+   "payload_type": 96
+  },
+  {
+   "name": "lf only",
+   "in_hex": "633d494e2049503420312e322e332e340a6d3d617564696f2035303030205254502f4156502039360a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000,
+   "payload_type": 96
+  },
+  {
+   "name": "cr only",
+   "in_hex": "633d494e2049503420312e322e332e340d6d3d617564696f2035303030205254502f4156502039360d",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "no trailing newline",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f2035303030205254502f415650203936",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000,
+   "payload_type": 96
+  },
+  {
+   "name": "empty",
+   "in_hex": "",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "no connection",
+   "in_hex": "6d3d617564696f2035303030205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "no media",
+   "in_hex": "633d494e2049503420312e322e332e340d0a",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "port zero",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f2030205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "port negative",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f202d35205254502f41565020300d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": -5
+  },
+  {
+   "name": "port above 65535",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f203730303030205254502f41565020300d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 70000
+  },
+  {
+   "name": "port not numeric",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f20616263205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: malformed audio port in \"m=audio abc RTP/AVP 0\": strconv.Atoi: parsing \"abc\": invalid syntax"
+  },
+  {
+   "name": "port plus sign",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f202b35303030205254502f41565020300d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000
+  },
+  {
+   "name": "port huge",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f203939393939393939393939393939393939393939205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: malformed audio port in \"m=audio 99999999999999999999 RTP/AVP 0\": strconv.Atoi: parsing \"99999999999999999999\": value out of range"
+  },
+  {
+   "name": "payload not numeric",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f2035303030205254502f4156502078780d0a",
+   "ok": false,
+   "err": "sip: malformed payload type in \"m=audio 5000 RTP/AVP xx\": strconv.Atoi: parsing \"xx\": invalid syntax"
+  },
+  {
+   "name": "payload negative",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f2035303030205254502f415650202d310d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000,
+   "payload_type": -1
+  },
+  {
+   "name": "too few fields",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f2035303030205254502f4156500d0a",
+   "ok": false,
+   "err": "sip: malformed m=audio line \"m=audio 5000 RTP/AVP\""
+  },
+  {
+   "name": "m line only two fields",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f20353030300d0a",
+   "ok": false,
+   "err": "sip: malformed m=audio line \"m=audio 5000\""
+  },
+  {
+   "name": "m line tabs",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f0935303030095254502f41565009300d0a",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "m line extra spaces",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f20202020353030302020205254502f415650202020392020200d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000,
+   "payload_type": 9
+  },
+  {
+   "name": "m= prefix needs one space",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f202035303030205254502f41565020300d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000
+  },
+  {
+   "name": "second audio line wins",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f2035303030205254502f41565020300d0a6d3d617564696f2036303030205254502f41565020380d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 6000,
+   "payload_type": 8
+  },
+  {
+   "name": "second connection wins",
+   "in_hex": "633d494e2049503420312e312e312e310d0a6d3d617564696f2035303030205254502f41565020300d0a633d494e2049503420322e322e322e320d0a",
+   "ok": true,
+   "host": "2.2.2.2",
+   "port": 5000
+  },
+  {
+   "name": "bad second audio line errors",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f2035303030205254502f41565020300d0a6d3d617564696f2078205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: malformed audio port in \"m=audio x RTP/AVP 0\": strconv.Atoi: parsing \"x\": invalid syntax"
+  },
+  {
+   "name": "video line ignored",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d766964656f2037303030205254502f4156502033310d0a6d3d617564696f2035303030205254502f41565020300d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000
+  },
+  {
+   "name": "ipv6 connection ignored",
+   "in_hex": "633d494e20495036203a3a310d0a6d3d617564696f2035303030205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "connection trailing spaces",
+   "in_hex": "633d494e2049503420312e322e332e342020200d0a6d3d617564696f2035303030205254502f41565020300d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000
+  },
+  {
+   "name": "connection lower case",
+   "in_hex": "633d696e2069703420312e322e332e340d0a6d3d617564696f2035303030205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "connection host name",
+   "in_hex": "633d494e20495034206d656469612e6578616d706c652e6f72670d0a6d3d617564696f2035303030205254502f41565020300d0a",
+   "ok": true,
+   "host": "media.example.org",
+   "port": 5000
+  },
+  {
+   "name": "connection empty host",
+   "in_hex": "633d494e20495034200d0a6d3d617564696f2035303030205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "connection with ttl",
+   "in_hex": "633d494e20495034203232342e322e312e312f3132370d0a6d3d617564696f2035303030205254502f41565020300d0a",
+   "ok": true,
+   "host": "224.2.1.1/127",
+   "port": 5000
+  },
+  {
+   "name": "leading spaces on lines",
+   "in_hex": "20633d494e2049503420312e322e332e340d0a206d3d617564696f2035303030205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "media nbsp separated",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696fc2a035303030c2a05254502f415650c2a0300d0a",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "double cr",
+   "in_hex": "633d494e2049503420312e322e332e340d0d0a6d3d617564696f2035303030205254502f41565020300d0d0a",
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000
+  },
+  {
+   "name": "error line quoting",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f20227822205254502f41565020300d0a",
+   "ok": false,
+   "err": "sip: malformed audio port in \"m=audio \\\"x\\\" RTP/AVP 0\": strconv.Atoi: parsing \"\\\"x\\\"\": invalid syntax"
+  },
+  {
+   "name": "error line with tab",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f203530303009090d0a",
+   "ok": false,
+   "err": "sip: malformed m=audio line \"m=audio 5000\\t\\t\""
+  },
+  {
+   "name": "non sdp text",
+   "in_hex": "68656c6c6f",
+   "ok": false,
+   "err": "sip: SDP missing connection address or audio port"
+  },
+  {
+   "name": "invalid utf8 line",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f2035303030205254502f41565020300d0a613dfffe0d0a",
+   "lossy_err": true,
+   "ok": true,
+   "host": "1.2.3.4",
+   "port": 5000
+  },
+  {
+   "name": "invalid utf8 in bad m line",
+   "in_hex": "633d494e2049503420312e322e332e340d0a6d3d617564696f20ff205254502f41565020300d0a",
+   "lossy_err": true,
+   "ok": false,
+   "err": "sip: malformed audio port in \"m=audio \\xff RTP/AVP 0\": strconv.Atoi: parsing \"\\xff\": invalid syntax"
+  }
+ ]
+}

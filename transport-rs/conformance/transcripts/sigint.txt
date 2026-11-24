@@ -1,0 +1,5 @@
+# SIGINT with no connection
+  socket mode: 600
+  exit code: 0
+  socket file gone: True
+  process output: ''

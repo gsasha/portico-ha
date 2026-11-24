@@ -1,0 +1,90 @@
+# transport-rs: the slices, module status and the 4b wiring
+
+History of how the port was built, moved here from the README (the README describes what the crate is now; the behaviour differences by subject are in [../PARITY.md](../PARITY.md) and `parity/`).
+
+## The slices, in order
+
+A Rust port of the Go `portico-transport` binary (`transport/` until D-20261123-cc1e, now in git history only, commit `bdd8e61`) (task DEV-764, plan:
+`automation/portico_rust_transport_plan.md` in the estate repo, Phase 3(a)). The crate builds a
+binary with the same name, flags and IPC as the Go one. **It is not wired into anything**: the
+`portico_transport` wheel and `custom_components/` still ship and run the Go binary.
+
+Slice 1 is the IPC server, the nine command-line flags, signal handling and a request dispatcher
+with an empty driver registry. Slice 2 (`src/sip/`) is the port of the Go package `pkg/sip`, a
+library the SIP drivers call (linked into the binary since slice 3b-1: the release binary grew from
+632 KB to 975 KB with the driver and the server). Slice 3a (`src/driver/`) is the driver interface
+family plus the configuration, codec, A-law and audio-queue core of the `gate_sip_server` driver.
+Slice 3b-1 (`src/driver/gatesipserver/server/mod.rs`, `src/dispatch/mod.rs`) is its SIP server loop
+(`server.go`) and the dispatcher around it: `configure {driver: gate_sip_server}` now validates
+the config with Go's exact messages, binds the SIP and RTP sockets, starts the server and answers
+Go's Capabilities bytes; `deconfigure` stops it; `answer`, `hangup`, `dial`, `open_relay`,
+`external_ring`, `talk_health`, `stream_url` reach the driver as in Go's `main.go`; the driver's
+events become `ringing`, `call_state_changed`, `capabilities_changed` notifications. Slice 3b-2
+(`src/driver/gatesipserver/server/dial.rs`) is the outbound call to the station (`dial.go`): `dial` of a
+`gate_sip_server` device INVITEs the station, waits for its 200 and reports `answered`, `active`,
+`ended` under the hub's `out-` id. Slice 4a (`src/sfu/`) is the pure audio code of the Go package
+`internal/sfu`: G.711, G.722, the 16 kHz/8 kHz converters, the uplink jitter handling and the
+answer-codec policy, with no WebRTC session. Slice 4b (`src/sfu/session/mod.rs`, `src/call/`, `src/webrtc.rs`) is the WebRTC
+session on `str0m` 0.25.0, the call sequencer and `webrtc_offer` / `webrtc_answer` / `webrtc_ice`: a browser's offer is
+answered with G.722 (PCMU as the fallback), and a `gate_sip_server` ring is answered only once the browser leg has
+connected, with the audio joined both ways. `INTEROP.md` has the runs against real Firefox and Chromium. Slices 5a and 5b were the `gate_sip_observer` driver (the poll driver, its listen leg, the claim and the dial); it was deleted with the observer door (DEV-518 C5), see `docs/parity/gate_sip_observer.md`. Slice 6
+(`src/driver/dahua/`, `src/call/relay.rs`, the pending-ring half of `src/webrtc.rs`) is the `dahua_sip` driver (`pkg/driver/dahua`): it registers the
+`user#index` account on a Dahua VTO, reports a ring, answers or dials on request and hands the ring to the relay path, where a browser's offer
+answers it on a real RTP socket once the browser has connected (`internal/call/relay.go`, `-host` as the advertised address). The `media_open` join of an away phone to a device leg was left for slice 8.
+
+Slice 7a (`src/driver/unifiprotect/`) is the `unifi_protect` driver without its talkback: it watches the console's public events websocket (`X-API-KEY`, JSON text messages; no login, cookie or CSRF exists in that API) for a doorbell ring, reports availability, mints the RTSPS stream URL, and holds the ring call with the timers of `ring.go`. Slice 7b is the rest of the package: the talkback (`talkback.rs`: an `ffmpeg` subprocess transcodes the phone's 16 kHz L16 into the Opus RTP the console's talkback session expects; **`ffmpeg` is an installer prerequisite on the host, found on `PATH` as `ffmpeg`, exactly as in Go; nothing of it is linked into the binary**), the `unifi_protect_talk` driver (`talk.rs`, `talk_media.rs`, `talk_down.rs`, `talk_dial.rs`: a ring told by Python through `external_ring`, answered in-process once a browser has connected, the visitor's voice pulled through a second `ffmpeg`, a call out from the phone, the guard against bell-talk holding the sink, `talk_health`), the jitter/playout buffer both directions use (`src/pacer.rs`, Go's `pkg/pacer`) and the hub's talkback bridge (`find_talkback_answerer` / `answer_via_talkback` in `webrtc.rs`, `Relay::use_talkback`, `open_talkback_once_connected`). **Deploy note (slice 8): the 7a "do not deploy" note is lifted for the `webrtc_offer` path with `ffmpeg` installed on the host, and the wsmedia gap is closed: an away phone's `media_open` is joined to the device leg of its call in the four ways Go joins it (slice 8, below).** Nothing is wired into the shipped wheel, and PARITY.md "unifi_protect talk family (slice 7b)" and "wsmedia (slice 8)" list what was not verified.
+
+Slice 8 (`src/wsmedia.rs`, `src/dispatch/mod.rs`) is the away phone's audio over the signalling WebSocket: the `Leg` of Go's `internal/wsmedia` (pcmu or l16 frames of 40 ms, the 8-frame channels, the idle watchdog, the close rules) and the `wsMediaHub` of `cmd/portico-transport/wsmedia.go` (`media_open` / `media_frame` / `media_close`, the `media_frame` and `media_closed` notifications), with the join: `media_open` hands the leg to `joinCallToBrowser`, so the phone is joined to a call a driver answered itself (gate_sip_observer claims, a call out of `unifi_protect_talk`), to a Protect ring (through its talkback), to a `gate_sip_server` or `unifi_protect_talk` ring (answered in-process once the leg exists) and to dahua_sip's pending ring (the relay), exactly as a browser's WebRTC session is. The tests of the 5 Go files are ported by name, the golden file `tests/golden/wsmedia.json` (118 scenarios, 61 base64 decodes and 17 encodes, all from the real Go code) is replayed identically, and `ipc_smoke.py wsmedia` prints the same on both binaries.
+
+Slice 10 (`src/ipc/tcp.rs`, `src/process/standalone.rs`, `src/process/secretsenv.rs`) is the standalone/container mode: the IPC over a token-authenticated TCP socket (`-listen`), a `gate_sip_server` started from `PORTICO_SIP_*` that the hub adopts and only detaches from (`-sip-from-env`), and the `.env` reader (`-secrets-env`).
+
+Slice 9 (`src/house/mod.rs`, `src/dispatch/mod.rs`) is the house-call bridge, default OFF (`-house-calls`): two audio legs of one phone-to-phone call joined inside the hub (a frame channel over the signalling socket, the `wsmedia` leg, or a WebRTC session), with its own table (cap 4 bridges, 2 legs per phone), a silence watchdog per leg, per-leg counters and the one line a call writes when it ends, `house_open` / `house_close`, the `house_leg_state` notifications, and the router that sends `media_frame` / `media_close` for ids starting `house-` to the bridge and every other id to the door path. Off, both verbs answer `not_supported` and nothing exists. **Deploy note (slice 9): with this slice every Go verb has a Rust counterpart; what still keeps the Rust binary off a production door is TCP IPC mode, `-sip-from-env`, `-secrets-env`, the wheel and the rollback mechanism, and the "Not verified" lists of PARITY.md (no real phone, no real Python `house_bridge.py` in the loop).**
+
+## Status
+
+| Module | Go source | State |
+|---|---|---|
+| `src/ipc/mod.rs` (Unix-socket server, framing, correlation, notifications, inline/keyed dispatch, pre-serialised results and notifications) | `internal/ipc/ipc.go` | done, tests ported |
+| `src/main.rs`, `src/process/flags.rs` (9 flags, signals, exit codes, stderr lines) | `cmd/portico-transport/main.go` | done |
+| `src/dispatch/mod.rs` (all request methods, the device registry, `configure`/`deconfigure`/`dial`/`answer`/`open_relay`/`hangup`/`external_ring`/`talk_health`/`stream_url` against a real driver (`gate_sip_server`, and since 5a `gate_sip_observer`: the hub awaits `Driver::capabilities_ready` before it reads the capabilities), the event sink and its notifications, `media_*` lane, `house_*` when `-house-calls` is on) | `main.go`, `external_ring.go`, `talk_health.go`, `wsmedia.go`, `house.go` | done: every Go method, all the drivers (`gate_sip_server` with `dial`, `gate_sip_observer`, `dahua_sip`, `unifi_protect`, `unifi_protect_talk`), the WebRTC handlers, the `media_*` and `house_*` lanes, the `-sip-from-env` device (slice 10) |
+| `src/gojson.rs` (Go `encoding/json` error text and string escaping) | stdlib behaviour | done for the shapes in use |
+| `src/ipc/tcp.rs` (the TCP IPC: token handshake in a 5 s window, loopback unless two flags, allow-from, keep-alive) | `internal/ipc/tcp.go` | done (slice 10), tests ported, golden from the real Go server |
+| `src/process/standalone.rs`, `src/process/secretsenv.rs` (`-listen`, `-ipc-*`, `-sip-from-env`, the adopt / detach wrappers, `-secrets-env`) | `cmd/portico-transport/standalone.go`, `secretsenv.go` | done (slice 10), tests ported, golden from the real Go code |
+| `src/sip/` (message parsing, digest + nonce store, dialog/SDP, registrar, endpoint with retransmission timers, RTP, jitter buffer) | `pkg/sip/*.go` | done: all 37 Go tests ported, golden vectors from the real Go code, see below |
+| `src/cancel.rs` (cancellation token) | | done, design in [DESIGN.md](../DESIGN.md) |
+| `src/driver/mod.rs` (Driver trait family, `Capabilities` wire form, error sentinels, `driverError`) | `pkg/driver/driver.go` | done, capabilities golden from the real Go drivers |
+| `src/driver/gatesipserver/` `config.rs`, `netaddr.rs`, `media.rs`, `audio.rs`, `mod.rs` (config validation, codec choice and SDP answer, A-law, `AudioClient` queues and `CallAudio`, driver glue) | `config.go`, `media.go`, `audio.go`, `driver.go` (+ the `AudioClient` half of `server.go`) | done (slice 3a), golden vectors from the real Go code; `configure` validates, binds and starts the server (slice 3b-1) |
+| `src/driver/gatesipserver/server/mod.rs` (registrar with digest and nonce store, INVITE/ACK/BYE/CANCEL/OPTIONS, one call slot, ring and orphan timers, answer and attach, RTP receive and send loops with the strict source rule, event queue, CanDial republish, stats, `shutdown`) | `server.go`, the registration half of `dial.go` | done (slice 3b-1): 82 scenarios replayed against transcripts of the real Go server, 22 rehearsal dialogues, the ported Go tests |
+| `src/driver/gatesipserver/server/dial.rs` (child module of `server/mod.rs`: `DialCall`/`CanDial`, the INVITE to the REGISTER's source, challenge, 200/ACK, CANCEL, BYE, the ring/cap/attach timers, strays dropped, the drop guard) | `dial.go` | done (slice 3b-2): 52 scenarios replayed against transcripts of the real Go server, the 26 ported Go tests, the smoke script dials a station through both binaries and prints the same |
+| `src/sfu/` `g711.rs`, `g722.rs`, `resample.rs`, `uplink.rs`, `audio.rs` (the per-session audio state of `sfu.go`), `policy.rs` (answer-codec policy) | `internal/sfu/{g711,g722,resample,uplink}.go` + the pure parts of `sfu.go` | done (slice 4a): G.722 hand-ported and bit-exact against the real library, 4 golden files from the real Go code, the pion-free Go tests ported. No WebRTC session (see "What slice 4b wires") |
+| `src/sfu/session/mod.rs` (the str0m session: offer/answer, trickle, connection state, the terminal rule for `Disconnected`, panic isolation), `src/sfu/ifaces.rs` (interface allow-list), `src/sfu/sdp.rs` (offer rewrite and caps, answer order) | `internal/sfu/sfu.go` | done (slice 4b): the ported Go tests over a real offer/answer pair (a second str0m instance as the offerer), 12 lifecycle tests, real Firefox 153 and Chromium 124 in `INTEROP.md` |
+| `src/call/` (`state_machine.rs`, `manager.rs`, `sequencer.rs`, `relay.rs`), `src/webrtc.rs` (`sessionRegistry`, the `webrtc_*` handlers, `joinCallToBrowser`, `relayRegistry`, `relayClosingSink`) | `internal/call/*.go`, `cmd/portico-transport/main.go` | done (claimed audio, `ConnectAnswerer`, since slice 6 the pending-ring relay of dahua_sip, since slice 7b the talkback bridge of a Protect ring: `Relay::use_talkback`, `open_talkback_once_connected`, `find_talkback_answerer`, `answer_via_talkback`) |
+| `src/wsmedia.rs` (`Leg`, base64, `WsMediaHub`: `media_open` / `media_frame` / `media_close` and the join to the device leg), the join wiring in `src/dispatch/mod.rs` | `internal/wsmedia/{codec,leg}.go`, `cmd/portico-transport/wsmedia.go` | done (slice 8): 24 leg and 94 hub scenarios of the real Go code (the real `wsmedia.go` compiled into the generator) replayed identically, 61 base64 decodes, all 16 Go tests ported (+1 of `two_doors_test.go`), the four joins run over the IPC against the real drivers, `ipc_smoke.py wsmedia` identical on both binaries, see PARITY.md differences 156 to 161 |
+| `src/house/mod.rs` (the `Manager` and its bridges, the frames and WebRTC legs, `house_open` / `house_close` and the `media_*` router), the wiring in `src/dispatch/mod.rs` | `internal/house/house.go`, `cmd/portico-transport/house.go` | done (slice 9, `-house-calls`, default off): all 32 + 14 Go tests ported, 31 manager and 13 hub scenarios of the real Go code (the real `house.go` compiled into the generator) replayed identically, `ipc_smoke.py house` identical on both binaries, see PARITY.md differences 162 to 174 |
+| `src/driver/dahua/mod.rs` (the driver: Configure, Capabilities, the registration, INVITE / CANCEL / BYE handlers, Answer, Dial, PendingRing[For], OpenRelay's refusal, Stop with the clean de-register), `src/call/relay.rs` (`DialDevice`, `AnswerDevice`, `Close`, `mediaHost`) | `pkg/driver/dahua/dahua.go`, `internal/call/relay.go` | done (slice 6): 29 scenarios and 36 `mediaHost` / 13 `Configure` vectors from the real Go code, all the Go tests of both files, the smoke script's `dahua_flow` identical on both binaries, see PARITY.md |
+| `src/driver/unifiprotect/` `mod.rs` (the driver, Configure, Capabilities, Start/Stop, `StreamURL`, the `TalkbackOpener` seam), `api.rs` (the console's Integration API client: `RTSPSURL`, `TalkbackSession`), `ws.rs` (the RFC 6455 client: upgrade, incremental frame decoder, pump), `ring.rs` (the events frame, ring state, timers, watcher with backoff and supervision, `AnswerTalkback` / `HangupCall`), `tls.rs` (since R3B-8 `src/gostd/tls.rs`: rustls, Go's CA bundle places) | `unifiprotect.go`, `api.go`, `ws.go`, `ring.go` | done (slice 7a): 4 golden files from the real Go code (about 400 scenarios and streams), the Go tests of those files ported, `ipc_smoke.py unifi_flow` identical on both binaries. The talkback and `unifi_protect_talk` are slice 7b, next row |
+| `src/driver/unifiprotect/` `ffmpeg.rs` (the argument lists, `validSink`, `LookPath`, `scrubLine`, the gain, the task guard), `talkback.rs` (`Talkback`, `FfmpegOpener`: installed by default into `unifi_protect`), `talk.rs` (`TalkDriver`: ring, answer, hang-up, health, configure), `talk_media.rs` (the guard, the console session, the uplink with its pacer, the media's lifetime), `talk_down.rs` (the downlink, `TalkStats`, `TalkHealth`), `talk_dial.rs` (a call out, `claimed_audio`); `src/pacer.rs` | `talkback.go`, `talk.go`, `talk_media.go`, `talk_down.go`, `talk_dial.go`; `pkg/pacer/pacer.go`; `talk_health.go` | done (slice 7b): 4 golden files from the real Go code (57 pacer scripts, the helpers and a 100-config corpus, 74 guard answers, 31 whole-driver scenarios against a fake console, guard and `ffmpeg` script), every Go test of the family ported, `ipc_smoke.py talk` identical on both binaries, see PARITY.md differences 124 to 150 |
+
+Every behaviour matched, every deliberate difference and every TODO is in [PARITY.md](../PARITY.md).
+The task and cancellation design for the goroutine/channel/context patterns is in
+[DESIGN.md](../DESIGN.md).
+
+## What slice 4b wired (`src/sfu/session/mod.rs`)
+
+The session task in 4b (one per `call_id`, every call into str0m under `catch_unwind`, the task supervised through its join handle;
+`panic = "unwind"` is pinned in `Cargo.toml`) does what Go's `newSession`/`HandleOffer` do and calls the 4a pieces like this:
+
+| Go (`sfu.go`) | 4b |
+|---|---|
+| `newSession`: register G.722 and PCMU, never Opus; answer in the offerer's order | `RtcConfig::clear_codecs().enable_g722().enable_pcmu()`; str0m's answer is the one sent, with the `m=audio` types put in the offerer's order; `policy::answer_codecs` is the cross-check (it logs a disagreement) |
+| `audioTrack.Bind` | the first G.722/PCMU type of the answer's `m=audio` line, mapped through str0m's own payload table (`Core::negotiated`) |
+| `jitter := newUplinkBuffer()` | `UplinkBuffer::new()` inside an `UplinkPath::new(jitter)`, fed with RAW RTP (`enable_raw_packets`): wire sequence number and payload |
+| `readRemoteTrack`, per RTP packet | `Event::RawPacket(RtpRx)` -> `path.on_rtp(payload_type, sequence_number, payload)`; the gate accepts the negotiated types (`UplinkGate::set_negotiated`) |
+| `forwardJitterOut` | `forward_jitter_out`: `path.jitter().recv()` -> `UplinkConverter::convert` -> `AudioOut` (bounded, drop when full) |
+| `encodeLoop` | the `AudioIn` arm of the session loop: `DownlinkEncoder::encode` (`None` = an odd G.722 frame, dropped) -> `RtpSendState::next_timestamp` -> `Writer::write`; str0m assigns the sequence numbers and the SSRC |
+| `OnConnectionStateChange` | `Event::Connected` fires `OnConnected` once; `Disconnected` starts the grace timer, which ends the session (PARITY.md difference 63) |
+| `Close` | `Session::close`: idempotent, fires `OnDisconnected`, the task sends the DTLS close_notify and the RTCP BYE |
+
+The decisions the 4a review asked for are recorded in PARITY.md (differences 61 to 81). The environment variables the session reads:
+`PORTICO_SFU_EXCLUDE_IFACES`, `PORTICO_SFU_INCLUDE_LOOPBACK`, `PORTICO_SFU_MAX_STUN_RETRANSMITS`,
+`PORTICO_SFU_DISCONNECT_GRACE_SECS`, `PORTICO_SFU_CONNECT_TIMEOUT_SECS`, `PORTICO_SFU_MAX_SESSIONS` (none is a flag: the nine flags stay Go's).

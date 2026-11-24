@@ -1,0 +1,2011 @@
+{
+ "cases": [
+  {
+   "name": "rtsps: plain",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2035320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f6e76722e6578616d706c653a373434312f544f4b454e3f656e61626c6553727470227d",
+   "ok": "rtsps://nvr.example:7441/TOKEN?enableSrtp",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: newline",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032330d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d0a",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: duplicate keys last wins",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2034330d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f61222c2268696768223a2272747370733a2f2f682f62227d",
+   "ok": "rtsps://h/b",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: other qualities",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2036350d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b226c6f77223a2272747370733a2f2f682f6c222c226d656469756d223a2272747370733a2f2f682f6d222c2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: high missing",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b226c6f77223a2272747370733a2f2f682f6c227d",
+   "err": "rtsps-stream: no \"high\" stream in the response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: high null",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031330d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a6e756c6c7d",
+   "err": "rtsps-stream: no \"high\" stream in the response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: high empty",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a22227d",
+   "err": "rtsps-stream: no \"high\" stream in the response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: null",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a6e756c6c",
+   "err": "rtsps-stream: no \"high\" stream in the response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: empty object",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b7d",
+   "err": "rtsps-stream: no \"high\" stream in the response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: http scheme",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a22687474703a2f2f6576696c2f78227d",
+   "err": "rtsps-stream: unexpected stream scheme",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: uppercase scheme",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032300d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2252545350533a2f2f78227d",
+   "err": "rtsps-stream: unexpected stream scheme",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: rtsp not rtsps",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031390d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a22727473703a2f2f78227d",
+   "err": "rtsps-stream: unexpected stream scheme",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: rtsps prefix only",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031390d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f227d",
+   "ok": "rtsps://",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: number value",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031300d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a357d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: array value",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a5b2272747370733a2f2f78225d7d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: object value",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031360d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a7b2261223a317d7d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: bool value",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031330d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a747275657d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: wrong value in another key",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2033300d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b226c6f77223a352c2268696768223a2272747370733a2f2f682f74227d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: null in another key",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2033330d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b226c6f77223a6e756c6c2c2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: array",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a5b5d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: string",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a2272747370733a2f2f7822",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: number",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a35",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: not json",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20380d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a6e6f74206a736f6e",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: empty body",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20300d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: trailing garbage",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d2078",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: truncated",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f7422",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: unicode escape",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: key escape",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: key case",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2248696768223a2272747370733a2f2f682f74227d",
+   "err": "rtsps-stream: no \"high\" stream in the response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: space in url",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f612062227d",
+   "ok": "rtsps://h/a b",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: nested",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2033340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2273747265616d73223a7b2268696768223a2272747370733a2f2f682f74227d7d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 201 with a good body",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312032303120580d0a436f6e74656e742d4c656e6774683a2032320d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 202 with a good body",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312032303220580d0a436f6e74656e742d4c656e6774683a2032320d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 204 with a good body",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312032303420580d0a436f6e74656e742d4c656e6774683a2032320d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 206 with a good body",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312032303620580d0a436f6e74656e742d4c656e6774683a2032320d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 300",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312033303020580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 300",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 301",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312033303120580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 301",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 302",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312033303220580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 302",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 303",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312033303320580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 303",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 304",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312033303420580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 304",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 307",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312033303720580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 307",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 308",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312033303820580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 308",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 400",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312034303020580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 400",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 401",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312034303120580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 401",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 403",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312034303320580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 403",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 404",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312034303420580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 404",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 408",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312034303820580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 408",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 429",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312034323920580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 429",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 500",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312035303020580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 500",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 502",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312035303220580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 502",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 503",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312035303320580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 503",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: status 504",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312035303420580d0a4c6f636174696f6e3a20687474703a2f2f3132372e302e302e313a312f780d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 504",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: chunked",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a5472616e736665722d456e636f64696e673a206368756e6b65640d0a0d0a370d0a7b2268696768220d0a660d0a3a2272747370733a2f2f682f74227d0d0a300d0a0d0a",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: chunked with extension and trailer",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a5472616e736665722d456e636f64696e673a206368756e6b65640d0a0d0a31363b6578743d310d0a7b2268696768223a2272747370733a2f2f682f74227d0d0a300d0a547261696c65723a20780d0a0d0a",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: chunked, bad size",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a5472616e736665722d456e636f64696e673a206368756e6b65640d0a0d0a5a5a0d0a6162630d0a300d0a0d0a",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: reading response: invalid byte in chunk length",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: close-delimited",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: 100 continue first",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312031303020436f6e74696e75650d0a0d0a485454502f312e3120323030204f4b0d0a436f6e74656e742d4c656e6774683a2032320d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: content-length shorter than the body",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d4c656e6774683a2031300d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: content-length longer than the body",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d4c656e6774683a2035300d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: reading response: unexpected EOF",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: 401 with a short body",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e312034303120580d0a436f6e74656e742d4c656e6774683a2035300d0a0d0a73686f7274",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: reading response: unexpected EOF",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: body over 64 KiB",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d4c656e6774683a2037303034300d0a0d0a7b2268696768223a2272747370733a2f2f 61*70020 227d",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: chunked body over 64 KiB",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a5472616e736665722d456e636f64696e673a206368756e6b65640d0a0d0a31313139370d0a7b2268696768223a2272747370733a2f2f 61*70020 227d0d0a300d0a0d0a",
+   "err": "rtsps-stream: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: json of exactly 64 KiB",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d4c656e6774683a2036353533360d0a0d0a7b2268696768223a2272747370733a2f2f 61*65517 227d",
+   "ok": "rtsps://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: garbage instead of HTTP",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "676172626167650d0a0d0a",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: Post \"http://HOST/proxy/protect/integration/v1/cameras/cam1/rtsps-stream\": net/http: HTTP/1.x transport connection broken: malformed HTTP response \"garbage\"",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: EOF at once",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "high",
+   "reply": "",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: Post \"http://HOST/proxy/protect/integration/v1/cameras/cam1/rtsps-stream\": EOF",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: camera a/b c?d",
+   "kind": "rtsps",
+   "camera": "a/b c?d",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/a%2Fb%20c%3Fd/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: camera x;y",
+   "kind": "rtsps",
+   "camera": "x;y",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/x%3By/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: camera é",
+   "kind": "rtsps",
+   "camera": "é",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/%C3%A9/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: camera a%b",
+   "kind": "rtsps",
+   "camera": "a%b",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/a%25b/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: camera cam#1",
+   "kind": "rtsps",
+   "camera": "cam#1",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam%231/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: camera a+b=c:d@e",
+   "kind": "rtsps",
+   "camera": "a+b=c:d@e",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/a+b=c:d@e/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: camera a,b",
+   "kind": "rtsps",
+   "camera": "a,b",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/a%2Cb/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: camera 日本",
+   "kind": "rtsps",
+   "camera": "日本",
+   "quality": "high",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268696768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/%E6%97%A5%E6%9C%AC/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "22",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"high\"]}"
+   }
+  },
+  {
+   "name": "rtsps: quality medium",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "medium",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b226d656469756d223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "24",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"medium\"]}"
+   }
+  },
+  {
+   "name": "rtsps: quality hi\"gh",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "hi\"gh",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2268695c226768223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "24",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"hi\\\"gh\"]}"
+   }
+  },
+  {
+   "name": "rtsps: quality <x>&y",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "<x>&y",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032330d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b223c783e2679223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "38",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"\\u003cx\\u003e\\u0026y\"]}"
+   }
+  },
+  {
+   "name": "rtsps: quality é",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "quality": "é",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032300d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b22c3a9223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "20",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"é\"]}"
+   }
+  },
+  {
+   "name": "rtsps: quality ",
+   "kind": "rtsps",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031380d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b22223a2272747370733a2f2f682f74227d",
+   "ok": "rtsps://h/t",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "18",
+     "Content-Type": "application/json",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": "{\"qualities\":[\"\"]}"
+   }
+  },
+  {
+   "name": "talkback: plain",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2038370d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a227274703a2f2f3139322e3136382e322e393a37303034222c22636f646563223a226f707573222c2273616d706c696e6752617465223a32343030302c226269747350657253616d706c65223a31367d",
+   "talk": {
+    "url": "rtp://192.168.2.9:7004",
+    "codec": "opus",
+    "sampling_rate": 24000,
+    "bits_per_sample": 16
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: key case",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2036310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2255524c223a2275222c22436f646563223a2263222c2253414d504c494e4752415445223a383030302c224269747350657253616d706c65223a387d",
+   "talk": {
+    "url": "u",
+    "codec": "c",
+    "sampling_rate": 8000,
+    "bits_per_sample": 8
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: extra keys",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2034320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a2275222c2278223a5b312c7b2279223a6e756c6c7d5d2c22636f646563223a2263227d",
+   "talk": {
+    "url": "u",
+    "codec": "c",
+    "sampling_rate": 0,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: nulls",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2036360d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a6e756c6c2c22636f646563223a6e756c6c2c2273616d706c696e6752617465223a6e756c6c2c226269747350657253616d706c65223a6e756c6c7d",
+   "talk": {
+    "url": "",
+    "codec": "",
+    "sampling_rate": 0,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: missing",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b7d",
+   "talk": {
+    "url": "",
+    "codec": "",
+    "sampling_rate": 0,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: null",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a6e756c6c",
+   "talk": {
+    "url": "",
+    "codec": "",
+    "sampling_rate": 0,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: rate float",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2273616d706c696e6752617465223a32343030302e357d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: rate float integral",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2273616d706c696e6752617465223a32343030302e307d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: rate exponent",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2273616d706c696e6752617465223a322e3465347d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: rate string",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032340d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2273616d706c696e6752617465223a223234303030227d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: rate negative",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031390d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2273616d706c696e6752617465223a2d357d",
+   "talk": {
+    "url": "",
+    "codec": "",
+    "sampling_rate": -5,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: rate huge",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2033370d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2273616d706c696e6752617465223a39393939393939393939393939393939393939397d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: rate max int64",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2033360d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2273616d706c696e6752617465223a393232333337323033363835343737353830377d",
+   "talk": {
+    "url": "",
+    "codec": "",
+    "sampling_rate": 9223372036854775807,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: rate over int64",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2033360d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2273616d706c696e6752617465223a393232333337323033363835343737353830387d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: url number",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20390d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a357d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: codec array",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b22636f646563223a5b5d7d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: bits bool",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b226269747350657253616d706c65223a747275657d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: duplicate",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2032310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a2261222c2275726c223a2262227d",
+   "talk": {
+    "url": "b",
+    "codec": "",
+    "sampling_rate": 0,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: array",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20320d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a5b5d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: string",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20330d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a227822",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: number",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a35",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: not json",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a78",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: empty",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a20300d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: trailing",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031330d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a2275227d2078",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: error in a later key keeps the first error",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031390d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a352c22636f646563223a367d",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: unicode",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2033360d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a227274703a2f2f68c3a93a31222c22636f646563223a226f707573227d",
+   "talk": {
+    "url": "rtp://hé:1",
+    "codec": "opus",
+    "sampling_rate": 0,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: status 201",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e312032303120580d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: status 204",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e312032303420580d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "talkback-session: undecodable response",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: status 401",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e312034303120580d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session: HTTP 401",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: status 404",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e312034303420580d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session: HTTP 404",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: status 409",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e312034303920580d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session: HTTP 409",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: status 500",
+   "kind": "talkback",
+   "camera": "cam1",
+   "reply": "485454502f312e312035303020580d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a544f4b454e2d494e2d4552524f522d424f4459",
+   "err": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session: HTTP 500",
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/cam1/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: camera a/b c?d",
+   "kind": "talkback",
+   "camera": "a/b c?d",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a2275227d",
+   "talk": {
+    "url": "u",
+    "codec": "",
+    "sampling_rate": 0,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/a%2Fb%20c%3Fd/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  },
+  {
+   "name": "talkback: camera x;y",
+   "kind": "talkback",
+   "camera": "x;y",
+   "reply": "485454502f312e3120323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6a736f6e0d0a436f6e74656e742d4c656e6774683a2031310d0a436f6e6e656374696f6e3a20636c6f73650d0a0d0a7b2275726c223a2275227d",
+   "talk": {
+    "url": "u",
+    "codec": "",
+    "sampling_rate": 0,
+    "bits_per_sample": 0
+   },
+   "req": {
+    "line": "POST /proxy/protect/integration/v1/cameras/x%3By/talkback-session HTTP/1.1",
+    "hdr": {
+     "Accept": "application/json",
+     "Content-Length": "0",
+     "X-Api-Key": "SECRET-API-KEY"
+    },
+    "body": ""
+   }
+  }
+ ]
+}

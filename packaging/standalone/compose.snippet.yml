@@ -1,0 +1,63 @@
+# SNIPPET ONLY (DEV-518 W8). Not wired into any deploy and not a file any host reads.
+# A real deployment is the maintainer's own change to their container host
+# (packaging/standalone/README.md, "Follow-up"). Nothing here uses an address in
+# 10.0.0.0/8, 172.30.32.0/23 or 172.30.42.0/24, which are reserved on the maintainer's network.
+#
+# Variant A (recommended): host networking. SIP needs UDP 5060 and the RTP port to
+# keep the station's source address and the SDP addresses honest; with host
+# networking there is no NAT in the path and no port list to get wrong.
+services:
+  portico-sip:
+    image: local/portico-sip-standalone:test   # a registry tag once a PR exists
+    network_mode: host
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+    # Host networking: the flags below bind on the HOST. -listen is the IPC for HA's
+    # hub: loopback is useless to a hub on another machine, so for HA on a different
+    # host it must be this host's address AND both flags AND the HA address.
+    command:
+      - "-listen"
+      - "${PORTICO_IPC_LISTEN:-127.0.0.1:8765}"
+      # Recommended on docker-host: secrets from the box's .env (mounted below).
+      - "-secrets-env"
+      - "/secrets/.env"
+      # Alternative: 0400 secret files instead (drop -secrets-env, the .env mount and use `secrets:` below):
+      # - "-ipc-token-file"
+      # - "/run/secrets/portico_ipc_token"
+      - "-sip-from-env"
+      # Only when the IPC listen address is not loopback (BOTH flags):
+      # - "-ipc-allow-non-loopback"
+      # - "-ipc-allow-from"
+      # - "<HA host address>"
+    environment:
+      # Default loopback = inert. For the station to reach it, set the host's address
+      # here, plus PORTICO_SIP_ALLOW_NON_LOOPBACK=true AND PORTICO_SIP_ALLOW_FROM=<station>.
+      PORTICO_SIP_LISTEN: "${PORTICO_SIP_LISTEN:-127.0.0.1:5060}"
+      PORTICO_SIP_ALLOW_NON_LOOPBACK: "${PORTICO_SIP_ALLOW_NON_LOOPBACK:-false}"
+      PORTICO_SIP_ALLOW_FROM: "${PORTICO_SIP_ALLOW_FROM:-}"
+      PORTICO_SIP_RTP_PORT: "${PORTICO_SIP_RTP_PORT:-40000}"
+      PORTICO_SIP_DEVICE_ID: "${PORTICO_SIP_DEVICE_ID:-gate-sip-server}"
+      # PORTICO_SIP_PASSWORD_FILE: /run/secrets/portico_sip_password   # only for the secret-files alternative
+      PORTICO_SIP_DIAL_ENABLED: "${PORTICO_SIP_DIAL_ENABLED:-false}"
+    # Mounted read-only; NOT `env_file:` (docker-socket-proxy would leak Config.Env).
+    # Holds GATE_SIP_PASSWORD / _USER / _REALM / _PEER_TOKEN; GATE_SIP_TOKEN is in it too and is never read.
+    volumes:
+      - /home/user/.env:/secrets/.env:ro
+    # secrets: [portico_ipc_token, portico_sip_password]   # secret-files alternative only
+
+# Variant B: a bridge network with published UDP ports. Use only if host networking is
+# not available. Give the network a 172.28.x.x subnet (never 10.x, 172.30.32.0/23 or
+# 172.30.42.0/24), publish "5060:5060/udp" and "40000:40000/udp" and "8765:8765/tcp",
+# and set PORTICO_SIP_LISTEN to 0.0.0.0:5060 inside the container. NAT rewrites the
+# address the SDP and Contact carry, which is exactly what the host-network variant
+# avoids: run the rehearsal against it before trusting it.
+
+# Secret-files alternative only (unused with -secrets-env):
+# secrets:
+#   portico_ipc_token:
+#     file: ./secrets/portico_ipc_token          # >= 24 characters
+#   portico_sip_password:
+#     file: ./secrets/portico_sip_password       # 8-15 characters (Dahua)

@@ -1,0 +1,83 @@
+{
+ "down": {
+  "dc_free_peak": 23932,
+  "expected_frames": 75,
+  "first_frame_after_feed_ms": 20.36,
+  "frame_bytes": [
+   320
+  ],
+  "interval_ms": {
+   "max": 40.6336,
+   "mean": 40.0004,
+   "min": 39.2637,
+   "n": 74,
+   "p50": 40.0005,
+   "p99": 40.6336,
+   "std": 0.1622
+  },
+  "n_frames": 75,
+  "oracle_max_excess_error": -17.3,
+  "oracle_samples": 24000,
+  "payload_md5": "2ad0f372817194330bfc6386ba9427c2"
+ },
+ "up": {
+  "ack_after_200_ms": null,
+  "expected_real_packets": 150,
+  "first_real_after_feed_ms": 0.34,
+  "oracle_max_excess_error": 8.0,
+  "oracle_samples": 24000,
+  "payload_md5": "b11a1f0089cdfac3c8c5342fa7b6f111",
+  "real_packets": 150,
+  "stats": {
+   "drift_ppm": -8.1,
+   "first_ms": 20.55,
+   "first_seq": 55910,
+   "first_ts": 0,
+   "interval_ms": {
+    "max": 23.9096,
+    "mean": 20.0009,
+    "min": 16.0503,
+    "n": 424,
+    "p50": 20.0375,
+    "p99": 20.6747,
+    "std": 0.5074
+   },
+   "last_ms": 8500.93,
+   "marker_count": 0,
+   "n": 425,
+   "payload_len": [
+    160
+   ],
+   "phases": {
+    "feed": {
+     "max": 23.9096,
+     "mean": 20.0011,
+     "min": 16.0503,
+     "n": 139,
+     "p50": 19.9984,
+     "p99": 20.603,
+     "std": 0.4896
+    },
+    "silence": {
+     "max": 21.0566,
+     "mean": 19.9982,
+     "min": 18.1294,
+     "n": 143,
+     "p50": 20.2797,
+     "p99": 20.6574,
+     "std": 0.5372
+    }
+   },
+   "pt": [
+    8
+   ],
+   "seq_step_violations": 0,
+   "ssrc_count": 1,
+   "ts_step_values": [
+    160
+   ],
+   "ts_step_violations": 0
+  }
+ },
+ "wide": false
+}

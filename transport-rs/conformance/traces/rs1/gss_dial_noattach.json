@@ -1,0 +1,33 @@
+{
+ "ipc": [
+  [
+   1.1,
+   "call_state_changed",
+   "answered"
+  ],
+  [
+   1.1,
+   "result:41",
+   null
+  ],
+  [
+   15003.2,
+   "call_state_changed",
+   "ended"
+  ]
+ ],
+ "station_got": [
+  [
+   0.3,
+   "INVITE"
+  ],
+  [
+   0.9,
+   "ACK"
+  ],
+  [
+   15002.9,
+   "BYE"
+  ]
+ ]
+}

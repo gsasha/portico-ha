@@ -1,0 +1,84 @@
+# gate_sip_server: configure, a station, the device verbs, deconfigure
+## configure (the reply is the Capabilities struct in field order)
+  {"id":1,"result":{"DirectCapable":false,"HasRelay":false,"InboundAudio":0,"OutboundAudio":0,"RTSPTemplate":"","ReportsAvailability":false}}
+    raw='{"id":1,"result":{"InboundAudio":0,"OutboundAudio":0,"DirectCapable":false,"HasRelay":false,"RTSPTemplate":"","ReportsAvailability":false}}'
+## configure the same device again
+  {"error":{"code":"already_configured","message":"smoke-gss"},"id":2}
+    raw='{"id":2,"error":{"code":"already_configured","message":"smoke-gss"}}'
+## device verbs before any station (order open in Go)
+  {"error":{"code":"answer_failed","message":"no call to answer"},"id":12}
+    raw='{"id":12,"error":{"code":"answer_failed","message":"no call to answer"}}'
+  {"error":{"code":"dial_failed","message":"gate_sip_server: DialCall: the station has not registered"},"id":10}
+    raw='{"id":10,"error":{"code":"dial_failed","message":"gate_sip_server: DialCall: the station has not registered"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":14}
+    raw='{"id":14,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_supported","message":"gate_sip_server: Answer with a media target: not_supported (media is bridged in-process)"},"id":13}
+    raw='{"id":13,"error":{"code":"not_supported","message":"gate_sip_server: Answer with a media target: not_supported (media is bridged in-process)"}}'
+  {"error":{"code":"not_supported","message":"gate_sip_server: OpenRelay: not_supported"},"id":11}
+    raw='{"id":11,"error":{"code":"not_supported","message":"gate_sip_server: OpenRelay: not_supported"}}'
+  {"error":{"code":"not_supported","message":"smoke-gss does not take external rings"},"id":15}
+    raw='{"id":15,"error":{"code":"not_supported","message":"smoke-gss does not take external rings"}}'
+  {"error":{"code":"not_supported","message":"smoke-gss has no talk health block"},"id":16}
+    raw='{"id":16,"error":{"code":"not_supported","message":"smoke-gss has no talk health block"}}'
+  {"error":{"code":"not_supported","message":"this driver has no minted stream URL"},"id":17}
+    raw='{"id":17,"error":{"code":"not_supported","message":"this driver has no minted stream URL"}}'
+  {"error":{"code":"unknown_device","message":"nope"},"id":18}
+    raw='{"id":18,"error":{"code":"unknown_device","message":"nope"}}'
+## station: REGISTER -> SIP/2.0 401 Unauthorized
+## station: authorised REGISTER -> SIP/2.0 200 OK
+## capabilities_changed after the REGISTER
+  {"method":"capabilities_changed","params":{"capabilities":{"CanDial":true,"DirectCapable":false,"HasRelay":false,"InboundAudio":0,"OutboundAudio":0,"RTSPTemplate":"","ReportsAvailability":false},"device_id":"smoke-gss"}}
+    raw='{"method":"capabilities_changed","params":{"device_id":"smoke-gss","capabilities":{"InboundAudio":0,"OutboundAudio":0,"DirectCapable":false,"HasRelay":false,"RTSPTemplate":"","ReportsAvailability":false,"CanDial":true}}}'
+## station: INVITE -> SIP/2.0 100 Trying, SIP/2.0 180 Ringing
+## ringing notification
+  {"method":"ringing","params":{"call_id":"call-S1","device_id":"smoke-gss"}}
+## answer: the result and call_state_changed answered (the reply floats: PARITY 361)
+  {"id":30,"result":{"ok":true}}
+  {"method":"call_state_changed","params":{"call_id":"call-S1","device_id":"smoke-gss","state":"answered"}}
+## station after the answer -> SIP/2.0 200 OK
+## hangup of the answered call (the driver BYEs it) (the reply floats: PARITY 361)
+  {"id":31,"result":{"ok":true}}
+  {"method":"call_state_changed","params":{"call_id":"call-S1","device_id":"smoke-gss","state":"ended"}}
+## station after the hangup -> BYE sip:8001@127.0.0.1:<port> SIP/2.0
+## hangup again: the call is over
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":32}
+    raw='{"id":32,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## station gets the INVITE: INVITE sip:9901@127.0.0.1 SIP/2.0 | CSeq 1 INVITE | To <sip:9901@127.0.0.1> | has Authorization: False
+## its SDP offer: v=0 / o=- 0 0 IN IP4 127.0.0.1 / s=portico-gate-sip-server / c=IN IP4 127.0.0.1 / t=0 0 / m=audio <RTP> RTP/AVP 96 8 / a=rtpmap:96 PCM/16000 / a=rtpmap:8 PCMA/8000 / a=sendrecv / 
+## station gets the ACK of the 401: ACK sip:9901@127.0.0.1 SIP/2.0 | CSeq 1 ACK | To <sip:9901@127.0.0.1>;tag=st1 | has Authorization: False
+## station gets the INVITE again: INVITE sip:9901@127.0.0.1 SIP/2.0 | CSeq 2 INVITE | To <sip:9901@127.0.0.1> | has Authorization: True
+## its Authorization: Digest username="8001", realm="VDP", nonce="smokenonce0123456789", uri="sip:9901@127.0.0.1", response="87e3dfe26fb99f1ec23cdb5538357805", algorithm=MD5
+## station gets the ACK of the 200: ACK sip:9901@127.0.0.1 SIP/2.0 | CSeq 2 ACK | To <sip:9901@127.0.0.1>;tag=st1 | has Authorization: False
+## dial: the result carries the out- id, and call_state_changed answered (the reply floats: PARITY 361)
+  {"id":40,"result":{"call_id":"out-<ID>","ok":true}}
+  {"method":"call_state_changed","params":{"call_id":"out-<ID>","device_id":"smoke-gss","state":"answered"}}
+## station gets the BYE: BYE sip:9901@127.0.0.1 SIP/2.0 | CSeq 3 BYE | To <sip:9901@127.0.0.1>;tag=st1 | has Authorization: False
+## hangup of the dialled call by its id (the driver BYEs as the caller), and call_state_changed ended (the reply floats: PARITY 361)
+  {"id":41,"result":{"ok":true}}
+  {"method":"call_state_changed","params":{"call_id":"out-<ID>","device_id":"smoke-gss","state":"ended"}}
+## station gets the INVITE: INVITE sip:9901@127.0.0.1 SIP/2.0 | CSeq 1 INVITE | To <sip:9901@127.0.0.1> | has Authorization: False
+## station gets the ACK of the 486: ACK sip:9901@127.0.0.1 SIP/2.0 | CSeq 1 ACK | To <sip:9901@127.0.0.1>;tag=st1 | has Authorization: False
+## dial refused by the station: dial_failed, no events
+  {"error":{"code":"dial_failed","message":"gate_sip_server: DialCall: the station refused the call: 486"},"id":42}
+    raw='{"id":42,"error":{"code":"dial_failed","message":"gate_sip_server: DialCall: the station refused the call: 486"}}'
+## nothing else arrives: []
+## station gets the ACK of the 200: ACK sip:9901@127.0.0.1 SIP/2.0 | CSeq 1 ACK | To <sip:9901@127.0.0.1>;tag=st1 | has Authorization: False
+## dial: result and answered (the reply floats: PARITY 361)
+  {"id":43,"result":{"call_id":"out-<ID>","ok":true}}
+  {"method":"call_state_changed","params":{"call_id":"out-<ID>","device_id":"smoke-gss","state":"answered"}}
+## station's BYE -> SIP/2.0 200 OK
+## call_state_changed ended (the station hung up)
+  {"method":"call_state_changed","params":{"call_id":"out-<ID>","device_id":"smoke-gss","state":"ended"}}
+## hangup of the finished dialled call
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":44}
+    raw='{"id":44,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## deconfigure
+  {"id":33,"result":{"ok":true}}
+## deconfigure again
+  {"error":{"code":"unknown_device","message":"smoke-gss"},"id":34}
+    raw='{"id":34,"error":{"code":"unknown_device","message":"smoke-gss"}}'
+## configure again after the deconfigure
+  {"id":35,"result":{"DirectCapable":false,"HasRelay":false,"InboundAudio":0,"OutboundAudio":0,"RTSPTemplate":"","ReportsAvailability":false}}
+    raw='{"id":35,"result":{"InboundAudio":0,"OutboundAudio":0,"DirectCapable":false,"HasRelay":false,"RTSPTemplate":"","ReportsAvailability":false}}'
+  exit code: 0
+  socket file gone: True

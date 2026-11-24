@@ -1,0 +1,159 @@
+<!doctype html>
+<!-- Visual check of portico-card.js with a fake `hass`. Open it in a browser, or:
+     firefox --headless --screenshot out.png --window-size=1280,800 "file://.../test_card_visual.html"
+     ?ring shows the ring takeover overlay; ?ring-audio the same for a device with audio; ?error the admin-only error; ?wide the kiosk drawing (fullpage: 2/3 main camera, other cameras at the right, buttons at the bottom, the back rail at the left edge with its width reserved) at the size of this window; ?wide-1280x800 and ?wide-1024x600 (any WxH) show it in a frame of that size; ?wide-card the same as a Lovelace card (not fullpage); ?wide-everyone the kiosk drawing with the Everyone key (house calls on); ?wide-everyone-none the key off ("No phone is set to receive house calls"); ?wide-everyone-calling press the key: the "Calling everyone" overlay, then "Ringing 2 phones"; ?wide-everyone-incoming a phone calling the kitchen: Answer / Decline; ?blocks the card drawing two blocks (big/small cameras, palette colours, icon-only
+     buttons), ?blocks-dark the same with hass.themes.darkMode on. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root { --primary-color:#03a9f4; --text-primary-color:#fff; font-family: Roboto, Arial, sans-serif; }
+  body { margin: 0; background: #fafafa; }
+  ha-card { display: block; background: #fff; border-radius: 12px; border: 1px solid #ddd; margin: 16px; }
+  .note { margin: 16px; color: #666; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="note">Dashboard page (a stand-in for a Lovelace panel view). The card is below.</div>
+<script>
+  const mode = location.search.slice(1);
+  function pic(text, color) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="${color}"/>` +
+      `<text x="320" y="190" font-size="44" fill="#fff" text-anchor="middle" font-family="Arial">${text}</text></svg>`;
+    return btoa(svg);
+  }
+  const content = {
+    endpoint: "ep-alice", kind: "phone", rev: "r1", callers: {}, roster: [],
+    pages: [{ id: "home", label: "Home",
+      cameras: [
+        { id: "doorbell", label: "Doorbell", entity_id: "camera.doorbell", name: "Doorbell", available: true },
+        { id: "gate", label: "Gate", entity_id: "camera.gate", name: "Gate camera", available: true },
+        { id: "garage", label: "Garage", entity_id: "camera.garage", name: "Garage", available: false },
+      ],
+      actions: [
+        { id: "open-side", label: "Open side door", kind: "portico_open", confirm: true, available: true },
+        { id: "open-gate", label: "Open gate", kind: "lock_open", confirm: true, available: true },
+        { id: "evening", label: "Evening scene", kind: "scene_activate", confirm: false, available: true },
+        { id: "garage-door", label: "Garage door", kind: "script_run", confirm: true, available: false },
+      ] }],
+  };
+  const bcam = (id, label, size, available = true) => ({ id, label, entity_id: "camera." + id, name: label, size, available });
+  const bact = (id, label, extra) => ({ id, label, kind: "script_run", entity_id: "script." + id, confirm: false, available: true, name: label, ...extra });
+  const blocksContent = {
+    ...content,
+    pages: [{ id: "home", label: "Home", cameras: [], actions: [], blocks: [
+      { id: "b1", title: "Entrance", cameras: [bcam("doorbell", "Doorbell", "big"), bcam("gate", "Gate", "small"), bcam("garage", "Garage", "small", false)],
+        actions: [bact("open", "Open door", { color: "green", icon: "door-sliding-open", kind: "lock_open", confirm: true }),
+                  bact("gate-a", "Gate", { color: "blue", icon: "gate-arrow-left", show_label: false }),
+                  bact("lock-b", "Lock", { color: "red", icon: "lock-smart" }),
+                  bact("gar", "Garage", { color: "amber", icon: "garage-open-variant", available: false }),
+                  bact("plain", "No colour")] },
+      { id: "b2", title: "Garden", cameras: [bcam("lawn", "Lawn", "big")],
+        actions: [bact("tl", "Teal", { color: "teal" }), bact("pk", "Pink", { color: "pink" }), bact("pu", "Purple", { color: "purple" }), bact("gr", "Grey", { color: "grey" })] },
+    ] }],
+  };
+  const wideContent = {
+    ...content,
+    pages: [{ id: "home", label: "Home", cameras: [], actions: [], blocks: [
+      { id: "b1", title: "Entrance", cameras: [bcam("doorbell", "Intercom", "big"), bcam("gate", "Gate", "small"), bcam("garage", "Garage", "small", false), bcam("lawn", "Lawn", "small")],
+        actions: [bact("open", "Open door", { color: "green", icon: "door-sliding-open", kind: "lock_open", confirm: true }),
+                  bact("gate-a", "Open gate", { color: "blue", icon: "gate-arrow-left" }),
+                  bact("lock-b", "Lock", { color: "red", icon: "lock-smart" }),
+                  bact("gar", "Garage", { color: "amber", icon: "garage-open-variant" }),
+                  bact("ev", "Evening", { color: "purple", icon: "weather-night", show_label: false }),
+                  bact("plain", "No colour")] },
+      { id: "b2", title: "Garden", cameras: [bcam("lawn", "Lawn", "big")], actions: [bact("tl", "Lights", { color: "teal" })] },
+    ] }],
+  };
+  // ?wide-kitchen: the kitchen tablet's page (Gate block + compact Door row), the 2026-11-12 layout report.
+  const kitchenContent = {
+    ...content,
+    pages: [{ id: "home", label: "Home", cameras: [], actions: [], blocks: [
+      { id: "k1", title: "Gate", cameras: [bcam("gate", "Gate", "big")],
+        actions: [bact("g", "Gate", { color: "blue", icon: "gate" }), bact("sd", "Side Door", { color: "blue", icon: "door" })] },
+      { id: "k2", title: "Door", cameras: [bcam("d1", "A", "small"), bcam("d2", "B", "small"), bcam("d3", "C", "small")],
+        actions: [bact("o", "Open", { color: "blue", icon: "lock-open" }), bact("l", "Lock", { color: "blue", icon: "lock" })] },
+    ] }],
+  };
+  // M7 3d: the same page with the roster carrying the Everyone key (the server sends it only while house calls are on).
+  const everyoneKey = { action_id: "r-every", id: "everyone", kind: "group", name: "Everyone", available: true, reason: null, count: 2 };
+  const everyoneContent = {
+    ...wideContent, endpoint: "ep-kitchen", kind: "dashboard",
+    roster: [mode === "wide-everyone-none" ? { ...everyoneKey, available: false, reason: "no_receivers", count: 0 } : everyoneKey,
+             { action_id: "r-alice", id: "ep-alice", kind: "phone", name: "Alice", available: true, reason: null }],
+  };
+  const isEveryone = mode.startsWith("wide-everyone");
+  const noAudio = { door_id: "gate.example", endpoint_id: "gate_sip:gate.example", name: "Vehicle gate", driver: "gate_sip_observer", capabilities: { OutboundAudio: 3 } };
+  const audio = { door_id: "vto.example", endpoint_id: "dahua:vto.example", name: "Front door", driver: "dahua_sip", capabilities: { OutboundAudio: 0 } };
+  let cb = null;
+  const hass = {
+    states: {},
+    themes: { darkMode: mode === "blocks-dark" || mode === "wide-dark" },
+    connection: {
+      sendMessagePromise: async (m) => {
+        if (m.type === "portico/version") return { contract: 3, ui_version: 1, providers: [] };
+        if (m.type === "portico/doors") return { doors: [noAudio, audio] };
+        if (m.type === "portico/content/get") { if (mode === "error") throw { code: "unauthorized" }; return isEveryone ? everyoneContent : mode === "wide-kitchen" ? kitchenContent : mode.startsWith("wide") ? wideContent : mode.startsWith("blocks") ? blocksContent : content; }
+        if (m.type === "portico/content/snapshot") {
+          return m.camera_id === "doorbell" ? { content_type: "image/svg+xml", content: pic("Doorbell", "#37474f") }
+                                            : { content_type: "image/svg+xml", content: pic("Gate", "#2e7d32") };
+        }
+        if (m.type === "portico/content/run") return { ran: true, call_id: "hso-1", media: null };
+        return { ok: true };
+      },
+      subscribeMessage: async (c) => { cb = c; return () => {}; },
+    },
+  };
+</script>
+<script src="../portico-card.js"></script>
+<script>
+  const framed = /^wide-(\d+)x(\d+)$/.exec(mode);
+  if (framed) {
+    // fullpage fills its viewport, so show it in a frame of the wanted size
+    const f = document.createElement("iframe");
+    f.src = "?wide";
+    f.style.cssText = `width:${framed[1]}px;height:${framed[2]}px;border:2px solid #888;margin:16px;background:#fff`;
+    document.body.append(f);
+  }
+  const card = document.createElement("portico-card");
+  if (framed) card.style.display = "none";
+  document.body.append(card);
+  card.setConfig(framed ? { _pollMs: 1e9 } : { takeover: true, ring_camera: "doorbell", fullpage: mode === "wide" || mode === "wide-kitchen" || isEveryone });
+  card.hass = hass;
+  if (mode === "wide-everyone-calling" || mode === "wide-everyone-incoming") {
+    // Same promise-turn trick as ?ring. Calling: press the key, then the server's ringing event. Incoming: a phone rings the kitchen.
+    (async () => {
+      try {
+        for (let i = 0; i < 200 && !(cb && card.shadowRoot.querySelector("#everyone-btn")); i++) await new Promise((r) => setTimeout(r, 20));
+        if (mode === "wide-everyone-incoming") cb({ type: "house_call", call_id: "hso-9", state: "ringing", from: "ep-alice", to: "ep-kitchen" });
+        else {
+          card.shadowRoot.querySelector("#everyone-btn").click();
+          await new Promise((r) => setTimeout(r, 50));
+          cb({ type: "house_call", call_id: "hso-1", state: "ringing", from: "ep-kitchen", to: "everyone" });
+        }
+      } catch (e) {
+        const d = document.createElement("div");
+        d.style.cssText = "color:#b00;margin:16px;font:14px monospace";
+        d.textContent = "house demo failed: " + e;
+        document.body.append(d);
+      }
+    })();
+  }
+  if (mode.startsWith("ring")) {
+    // Fired inside the load sequence (promise turns, no timers) so a headless screenshot taken at load sees it.
+    (async () => {
+      try {
+        for (let i = 0; i < 50 && !cb; i++) await Promise.resolve();
+        if (!cb) throw new Error("the card had not subscribed yet");
+        cb({ type: "call_state_changed", door_id: (mode === "ring-audio" ? audio : noAudio).door_id, call_id: "c1", state: "ringing" });
+      } catch (e) {
+        const d = document.createElement("div");
+        d.style.cssText = "color:#b00;margin:16px;font:14px monospace";
+        d.textContent = "ring failed: " + e + (e && e.stack ? " | " + e.stack.split("\n")[0] : "");
+        document.body.append(d);
+      }
+    })();
+  }
+</script>
+</body>
+</html>

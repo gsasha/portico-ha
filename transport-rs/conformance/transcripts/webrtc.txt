@@ -1,0 +1,73 @@
+# webrtc_*: error paths byte for byte, valid offers structurally
+## ice, no session
+  {"error":{"code":"unknown_session","message":"w-none"},"id":1}
+    raw='{"id":1,"error":{"code":"unknown_session","message":"w-none"}}'
+## answer, no session
+  {"error":{"code":"unknown_session","message":"w-none"},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_session","message":"w-none"}}'
+## offer without sdp
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":3}
+    raw='{"id":3,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+## offer without call id
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":4}
+    raw='{"id":4,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+## offer, call_id of the wrong type
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field webrtcParams.call_id of type string"},"id":5}
+    raw='{"id":5,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field webrtcParams.call_id of type string"}}'
+## offer, sdp of the wrong type
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field webrtcParams.sdp of type string"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field webrtcParams.sdp of type string"}}'
+## offer that is not an SDP at all
+  {"error":{"code":"webrtc_failed","message":"sfu: setting remote offer: failed to unmarshal SDP: sdp: syntax error at pos 1: \"a\""},"id":7}
+    raw='{"id":7,"error":{"code":"webrtc_failed","message":"sfu: setting remote offer: failed to unmarshal SDP: sdp: syntax error at pos 1: \\"a\\""}}'
+## offer 'x=1'
+  {"error":{"code":"webrtc_failed","message":"sfu: setting remote offer: failed to unmarshal SDP: sdp: syntax error at pos 1: \"=\""},"id":8}
+    raw='{"id":8,"error":{"code":"webrtc_failed","message":"sfu: setting remote offer: failed to unmarshal SDP: sdp: syntax error at pos 1: \\"=\\""}}'
+## candidate after the failed offer (Go keeps the session: webrtc_failed; transport-rs drops it: unknown_session)
+  {"error_code": "webrtc_failed", "id": 9, "ok": false}
+## end-of-candidates after the failed offer (same difference)
+  {"error_code": "webrtc_failed", "id": 10, "ok": false}
+## answer after the failed offer (same difference)
+  {"error_code": "webrtc_failed", "id": 11, "ok": false}
+## garbage answer (same difference)
+  {"error_code": "webrtc_failed", "id": 12, "ok": false}
+## Opus-only offer
+  {"error":{"code":"webrtc_failed","message":"sfu: creating answer: unable to populate media section, RTPSender created with no codecs"},"id":13}
+    raw='{"id":13,"error":{"code":"webrtc_failed","message":"sfu: creating answer: unable to populate media section, RTPSender created with no codecs"}}'
+## offer with no media section (str0m and pion word it differently)
+  {"error_code": "webrtc_failed", "id": 14, "ok": false}
+## a real Chrome 124 offer
+  keys: ['sdp']
+  m=audio payload types: [['9', '0']]
+  rtpmap: ['a=rtpmap:0 PCMU/8000', 'a=rtpmap:9 G722/8000']
+  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: ['a=setup:active']; rtcp-mux: True
+  answer ends with CRLF: True; opus anywhere: False
+## a real Firefox 153 offer, same process, second call
+  keys: ['sdp']
+  m=audio payload types: [['9', '0']]
+  rtpmap: ['a=rtpmap:0 PCMU/8000', 'a=rtpmap:9 G722/8000/1']
+  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: ['a=setup:active']; rtcp-mux: True
+  answer ends with CRLF: True; opus anywhere: False
+## the Chrome offer again for the same call (a renegotiation reuses the session)
+  keys: ['sdp']
+  m=audio payload types: [['9', '0']]
+  rtpmap: ['a=rtpmap:0 PCMU/8000', 'a=rtpmap:9 G722/8000']
+  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: ['a=setup:active']; rtcp-mux: True
+  answer ends with CRLF: True; opus anywhere: False
+## candidate after the answer
+  {"id":18,"result":{"ok":true}}
+## end-of-candidates after the answer (empty candidate)
+  {"id":19,"result":{"ok":true}}
+## an mDNS candidate after the answer
+  {"id":20,"result":{"ok":true}}
+## a garbage candidate (the error text is the library's)
+  {"error_code": "webrtc_failed", "id": 21, "ok": false}
+## answer when stable
+  {"error":{"code":"webrtc_failed","message":"sfu: setting remote answer: InvalidModificationError: invalid proposed signaling state transition: stable->SetRemote(answer)->stable"},"id":22}
+    raw='{"id":22,"error":{"code":"webrtc_failed","message":"sfu: setting remote answer: InvalidModificationError: invalid proposed signaling state transition: stable-\\u003eSetRemote(answer)-\\u003estable"}}'
+## an offer cut in half (the error text is the library's)
+  {"error_code": "webrtc_failed", "id": 23, "ok": false}
+## the other call is untouched: a candidate for it
+  {"id":24,"result":{"ok":true}}
+## the process is alive after all of it: True
+  exit code: 0

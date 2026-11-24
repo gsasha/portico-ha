@@ -1,0 +1,5999 @@
+[
+ {
+  "name": "register: 401 challenge then 200",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 1,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": true,
+    "registered_from": "<ST>",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "register: wrong digest is refused 403, not registered",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "bad"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 403 Forbidden\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 1,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "register: a nonce the server never issued is re-challenged",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "forged"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N2>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   },
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T3>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 1,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": true,
+    "registered_from": "<ST>",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "register: an expired nonce is re-challenged",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "nonce_advance",
+    "secs": 301
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N2>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   },
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T3>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 1,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": true,
+    "registered_from": "<ST>",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "register: a nonce is still good at 299 s",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "nonce_advance",
+    "secs": 299
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 1,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": true,
+    "registered_from": "<ST>",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "register: Authorization without fields is refused 403",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "nofields"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 403 Forbidden\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 1,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "register: a nonce is not single use",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T3>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 2,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": true,
+    "registered_from": "<ST>",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "register: the first nonce still works after a second challenge",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "first"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N2>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T3>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 1,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": true,
+    "registered_from": "<ST>",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "options: 200",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "sip",
+    "method": "OPTIONS"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKopt-options\r\nFrom: <sip:8001@station>;tag=t-opt\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: opt\r\nCSeq: 1 OPTIONS\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ]
+  ]
+ },
+ {
+  "name": "invite: 100 then 180, one Ringing event",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": true,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   },
+   [
+    "ringing:c1@dev-1"
+   ]
+  ]
+ },
+ {
+  "name": "invite: answer_current sends 200 with an A-law SDP, silence flows at 20 ms steps",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 4
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   [
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "new_ssrc": true,
+     "pt": 8,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "pt": 8,
+     "seq_d": 1,
+     "ts_d": 160
+    },
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "pt": 8,
+     "seq_d": 1,
+     "ts_d": 160
+    },
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "pt": 8,
+     "seq_d": 1,
+     "ts_d": 160
+    }
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1"
+   ]
+  ]
+ },
+ {
+  "name": "invite: wideband offer is answered PCM/16000, 16 kHz silence",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 3
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   [
+    {
+     "b0": 128,
+     "kind": "zero",
+     "len": 640,
+     "new_ssrc": true,
+     "pt": 96,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "zero",
+     "len": 640,
+     "pt": 96,
+     "seq_d": 1,
+     "ts_d": 320
+    },
+    {
+     "b0": 128,
+     "kind": "zero",
+     "len": 640,
+     "pt": 96,
+     "seq_d": 1,
+     "ts_d": 320
+    }
+   ]
+  ]
+ },
+ {
+  "name": "invite: the station's real menu picks the wideband payload",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "menu"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 2
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   [
+    {
+     "b0": 128,
+     "kind": "zero",
+     "len": 640,
+     "new_ssrc": true,
+     "pt": 96,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "zero",
+     "len": 640,
+     "pt": 96,
+     "seq_d": 1,
+     "ts_d": 320
+    }
+   ]
+  ]
+ },
+ {
+  "name": "invite: G722/16000 only is not decodable, PCMA is answered",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "g722only"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 2
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   [
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "new_ssrc": true,
+     "pt": 8,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "pt": 8,
+     "seq_d": 1,
+     "ts_d": 160
+    }
+   ]
+  ]
+ },
+ {
+  "name": "invite: PCMU only, PCMA is answered",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "pcmuonly"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 2
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   [
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "new_ssrc": true,
+     "pt": 8,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "pt": 8,
+     "seq_d": 1,
+     "ts_d": 160
+    }
+   ]
+  ]
+ },
+ {
+  "name": "invite: L16/16000 under payload 100 is taken under its own name",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "l16"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 2
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 148\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 100\r\na=rtpmap:100 L16/16000\r\na=sendrecv\r\n"
+   ],
+   [
+    {
+     "b0": 128,
+     "kind": "zero",
+     "len": 640,
+     "new_ssrc": true,
+     "pt": 100,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "zero",
+     "len": 640,
+     "pt": 100,
+     "seq_d": 1,
+     "ts_d": 320
+    }
+   ]
+  ]
+ },
+ {
+  "name": "invite: no SDP body, PCMA assumed, no media address so no RTP is sent",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "none"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 300,
+    "n": 1
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   [],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "invite: SDP without an audio line",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "no-media"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 300,
+    "n": 1
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   [],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "invite: media port 70000 never sends RTP",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "port-70000"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 400,
+    "n": 1
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   [],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "invite: a media port beyond int64 reads as no port",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "port-huge"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 400,
+    "n": 1
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   [],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "busy: a different Call-ID gets 486 and is not counted",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "invite",
+    "call": "c2",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 486 Busy Here\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc2\r\nFrom: <sip:8001@station>;tag=t-c2\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c2\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": true,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   },
+   [
+    "ringing:c1@dev-1"
+   ]
+  ]
+ },
+ {
+  "name": "busy: a second caller during an answered call gets 486",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "invite",
+    "call": "c2",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 486 Busy Here\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc2\r\nFrom: <sip:8001@station>;tag=t-c2\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c2\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "retransmit before the answer: 100 and 180 again, still one call",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": true,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   },
+   [
+    "ringing:c1@dev-1"
+   ]
+  ]
+ },
+ {
+  "name": "retransmit after the answer: 100 and the 200 with SDP again",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1"
+   ]
+  ]
+ },
+ {
+  "name": "retransmit after a client attached: 200 again, answered once",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 640,
+    "ok": true,
+    "rate": 16000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "retransmit with a different SDP keeps the first call's media",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ]
+  ]
+ },
+ {
+  "name": "ring limit: 480 near the limit, the slot is free after",
+  "ring_ms": 400,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 1100
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "invite",
+    "call": "c2",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 480 Temporarily Unavailable\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [
+    "ringing:c1@dev-1",
+    "ended:c1"
+   ],
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc2\r\nFrom: <sip:8001@station>;tag=t-c2\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c2\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc2\r\nFrom: <sip:8001@station>;tag=t-c2\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c2\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 2,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": true,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "ring limit: an answered call is never 480'd",
+  "ring_ms": 300,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 100
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 800
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "cancel a ringing call: 200 then 487 with the INVITE's CSeq",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "CANCEL"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "invite",
+    "call": "c2",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1-cancel\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 CANCEL\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 487 Request Terminated\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   },
+   [
+    "ringing:c1@dev-1",
+    "ended:c1"
+   ],
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc2\r\nFrom: <sip:8001@station>;tag=t-c2\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c2\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc2\r\nFrom: <sip:8001@station>;tag=t-c2\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c2\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ]
+  ]
+ },
+ {
+  "name": "cancel for another dialog changes nothing",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "other",
+    "method": "CANCEL"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKother-cancel\r\nFrom: <sip:8001@station>;tag=t-other\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: other\r\nCSeq: 1 CANCEL\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": true,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "cancel after the answer: 200 only, the call ends",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "CANCEL"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1-cancel\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 CANCEL\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "ended:c1"
+   ]
+  ]
+ },
+ {
+  "name": "cancel twice: 200 each, one 487",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "CANCEL"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "CANCEL"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1-cancel\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 CANCEL\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 487 Request Terminated\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1-cancel\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c1\r\nCSeq: 1 CANCEL\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [
+    "ringing:c1@dev-1",
+    "ended:c1"
+   ]
+  ]
+ },
+ {
+  "name": "bye ends a live call and closes the client",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "BYE"
+   },
+   {
+    "op": "frames_closed",
+    "ms": 1500
+   },
+   {
+    "op": "recv",
+    "ms": 200
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "client",
+    "what": "reason"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 640,
+    "ok": true,
+    "rate": 16000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   null,
+   {
+    "closed": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1-bye\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   {
+    "str": "the station ended the call"
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "ended:c1"
+   ]
+  ]
+ },
+ {
+  "name": "stray bye: 200, the live call is untouched",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "other",
+    "method": "BYE"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "frames",
+    "ms": 200,
+    "n": 1
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "invite",
+    "call": "c2",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 640,
+    "ok": true,
+    "rate": 16000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKother-bye\r\nFrom: <sip:8001@station>;tag=t-other\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: other\r\nCSeq: 2 BYE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "closed": false,
+    "frames": []
+   },
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   null,
+   [
+    "SIP/2.0 486 Busy Here\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc2\r\nFrom: <sip:8001@station>;tag=t-c2\r\nTo: <sip:9901@server>;tag=<T3>\r\nCall-ID: c2\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ]
+  ]
+ },
+ {
+  "name": "bye retransmitted after the end: 200 and nothing else",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "BYE"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "BYE"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1-bye\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1-bye\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "ended:c1"
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "bye with no call at all: 200",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "sip",
+    "call": "nothing",
+    "method": "BYE"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKnothing-bye\r\nFrom: <sip:8001@station>;tag=t-nothing\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: nothing\r\nCSeq: 2 BYE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "the slot is free after a BYE",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "BYE"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "invite",
+    "call": "c2",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1-bye\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc2\r\nFrom: <sip:8001@station>;tag=t-c2\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c2\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc2\r\nFrom: <sip:8001@station>;tag=t-c2\r\nTo: <sip:9901@server>;tag=<T2>\r\nCall-ID: c2\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 2,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": true,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "orphan grace: no BYE inside the grace, BYE after it",
+  "ring_ms": 5000,
+  "orphan_ms": 500,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "client",
+    "what": "detach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "recv",
+    "ms": 1000
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [],
+   [
+    "BYE sip:8001@<ST> SIP/2.0\r\nVia: SIP/2.0/UDP <SRV>;branch=z9hG4bK<B>\r\nFrom: <sip:9901@server>;tag=<T1>\r\nTo: <sip:8001@station>;tag=t-c1\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "ended:c1"
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "re-attach inside the grace keeps the call, no second 200",
+  "ring_ms": 5000,
+  "orphan_ms": 700,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "client",
+    "what": "detach"
+   },
+   {
+    "op": "sleep",
+    "ms": 150
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 1100
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   null,
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [],
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "goodbye hangs up at once, whatever the grace",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "client",
+    "what": "goodbye"
+   },
+   {
+    "op": "recv",
+    "ms": 400
+   },
+   {
+    "op": "client",
+    "what": "reason"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   [
+    "BYE sip:8001@<ST> SIP/2.0\r\nVia: SIP/2.0/UDP <SRV>;branch=z9hG4bK<B>\r\nFrom: <sip:9901@server>;tag=<T1>\r\nTo: <sip:8001@station>;tag=t-c1\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "str": "the client said goodbye"
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "ended:c1"
+   ],
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "hangup: BYE, client closed, a second hangup finds nothing",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "hangup"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "frames_closed",
+    "ms": 500
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "hangup"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 640,
+    "ok": true,
+    "rate": 16000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   {
+    "bool": true
+   },
+   [
+    "BYE sip:8001@<ST> SIP/2.0\r\nVia: SIP/2.0/UDP <SRV>;branch=z9hG4bK<B>\r\nFrom: <sip:9901@server>;tag=<T1>\r\nTo: <sip:8001@station>;tag=t-c1\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "closed": true
+   },
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   {
+    "bool": false
+   }
+  ]
+ },
+ {
+  "name": "hangup with a call nobody answered: BYE for a call never answered",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "hangup"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "bool": true
+   },
+   [
+    "BYE sip:8001@<ST> SIP/2.0\r\nVia: SIP/2.0/UDP <SRV>;branch=z9hG4bK<B>\r\nFrom: <sip:9901@server>;tag=<T1>\r\nTo: <sip:8001@station>;tag=t-c1\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [
+    "ringing:c1@dev-1",
+    "ended:c1"
+   ],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "HangupCall: a ringing call is refused, an answered one is BYE'd",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_hangup_call",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 200
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_hangup_call",
+    "call": "other"
+   },
+   {
+    "op": "drv_hangup_call",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "drv_hangup_call",
+    "call": "c1"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "already_answered": false,
+    "err": "no_such_call",
+    "no_such_call": true,
+    "not_supported": false
+   },
+   [],
+   {
+    "audio": true,
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   {
+    "already_answered": false,
+    "err": "no_such_call",
+    "no_such_call": true,
+    "not_supported": false
+   },
+   {
+    "ok": true
+   },
+   [
+    "BYE sip:8001@<ST> SIP/2.0\r\nVia: SIP/2.0/UDP <SRV>;branch=z9hG4bK<B>\r\nFrom: <sip:9901@server>;tag=<T1>\r\nTo: <sip:8001@station>;tag=t-c1\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "already_answered": false,
+    "err": "no_such_call",
+    "no_such_call": true,
+    "not_supported": false
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "ended:c1"
+   ]
+  ]
+ },
+ {
+  "name": "stop during an answered call: BYE, client closed, ended delivered",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "stop"
+   },
+   {
+    "op": "recv",
+    "ms": 400
+   },
+   {
+    "op": "frames_closed",
+    "ms": 500
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "server_after_stop"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "BYE sip:8001@<ST> SIP/2.0\r\nVia: SIP/2.0/UDP <SRV>;branch=z9hG4bK<B>\r\nFrom: <sip:9901@server>;tag=<T1>\r\nTo: <sip:8001@station>;tag=t-c1\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "closed": true
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "ended:c1"
+   ],
+   {
+    "server_nil": true
+   }
+  ]
+ },
+ {
+  "name": "stop during a ring: 480",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "stop"
+   },
+   {
+    "op": "recv",
+    "ms": 400
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 480 Temporarily Unavailable\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [
+    "ringing:c1@dev-1",
+    "ended:c1"
+   ]
+  ]
+ },
+ {
+  "name": "stop twice",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "stop"
+   },
+   {
+    "op": "stop"
+   },
+   {
+    "op": "server_after_stop"
+   }
+  ],
+  "out": [
+   {
+    "ok": true
+   },
+   {
+    "ok": true
+   },
+   {
+    "server_nil": true
+   }
+  ]
+ },
+ {
+  "name": "attach with no call is refused",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "attach"
+   }
+  ],
+  "out": [
+   {
+    "already_answered": false,
+    "err": "no call to answer",
+    "no_such_call": false,
+    "not_supported": false
+   }
+  ]
+ },
+ {
+  "name": "attach answers the ringing call (200 with SDP), a second attach is refused",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   {
+    "already_answered": false,
+    "err": "this call was already answered on another device",
+    "no_such_call": false,
+    "not_supported": false
+   },
+   {
+    "already_answered": false,
+    "err": "already answered",
+    "no_such_call": false,
+    "not_supported": false
+   },
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1"
+   ]
+  ]
+ },
+ {
+  "name": "answer_current: no call, then answered, then already answered",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   {
+    "already_answered": false,
+    "err": "no call to answer",
+    "no_such_call": false,
+    "not_supported": false
+   },
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   {
+    "already_answered": false,
+    "err": "already answered",
+    "no_such_call": false,
+    "not_supported": false
+   },
+   {
+    "answered": 1,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "ACK: a stray ACK is ignored, the live one confirms the dialog",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "other",
+    "method": "ACK"
+   },
+   {
+    "op": "sleep",
+    "ms": 150
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "ACK"
+   },
+   {
+    "op": "sleep",
+    "ms": 150
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "ACK"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   null,
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   null,
+   null,
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": true,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   null,
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "active:c1"
+   ]
+  ]
+ },
+ {
+  "name": "ACK before the answer is ignored",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "ACK"
+   },
+   {
+    "op": "sleep",
+    "ms": 150
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   null,
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": true,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   },
+   [
+    "ringing:c1@dev-1"
+   ]
+  ]
+ },
+ {
+  "name": "malformed INVITEs are dropped, nothing rings",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "raw",
+    "text": "INVITE sip:9901@x SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:9;branch=z9hG4bKx\r\nFrom: <sip:a@b>;tag=1\r\nTo: <sip:c@d>\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "raw",
+    "text": "INVITE sip:9901@x SIP/2.0\r\nFrom: <sip:a@b>;tag=1\r\nTo: <sip:c@d>\r\nCall-ID: v1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "raw",
+    "text": "INVITE sip:9901@x SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:9;branch=z9hG4bKx\r\nTo: <sip:c@d>\r\nCall-ID: v2\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "raw",
+    "text": "INVITE sip:9901@x SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:9;branch=z9hG4bKx\r\nFrom: <sip:a@b>;tag=1\r\nCall-ID: v3\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "raw",
+    "text": "INVITE sip:9901@x SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:9;branch=z9hG4bKx\r\nFrom: <sip:a@b>;tag=1\r\nTo: <sip:c@d>\r\nCall-ID: v4\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   [],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   },
+   []
+  ]
+ },
+ {
+  "name": "stray responses, garbage and unknown methods are ignored",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "raw",
+    "text": "SIP/2.0 200 OK\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\n\r\n"
+   },
+   {
+    "op": "raw",
+    "text": "hello"
+   },
+   {
+    "op": "raw"
+   },
+   {
+    "op": "raw",
+    "text": "SIP/2.0"
+   },
+   {
+    "op": "raw",
+    "text": "FOO sip:x SIP/2.0\r\nCall-ID: z\r\nCSeq: 1 FOO\r\n\r\n"
+   },
+   {
+    "op": "raw",
+    "text": "INFO sip:x SIP/2.0\r\nCall-ID: z\r\nCSeq: 1 INFO\r\n\r\n"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   [],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "allow_from: datagrams from an outsider are dropped silently and counted",
+  "cfg": {
+   "allow_from": [
+    "127.0.0.1"
+   ]
+  },
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register",
+    "from": "outsider"
+   },
+   {
+    "op": "invite",
+    "call": "o1",
+    "sdp": "narrow",
+    "from": "outsider"
+   },
+   {
+    "op": "sip",
+    "from": "outsider",
+    "method": "OPTIONS"
+   },
+   {
+    "op": "recv",
+    "from": "outsider",
+    "ms": 300
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "sip",
+    "method": "OPTIONS"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   }
+  ],
+  "out": [
+   null,
+   null,
+   null,
+   [],
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 3,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   },
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKopt-options\r\nFrom: <sip:8001@station>;tag=t-opt\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: opt\r\nCSeq: 1 OPTIONS\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ]
+  ]
+ },
+ {
+  "name": "SDP c= outside allow_from: media falls back to the SIP source",
+  "cfg": {
+   "allow_from": [
+    "127.0.0.1"
+   ]
+  },
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "third-party-c"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 2
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   [
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "new_ssrc": true,
+     "pt": 8,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "pt": 8,
+     "seq_d": 1,
+     "ts_d": 160
+    }
+   ]
+  ]
+ },
+ {
+  "name": "SDP c= that does not parse: media falls back to the SIP source",
+  "cfg": {
+   "allow_from": [
+    "127.0.0.1"
+   ]
+  },
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "garbage-c"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "answer_current"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 2
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   [
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "new_ssrc": true,
+     "pt": 8,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "pt": 8,
+     "seq_d": 1,
+     "ts_d": 160
+    }
+   ]
+  ]
+ },
+ {
+  "name": "rtp: only the host the SDP named is believed",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp",
+    "from": "outsider",
+    "n": 3,
+    "pt": 96,
+    "size": 640,
+    "seed": 1
+   },
+   {
+    "op": "rtp",
+    "n": 2,
+    "pt": 96,
+    "size": 640,
+    "seed": 9
+   },
+   {
+    "op": "sleep",
+    "ms": 300
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "frames",
+    "ms": 1000,
+    "n": 2
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 640,
+    "ok": true,
+    "rate": 16000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   null,
+   null,
+   null,
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 2,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 2,
+    "rtp_out_positive": true,
+    "rtp_rejected": 3
+   },
+   {
+    "closed": false,
+    "frames": [
+     {
+      "len": 640,
+      "md5": "18b9404226b1bfde94244b42443a978b"
+     },
+     {
+      "len": 640,
+      "md5": "ba533d139823a682383fd8a144a06496"
+     }
+    ]
+   },
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 2,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 2,
+    "rtp_out_positive": true,
+    "rtp_rejected": 3
+   }
+  ]
+ },
+ {
+  "name": "rtp: a source is judged before the answer too",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp",
+    "from": "outsider",
+    "n": 2
+   },
+   {
+    "op": "rtp",
+    "n": 1
+   },
+   {
+    "op": "sleep",
+    "ms": 300
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   null,
+   null,
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": true,
+    "rtp_in": 1,
+    "rtp_out_positive": false,
+    "rtp_rejected": 2
+   }
+  ]
+ },
+ {
+  "name": "rtp: with no call at all everything is rejected",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "rtp",
+    "n": 3
+   },
+   {
+    "op": "sleep",
+    "ms": 300
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   null,
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 0,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 3
+   }
+  ]
+ },
+ {
+  "name": "rtp: empty payloads are ignored",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp",
+    "n": 3,
+    "what": "empty"
+   },
+   {
+    "op": "sleep",
+    "ms": 300
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   null,
+   {
+    "answered": 0,
+    "app_attached": false,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": false,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": true,
+    "rtp_in": 0,
+    "rtp_out_positive": false,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "rtp: backpressure, 40 packets into a queue of 6 (the real RTP loop)",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp",
+    "n": 40,
+    "pt": 8,
+    "size": 160,
+    "seed": 3
+   },
+   {
+    "op": "sleep",
+    "ms": 400
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   null,
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 34,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 6,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 40,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "rtp: backpressure uplink, 50 microphone frames into a queue of 6",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "client",
+    "n": 50,
+    "size": 320,
+    "seed": 5,
+    "what": "send"
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   {
+    "errs": 0,
+    "sent": 50
+   },
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": true,
+    "frames_from_app": 50,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "rtp: A-law from the station is decoded to 320-byte frames",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp",
+    "n": 3,
+    "pt": 8,
+    "size": 160,
+    "seed": 7
+   },
+   {
+    "op": "frames",
+    "ms": 2000,
+    "n": 3
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   {
+    "closed": false,
+    "frames": [
+     {
+      "len": 320,
+      "md5": "c2f87842b521672b533d9bb710681121"
+     },
+     {
+      "len": 320,
+      "md5": "d5fe97eb828cfd342f372e2f2deb5d96"
+     },
+     {
+      "len": 320,
+      "md5": "052a3cf687a60670fdf37b529ef34d7d"
+     }
+    ]
+   },
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 3,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 3,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "rtp: wideband from the station passes through whole",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "rtp",
+    "n": 1,
+    "pt": 96,
+    "size": 1280,
+    "seed": 3
+   },
+   {
+    "op": "frames",
+    "ms": 2000,
+    "n": 1
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 640,
+    "ok": true,
+    "rate": 16000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   null,
+   {
+    "closed": false,
+    "frames": [
+     {
+      "len": 1280,
+      "md5": "6cc73a094c226fb9aba697e1a4778685"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "rtp: the client's microphone is A-law encoded toward the station",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "client",
+    "n": 1,
+    "size": 320,
+    "seed": 11,
+    "what": "send"
+   },
+   {
+    "op": "rtp_find_data",
+    "ms": 2000
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   {
+    "errs": 0,
+    "sent": 1
+   },
+   {
+    "found": true,
+    "len": 160,
+    "md5": "f9411efb4f09d040245aee152e424a77",
+    "pt": 8
+   }
+  ]
+ },
+ {
+  "name": "rtp: the client's microphone passes straight through at 16 kHz",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "client",
+    "n": 1,
+    "size": 640,
+    "seed": 13,
+    "what": "send"
+   },
+   {
+    "op": "rtp_find_data",
+    "ms": 2000
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 640,
+    "ok": true,
+    "rate": 16000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   {
+    "errs": 0,
+    "sent": 1
+   },
+   {
+    "found": true,
+    "len": 640,
+    "md5": "e6879a635b4541c6b390d2bfbc641d78",
+    "pt": 96
+   }
+  ]
+ },
+ {
+  "name": "rtp: a client that left leaves silence",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "attach"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "client",
+    "what": "detach"
+   },
+   {
+    "op": "client",
+    "n": 1,
+    "size": 320,
+    "seed": 11,
+    "what": "send"
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 2
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "frame_bytes": 320,
+    "ok": true,
+    "rate": 8000
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   {
+    "errs": 1,
+    "sent": 0
+   },
+   [
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "new_ssrc": true,
+     "pt": 8,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "alaw-silence",
+     "len": 160,
+     "pt": 8,
+     "seq_d": 1,
+     "ts_d": 160
+    }
+   ]
+  ]
+ },
+ {
+  "name": "driver: nothing is answered until AnswerWithAudio",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "drv_ringing_call",
+    "call": "c1"
+   },
+   {
+    "op": "drv_ringing_call",
+    "call": "other"
+   },
+   {
+    "op": "drv_claimed_audio",
+    "call": "c1"
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "other"
+   },
+   {
+    "op": "recv",
+    "ms": 150
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "drv_ringing_call",
+    "call": "c1"
+   },
+   {
+    "op": "snapshot"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T3>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T3>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "bool": true
+   },
+   {
+    "bool": false
+   },
+   {
+    "bool": false
+   },
+   {
+    "already_answered": false,
+    "audio": false,
+    "err": "gate_sip_server: other is not a live call: no_such_call",
+    "no_such_call": true,
+    "not_supported": false
+   },
+   [],
+   {
+    "audio": true,
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T3>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   {
+    "bool": false
+   },
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 1,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": true,
+    "registered_from": "<ST>",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   },
+   [
+    "caps:dev-1:false",
+    "ringing:c1@dev-1",
+    "answered:c1"
+   ]
+  ]
+ },
+ {
+  "name": "driver: two-way wideband audio",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "ACK"
+   },
+   {
+    "op": "audio",
+    "ms": 1500,
+    "what": "attach"
+   },
+   {
+    "op": "rtp_read",
+    "ms": 2000,
+    "n": 2
+   },
+   {
+    "op": "rtp",
+    "n": 2,
+    "pt": 96,
+    "size": 640,
+    "seed": 21
+   },
+   {
+    "op": "audio",
+    "ms": 2000,
+    "what": "out"
+   },
+   {
+    "op": "audio",
+    "size": 1280,
+    "seed": 31,
+    "what": "in"
+   },
+   {
+    "op": "rtp_find_data",
+    "ms": 2000
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "audio": true,
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   null,
+   null,
+   [
+    {
+     "b0": 128,
+     "kind": "zero",
+     "len": 640,
+     "new_ssrc": true,
+     "pt": 96,
+     "seq_d": 0,
+     "ts_d": 0
+    },
+    {
+     "b0": 128,
+     "kind": "zero",
+     "len": 640,
+     "pt": 96,
+     "seq_d": 1,
+     "ts_d": 320
+    }
+   ],
+   null,
+   {
+    "len": 1280,
+    "md5": "bd1c2dcc91aa802d44178ac729928a97"
+   },
+   null,
+   {
+    "found": true,
+    "len": 640,
+    "md5": "826d9ef9380d01fb34654e5b2aea13e5",
+    "pt": 96
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "active:c1"
+   ]
+  ]
+ },
+ {
+  "name": "driver: two-way narrowband audio",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "narrow"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "audio",
+    "ms": 1500,
+    "what": "attach"
+   },
+   {
+    "op": "rtp",
+    "n": 2,
+    "pt": 8,
+    "size": 160,
+    "seed": 41
+   },
+   {
+    "op": "audio",
+    "ms": 2000,
+    "what": "out"
+   },
+   {
+    "op": "audio",
+    "size": 1280,
+    "seed": 51,
+    "what": "in"
+   },
+   {
+    "op": "rtp_find_data",
+    "ms": 2000
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "audio": true,
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 144\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 8\r\na=rtpmap:8 PCMA/8000\r\na=sendrecv\r\n"
+   ],
+   null,
+   null,
+   {
+    "len": 1280,
+    "md5": "612c1bbaf5f807974e5bd22d0e4d5552"
+   },
+   null,
+   {
+    "found": true,
+    "len": 160,
+    "md5": "7feb6461d1dceadc63b471e31db2e73a",
+    "pt": 8
+   }
+  ]
+ },
+ {
+  "name": "driver: a second answerer is refused, the first keeps the call",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "drv_claimed_audio",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "snapshot"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "audio": true,
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   {
+    "already_answered": true,
+    "audio": false,
+    "err": "gate_sip_server: c1: already_answered",
+    "no_such_call": false,
+    "not_supported": false
+   },
+   {
+    "bool": false
+   },
+   [],
+   {
+    "answered": 1,
+    "app_attached": true,
+    "calls": 1,
+    "dialing": false,
+    "dialog_confirmed": false,
+    "dials": 0,
+    "digest_mismatch": 0,
+    "digest_ok": 0,
+    "dropped": 0,
+    "dropped_down": 0,
+    "dropped_up_positive": false,
+    "frames_from_app": 0,
+    "frames_to_app": 0,
+    "in_call": true,
+    "last_err": "",
+    "registered": false,
+    "registered_from": "",
+    "ringing": false,
+    "rtp_in": 0,
+    "rtp_out_positive": true,
+    "rtp_rejected": 0
+   }
+  ]
+ },
+ {
+  "name": "driver: the legacy Answer then AnswerWithAudio is already answered",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_answer"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "drv_answer"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   {
+    "already_answered": true,
+    "audio": false,
+    "err": "gate_sip_server: c1: already_answered",
+    "no_such_call": false,
+    "not_supported": false
+   },
+   {
+    "already_answered": false,
+    "err": "already answered",
+    "no_such_call": false,
+    "not_supported": false
+   }
+  ]
+ },
+ {
+  "name": "driver: Answer with a media target is not supported, with no call it is refused",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "drv_answer",
+    "host": "127.0.0.1",
+    "port": 9
+   },
+   {
+    "op": "drv_answer"
+   },
+   {
+    "op": "drv_hangup_call",
+    "call": "x"
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "x"
+   }
+  ],
+  "out": [
+   {
+    "already_answered": false,
+    "err": "gate_sip_server: Answer with a media target: not_supported (media is bridged in-process)",
+    "no_such_call": false,
+    "not_supported": true
+   },
+   {
+    "already_answered": false,
+    "err": "no call to answer",
+    "no_such_call": false,
+    "not_supported": false
+   },
+   {
+    "already_answered": false,
+    "err": "no_such_call",
+    "no_such_call": true,
+    "not_supported": false
+   },
+   {
+    "already_answered": false,
+    "audio": false,
+    "err": "gate_sip_server: x is not a live call: no_such_call",
+    "no_such_call": true,
+    "not_supported": false
+   }
+  ]
+ },
+ {
+  "name": "driver: audio Detach hangs up at once and closes Out",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "audio",
+    "ms": 1500,
+    "what": "attach"
+   },
+   {
+    "op": "audio",
+    "ms": 1500,
+    "what": "detach"
+   },
+   {
+    "op": "audio",
+    "ms": 1500,
+    "what": "detach"
+   },
+   {
+    "op": "recv",
+    "ms": 400
+   },
+   {
+    "op": "audio",
+    "ms": 1500,
+    "what": "out_closed"
+   },
+   {
+    "op": "drv_hangup_call",
+    "call": "c1"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "audio": true,
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   null,
+   null,
+   null,
+   [
+    "BYE sip:8001@<ST> SIP/2.0\r\nVia: SIP/2.0/UDP <SRV>;branch=z9hG4bK<B>\r\nFrom: <sip:9901@server>;tag=<T1>\r\nTo: <sip:8001@station>;tag=t-c1\r\nCall-ID: c1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "closed": true
+   },
+   {
+    "already_answered": false,
+    "err": "no_such_call",
+    "no_such_call": true,
+    "not_supported": false
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "ended:c1"
+   ]
+  ]
+ },
+ {
+  "name": "driver: the station's BYE closes Out",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "audio",
+    "ms": 1500,
+    "what": "attach"
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "BYE"
+   },
+   {
+    "op": "audio",
+    "ms": 1500,
+    "what": "out_closed"
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "audio": true,
+    "ok": true
+   },
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Type: application/sdp\r\nContent-Length: 146\r\n\r\nv=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=portico-gate-sip-server\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <RTP> RTP/AVP 96\r\na=rtpmap:96 PCM/16000\r\na=sendrecv\r\n"
+   ],
+   null,
+   null,
+   {
+    "closed": true
+   },
+   [
+    "ringing:c1@dev-1",
+    "answered:c1",
+    "ended:c1"
+   ]
+  ]
+ },
+ {
+  "name": "driver: a cancelled call leaves nothing to answer",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "invite",
+    "call": "c1",
+    "cseq": 1,
+    "sdp": "wide"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "sip",
+    "call": "c1",
+    "method": "CANCEL"
+   },
+   {
+    "op": "recv",
+    "ms": 300
+   },
+   {
+    "op": "drv_answer_with_audio",
+    "call": "c1"
+   },
+   {
+    "op": "recv",
+    "ms": 150
+   },
+   {
+    "op": "drv_ringing_call",
+    "call": "c1"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 100 Trying\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1-cancel\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 CANCEL\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n",
+    "SIP/2.0 487 Request Terminated\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKc1\r\nFrom: <sip:8001@station>;tag=t-c1\r\nTo: <sip:9901@server>;tag=<T1>\r\nCall-ID: c1\r\nCSeq: 1 INVITE\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   {
+    "already_answered": false,
+    "audio": false,
+    "err": "gate_sip_server: c1 is not a live call: no_such_call",
+    "no_such_call": true,
+    "not_supported": false
+   },
+   [],
+   {
+    "bool": false
+   }
+  ]
+ },
+ {
+  "name": "capabilities: dial_enabled, a registration publishes CanDial and its lapse withdraws it",
+  "cfg": {
+   "dial_enabled": true
+  },
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "reg_ttl",
+    "ms": 400
+   },
+   {
+    "op": "drv_caps"
+   },
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "drv_caps"
+   },
+   {
+    "op": "sleep",
+    "ms": 600
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "drv_caps"
+   }
+  ],
+  "out": [
+   null,
+   {
+    "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false,\"StationRegistered\":false,\"Features\":[\"call_stats\"]}"
+   },
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [
+    "caps:dev-1:true"
+   ],
+   {
+    "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false,\"StationRegistered\":false,\"LastRegisterAt\":\"<unix>\",\"Features\":[\"call_stats\"]}"
+   },
+   null,
+   [
+    "caps:dev-1:true",
+    "caps:dev-1:false"
+   ],
+   {
+    "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false,\"StationRegistered\":false,\"LastRegisterAt\":\"<unix>\",\"Features\":[\"call_stats\"]}"
+   }
+  ]
+ },
+ {
+  "name": "capabilities: a re-register restarts the lifetime, one republish each way",
+  "cfg": {
+   "dial_enabled": true
+  },
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "reg_ttl",
+    "ms": 500
+   },
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 150
+   },
+   {
+    "op": "sleep",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 150
+   },
+   {
+    "op": "sleep",
+    "ms": 300
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "sleep",
+    "ms": 700
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T3>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "caps:dev-1:true",
+    "caps:dev-1:false"
+   ],
+   null,
+   [
+    "caps:dev-1:true",
+    "caps:dev-1:false"
+   ]
+  ]
+ },
+ {
+  "name": "capabilities: a wrong digest does not publish",
+  "cfg": {
+   "dial_enabled": true
+  },
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "bad"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "drv_caps"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 403 Forbidden\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [],
+   {
+    "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false,\"StationRegistered\":false,\"Features\":[\"call_stats\"]}"
+   }
+  ]
+ },
+ {
+  "name": "capabilities: dial_enabled off republishes nothing",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "drv_caps"
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [
+    "caps:dev-1:false"
+   ],
+   {
+    "wire": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":false,\"StationRegistered\":true,\"LastRegisterAt\":\"<unix>\",\"Features\":[\"call_stats\"]}"
+   }
+  ]
+ },
+ {
+  "name": "capabilities: Stop after a registration publishes nothing more",
+  "cfg": {
+   "dial_enabled": true
+  },
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "ops": [
+   {
+    "op": "register"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "register",
+    "auth": "ok"
+   },
+   {
+    "op": "recv",
+    "ms": 250
+   },
+   {
+    "op": "events",
+    "ms": 150
+   },
+   {
+    "op": "stop"
+   },
+   {
+    "op": "sleep",
+    "ms": 200
+   },
+   {
+    "op": "events",
+    "ms": 150
+   }
+  ],
+  "out": [
+   null,
+   [
+    "SIP/2.0 401 Unauthorized\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T1>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nWWW-Authenticate: Digest realm=\"VDP\", nonce=\"<N1>\", algorithm=MD5\r\nContent-Length: 0\r\n\r\n"
+   ],
+   null,
+   [
+    "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP <ST>;branch=z9hG4bKreg\r\nFrom: <sip:8001@station>;tag=reg\r\nTo: <sip:8001@station>;tag=<T2>\r\nCall-ID: reg-1\r\nCSeq: 1 REGISTER\r\nContact: <sip:8001@<SRV>>\r\nUser-Agent: portico-gate-sip-server\r\nAllow: INVITE, ACK, BYE, CANCEL, OPTIONS\r\nExpires: 300\r\nContent-Length: 0\r\n\r\n"
+   ],
+   [
+    "caps:dev-1:true"
+   ],
+   {
+    "ok": true
+   },
+   null,
+   [
+    "caps:dev-1:true"
+   ]
+  ]
+ },
+ {
+  "name": "password floor: 8 to 15 bytes",
+  "ring_ms": 5000,
+  "orphan_ms": 5000,
+  "no_start": true,
+  "ops": [
+   {
+    "op": "configure_check"
+   },
+   {
+    "op": "configure_check",
+    "pwd": "1234567"
+   },
+   {
+    "op": "configure_check",
+    "pwd": "12345678"
+   },
+   {
+    "op": "configure_check",
+    "pwd": "123456789012345"
+   },
+   {
+    "op": "configure_check",
+    "pwd": "1234567890123456"
+   },
+   {
+    "op": "configure_check",
+    "pwd": "ééééé"
+   }
+  ],
+  "out": [
+   {
+    "err": "gate_sip_server: password is required"
+   },
+   {
+    "err": "gate_sip_server: password is 7 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"
+   },
+   {
+    "err": ""
+   },
+   {
+    "err": ""
+   },
+   {
+    "err": "gate_sip_server: password is 16 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"
+   },
+   {
+    "err": ""
+   }
+  ]
+ }
+]

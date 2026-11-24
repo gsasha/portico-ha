@@ -1,0 +1,1221 @@
+{
+ "document": {
+  "schema_version": 6,
+  "pages": [
+   {
+    "id": "home",
+    "label": "Home",
+    "kind": "content",
+    "blocks": [
+     {
+      "id": "home",
+      "title": "Gate",
+      "door": "http://10.0.0.7:8091",
+      "cameras": [
+       {
+        "id": "example-intercom-ex-gate",
+        "label": "",
+        "entity_id": "camera.example_intercom_ex_gate_main",
+        "live": true
+       }
+      ],
+      "actions": [
+       {
+        "id": "talk",
+        "label": "Talk",
+        "kind": "talk",
+        "icon": "phone",
+        "confirm": false
+       },
+       {
+        "id": "fence-relay-charger-box-",
+        "label": "Gate",
+        "kind": "button_press",
+        "entity_id": "button.front_yard_fence_relay_charger_box_gate_open",
+        "icon": "gate",
+        "confirm": true
+       },
+       {
+        "id": "portico-gate-sip-observe",
+        "label": "Side Door",
+        "kind": "portico_open",
+        "device_id": "http://10.0.0.7:8091",
+        "icon": "door-open",
+        "confirm": true
+       }
+      ]
+     },
+     {
+      "id": "entrance",
+      "title": "Door",
+      "cameras": [
+       {
+        "id": "doorbell-2",
+        "label": "",
+        "entity_id": "camera.doorbell",
+        "live": true
+       },
+       {
+        "id": "doorbell-package-2",
+        "label": "",
+        "entity_id": "camera.doorbell_package",
+        "live": true
+       },
+       {
+        "id": "entrance-2",
+        "label": "",
+        "entity_id": "camera.entrance",
+        "live": true
+       }
+      ],
+      "actions": [
+       {
+        "id": "door",
+        "label": "Open",
+        "kind": "lock_open",
+        "entity_id": "lock.example_lock_ex_entrance_mqtt",
+        "icon": "lock-open-variant-outline",
+        "confirm": true
+       },
+       {
+        "id": "door-2",
+        "label": "Lock",
+        "kind": "lock_lock",
+        "entity_id": "lock.example_lock_ex_entrance_mqtt",
+        "icon": "lock",
+        "confirm": true
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "ring-c48222d6",
+    "label": "Ring: Portico (gate_sip_observer)",
+    "kind": "ring",
+    "talk": "el-e4773c13",
+    "cameras": [
+     "camera.example_intercom_ex_gate_main"
+    ],
+    "blocks": [
+     {
+      "id": "call",
+      "title": "During the call",
+      "cameras": [],
+      "actions": [
+       {
+        "id": "portico-gate-sip-observe",
+        "label": "Side Door",
+        "kind": "portico_open",
+        "device_id": "http://10.0.0.7:8091",
+        "icon": "door-open",
+        "confirm": true
+       }
+      ],
+      "when": "call"
+     }
+    ]
+   }
+  ],
+  "devices": {
+   "ep-phone-1": {
+    "pages": [
+     {
+      "page": "home"
+     }
+    ],
+    "ring": {
+     "el-e4773c13": "ring-c48222d6"
+    },
+    "roster_hide": []
+   },
+   "kitchen-tablet": {
+    "pages": [
+     {
+      "page": "home"
+     }
+    ],
+    "ring": {
+     "el-e4773c13": "ring-c48222d6"
+    },
+    "roster_hide": []
+   },
+   "kitchen": {
+    "pages": [
+     {
+      "page": "home"
+     }
+    ],
+    "ring": {
+     "el-e4773c13": "ring-c48222d6"
+    },
+    "roster_hide": []
+   }
+  },
+  "dashboards": {
+   "kitchen-tablet": {
+    "name": "Kitchen  Tablet",
+    "ha_user_id": "user-2",
+    "cameras": [
+     "camera.entrance"
+    ]
+   },
+   "kitchen": {
+    "name": "kitchen",
+    "ha_user_id": "user-2",
+    "cameras": [
+     "camera.example_doorbell_ex_entrance_high_resolution_channel"
+    ]
+   }
+  },
+  "endpoints": {},
+  "home_name": "My Home",
+  "show_fps": true
+ },
+ "doc_rev": "163ee5f46827",
+ "resolved": {
+  "ep-phone-1": {
+   "endpoint": "ep-phone-1",
+   "kind": "phone",
+   "home_name": "My Home",
+   "show_fps": true,
+   "pages": [
+    {
+     "id": "home",
+     "label": "Home",
+     "blocks": [
+      {
+       "id": "home",
+       "title": "Gate",
+       "door": "http://10.0.0.7:8091",
+       "door_available": true,
+       "cameras": [
+        {
+         "id": "example-intercom-ex-gate",
+         "label": "",
+         "entity_id": "camera.example_intercom_ex_gate_main",
+         "live": true,
+         "size": "big",
+         "available": true,
+         "name": "example-intercom-ex-gate Main"
+        }
+       ],
+       "actions": [
+        {
+         "id": "talk",
+         "label": "Talk",
+         "kind": "talk",
+         "icon": "phone",
+         "confirm": false,
+         "available": true,
+         "name": "Talk",
+         "reason": null
+        },
+        {
+         "id": "fence-relay-charger-box-",
+         "label": "Gate",
+         "kind": "button_press",
+         "entity_id": "button.front_yard_fence_relay_charger_box_gate_open",
+         "icon": "gate",
+         "confirm": true,
+         "available": true,
+         "name": "Fence Relay (Charger Box) Gate Open"
+        },
+        {
+         "id": "portico-gate-sip-observe",
+         "label": "Side Door",
+         "kind": "portico_open",
+         "device_id": "http://10.0.0.7:8091",
+         "icon": "door-open",
+         "confirm": true,
+         "available": true,
+         "name": "Portico (gate_sip_observer)"
+        }
+       ]
+      },
+      {
+       "id": "entrance",
+       "title": "Door",
+       "cameras": [
+        {
+         "id": "doorbell-2",
+         "label": "",
+         "entity_id": "camera.doorbell",
+         "live": true,
+         "size": "big",
+         "available": true,
+         "name": "Doorbell",
+         "live_rtsp": {
+          "main": "rtsp://10.0.0.6:8554/doorbell"
+         }
+        },
+        {
+         "id": "doorbell-package-2",
+         "label": "",
+         "entity_id": "camera.doorbell_package",
+         "live": true,
+         "size": "small",
+         "available": true,
+         "name": "Doorbell Package",
+         "live_rtsp": {
+          "main": "rtsp://10.0.0.6:8554/doorbell_package"
+         }
+        },
+        {
+         "id": "entrance-2",
+         "label": "",
+         "entity_id": "camera.entrance",
+         "live": true,
+         "size": "small",
+         "available": true,
+         "name": "Entrance",
+         "live_rtsp": {
+          "main": "rtsp://10.0.0.6:8554/entrance"
+         }
+        }
+       ],
+       "actions": [
+        {
+         "id": "door",
+         "label": "Open",
+         "kind": "lock_open",
+         "entity_id": "lock.example_lock_ex_entrance_mqtt",
+         "icon": "lock-open-variant-outline",
+         "confirm": true,
+         "available": true,
+         "name": "example-lock-ex-entrance (MQTT)"
+        },
+        {
+         "id": "door-2",
+         "label": "Lock",
+         "kind": "lock_lock",
+         "entity_id": "lock.example_lock_ex_entrance_mqtt",
+         "icon": "lock",
+         "confirm": true,
+         "available": true,
+         "name": "example-lock-ex-entrance (MQTT)"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "callers": {
+    "kitchen-tablet": {
+     "name": "Kitchen  Tablet",
+     "kind": "dashboard",
+     "cameras": [
+      {
+       "id": "c-4558e646e649",
+       "label": "Kitchen  Tablet",
+       "name": "Entrance",
+       "available": true,
+       "live_rtsp": {
+        "main": "rtsp://10.0.0.6:8554/entrance"
+       }
+      }
+     ],
+     "ring_buttons": [],
+     "call_buttons": []
+    },
+    "kitchen": {
+     "name": "kitchen",
+     "kind": "dashboard",
+     "cameras": [
+      {
+       "id": "c-241ceabe7a55",
+       "label": "kitchen",
+       "name": "example-doorbell-ex-entrance High resolution channel",
+       "available": true
+      }
+     ],
+     "ring_buttons": [],
+     "call_buttons": []
+    },
+    "portico_intercom:ha_event:event.example_doorbell_ex_entrance_doorbell": {
+     "name": "front",
+     "kind": "door",
+     "cameras": [
+      {
+       "id": "c-b689968814ce",
+       "label": "front",
+       "name": "Doorbell",
+       "available": true,
+       "live_rtsp": {
+        "main": "rtsp://10.0.0.6:8554/doorbell"
+       }
+      }
+     ],
+     "ring_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ],
+     "call_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ]
+    },
+    "portico_intercom:gate-sip-server": {
+     "name": "Portico (gate_sip_server)",
+     "kind": "door",
+     "cameras": [
+      {
+       "id": "c-b689968814ce",
+       "label": "Portico (gate_sip_server)",
+       "name": "Doorbell",
+       "available": true,
+       "live_rtsp": {
+        "main": "rtsp://10.0.0.6:8554/doorbell"
+       }
+      }
+     ],
+     "ring_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ],
+     "call_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ]
+    },
+    "portico_intercom:http://10.0.0.7:8091": {
+     "name": "Portico (gate_sip_observer)",
+     "kind": "door",
+     "cameras": [
+      {
+       "id": "c-982dd0d8d7db",
+       "label": "Portico (gate_sip_observer)",
+       "name": "example-intercom-ex-gate Main",
+       "available": true
+      }
+     ],
+     "ring_buttons": [],
+     "call_buttons": [
+      {
+       "id": "portico-gate-sip-observe",
+       "label": "Side Door",
+       "kind": "portico_open",
+       "device_id": "http://10.0.0.7:8091",
+       "icon": "door-open",
+       "confirm": true,
+       "available": true,
+       "name": "Portico (gate_sip_observer)"
+      }
+     ]
+    },
+    "*": {
+     "name": null,
+     "kind": null,
+     "cameras": [],
+     "ring_buttons": [],
+     "call_buttons": []
+    }
+   },
+   "roster": [
+    {
+     "action_id": "r-fb41a7f5cf6e",
+     "id": "kitchen-tablet",
+     "kind": "dashboard",
+     "name": "Kitchen  Tablet",
+     "available": false,
+     "reason": "not_available"
+    },
+    {
+     "action_id": "r-3171d89ad005",
+     "id": "kitchen",
+     "kind": "dashboard",
+     "name": "kitchen",
+     "available": false,
+     "reason": "not_available"
+    },
+    {
+     "action_id": "r-5065ded6d782",
+     "id": "portico_intercom:ha_event:event.example_doorbell_ex_entrance_doorbell",
+     "kind": "door",
+     "name": "front",
+     "available": false,
+     "reason": "not_available"
+    },
+    {
+     "action_id": "r-0aa38fd4967a",
+     "id": "portico_intercom:gate-sip-server",
+     "kind": "door",
+     "name": "Portico (gate_sip_server)",
+     "available": false,
+     "reason": "offline"
+    },
+    {
+     "action_id": "r-6e5163e10708",
+     "id": "portico_intercom:http://10.0.0.7:8091",
+     "kind": "door",
+     "name": "Portico (gate_sip_observer)",
+     "available": true,
+     "reason": null,
+     "can_dial": true
+    }
+   ],
+   "rev": "854d0acb838b"
+  },
+  "kitchen-tablet": {
+   "endpoint": "kitchen-tablet",
+   "kind": "dashboard",
+   "home_name": "My Home",
+   "show_fps": true,
+   "pages": [
+    {
+     "id": "home",
+     "label": "Home",
+     "blocks": [
+      {
+       "id": "home",
+       "title": "Gate",
+       "door": "http://10.0.0.7:8091",
+       "door_available": true,
+       "cameras": [
+        {
+         "id": "example-intercom-ex-gate",
+         "label": "",
+         "entity_id": "camera.example_intercom_ex_gate_main",
+         "live": true,
+         "size": "big",
+         "available": true,
+         "name": "example-intercom-ex-gate Main"
+        }
+       ],
+       "actions": [
+        {
+         "id": "talk",
+         "label": "Talk",
+         "kind": "talk",
+         "icon": "phone",
+         "confirm": false,
+         "available": false,
+         "name": "Talk",
+         "reason": "phone_only"
+        },
+        {
+         "id": "fence-relay-charger-box-",
+         "label": "Gate",
+         "kind": "button_press",
+         "entity_id": "button.front_yard_fence_relay_charger_box_gate_open",
+         "icon": "gate",
+         "confirm": true,
+         "available": true,
+         "name": "Fence Relay (Charger Box) Gate Open"
+        },
+        {
+         "id": "portico-gate-sip-observe",
+         "label": "Side Door",
+         "kind": "portico_open",
+         "device_id": "http://10.0.0.7:8091",
+         "icon": "door-open",
+         "confirm": true,
+         "available": true,
+         "name": "Portico (gate_sip_observer)"
+        }
+       ]
+      },
+      {
+       "id": "entrance",
+       "title": "Door",
+       "cameras": [
+        {
+         "id": "doorbell-2",
+         "label": "",
+         "entity_id": "camera.doorbell",
+         "live": true,
+         "size": "big",
+         "available": true,
+         "name": "Doorbell",
+         "live_rtsp": {
+          "main": "rtsp://10.0.0.6:8554/doorbell"
+         }
+        },
+        {
+         "id": "doorbell-package-2",
+         "label": "",
+         "entity_id": "camera.doorbell_package",
+         "live": true,
+         "size": "small",
+         "available": true,
+         "name": "Doorbell Package",
+         "live_rtsp": {
+          "main": "rtsp://10.0.0.6:8554/doorbell_package"
+         }
+        },
+        {
+         "id": "entrance-2",
+         "label": "",
+         "entity_id": "camera.entrance",
+         "live": true,
+         "size": "small",
+         "available": true,
+         "name": "Entrance",
+         "live_rtsp": {
+          "main": "rtsp://10.0.0.6:8554/entrance"
+         }
+        }
+       ],
+       "actions": [
+        {
+         "id": "door",
+         "label": "Open",
+         "kind": "lock_open",
+         "entity_id": "lock.example_lock_ex_entrance_mqtt",
+         "icon": "lock-open-variant-outline",
+         "confirm": true,
+         "available": true,
+         "name": "example-lock-ex-entrance (MQTT)"
+        },
+        {
+         "id": "door-2",
+         "label": "Lock",
+         "kind": "lock_lock",
+         "entity_id": "lock.example_lock_ex_entrance_mqtt",
+         "icon": "lock",
+         "confirm": true,
+         "available": true,
+         "name": "example-lock-ex-entrance (MQTT)"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "callers": {
+    "ep-phone-1": {
+     "name": "Phone 1",
+     "kind": "phone",
+     "cameras": [],
+     "ring_buttons": [],
+     "call_buttons": []
+    },
+    "kitchen": {
+     "name": "kitchen",
+     "kind": "dashboard",
+     "cameras": [
+      {
+       "id": "c-241ceabe7a55",
+       "label": "kitchen",
+       "name": "example-doorbell-ex-entrance High resolution channel",
+       "available": true
+      }
+     ],
+     "ring_buttons": [],
+     "call_buttons": []
+    },
+    "portico_intercom:ha_event:event.example_doorbell_ex_entrance_doorbell": {
+     "name": "front",
+     "kind": "door",
+     "cameras": [
+      {
+       "id": "c-b689968814ce",
+       "label": "front",
+       "name": "Doorbell",
+       "available": true,
+       "live_rtsp": {
+        "main": "rtsp://10.0.0.6:8554/doorbell"
+       }
+      }
+     ],
+     "ring_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ],
+     "call_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ]
+    },
+    "portico_intercom:gate-sip-server": {
+     "name": "Portico (gate_sip_server)",
+     "kind": "door",
+     "cameras": [
+      {
+       "id": "c-b689968814ce",
+       "label": "Portico (gate_sip_server)",
+       "name": "Doorbell",
+       "available": true,
+       "live_rtsp": {
+        "main": "rtsp://10.0.0.6:8554/doorbell"
+       }
+      }
+     ],
+     "ring_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ],
+     "call_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ]
+    },
+    "portico_intercom:http://10.0.0.7:8091": {
+     "name": "Portico (gate_sip_observer)",
+     "kind": "door",
+     "cameras": [
+      {
+       "id": "c-982dd0d8d7db",
+       "label": "Portico (gate_sip_observer)",
+       "name": "example-intercom-ex-gate Main",
+       "available": true
+      }
+     ],
+     "ring_buttons": [],
+     "call_buttons": [
+      {
+       "id": "portico-gate-sip-observe",
+       "label": "Side Door",
+       "kind": "portico_open",
+       "device_id": "http://10.0.0.7:8091",
+       "icon": "door-open",
+       "confirm": true,
+       "available": true,
+       "name": "Portico (gate_sip_observer)"
+      }
+     ]
+    },
+    "*": {
+     "name": null,
+     "kind": null,
+     "cameras": [],
+     "ring_buttons": [],
+     "call_buttons": []
+    }
+   },
+   "roster": [
+    {
+     "action_id": "r-f43fc5f27fb7",
+     "id": "ep-phone-1",
+     "kind": "phone",
+     "name": "Phone 1",
+     "available": false,
+     "reason": "not_available"
+    },
+    {
+     "action_id": "r-3171d89ad005",
+     "id": "kitchen",
+     "kind": "dashboard",
+     "name": "kitchen",
+     "available": false,
+     "reason": "not_available"
+    },
+    {
+     "action_id": "r-5065ded6d782",
+     "id": "portico_intercom:ha_event:event.example_doorbell_ex_entrance_doorbell",
+     "kind": "door",
+     "name": "front",
+     "available": false,
+     "reason": "not_available"
+    },
+    {
+     "action_id": "r-0aa38fd4967a",
+     "id": "portico_intercom:gate-sip-server",
+     "kind": "door",
+     "name": "Portico (gate_sip_server)",
+     "available": false,
+     "reason": "offline"
+    },
+    {
+     "action_id": "r-6e5163e10708",
+     "id": "portico_intercom:http://10.0.0.7:8091",
+     "kind": "door",
+     "name": "Portico (gate_sip_observer)",
+     "available": false,
+     "reason": "phone_only",
+     "can_dial": true
+    }
+   ],
+   "rev": "ac29adb3d723"
+  },
+  "kitchen": {
+   "endpoint": "kitchen",
+   "kind": "dashboard",
+   "home_name": "My Home",
+   "show_fps": true,
+   "pages": [
+    {
+     "id": "home",
+     "label": "Home",
+     "blocks": [
+      {
+       "id": "home",
+       "title": "Gate",
+       "door": "http://10.0.0.7:8091",
+       "door_available": true,
+       "cameras": [
+        {
+         "id": "example-intercom-ex-gate",
+         "label": "",
+         "entity_id": "camera.example_intercom_ex_gate_main",
+         "live": true,
+         "size": "big",
+         "available": true,
+         "name": "example-intercom-ex-gate Main"
+        }
+       ],
+       "actions": [
+        {
+         "id": "talk",
+         "label": "Talk",
+         "kind": "talk",
+         "icon": "phone",
+         "confirm": false,
+         "available": false,
+         "name": "Talk",
+         "reason": "phone_only"
+        },
+        {
+         "id": "fence-relay-charger-box-",
+         "label": "Gate",
+         "kind": "button_press",
+         "entity_id": "button.front_yard_fence_relay_charger_box_gate_open",
+         "icon": "gate",
+         "confirm": true,
+         "available": true,
+         "name": "Fence Relay (Charger Box) Gate Open"
+        },
+        {
+         "id": "portico-gate-sip-observe",
+         "label": "Side Door",
+         "kind": "portico_open",
+         "device_id": "http://10.0.0.7:8091",
+         "icon": "door-open",
+         "confirm": true,
+         "available": true,
+         "name": "Portico (gate_sip_observer)"
+        }
+       ]
+      },
+      {
+       "id": "entrance",
+       "title": "Door",
+       "cameras": [
+        {
+         "id": "doorbell-2",
+         "label": "",
+         "entity_id": "camera.doorbell",
+         "live": true,
+         "size": "big",
+         "available": true,
+         "name": "Doorbell",
+         "live_rtsp": {
+          "main": "rtsp://10.0.0.6:8554/doorbell"
+         }
+        },
+        {
+         "id": "doorbell-package-2",
+         "label": "",
+         "entity_id": "camera.doorbell_package",
+         "live": true,
+         "size": "small",
+         "available": true,
+         "name": "Doorbell Package",
+         "live_rtsp": {
+          "main": "rtsp://10.0.0.6:8554/doorbell_package"
+         }
+        },
+        {
+         "id": "entrance-2",
+         "label": "",
+         "entity_id": "camera.entrance",
+         "live": true,
+         "size": "small",
+         "available": true,
+         "name": "Entrance",
+         "live_rtsp": {
+          "main": "rtsp://10.0.0.6:8554/entrance"
+         }
+        }
+       ],
+       "actions": [
+        {
+         "id": "door",
+         "label": "Open",
+         "kind": "lock_open",
+         "entity_id": "lock.example_lock_ex_entrance_mqtt",
+         "icon": "lock-open-variant-outline",
+         "confirm": true,
+         "available": true,
+         "name": "example-lock-ex-entrance (MQTT)"
+        },
+        {
+         "id": "door-2",
+         "label": "Lock",
+         "kind": "lock_lock",
+         "entity_id": "lock.example_lock_ex_entrance_mqtt",
+         "icon": "lock",
+         "confirm": true,
+         "available": true,
+         "name": "example-lock-ex-entrance (MQTT)"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "callers": {
+    "ep-phone-1": {
+     "name": "Phone 1",
+     "kind": "phone",
+     "cameras": [],
+     "ring_buttons": [],
+     "call_buttons": []
+    },
+    "kitchen-tablet": {
+     "name": "Kitchen  Tablet",
+     "kind": "dashboard",
+     "cameras": [
+      {
+       "id": "c-4558e646e649",
+       "label": "Kitchen  Tablet",
+       "name": "Entrance",
+       "available": true,
+       "live_rtsp": {
+        "main": "rtsp://10.0.0.6:8554/entrance"
+       }
+      }
+     ],
+     "ring_buttons": [],
+     "call_buttons": []
+    },
+    "portico_intercom:ha_event:event.example_doorbell_ex_entrance_doorbell": {
+     "name": "front",
+     "kind": "door",
+     "cameras": [
+      {
+       "id": "c-b689968814ce",
+       "label": "front",
+       "name": "Doorbell",
+       "available": true,
+       "live_rtsp": {
+        "main": "rtsp://10.0.0.6:8554/doorbell"
+       }
+      }
+     ],
+     "ring_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ],
+     "call_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ]
+    },
+    "portico_intercom:gate-sip-server": {
+     "name": "Portico (gate_sip_server)",
+     "kind": "door",
+     "cameras": [
+      {
+       "id": "c-b689968814ce",
+       "label": "Portico (gate_sip_server)",
+       "name": "Doorbell",
+       "available": true,
+       "live_rtsp": {
+        "main": "rtsp://10.0.0.6:8554/doorbell"
+       }
+      }
+     ],
+     "ring_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ],
+     "call_buttons": [
+      {
+       "id": "door",
+       "label": "Open",
+       "kind": "lock_open",
+       "entity_id": "lock.example_lock_ex_entrance_mqtt",
+       "icon": "lock-open-variant-outline",
+       "confirm": true,
+       "available": true,
+       "name": "example-lock-ex-entrance (MQTT)"
+      }
+     ]
+    },
+    "portico_intercom:http://10.0.0.7:8091": {
+     "name": "Portico (gate_sip_observer)",
+     "kind": "door",
+     "cameras": [
+      {
+       "id": "c-982dd0d8d7db",
+       "label": "Portico (gate_sip_observer)",
+       "name": "example-intercom-ex-gate Main",
+       "available": true
+      }
+     ],
+     "ring_buttons": [],
+     "call_buttons": [
+      {
+       "id": "portico-gate-sip-observe",
+       "label": "Side Door",
+       "kind": "portico_open",
+       "device_id": "http://10.0.0.7:8091",
+       "icon": "door-open",
+       "confirm": true,
+       "available": true,
+       "name": "Portico (gate_sip_observer)"
+      }
+     ]
+    },
+    "*": {
+     "name": null,
+     "kind": null,
+     "cameras": [],
+     "ring_buttons": [],
+     "call_buttons": []
+    }
+   },
+   "roster": [
+    {
+     "action_id": "r-f43fc5f27fb7",
+     "id": "ep-phone-1",
+     "kind": "phone",
+     "name": "Phone 1",
+     "available": false,
+     "reason": "not_available"
+    },
+    {
+     "action_id": "r-fb41a7f5cf6e",
+     "id": "kitchen-tablet",
+     "kind": "dashboard",
+     "name": "Kitchen  Tablet",
+     "available": false,
+     "reason": "not_available"
+    },
+    {
+     "action_id": "r-5065ded6d782",
+     "id": "portico_intercom:ha_event:event.example_doorbell_ex_entrance_doorbell",
+     "kind": "door",
+     "name": "front",
+     "available": false,
+     "reason": "not_available"
+    },
+    {
+     "action_id": "r-0aa38fd4967a",
+     "id": "portico_intercom:gate-sip-server",
+     "kind": "door",
+     "name": "Portico (gate_sip_server)",
+     "available": false,
+     "reason": "offline"
+    },
+    {
+     "action_id": "r-6e5163e10708",
+     "id": "portico_intercom:http://10.0.0.7:8091",
+     "kind": "door",
+     "name": "Portico (gate_sip_observer)",
+     "available": false,
+     "reason": "phone_only",
+     "can_dial": true
+    }
+   ],
+   "rev": "ecfe902040a1"
+  }
+ },
+ "endpoints": [
+  {
+   "id": "ep-phone-1",
+   "kind": "phone",
+   "name": "Phone 1",
+   "label": "Phone 1 (enrolled, app 0.0.0)",
+   "ha_user_id": "user-1",
+   "cameras": [],
+   "room": null,
+   "available": true,
+   "reason": null
+  },
+  {
+   "id": "kitchen-tablet",
+   "kind": "dashboard",
+   "name": "Kitchen  Tablet",
+   "label": "Kitchen  Tablet",
+   "ha_user_id": "user-2",
+   "cameras": [
+    "camera.entrance"
+   ],
+   "room": null,
+   "available": true,
+   "reason": null
+  },
+  {
+   "id": "kitchen",
+   "kind": "dashboard",
+   "name": "kitchen",
+   "label": "kitchen",
+   "ha_user_id": "user-2",
+   "cameras": [
+    "camera.example_doorbell_ex_entrance_high_resolution_channel"
+   ],
+   "room": null,
+   "available": true,
+   "reason": null
+  },
+  {
+   "id": "portico_intercom:ha_event:event.example_doorbell_ex_entrance_doorbell",
+   "kind": "door",
+   "name": "front",
+   "label": "front",
+   "ha_user_id": null,
+   "cameras": [
+    "camera.doorbell"
+   ],
+   "room": null,
+   "available": true,
+   "reason": null
+  },
+  {
+   "id": "portico_intercom:gate-sip-server",
+   "kind": "door",
+   "name": "Portico (gate_sip_server)",
+   "label": "Portico (gate_sip_server)",
+   "ha_user_id": null,
+   "cameras": [
+    "camera.doorbell"
+   ],
+   "room": null,
+   "available": false,
+   "reason": "offline"
+  },
+  {
+   "id": "portico_intercom:http://10.0.0.7:8091",
+   "kind": "door",
+   "name": "Portico (gate_sip_observer)",
+   "label": "Portico (gate_sip_observer)",
+   "ha_user_id": null,
+   "cameras": [
+    "camera.gate_intercom"
+   ],
+   "room": null,
+   "available": true,
+   "reason": null,
+   "can_dial": true
+  }
+ ],
+ "orphans": [],
+ "ha_users": [
+  {
+   "id": "user-3",
+   "name": "Admin User",
+   "is_admin": true,
+   "kiosk_open": false
+  },
+  {
+   "id": "user-2",
+   "name": "user_kitchen_tablet",
+   "is_admin": false,
+   "kiosk_open": false
+  },
+  {
+   "id": "user-1",
+   "name": "Portico \u2014 Phone 1",
+   "is_admin": false,
+   "kiosk_open": false
+  }
+ ],
+ "wake": {
+  "kitchen-tablet": {
+   "doors": [],
+   "elements": [],
+   "self_elements": [
+    "talk-screen-kitchen-tablet"
+   ],
+   "screen_call": true
+  },
+  "kitchen": {
+   "doors": [],
+   "elements": [],
+   "self_elements": [
+    "talk-screen-kitchen"
+   ],
+   "screen_call": true
+  }
+ }
+}

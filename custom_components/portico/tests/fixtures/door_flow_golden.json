@@ -1,0 +1,190 @@
+{
+ "bus": [
+  [
+   "http://gate-sip.example:8091",
+   "ringing",
+   "gso-1"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "answered",
+   "gso-1"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "active",
+   "gso-1"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "ended",
+   "gso-1"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "ringing",
+   "gso-2"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "ended",
+   "gso-2"
+  ]
+ ],
+ "door_frames": [
+  [
+   "http://gate-sip.example:8091",
+   "gso-1",
+   "ringing",
+   "idle"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "gso-1",
+   "answered",
+   "ringing"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "gso-1",
+   "active",
+   "answered"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "gso-1",
+   "ended",
+   "active"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "gso-2",
+   "ringing",
+   "idle"
+  ],
+  [
+   "http://gate-sip.example:8091",
+   "gso-2",
+   "ended",
+   "ringing"
+  ]
+ ],
+ "gate": "http://gate-sip.example:8091",
+ "other_frames": [],
+ "push": [
+  {
+   "call_id": "gso-1",
+   "door_ref": "d-9baa0e906a4880de664e55ef8b059e22",
+   "kind": "ring",
+   "pv": "2",
+   "seq": "1"
+  },
+  {
+   "by": "other",
+   "call_id": "gso-1",
+   "door_ref": "d-9baa0e906a4880de664e55ef8b059e22",
+   "kind": "answered",
+   "pv": "2",
+   "seq": "2"
+  }
+ ],
+ "sensor": [
+  [
+   "ringing",
+   {
+    "call_id": "gso-1",
+    "device_class": "enum",
+    "friendly_name": "Call state",
+    "options": [
+     "idle",
+     "ringing",
+     "answered",
+     "active",
+     "ended"
+    ]
+   }
+  ],
+  [
+   "answered",
+   {
+    "call_id": "gso-1",
+    "device_class": "enum",
+    "friendly_name": "Call state",
+    "options": [
+     "idle",
+     "ringing",
+     "answered",
+     "active",
+     "ended"
+    ]
+   }
+  ],
+  [
+   "active",
+   {
+    "call_id": "gso-1",
+    "device_class": "enum",
+    "friendly_name": "Call state",
+    "options": [
+     "idle",
+     "ringing",
+     "answered",
+     "active",
+     "ended"
+    ]
+   }
+  ],
+  [
+   "idle",
+   {
+    "call_id": null,
+    "device_class": "enum",
+    "friendly_name": "Call state",
+    "options": [
+     "idle",
+     "ringing",
+     "answered",
+     "active",
+     "ended"
+    ]
+   }
+  ],
+  [
+   "ringing",
+   {
+    "call_id": "gso-2",
+    "device_class": "enum",
+    "friendly_name": "Call state",
+    "options": [
+     "idle",
+     "ringing",
+     "answered",
+     "active",
+     "ended"
+    ]
+   }
+  ],
+  [
+   "idle",
+   {
+    "call_id": null,
+    "device_class": "enum",
+    "friendly_name": "Call state",
+    "options": [
+     "idle",
+     "ringing",
+     "answered",
+     "active",
+     "ended"
+    ]
+   }
+  ]
+ ],
+ "snapshot": {
+  "call_id": null,
+  "door_id": "http://gate-sip.example:8091",
+  "snapshot": true,
+  "state": "idle",
+  "type": "call_state_changed"
+ }
+}

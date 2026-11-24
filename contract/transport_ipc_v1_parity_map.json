@@ -1,0 +1,3883 @@
+{
+ "about": "Every numbered row of the subject files transport-rs/docs/parity/*.md (the difference, defect and carried-list rows, table rows `| n |`, numbered lists `n. ` and the `* **n ...` bullets of Phase R round 1) plus the unnumbered rows of the first section (Matched, smoke differences, other differences, Go oddities, now in ipc_process.md), each mapped to the runner case ids that cover its wire-visible part (`cases`) or to an explicit reason it cannot be a wire case (`reason_code`, defined in `reason_codes`). kind: case = covered; partial = the wire-visible part is covered, `reason_code` names why the rest is not; none = no case, `reason_code` says why (DEFERRED-WIRE rows are the next runner slice). `file` (a subject file without .md) and `line` (a line of that file) and `text` are the subject file's, so an edit of a row shows up as a stale map in the audit. `section` is the heading the row sat under when the map was made and is kept as a label. The remaining unnumbered 'Matched'/'Evidence' tables of later slices are mapped per section in `section_map`. Round 2 (R2-38, R2-41): every row carries `digest`, a hash of its whole normalised text in the subject file (`contract_runner.py --audit` fails when a row changed; after a reviewed edit run `--rehash-map`); a row coded UNIT, PANIC, API or TASK with a number of 300 or more names the Rust tests that pin it in `tests` (each must exist as a `fn` under src/ or tests/; `--audit` checks) or gives the reason there is none in `no_test`; a `case` row whose cases are `D-*` ids is executed against both binaries by scripts/wire_deferred.py, not by the full run of the runner.",
+ "generated_from": "transport-rs/docs/parity/*.md (one file per subject; transport-rs/PARITY.md is the index)",
+ "reason_codes": {
+  "API": "Rust API shape, ownership or type-level choice; no wire effect. Pinned by the Rust unit tests named in the row.",
+  "TASK": "goroutine/channel/context versus tokio task/cancellation mechanics; not visible on the wire, described in transport-rs/DESIGN.md 'Task and cancellation design' and pinned by Rust unit tests.",
+  "PANIC": "panic containment; no request makes either binary panic on purpose, so there is no wire trigger (see panic_policy in the spec); pinned by Rust tests that inject a panic.",
+  "UNIT": "internal behaviour (determinism, formatting, queue bounds, config corners) that needs the unit or golden-vector layer; a wire case would need a fake that does not exist yet or cannot make it deterministic.",
+  "TIMING": "timing, pacing or RTP/SIP-timer behaviour: the trace-diff (Phase 2 item 4, deferred to the next slice), not a request/response case.",
+  "REAL": "needs a real peer the loopback fakes cannot be: a browser (ICE/DTLS/SRTP), real TLS, real station source-IP rules, the host's interface list. Listed in PARITY 'Not verified' / INTEROP.md.",
+  "ENV": "depends on the host's resolver, /etc/services or kernel defaults; not deterministic on a test host.",
+  "GODEFECT": "a defect of the Go code kept or fixed in Rust; recorded for DEV-770, not a conformance expectation (the runner pins Go's wire behaviour, not its bugs).",
+  "NOWIRE": "not observable through the IPC or the process boundary (logging stream split, unreachable code path).",
+  "DEFERRED-WIRE": "observable on the wire but no fake behaviour exists for it yet (a case of the retired wire_deferred.py is a `case` row, not this).",
+  "TESTMETA": "describes how a Go test was ported (goroutine counting, grep tests); not a behaviour.",
+  "PROCESS": "a carried to-do list of the review, not a behaviour.",
+  "TRANSCRIPT": "covered: the case ids listed run in every full run against both binaries."
+ },
+ "rows": [
+  {
+   "line": 11,
+   "n": null,
+   "section": "first section",
+   "text": "| Framing | newline-delimited JSON; trailing `\\r` dropped; empty and malformed lines dropped without",
+   "kind": "case",
+   "cases": [
+    "W-FRAME-DROPPED",
+    "W-FRAME-CRLF",
+    "W-FRAME-PARTIAL-LINE",
+    "W-FRAME-PIPELINE"
+   ],
+   "file": "ipc_process",
+   "digest": "b0110b44eee8"
+  },
+  {
+   "line": 12,
+   "n": null,
+   "section": "first section",
+   "text": "| Line limit | a line plus its `\\n` must fit in 1 MiB (1048575 bytes of content is served, 1048576 f",
+   "kind": "case",
+   "cases": [
+    "W-FRAME-LIMIT-OK",
+    "W-FRAME-LARGE-OK",
+    "S-LINE-LIMIT"
+   ],
+   "file": "ipc_process",
+   "digest": "4c9c3c34760b"
+  },
+  {
+   "line": 13,
+   "n": null,
+   "section": "first section",
+   "text": "| Request decoding | `null` line is a zero request (`unknown_method`, id 0, message `\"\"`); keys case",
+   "kind": "case",
+   "cases": [
+    "W-FRAME-NULL-LINE",
+    "W-FRAME-KEYS-CASE-INSENSITIVE",
+    "W-FRAME-KEYS-DUPLICATE",
+    "W-FRAME-ID-RANGE",
+    "W-FRAME-MISSING-ID",
+    "W-FRAME-DROPPED"
+   ],
+   "file": "ipc_process",
+   "digest": "0b7086ca97ae"
+  },
+  {
+   "line": 14,
+   "n": null,
+   "section": "first section",
+   "text": "| Response shape | `{\"id\":N,\"result\":...}` or `{\"id\":N,\"error\":{\"code\",\"message\"}}`; field order as ",
+   "kind": "case",
+   "cases": [
+    "W-FRAME-UNKNOWN-METHOD",
+    "T-main"
+   ],
+   "file": "ipc_process",
+   "digest": "5b803ac25798"
+  },
+  {
+   "line": 15,
+   "n": null,
+   "section": "first section",
+   "text": "| String escaping | Go encoder HTML escaping (`\\u003c \\u003e \\u0026 \\u2028 \\u2029`), short escapes `",
+   "kind": "case",
+   "cases": [
+    "W-FRAME-ESCAPING"
+   ],
+   "file": "ipc_process",
+   "digest": "a0a5864721ad"
+  },
+  {
+   "line": 16,
+   "n": null,
+   "section": "first section",
+   "text": "| Notifications | `{\"method\":...,\"params\":...}`; error `ipc: no connection` when nothing is connecte",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "note": "notifications while nothing is connected: `ipc: no connection` is a Rust/Go unit test",
+   "file": "ipc_process",
+   "digest": "256004a47c7f"
+  },
+  {
+   "line": 17,
+   "n": null,
+   "section": "first section",
+   "text": "| Dispatch | plain handlers concurrent, responses matched by id; inline handlers on the read loop (a",
+   "kind": "case",
+   "cases": [
+    "T-main"
+   ],
+   "note": "concurrency order is observed only through the pipelined transcripts",
+   "file": "ipc_process",
+   "digest": "bc7a2ffc9f9f"
+  },
+  {
+   "line": 18,
+   "n": null,
+   "section": "first section",
+   "text": "| Stale replies | a reply from a handler that outlives its connection is dropped, not sent on the ne",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "note": "stale replies after a connection change: unit test (ported)",
+   "file": "ipc_process",
+   "digest": "08c6cfd50fe8"
+  },
+  {
+   "line": 19,
+   "n": null,
+   "section": "first section",
+   "text": "| Write timeout | 5 s per write; a failed or timed-out write closes the connection and `serve` retur",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "ipc_process",
+   "cases": [
+    "D-IPC-WRITE-TIMEOUT"
+   ],
+   "digest": "f3a9d0f7d245"
+  },
+  {
+   "line": 20,
+   "n": null,
+   "section": "first section",
+   "text": "| One connection | the server serves a single connection; `serve` returns `Ok` when it closes, and t",
+   "kind": "case",
+   "cases": [
+    "S-DISCONNECT-EXITS",
+    "T-disconnect"
+   ],
+   "file": "ipc_process",
+   "digest": "7e6ed7cb424c"
+  },
+  {
+   "line": 21,
+   "n": null,
+   "section": "first section",
+   "text": "| Socket | stale file removed first; created, then chmod 0600; bind failure text `ipc: listening on ",
+   "kind": "case",
+   "cases": [
+    "S-STALE-SOCKET",
+    "S-SOCKET-MODE-SIGTERM",
+    "S-BIND-FAILURE",
+    "T-stale_socket"
+   ],
+   "file": "ipc_process",
+   "digest": "ae8b95192bf4"
+  },
+  {
+   "line": 22,
+   "n": null,
+   "section": "first section",
+   "text": "| Signals | SIGINT and SIGTERM: stop accepting, close the connection, remove the socket, exit 0 | sm",
+   "kind": "case",
+   "cases": [
+    "S-SIGINT",
+    "S-SOCKET-MODE-SIGTERM",
+    "T-sigint",
+    "T-sigterm"
+   ],
+   "file": "ipc_process",
+   "digest": "bb2803792704"
+  },
+  {
+   "line": 23,
+   "n": null,
+   "section": "first section",
+   "text": "| Flags | all 9 flags with Go's names and defaults; `-f`/`--f`, `-f=v`, `-f v`; bool flags take a va",
+   "kind": "case",
+   "cases": [
+    "S-FLAG-HELP",
+    "S-FLAG-HELP-LONG",
+    "S-FLAG-HELP-SINGLE",
+    "S-FLAG-UNKNOWN",
+    "S-FLAG-NEEDS-ARG",
+    "S-FLAG-BAD-BOOL",
+    "S-FLAG-BAD-SYNTAX-1",
+    "S-FLAG-BAD-SYNTAX-2",
+    "S-START-FIRST-NON-FLAG",
+    "T-flags"
+   ],
+   "file": "ipc_process",
+   "digest": "5b0148c547c4"
+  },
+  {
+   "line": 24,
+   "n": null,
+   "section": "first section",
+   "text": "| Start-up errors | `portico-transport: -socket or -listen is required` (note: Go's text, not just \"",
+   "kind": "case",
+   "cases": [
+    "S-START-NO-SOCKET",
+    "S-START-EXCLUSIVE"
+   ],
+   "file": "ipc_process",
+   "digest": "347878b17868"
+  },
+  {
+   "line": 25,
+   "n": null,
+   "section": "first section",
+   "text": "| Log format | Go uses `fmt.Fprintln(os.Stderr, \"portico-transport:\", ...)`, no timestamp, no `log` ",
+   "kind": "case",
+   "cases": [
+    "S-LOG-HOUSE-CALL-PREFIX",
+    "T-standalone"
+   ],
+   "file": "ipc_process",
+   "digest": "8063a12f8202"
+  },
+  {
+   "line": 26,
+   "n": null,
+   "section": "first section",
+   "text": "| Methods | all 16 in the brief plus `external_ring` and `talk_health`, in the dispatch class Go use",
+   "kind": "case",
+   "cases": [
+    "W-ERR-TABLE",
+    "T-main"
+   ],
+   "file": "ipc_process",
+   "digest": "9f3a0d121189"
+  },
+  {
+   "line": 27,
+   "n": null,
+   "section": "first section",
+   "text": "| Empty-registry answers | `bad_params` with Go's `json.Unmarshal` error text (`unexpected end of JS",
+   "kind": "case",
+   "cases": [
+    "W-ERR-TABLE"
+   ],
+   "file": "ipc_process",
+   "digest": "11ba54f59550"
+  },
+  {
+   "line": 28,
+   "n": null,
+   "section": "first section",
+   "text": "| `media_*` | `media_open` validates and answers `{codec, frame_bytes, frame_ms}`, rejects a repeat ",
+   "kind": "case",
+   "cases": [
+    "W-MEDIA-OPEN-VALIDATION",
+    "W-MEDIA-LIFECYCLE",
+    "W-MEDIA-IDLE-CLOSE",
+    "T-wsmedia"
+   ],
+   "file": "ipc_process",
+   "digest": "2790c3898927"
+  },
+  {
+   "line": 38,
+   "n": null,
+   "section": "first section",
+   "text": "| `configure` of `gate_sip_server` with a config that PASSES validation | starts the SIP server and ",
+   "kind": "case",
+   "cases": [
+    "T-gate_sip_server",
+    "C-CAPS-gate_sip_server"
+   ],
+   "file": "ipc_process",
+   "digest": "56c8b3a3c50d"
+  },
+  {
+   "line": 39,
+   "n": null,
+   "section": "first section",
+   "text": "| `webrtc_offer` / `webrtc_answer` / `webrtc_ice` | a pion session | a str0m session (slice 4b); the",
+   "kind": "case",
+   "cases": [
+    "T-webrtc"
+   ],
+   "note": "DIFF-WEBRTC-*",
+   "file": "ipc_process",
+   "digest": "a2edf6595788"
+  },
+  {
+   "line": 40,
+   "n": null,
+   "section": "first section",
+   "text": "| a valid `webrtc_offer` (smoke: Chrome 124 and Firefox 153 offers) | pion's answer: `a=setup:active",
+   "kind": "case",
+   "cases": [
+    "T-webrtc"
+   ],
+   "note": "DIFF-WEBRTC-SETUP, DIFF-WEBRTC-RTPMAP",
+   "file": "ipc_process",
+   "digest": "6bcf2903ac75"
+  },
+  {
+   "line": 41,
+   "n": null,
+   "section": "first section",
+   "text": "| `-secrets-env FILE` | reads the file (or fails `cannot open the file: ...`) | the same since slice",
+   "kind": "case",
+   "cases": [
+    "T-standalone",
+    "S-START-SECRETS-MISSING"
+   ],
+   "file": "ipc_process",
+   "digest": "d7fd6464e3d6"
+  },
+  {
+   "line": 42,
+   "n": null,
+   "section": "first section",
+   "text": "| `-house-calls` | real `house_open`/`house_close` | the same since slice 9 (smoke: identical, see \"",
+   "kind": "case",
+   "cases": [
+    "T-house",
+    "W-HOUSE-DISABLED",
+    "W-HOUSE-ENABLED-VALIDATION"
+   ],
+   "file": "ipc_process",
+   "digest": "4ae1d75f12c4"
+  },
+  {
+   "line": 46,
+   "n": null,
+   "section": "first section",
+   "text": "* `-listen` (TCP IPC), `-ipc-token-file`, `-ipc-allow-non-loopback`, `-ipc-allow-from`, `-sip-from-e",
+   "kind": "case",
+   "cases": [
+    "T-standalone",
+    "S-START-LISTEN-NEEDS-TOKEN",
+    "S-START-LISTEN-NON-LOOPBACK"
+   ],
+   "file": "ipc_process",
+   "digest": "19c3eb4e329a"
+  },
+  {
+   "line": 47,
+   "n": null,
+   "section": "first section",
+   "text": "* Rust cannot hold invalid UTF-8 in a decoded string: such a request line is dropped (Go r",
+   "kind": "case",
+   "cases": [
+    "W-FRAME-LONE-SURROGATE"
+   ],
+   "note": "DIFF-FRAME-LONE-SURROGATE (lone surrogate); invalid UTF-8 and nesting >128 stay unit-level",
+   "file": "ipc_process",
+   "digest": "e6cc5721cf3b"
+  },
+  {
+   "line": 48,
+   "n": null,
+   "section": "first section",
+   "text": "* JSON keys fold ASCII case only (Go folds Unicode); `%q` quoting covers quotes, backslash, `\\n \\r \\",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "note": "ASCII-only key folding / %q quoting corners",
+   "file": "ipc_process",
+   "digest": "1ec9b0376302"
+  },
+  {
+   "line": 49,
+   "n": null,
+   "section": "first section",
+   "text": "* A write failure closes the connection; `serve` then reports `read unix: use of closed network conn",
+   "kind": "none",
+   "reason_code": "NOWIRE",
+   "note": "only the text of an error after a write failure differs",
+   "file": "ipc_process",
+   "digest": "1c6317f7977c"
+  },
+  {
+   "line": 50,
+   "n": null,
+   "section": "first section",
+   "text": "* `Server::close` waits for an in-flight write (it takes the write lock), as Go's `Close` does; a st",
+   "kind": "none",
+   "reason_code": "TASK",
+   "note": "Server::close waits for an in-flight write",
+   "file": "ipc_process",
+   "digest": "773c4f9030e7"
+  },
+  {
+   "line": 51,
+   "n": null,
+   "section": "first section",
+   "text": "* The bind-then-chmod window exists in both: between `bind` and `chmod` the socket has mode `0777 & ",
+   "kind": "none",
+   "reason_code": "NOWIRE",
+   "note": "bind-then-chmod window is identical in both (a documented non-fix)",
+   "file": "ipc_process",
+   "digest": "2049403bf056"
+  },
+  {
+   "line": 52,
+   "n": null,
+   "section": "first section",
+   "text": "* Stale-file removal uses `remove_file`; Go's `os.Remove` would also remove an empty directory at th",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "note": "remove_file vs os.Remove on an empty directory",
+   "file": "ipc_process",
+   "digest": "d74d0c7844a3"
+  },
+  {
+   "line": 53,
+   "n": null,
+   "section": "first section",
+   "text": "* `float64` formatting in results (`gojson::marshal`) is serde_json's, not Go's. No current result c",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "note": "float64 formatting; no result carries one",
+   "file": "ipc_process",
+   "digest": "3bc19410f1cf"
+  },
+  {
+   "line": 61,
+   "n": null,
+   "section": "first section",
+   "text": "* In Unix-socket mode `main` calls `Serve` once. When Python disconnects the process exits 0 and rem",
+   "kind": "case",
+   "cases": [
+    "S-DISCONNECT-EXITS"
+   ],
+   "note": "Go oddity: unix mode serves one connection and exits 0 (asserted)",
+   "file": "ipc_process",
+   "digest": "887b3116aa32"
+  },
+  {
+   "line": 62,
+   "n": null,
+   "section": "first section",
+   "text": "* A line over 1 MiB ends the process with exit 1 and leaves the socket file behind (`os.Exit(1)` ski",
+   "kind": "case",
+   "cases": [
+    "S-LINE-LIMIT"
+   ],
+   "note": "Go oddity: over-limit line exits 1 and leaves the socket (asserted)",
+   "file": "ipc_process",
+   "digest": "5148e7d1f351"
+  },
+  {
+   "line": 63,
+   "n": null,
+   "section": "first section",
+   "text": "* Responses of in-flight plain handlers can be lost when `Serve` returns an error and `main` calls `",
+   "kind": "none",
+   "reason_code": "DEFERRED-WIRE",
+   "note": "in-flight plain handler responses lost on exit 1",
+   "file": "ipc_process",
+   "digest": "d87a641dbcc5"
+  },
+  {
+   "line": 64,
+   "n": null,
+   "section": "first section",
+   "text": "* `TestKeyedRequestsAreOrderedPerKey` asserts `order[1] != 1 && order[0] != 3`, which, by operator p",
+   "kind": "none",
+   "reason_code": "TESTMETA",
+   "note": "a Go test assertion's precedence",
+   "file": "ipc_process",
+   "digest": "9331bdf5de95"
+  },
+  {
+   "line": 65,
+   "n": null,
+   "section": "first section",
+   "text": "* The `-socket is required` wording in the task brief is really `-socket or -listen is required`.",
+   "kind": "case",
+   "cases": [
+    "S-START-NO-SOCKET"
+   ],
+   "note": "wording '-socket or -listen is required' (asserted exactly)",
+   "file": "ipc_process",
+   "digest": "a5fbd5b3fa8e"
+  },
+  {
+   "line": 66,
+   "n": null,
+   "section": "first section",
+   "text": "* A request `{\"params\": null}` reaches handlers as the literal `null` (so `json.Unmarshal` succeeds ",
+   "kind": "case",
+   "cases": [
+    "W-ERR-TABLE"
+   ],
+   "note": "params null vs absent (asserted: null/{} vs unexpected end of JSON input)",
+   "file": "ipc_process",
+   "digest": "2cd5f86fcdd5"
+  },
+  {
+   "line": 67,
+   "n": null,
+   "section": "first section",
+   "text": "* `configureKey` reads the device id from `config.device_id`, `config.host` or `config.nvr_host`; `d",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "note": "configureKey vs deviceIDKey key space",
+   "file": "ipc_process",
+   "digest": "67d2d228268e"
+  },
+  {
+   "line": 82,
+   "n": 300,
+   "section": "Phase R round 1, group A (ipc, main, dispatch, standalone): differences 300 to 305",
+   "text": "| 300 | no `recover()`: a panic in a handler ends the process (exit 2) and `hub.py` restarts it | ev",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "ipc_process",
+   "tests": [
+    "a_panicking_handler_is_answered_in_every_dispatch_class"
+   ],
+   "digest": "4d5d91ab0994"
+  },
+  {
+   "line": 83,
+   "n": 301,
+   "section": "Phase R round 1, group A (ipc, main, dispatch, standalone): differences 300 to 305",
+   "text": "| 301 | `Notify` writes in the calling goroutine, so an event a driver emits inside a handler (`driv",
+   "kind": "case",
+   "cases": [
+    "T-ordered"
+   ],
+   "file": "ipc_process",
+   "digest": "293ae56ad9db"
+  },
+  {
+   "line": 84,
+   "n": 303,
+   "section": "Phase R round 1, group A (ipc, main, dispatch, standalone): differences 300 to 305",
+   "text": "| 303 | an unrecovered panic on the main goroutine exits with 2 | the main future runs under `catch_",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "ipc_process",
+   "tests": [
+    "a_panic_on_the_main_thread_is_exit_code_2"
+   ],
+   "note": "a behaviour (exit 2), not a to-do list",
+   "digest": "ac0f19fce1e3"
+  },
+  {
+   "line": 85,
+   "n": 304,
+   "section": "Phase R round 1, group A (ipc, main, dispatch, standalone): differences 300 to 305",
+   "text": "| 304 | a `config` that `json.Unmarshal` rejects (`1e999`) is `bad_params` with the Unmarshal text; ",
+   "kind": "partial",
+   "reason_code": "UNIT",
+   "file": "ipc_process",
+   "tests": [
+    "configure_with_an_unrepresentable_number_is_bad_params"
+   ],
+   "cases": [
+    "W-CONFIGURE-NUMBER-RANGE"
+   ],
+   "note": "1e999 and the lone surrogate are on the wire (W-CONFIGURE-NUMBER-RANGE); the nesting limit of 128 is a documented difference (DIFF-CONFIG-DEPTH) pinned by the unit tests",
+   "digest": "a3ce97110a69"
+  },
+  {
+   "line": 86,
+   "n": 305,
+   "section": "Phase R round 1, group A (ipc, main, dispatch, standalone): differences 300 to 305",
+   "text": "| 305 | command-line arguments are bytes; a non-UTF-8 `-socket` names that file | an argument that i",
+   "kind": "case",
+   "file": "ipc_process",
+   "cases": [
+    "S-ARG-NON-UTF8"
+   ],
+   "note": "DIFF-ARG-NON-UTF8; the case runs against the Rust binary only",
+   "digest": "5cd2f416be27"
+  },
+  {
+   "line": 87,
+   "n": 357,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 357 | secrets scrubbed from a panic text: not applicable (a panic ends the process) | `panic_hook`",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "ipc_process",
+   "tests": [
+    "the_newest_secret_is_kept_when_the_list_is_full"
+   ],
+   "digest": "b2069049c450"
+  },
+  {
+   "line": 38,
+   "n": 1,
+   "section": "Deliberate differences",
+   "text": "| 1 | blocking calls, goroutines, `func(*IncomingRequest)` handlers, `context.Context` | async API o",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "digest": "2649d1ab5897"
+  },
+  {
+   "line": 39,
+   "n": 2,
+   "section": "Deliberate differences",
+   "text": "| 2 | timers are package variables (`timerT1`, ...) | `Timers` per endpoint (`Endpoint::set_timers`)",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "digest": "bc9ddc5386bb"
+  },
+  {
+   "line": 40,
+   "n": 3,
+   "section": "Deliberate differences",
+   "text": "| 3 | header values and request lines keep invalid UTF-8 bytes | the string fields (`headers`, `uri`",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "digest": "5ed1f81af6cd"
+  },
+  {
+   "line": 41,
+   "n": 4,
+   "section": "Deliberate differences",
+   "text": "| 4 | a panic in a handler goroutine crashes the process | each handler runs in its own task; a pani",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "sip",
+   "digest": "c7eb73a14d35"
+  },
+  {
+   "line": 42,
+   "n": 5,
+   "section": "Deliberate differences",
+   "text": "| 5 | `JitterBuffer.Out()` is never closed; a reader blocks forever after `Close` | `recv()` returns",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "digest": "fce10531a3fd"
+  },
+  {
+   "line": 43,
+   "n": 6,
+   "section": "Deliberate differences",
+   "text": "| 6 | `SetRemote` twice starts a second pair of loops | second call returns an error | would race on",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "digest": "6a9d94d044e4"
+  },
+  {
+   "line": 44,
+   "n": 7,
+   "section": "Deliberate differences",
+   "text": "| 7 | writing to `AudioIn` after the session closed blocks (nobody reads) | `send` errors | no leak ",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "digest": "e6b930836441"
+  },
+  {
+   "line": 45,
+   "n": 8,
+   "section": "Deliberate differences",
+   "text": "| 8 | the RTP socket is `ListenUDP(\"udp\", :port)`, dual-stack | `0.0.0.0` (IPv4 only) | SDP here is ",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "digest": "5e89326c7bd2"
+  },
+  {
+   "line": 46,
+   "n": 9,
+   "section": "Deliberate differences",
+   "text": "| 9 | OS and DNS error text is Go's (`write udp A->B: write: connection refused`) | `gojson::io_err`",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "digest": "9c2e16437aee"
+  },
+  {
+   "line": 47,
+   "n": 10,
+   "section": "Deliberate differences",
+   "text": "| 10 | challenge keys that differ only in case (`Realm`, `realm`) are applied in random map order | ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "digest": "ca25ef3bb0de"
+  },
+  {
+   "line": 48,
+   "n": 11,
+   "section": "Deliberate differences",
+   "text": "| 11 | nonce eviction ties (equal expiry) broken by map iteration order | broken by insertion order ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "digest": "53c3eb345f3c"
+  },
+  {
+   "line": 49,
+   "n": 12,
+   "section": "Deliberate differences",
+   "text": "| 12 | `AudioSession` unclosed leaks its goroutines | `Drop` cancels | Rust owner semantics |",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "sip",
+   "digest": "d217050c7a9c"
+  },
+  {
+   "line": 50,
+   "n": 13,
+   "section": "Deliberate differences",
+   "text": "| 13 | `unicode.IsPrint` decides what `%q` escapes | exact for ASCII/Latin-1, approximated above (co",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "digest": "4ed1077231a9"
+  },
+  {
+   "line": 51,
+   "n": 14,
+   "section": "Deliberate differences",
+   "text": "| 14 | `Endpoint.Close` closes the fd and interrupts a blocked read | sets a flag and cancels the re",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "sip",
+   "digest": "ee84dde3ee40"
+  },
+  {
+   "line": 52,
+   "n": 15,
+   "section": "Deliberate differences",
+   "text": "| 15 | `Registrar.OnStateChange` / `retryWait` plain fields | `on_state_change` public field, `set_r",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "digest": "92cdf07ea1da"
+  },
+  {
+   "line": 53,
+   "n": 16,
+   "section": "Deliberate differences",
+   "text": "| 16 | **CANCEL's own `200 OK` is taken for a 200 that crossed the CANCEL** (`endpoint.go:199-211`, ",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "sip",
+   "cases": [
+    "D-TIMER-C-CANCEL-*"
+   ],
+   "digest": "cf3dafb73d66"
+  },
+  {
+   "line": 54,
+   "n": 17,
+   "section": "Deliberate differences",
+   "text": "| 17 | the read loop returns on **any** read error, so an ICMP \"port unreachable\" on the connected s",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "sip",
+   "cases": [
+    "D-ICMP-DEAF"
+   ],
+   "digest": "83dda2662f52"
+  },
+  {
+   "line": 55,
+   "n": 18,
+   "section": "Deliberate differences",
+   "text": "| 18 | a `SendRequest` abandoned by its caller (hangup mid-ring) sends nothing | a drop guard hands ",
+   "kind": "none",
+   "reason_code": "DEFERRED-WIRE",
+   "note": "needs a fake station that answers a CANCEL, a port-unreachable or abandons a ringing INVITE; the dahua/gate_sip_server flows do not",
+   "file": "sip",
+   "digest": "4770c976ed67"
+  },
+  {
+   "line": 56,
+   "n": 19,
+   "section": "Deliberate differences",
+   "text": "| 19 | `Call.Bye()` mutates the CSeq (pointer receiver, racy) | `bye(&self)` with an atomic CSeq, so",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "digest": "dae9320588eb"
+  },
+  {
+   "line": 57,
+   "n": 20,
+   "section": "Deliberate differences",
+   "text": "| 20 | `AudioSession.Close` closes the fd synchronously | `close()` is `async`: it cancels the tasks",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "sip",
+   "digest": "d3b755ffbcf1"
+  },
+  {
+   "line": 58,
+   "n": 21,
+   "section": "Deliberate differences",
+   "text": "| 21 | the handler is called on the read-loop goroutine's behalf (a panic kills the process) | the h",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "sip",
+   "digest": "35aa21a7ec70"
+  },
+  {
+   "line": 95,
+   "n": 1,
+   "section": "Defects found in the Go code (for a later Go-side fix)",
+   "text": "1. `endpoint.go:199-211` `cancelInvite`: the CANCEL's own `200 OK` is treated as a 200 that crossed ",
+   "kind": "none",
+   "reason_code": "DEFERRED-WIRE",
+   "file": "sip",
+   "digest": "333c2a5849a5"
+  },
+  {
+   "line": 96,
+   "n": 2,
+   "section": "Defects found in the Go code (for a later Go-side fix)",
+   "text": "2. `endpoint.go:267` `readLoop` ends on any read error, including ECONNREFUSED from ICMP on the conn",
+   "kind": "none",
+   "reason_code": "DEFERRED-WIRE",
+   "file": "sip",
+   "digest": "3ae8e400805e"
+  },
+  {
+   "line": 97,
+   "n": 3,
+   "section": "Defects found in the Go code (for a later Go-side fix)",
+   "text": "3. `SendRequest` abandoned mid-ring never CANCELs (callers must do it).",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "sip",
+   "digest": "dd433a7d1db7"
+  },
+  {
+   "line": 101,
+   "n": 4,
+   "section": "Defects found in the Go code (for a later Go-side fix)",
+   "text": "4. `Dial`: a 200 with unparseable SDP gets neither ACK nor BYE.",
+   "kind": "case",
+   "file": "sip",
+   "cases": [
+    "D-DIAL-BAD-SDP"
+   ],
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "digest": "8b4c2254f7fe"
+  },
+  {
+   "line": 102,
+   "n": 5,
+   "section": "Defects found in the Go code (for a later Go-side fix)",
+   "text": "5. The SDP host is not validated and is DNS-resolved as given by the network (`SetRemote`).",
+   "kind": "none",
+   "reason_code": "REAL",
+   "file": "sip",
+   "digest": "ca2daf50a3a3"
+  },
+  {
+   "line": 103,
+   "n": 6,
+   "section": "Defects found in the Go code (for a later Go-side fix)",
+   "text": "6. The per-Call-ID queue is unbounded and a retransmitted INVITE is queued and handled again (no de-",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "digest": "3094882fca4f"
+  },
+  {
+   "line": 104,
+   "n": 7,
+   "section": "Defects found in the Go code (for a later Go-side fix)",
+   "text": "7. A retransmitted 200 or 487 arriving after `SendRequest` returned is not re-ACKed.",
+   "kind": "case",
+   "file": "sip",
+   "cases": [
+    "D-DIAL-RESENT-200"
+   ],
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "digest": "4a33be4de02e"
+  },
+  {
+   "line": 105,
+   "n": 8,
+   "section": "Defects found in the Go code (for a later Go-side fix)",
+   "text": "8. The digest response is compared with `!=`, not in constant time (nonce-gated, 5 min TTL).",
+   "kind": "none",
+   "reason_code": "GODEFECT",
+   "file": "sip",
+   "digest": "4a87cba21734"
+  },
+  {
+   "line": 106,
+   "n": 9,
+   "section": "Defects found in the Go code (for a later Go-side fix)",
+   "text": "9. `JitterBuffer::try_recv` (Rust only) returns `None` when a concurrent `recv` holds the lock.",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "digest": "beb71ce36efd"
+  },
+  {
+   "line": 120,
+   "n": 310,
+   "section": "Phase R round 1, group B (src/sip, pacer)",
+   "text": "* **310 (R1-4, narrows difference 3's gap): the dialog BYE and the dial ACK echo the peer's bytes.**",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "tests": [
+    "uas_bye_keeps_raw_peer_bytes"
+   ],
+   "digest": "3ed92672c4f5"
+  },
+  {
+   "line": 121,
+   "n": 311,
+   "section": "Phase R round 1, group B (src/sip, pacer)",
+   "text": "* **311 (R1-5): the digest client works on bytes.** `parse_digest_challenge_raw`, `digest_response_r",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "tests": [
+    "challenge_with_non_utf8_bytes_is_hashed_and_echoed_raw",
+    "verify_hashes_a_raw_username"
+   ],
+   "digest": "fc301f511525"
+  },
+  {
+   "line": 122,
+   "n": 312,
+   "section": "Phase R round 1, group B (src/sip, pacer)",
+   "text": "* **312 (R1-17, corrects difference 14): `Endpoint::close` releases the socket.** It takes `Inner`'s",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "tests": [
+    "close_releases_the_socket_and_breaks_the_handler_cycle"
+   ],
+   "digest": "4f2e230408e8"
+  },
+  {
+   "line": 123,
+   "n": 313,
+   "section": "Phase R round 1, group B (src/sip, pacer)",
+   "text": "* **313 (R1-121, deliberate difference): `send_request` and the CANCEL wait observe `close`.** After",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "tests": [
+    "close_ends_a_ringing_request_at_once"
+   ],
+   "digest": "eb5a3ef86963"
+  },
+  {
+   "line": 124,
+   "n": 314,
+   "section": "Phase R round 1, group B (src/sip, pacer)",
+   "text": "* **314 (R1-75): out-of-range ports print Go's text** `address 70000: invalid port` (also -1, 65536)",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "tests": [
+    "resolve_udp_port_error_text_is_gos"
+   ],
+   "digest": "e1c877fbf102"
+  },
+  {
+   "line": 125,
+   "n": 315,
+   "section": "Phase R round 1, group B (src/sip, pacer)",
+   "text": "* **315 (R1-76): `cseq_number` clamps** a range error to MaxInt64/MinInt64 like `n, _ := strconv.Ato",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "tests": [
+    "cseq_number_clamps_like_go"
+   ],
+   "digest": "fb690b6f83f4"
+  },
+  {
+   "line": 126,
+   "n": 316,
+   "section": "Phase R round 1, group B (src/sip, pacer)",
+   "text": "* **316 (R1-124): `Error::Timeout` and `Error::Closed`** carry Go's text; nothing on the wire change",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "sip",
+   "no_test": "the Error::Timeout and Error::Closed texts change no byte on the wire; nothing asserts the Display text apart from the places that print it",
+   "digest": "d90c58c51447"
+  },
+  {
+   "line": 127,
+   "n": 317,
+   "section": "Phase R round 1, group B (src/sip, pacer)",
+   "text": "* **317 (R1-102, R1-103, R1-122):** `AudioSession::close` drops `AudioIn`'s receiver even if `set_re",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "sip",
+   "tests": [
+    "push_after_close_is_ignored"
+   ],
+   "digest": "171dbc136cda"
+  },
+  {
+   "line": 128,
+   "n": 318,
+   "section": "Phase R round 1, group B (src/sip, pacer)",
+   "text": "* **318 (R1-38, partial):** the endpoint read loop has a supervisor (logs a panic, closes the endpoi",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "sip",
+   "no_test": "a partial fix, said so in the row; the supervisor is exercised by the round-1 panic tests of the endpoint only indirectly",
+   "digest": "c2800c057c5b"
+  },
+  {
+   "line": 39,
+   "n": 22,
+   "section": "Deliberate differences",
+   "text": "| 22 | `Driver` is an interface; optional interfaces are type assertions on the value; `context.Cont",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "gate_sip_server",
+   "digest": "c1ff365632f2"
+  },
+  {
+   "line": 40,
+   "n": 23,
+   "section": "Deliberate differences",
+   "text": "| 23 | `Registry` is a mutable package map filled by `init()` | `driver::registry()` builds the map:",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "gate_sip_server",
+   "digest": "5f739cad2b6c"
+  },
+  {
+   "line": 41,
+   "n": 24,
+   "section": "Deliberate differences",
+   "text": "| 24 | `Capabilities` is marshalled by `json.Marshal` | `Capabilities::to_wire()` writes the same by",
+   "kind": "case",
+   "cases": [
+    "C-CAPS-gate_sip_server",
+    "C-CAPS-dahua_sip",
+    "C-CAPS-unifi_protect",
+    "C-CAPS-unifi_protect_talk",
+    "C-CAPS-gate_sip_observer",
+    "C-CAPS-gate_sip_observer+claims+dial"
+   ],
+   "note": "Capabilities bytes incl. field order and CanDial omitempty",
+   "file": "gate_sip_server",
+   "digest": "ee976cc5714d"
+  },
+  {
+   "line": 42,
+   "n": 25,
+   "section": "Deliberate differences",
+   "text": "| 25 | `callAudio.Out()` is a `<-chan` any number of readers share; `In()` a `chan<-` whose writer b",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_server",
+   "digest": "41d8b532487c"
+  },
+  {
+   "line": 43,
+   "n": 26,
+   "section": "Deliberate differences",
+   "text": "| 26 | `uplink` selects between `Done` and `In` at random when both are ready | `Done` wins (`biased",
+   "kind": "none",
+   "reason_code": "TIMING",
+   "file": "gate_sip_server",
+   "digest": "3c4fa597e38c"
+  },
+  {
+   "line": 44,
+   "n": 27,
+   "section": "Deliberate differences",
+   "text": "| 27 | `AudioClient` reaches `Server` (`c.s.mu`, `s.client`, `hangupCall`) | `AudioClient::goodbye/d",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "gate_sip_server",
+   "digest": "a24fc85e221a"
+  },
+  {
+   "line": 45,
+   "n": 28,
+   "section": "Deliberate differences",
+   "text": "| 28 | `Driver.Server()` returns `*Server`; the glue calls its methods | the glue calls the `ServerA",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "gate_sip_server",
+   "digest": "5543bf94c0f5"
+  },
+  {
+   "line": 46,
+   "n": 29,
+   "section": "Deliberate differences",
+   "text": "| 29 | `Start` binds the SIP and RTP sockets | in 3a `start` answered `not_implemented`; **resolved ",
+   "kind": "case",
+   "cases": [
+    "T-gate_sip_server",
+    "S-CONFIGURE-BIND-CONFLICT"
+   ],
+   "file": "gate_sip_server",
+   "digest": "0c24d07c0340"
+  },
+  {
+   "line": 47,
+   "n": 30,
+   "section": "Deliberate differences",
+   "text": "| 30 | `net.ResolveUDPAddr` resolves a host name with Go's resolver (error `lookup X on 10.0.0.1:53:",
+   "kind": "none",
+   "reason_code": "ENV",
+   "file": "gate_sip_server",
+   "digest": "3a0cfc60e032"
+  },
+  {
+   "line": 48,
+   "n": 31,
+   "section": "Deliberate differences",
+   "text": "| 31 | `strings.ToUpper` (Unicode) before the codec-name prefix tests | Rust `to_uppercase` (full ma",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "digest": "9de5aac9873b"
+  },
+  {
+   "line": 49,
+   "n": 32,
+   "section": "Deliberate differences",
+   "text": "| 32 | `Frames()`/`attached` hand-offs inside one mutex | `AudioClient` state behind its own mutex, ",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "gate_sip_server",
+   "digest": "cc6bd719fb16"
+  },
+  {
+   "line": 121,
+   "n": 33,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 33 | `s.evq` is an unbounded slice filled from the network (every INVITE/CANCEL pair adds events) ",
+   "kind": "none",
+   "reason_code": "DEFERRED-WIRE",
+   "file": "gate_sip_server",
+   "digest": "75dafc4b8642"
+  },
+  {
+   "line": 122,
+   "n": 34,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 34 | `WriteToUDP` blocks when the send buffer is full | sends are non-blocking `sendto` on a `dup`",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_server",
+   "digest": "12f955a057c4"
+  },
+  {
+   "line": 123,
+   "n": 35,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 35 | `sipLoop`/`rtpLoop` return on any non-timeout read error | a read error is retried (10 ms apa",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_server",
+   "digest": "445d32f0d5f0"
+  },
+  {
+   "line": 124,
+   "n": 36,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 36 | `time.AfterFunc` timers | a task that selects on a `CancelToken` and the sleep; cancelling a ",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_server",
+   "digest": "0987aa319501"
+  },
+  {
+   "line": 125,
+   "n": 37,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 37 | the `ctx.Done()` watcher calls `d.Stop()`, which stops whichever server is current when the c",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_server",
+   "digest": "a139af79c4c4"
+  },
+  {
+   "line": 126,
+   "n": 38,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 38 | `Start` errors carry Go's `net` text | `listen udp ADDR: bind: address already in use` (also ",
+   "kind": "case",
+   "cases": [
+    "S-CONFIGURE-BIND-CONFLICT"
+   ],
+   "note": "start-up error text with Go's net wording",
+   "file": "gate_sip_server",
+   "digest": "00d4a1b348c7"
+  },
+  {
+   "line": 127,
+   "n": 39,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 39 | `log.Printf` stamps the local zone | the default logger stamps UTC (`YYYY/MM/DD HH:MM:SS`); t",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "digest": "4112a2343f13"
+  },
+  {
+   "line": 128,
+   "n": 40,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 40 | `Server.dial` places the call | (3b-1: the refusals only, then `not_implemented`.) Since 3b-2",
+   "kind": "case",
+   "cases": [
+    "T-gate_sip_server"
+   ],
+   "note": "dial places the call (three dials of the registered station)",
+   "file": "gate_sip_server",
+   "digest": "9639c37dbbad"
+  },
+  {
+   "line": 129,
+   "n": 41,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 41 | `hangupHandler` iterates `registry.all()` (map order) | ordered by device id | deterministic ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "digest": "e04f7f1f2175"
+  },
+  {
+   "line": 130,
+   "n": 42,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 42 | `Stats.RTPOut`, `FramesToApp`, ... are fields guarded by `Server.mu` | the four audio counter",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "gate_sip_server",
+   "digest": "f180ac0ee5c6"
+  },
+  {
+   "line": 131,
+   "n": 43,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 43 | one `Server.mu` guards the call, the client and the stats | one `std::sync::Mutex<State>`; ne",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "gate_sip_server",
+   "digest": "213eb2ee8978"
+  },
+  {
+   "line": 132,
+   "n": 44,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 44 | BYE and CANCEL end the live call on a Call-ID match alone (`server.go:547-579`, the match at ",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "gate_sip_server",
+   "cases": [
+    "D-CANCEL-FOREIGN",
+    "D-BYE-FOREIGN"
+   ],
+   "digest": "5e6a8806a838"
+  },
+  {
+   "line": 133,
+   "n": 45,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 45 | `onRegister` never reads `Expires` (`server.go:447-453`): a de-registration registers and is ",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "gate_sip_server",
+   "cases": [
+    "D-REGISTER-EXPIRES0"
+   ],
+   "digest": "f52de43553cf"
+  },
+  {
+   "line": 134,
+   "n": 46,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 46 | headers are Go strings of the received bytes, echoed unchanged | `Hdrs` holds the received BY",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "digest": "22aa833d54b8"
+  },
+  {
+   "line": 135,
+   "n": 47,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 47 | `evq` is an unbounded slice, `Notify` blocks the driver | the queues (`evqueue.rs`) evict the",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "digest": "564456060c80"
+  },
+  {
+   "line": 136,
+   "n": 48,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 48 | an INVITE whose SDP media port is over 65535 (or too long for an int64) is answered and no RT",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "gate_sip_server",
+   "cases": [
+    "D-MEDIA-PORT-OVERFLOW"
+   ],
+   "digest": "c97134b1c543"
+  },
+  {
+   "line": 137,
+   "n": 49,
+   "section": "Server loop (slice 3b-1): deliberate differences",
+   "text": "| 49 | `shutdown` returns when it has finished | the join of the tasks and the release of the ports ",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_server",
+   "digest": "36adcf24ad79"
+  },
+  {
+   "line": 192,
+   "n": 200,
+   "section": "Outbound call, `dial.go` (slice 3b-2): matched",
+   "text": "| 200 | ACK first (new branch, the station's To tag), then the codec and media address checks; the c",
+   "kind": "case",
+   "cases": [
+    "T-gate_sip_server"
+   ],
+   "note": "dial: ACK first, then the codec and media address checks",
+   "file": "gate_sip_server",
+   "digest": "8431f4278de6"
+  },
+  {
+   "line": 206,
+   "n": 50,
+   "section": "Outbound call (slice 3b-2): deliberate differences",
+   "text": "| 50 | a nonce issued to one host is accepted from ANY allowed host while it lives (5 minutes; the d",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "gate_sip_server",
+   "cases": [
+    "D-NONCE-REPLAY"
+   ],
+   "digest": "0427c3491d86"
+  },
+  {
+   "line": 207,
+   "n": 51,
+   "section": "Outbound call (slice 3b-2): deliberate differences",
+   "text": "| 51 | `dial` is a goroutine that cannot be dropped | `dial` is a future; if it is dropped while the",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_server",
+   "digest": "dc4f750fbb18"
+  },
+  {
+   "line": 208,
+   "n": 52,
+   "section": "Outbound call (slice 3b-2): deliberate differences",
+   "text": "| 52 | BYE/CANCEL end the call on the Call-ID alone | for a call WE placed the BYE must also come fr",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "gate_sip_server",
+   "cases": [
+    "D-BYE-FOREIGN-DIALLED"
+   ],
+   "digest": "11c1ce5f2d1c"
+  },
+  {
+   "line": 209,
+   "n": 53,
+   "section": "Outbound call (slice 3b-2): deliberate differences",
+   "text": "| 53 | the call's media state is a pointer the dial goroutine keeps using after the slot is cleared ",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "gate_sip_server",
+   "digest": "b81789e587a0"
+  },
+  {
+   "line": 210,
+   "n": 54,
+   "section": "Outbound call (slice 3b-2): deliberate differences",
+   "text": "| 54 | `s.dialRing`, `cancelW`, `dialCap`, `dialAtt` are fields the tests write | `Server::set_dial_",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "gate_sip_server",
+   "digest": "e1a7d1caa648"
+  },
+  {
+   "line": 242,
+   "n": 330,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 330 | `sipLoop`/`rtpLoop` return silently on their first read error (`server.go:275`) | after 100 ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "tests": [
+    "a_read_loop_that_gives_up_reports_and_stops"
+   ],
+   "note": "DIFF-DRIVER-ERROR-SOCKET-FAILED; the code is in driver_error_codes of the contract",
+   "digest": "4e6c20a590e8"
+  },
+  {
+   "line": 243,
+   "n": 331,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 331 | `chooseMedia` keeps the received bytes of an rtpmap name and echoes them in the 200's SDP (`",
+   "kind": "none",
+   "reason_code": "DEFERRED-WIRE",
+   "file": "gate_sip_server",
+   "note": "visible on the SIP wire with a garbage offer; no fake sends one yet",
+   "digest": "42f2fd3e2da9"
+  },
+  {
+   "line": 244,
+   "n": 332,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 332 | a Call-ID is a Go string compared raw (`server.go:688, 703, 934`): one with invalid UTF-8 ca",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "tests": [
+    "a_call_id_with_invalid_utf8_is_matched_by_its_lossy_form"
+   ],
+   "digest": "d0665a9d2344"
+  },
+  {
+   "line": 245,
+   "n": 333,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 333 | `lastDropLog` holds at most 256 sources and is never pruned (`server.go:371-377`): after 256",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "tests": [
+    "the_drop_log_table_is_pruned"
+   ],
+   "digest": "67ddf4544f4e"
+  },
+  {
+   "line": 246,
+   "n": 334,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 334 | received RTP is not checked against the negotiated payload type (`server.go:771-812`): any p",
+   "kind": "none",
+   "reason_code": "GODEFECT",
+   "file": "gate_sip_server",
+   "note": "an oddity kept; no test",
+   "digest": "cc57e58258b0"
+  },
+  {
+   "line": 247,
+   "n": 335,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 335 | requests other than REGISTER/INVITE/ACK/BYE/CANCEL/OPTIONS get no response (`server.go:400-4",
+   "kind": "none",
+   "reason_code": "GODEFECT",
+   "file": "gate_sip_server",
+   "note": "pinned by the Go-recorded scenarios of tests/golden/gss_server.json (stray responses and garbage are ignored; a retransmit with another SDP keeps the first call media)",
+   "digest": "d38d75155d08"
+  },
+  {
+   "line": 248,
+   "n": 336,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 336 | `net.ResolveUDPAddr` looks up `0xcafe` or `0xab.0xcd` (legal DNS names that Go would send to",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "tests": [
+    "inet_aton_shapes_are_not_resolved"
+   ],
+   "digest": "ced752f74e63"
+  },
+  {
+   "line": 249,
+   "n": 337,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 337 | `onRegister` never reads `Expires` (difference 45) | the contact's `expires` is read from th",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "tests": [
+    "the_contact_expiry_is_a_header_parameter"
+   ],
+   "digest": "36c9d18cdbcf"
+  },
+  {
+   "line": 250,
+   "n": 338,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 338 | an unset `sip_listen` host binds a wildcard that Go makes dual-stack; `listen udp :5060: bin",
+   "kind": "partial",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "tests": [
+    "bind_failure_text_for_an_empty_host_is_go_s",
+    "canon_keeps_the_scope_id",
+    "sip_destinations_follow_the_socket_family"
+   ],
+   "cases": [
+    "S-CONFIGURE-BIND-CONFLICT"
+   ],
+   "note": "the bind conflict on 127.0.0.1 only; the other host shapes are unit tests",
+   "digest": "abaa32c3d2d1"
+  },
+  {
+   "line": 251,
+   "n": 339,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 339 | a dial future cannot be dropped | a guard dropped while the dial waits for the answer to a C",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_server",
+   "tests": [
+    "a_dial_dropped_in_the_cancel_wait_keeps_the_first_deadline"
+   ],
+   "digest": "48207e65366e"
+  },
+  {
+   "line": 252,
+   "n": 344,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 344 | `HangupCall`, `Answer` and the audio link as in Go | `AudioLink::queued()` counts the link's",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "tests": [
+    "close_ends_the_output_and_later_frames_are_dropped"
+   ],
+   "digest": "8bff24ae02f0"
+  },
+  {
+   "line": 253,
+   "n": 349,
+   "section": "Phase R round 1, group D (gate_sip_server and the driver API): differences 330 to 339",
+   "text": "| 349 | `VerifyDigestAuthorization` and `AuthorizationFor` read the header bytes as received | the `",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "tests": [
+    "a_latin_1_username_in_a_register_digest_verifies_over_its_raw_bytes",
+    "a_latin_1_realm_in_an_invite_challenge_is_answered_over_its_raw_bytes"
+   ],
+   "digest": "a2fb3e997b7c"
+  },
+  {
+   "line": 254,
+   "n": 361,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 361 | `dial` of a `gate_sip_server` device: the reply with the `out-` id, then `call_state_changed",
+   "kind": "partial",
+   "reason_code": "TASK",
+   "file": "gate_sip_server",
+   "cases": [
+    "T-gate_sip_server"
+   ],
+   "no_test": "the order of the notifications is pinned by the floating-reply steps (reply_after=0) of T-gate_sip_server",
+   "digest": "08c73aefb3f7"
+  },
+  {
+   "line": 35,
+   "n": 55,
+   "section": "Differences (continues the numbering of 3b-2)",
+   "text": "| 55 | `g722Encoder.encode` of a frame with an odd number of samples panics (index out of range, aft",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "webrtc_sfu",
+   "digest": "09646d5cc9f8"
+  },
+  {
+   "line": 36,
+   "n": 56,
+   "section": "Differences (continues the numbering of 3b-2)",
+   "text": "| 56 | `Out()` of the uplink buffer is never closed; a reader blocks forever after `Close` | `Uplink",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "webrtc_sfu",
+   "digest": "3a800d8ebea2"
+  },
+  {
+   "line": 37,
+   "n": 57,
+   "section": "Differences (continues the numbering of 3b-2)",
+   "text": "| 57 | the answer is pion's | `policy::answer_codecs` models pion v4.1.8 + pion/sdp v3.0.16 for ONE ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "digest": "17d83a657648"
+  },
+  {
+   "line": 38,
+   "n": 58,
+   "section": "Differences (continues the numbering of 3b-2)",
+   "text": "| 58 | `Push(seq, payload []byte)` keeps the caller's slice | `push(seq, Vec<u8>)` takes ownership |",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "webrtc_sfu",
+   "digest": "61bf6bab397b"
+  },
+  {
+   "line": 39,
+   "n": 59,
+   "section": "Differences (continues the numbering of 3b-2)",
+   "text": "| 59 | `forward` picks between `stop` and a frame at random | `stop` first | deterministic; after `C",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "webrtc_sfu",
+   "digest": "27a581a879c5"
+  },
+  {
+   "line": 40,
+   "n": 60,
+   "section": "Differences (continues the numbering of 3b-2)",
+   "text": "| 60 | the codec state of a session is touched from goroutines by convention | `DownlinkEncoder` / `",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "webrtc_sfu",
+   "digest": "b6a12b2736e5"
+  },
+  {
+   "line": 111,
+   "n": 61,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 61 | the answer is pion's | **str0m's answer is the authority and is the one sent.** `policy::answ",
+   "kind": "case",
+   "cases": [
+    "T-webrtc"
+   ],
+   "note": "answer authority is str0m; structure compared, setup role asserted as DIFF-WEBRTC-SETUP",
+   "file": "webrtc_sfu",
+   "digest": "f4348c83eede"
+  },
+  {
+   "line": 112,
+   "n": 62,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 62 | the uplink gate compares the wire payload type with the static 0 and 9; a peer on dynamic typ",
+   "kind": "none",
+   "reason_code": "REAL",
+   "note": "dynamic payload types need a real offerer",
+   "file": "webrtc_sfu",
+   "digest": "29fa4b605475"
+  },
+  {
+   "line": 113,
+   "n": 63,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 63 | pion goes `Failed` about 30 s after the last packet; `OnDisconnected` fires on `Failed`/`Clos",
+   "kind": "none",
+   "reason_code": "REAL",
+   "file": "webrtc_sfu",
+   "digest": "78fb8eeac37e"
+  },
+  {
+   "line": 114,
+   "n": 64,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 64 | a session whose browser never connects goes `Failed` (about 30 s) | `connect_timeout` 30 s (`",
+   "kind": "none",
+   "reason_code": "TIMING",
+   "file": "webrtc_sfu",
+   "digest": "f396364cc2e3"
+  },
+  {
+   "line": 115,
+   "n": 65,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 65 | no limit on the offer | an offer over 64 KiB or 1000 lines is refused before parsing (`sfu: s",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "webrtc_sfu",
+   "cases": [
+    "D-OFFER-LIMITS"
+   ],
+   "digest": "a82afc2d737b"
+  },
+  {
+   "line": 116,
+   "n": 66,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 66 | no rewrite | `a=rtpmap:<pt> <name>/<rate>/1` is rewritten to `<name>/<rate>` before `accept_o",
+   "kind": "case",
+   "cases": [
+    "T-webrtc"
+   ],
+   "note": "rtpmap /1 removal asserted as DIFF-WEBRTC-RTPMAP",
+   "file": "webrtc_sfu",
+   "digest": "c3c2bf8b6159"
+  },
+  {
+   "line": 117,
+   "n": 67,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 67 | pion gathers from every up interface | an allow-list: loopback skipped (unless the test seam ",
+   "kind": "none",
+   "reason_code": "REAL",
+   "note": "interface allow-list depends on the host's interfaces",
+   "file": "webrtc_sfu",
+   "digest": "0173bf9ac51d"
+  },
+  {
+   "line": 118,
+   "n": 68,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 68 | an mDNS (`.local`) remote candidate is handed to pion's resolver | accepted and ignored (`Ok`",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "webrtc_sfu",
+   "cases": [
+    "D-OFFER-LIMITS"
+   ],
+   "digest": "b27afc5a0b7d"
+  },
+  {
+   "line": 119,
+   "n": 69,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 69 | `AddICECandidate(\"a=end-of-candidates\")` is an error (`failed to parse foundation`) | accepte",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "webrtc_sfu",
+   "cases": [
+    "D-OFFER-LIMITS"
+   ],
+   "digest": "25e3e81a0635"
+  },
+  {
+   "line": 120,
+   "n": 70,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 70 | goroutines | the session is a tokio task (not an OS thread as in the S1b spike) with every ca",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "webrtc_sfu",
+   "digest": "31d702c779ac"
+  },
+  {
+   "line": 121,
+   "n": 71,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 71 | `readRemoteTrack` reads every RTP packet from the track | `enable_raw_packets`: `Event::RawPa",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "webrtc_sfu",
+   "digest": "d4b5b9d73a37"
+  },
+  {
+   "line": 122,
+   "n": 72,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 72 | pion's parse errors | pion/sdp's FIRST-line syntax errors are reproduced byte for byte; any o",
+   "kind": "case",
+   "cases": [
+    "T-webrtc"
+   ],
+   "note": "pion first-line syntax errors reproduced byte for byte; the transcript pins them",
+   "file": "webrtc_sfu",
+   "digest": "4096413dd6a3"
+  },
+  {
+   "line": 123,
+   "n": 73,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 73 | `HandleAnswer` accepts an answer to the session's own offer | the port never creates an offer",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "webrtc_sfu",
+   "digest": "e1cbd1fcd1f4"
+  },
+  {
+   "line": 124,
+   "n": 74,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 74 | the process exit drops every session | `Hub::shutdown` closes the sessions first, so a held c",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "webrtc_sfu",
+   "cases": [
+    "D-SHUTDOWN-BYE"
+   ],
+   "digest": "018f33bacba2"
+  },
+  {
+   "line": 125,
+   "n": 75,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 75 | `RtpSendState` seq/ts/SSRC | str0m assigns the sequence numbers and the SSRC; only the timest",
+   "kind": "none",
+   "reason_code": "TIMING",
+   "file": "webrtc_sfu",
+   "digest": "87147a16a28e"
+  },
+  {
+   "line": 126,
+   "n": 76,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 76 | `drainSenderRTCP`/`drainReceiverRTCP` goroutines | none: str0m handles RTCP itself | |",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "webrtc_sfu",
+   "digest": "13e5088b6caa"
+  },
+  {
+   "line": 127,
+   "n": 77,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 77 | `JitterBuffer.playoutLoop` is a goroutine started by the first `Push`, so its delay and its t",
+   "kind": "none",
+   "reason_code": "TIMING",
+   "file": "webrtc_sfu",
+   "digest": "5baa19bafeb6"
+  },
+  {
+   "line": 128,
+   "n": 78,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 78 | no counters | `JitterStats` (silence slots, late discards, refused outliers, resyncs, worst t",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "webrtc_sfu",
+   "digest": "b4cab5241fa5"
+  },
+  {
+   "line": 129,
+   "n": 79,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 79 | `getOrCreate` registers the session before `HandleOffer`, sockets exist from the start, no li",
+   "kind": "case",
+   "cases": [
+    "T-webrtc"
+   ],
+   "note": "a refused first offer: Go keeps the session (webrtc_failed), Rust drops it (unknown_session): DIFF-WEBRTC-FAILED-OFFER-SESSION",
+   "file": "webrtc_sfu",
+   "digest": "e9715b479ddf"
+  },
+  {
+   "line": 130,
+   "n": 80,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 80 | process exit drops everything | `Hub::shutdown` waits up to 2 s in all for each session to fi",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "webrtc_sfu",
+   "cases": [
+    "D-SHUTDOWN-BYE"
+   ],
+   "digest": "170f154d188d"
+  },
+  {
+   "line": 131,
+   "n": 81,
+   "section": "Differences (continues the numbering of 4a)",
+   "text": "| 81 | pion's goroutines | a UDP reader that fails repeatedly backs off (10 ms doubling to 500 ms) a",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "webrtc_sfu",
+   "digest": "6c9ff1d315c1"
+  },
+  {
+   "line": 174,
+   "n": 1,
+   "section": "Slice 4b must do (independent review of 4a): done in slice 4",
+   "text": "1. Payload types from str0m: done (difference 62). 2. `policy.rs` vs str0m: str0m's answer is author",
+   "kind": "none",
+   "reason_code": "PROCESS",
+   "file": "webrtc_sfu",
+   "digest": "fe6ad3c03881"
+  },
+  {
+   "line": 180,
+   "n": 320,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 320 | the answer names the stream `portico-<callID>` and the track `audio` (`a=msid:portico-<callI",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "the_answer_names_one_stream_and_track_consistently"
+   ],
+   "digest": "b561dddcaee6"
+  },
+  {
+   "line": 181,
+   "n": 321,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 321 | `Connected()` is `pc.ConnectionState() == Connected` (false while disconnected); the ~30 s c",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "a_browser_that_never_connects_ends_after_the_connect_timeout",
+    "a_vanished_peer_ends_after_disconnected_plus_the_grace",
+    "connected_is_false_while_disconnected_and_true_again_on_return"
+   ],
+   "digest": "fc5df396fe55"
+  },
+  {
+   "line": 182,
+   "n": 322,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 322 | `AddICECandidate` accepts any address and any number; `candidate:` is trimmed by pion, `end-",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "remote_candidates_are_capped_per_session"
+   ],
+   "note": "DIFF-CANDIDATE-CAP",
+   "digest": "6b4489b84399"
+  },
+  {
+   "line": 183,
+   "n": 323,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 323 | a refused re-offer changes nothing | NOT changed (R1-104 declined): `accept_offer` is applie",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "an_unanswerable_reoffer_leaves_the_live_call_alone"
+   ],
+   "digest": "2657e01cb162"
+  },
+  {
+   "line": 184,
+   "n": 324,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 324 | a panic kills the process, hub.py restarts it | one guard (`Core::guard`) for every call int",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "webrtc_sfu",
+   "tests": [
+    "a_panic_parsing_a_datagram_ends_the_session_through_the_same_teardown"
+   ],
+   "digest": "954d8dc23075"
+  },
+  {
+   "line": 185,
+   "n": 325,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 325 | `HandleAnswer` unmarshals the whole SDP before the state check | only the FIRST-line syntax ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "a_later_line_error_in_an_answer_gets_the_stable_state_text",
+    "first_line_errors_are_pions"
+   ],
+   "digest": "19e7d9c27e3e"
+  },
+  {
+   "line": 186,
+   "n": 326,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 326 | pion gathers from every interface with `FlagUp` | an administratively-down interface is not ",
+   "kind": "none",
+   "reason_code": "REAL",
+   "file": "webrtc_sfu",
+   "note": "needs an interface that is down; no test",
+   "digest": "857384c84b01"
+  },
+  {
+   "line": 187,
+   "n": 327,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 327 | one goroutine reads the track | PARITY 71 holds for the transmit side too: `enable_raw_packe",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "webrtc_sfu",
+   "no_test": "an allocation note, no behaviour",
+   "digest": "9b4630387cfa"
+  },
+  {
+   "line": 188,
+   "n": 328,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 328 | process exit drops everything; a browser that never connected while it held a dahua ring pri",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "a_browser_that_never_connected_is_not_reported_as_a_fault",
+    "no_session_is_created_after_the_shutdown_started"
+   ],
+   "note": "DIFF-SFU-STOPPING",
+   "digest": "2606f995fc89"
+  },
+  {
+   "line": 189,
+   "n": 329,
+   "section": "Phase R round 1, group C: session, call, webrtc (comments R1-6 to R1-107)",
+   "text": "| 329 | `SetRemoteDescription` refuses a media format that is no number 0 to 255 with `strconv.Parse",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "a_non_numeric_audio_format_is_an_error_not_a_shorter_list",
+    "the_answer_follows_the_offerers_payload_order"
+   ],
+   "digest": "01468468c484"
+  },
+  {
+   "line": 47,
+   "n": 82,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 82 | `net/http` client, TLS included | a hand-written HTTP/1.1 client (`http.rs`, about 460 lines ",
+   "kind": "partial",
+   "cases": [
+    "T-observer"
+   ],
+   "reason_code": "UNIT",
+   "note": "fake gate /health over plain HTTP; the 300-line client's parsing corners are unit-level",
+   "file": "gate_sip_observer",
+   "digest": "e6c3419fad6f"
+  },
+  {
+   "line": 48,
+   "n": 83,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 83 | `User-Agent: Go-http-client/1.1`, `Accept-Encoding: gzip` | `User-Agent: portico-transport-rs",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "gate_sip_observer",
+   "cases": [
+    "D-HTTP-REQUEST-HEAD"
+   ],
+   "digest": "e48061a2514d"
+  },
+  {
+   "line": 49,
+   "n": 84,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 84 | the resolver's error text (`dial tcp: lookup gate on 127.0.0.11:53: no such host`) and `net.O",
+   "kind": "none",
+   "reason_code": "ENV",
+   "file": "gate_sip_observer",
+   "digest": "45586c46e7f4"
+  },
+  {
+   "line": 50,
+   "n": 85,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 85 | `Capabilities()` may block (with `dial_enabled` on it waits, up to the request timeout + 250 ",
+   "kind": "case",
+   "cases": [
+    "T-observer",
+    "C-CAPS-gate_sip_observer"
+   ],
+   "note": "configure waits for the first poll with dial on; reply order",
+   "file": "gate_sip_observer",
+   "digest": "72e04063cdba"
+  },
+  {
+   "line": 51,
+   "n": 86,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 86 | `Answer` with `claims_enabled`, `DialCall` with the dial on and gate-sip saying so | typed `n",
+   "kind": "case",
+   "cases": [
+    "T-claim"
+   ],
+   "note": "Answer with claims and dial typed errors; superseded by 5b",
+   "file": "gate_sip_observer",
+   "digest": "9f1101a1174d"
+  },
+  {
+   "line": 52,
+   "n": 87,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 87 | `fmt.Printf` to stdout for the driver's log lines | `eprintln!` (the Rust binary logs to stde",
+   "kind": "none",
+   "reason_code": "NOWIRE",
+   "note": "the hub merges stdout and stderr, so Python cannot see the split",
+   "file": "gate_sip_observer",
+   "digest": "f80964f5e099"
+  },
+  {
+   "line": 53,
+   "n": 88,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 88 | a panic kills the process and its parent restarts it | the poll loop and the listen leg are e",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "gate_sip_observer",
+   "digest": "c11ed1db9d74"
+  },
+  {
+   "line": 54,
+   "n": 89,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 89 | `strconv.ParseFloat` of a hexadecimal float is exact | `0x1p-2`-style intervals are computed ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "digest": "34c24ea0d953"
+  },
+  {
+   "line": 55,
+   "n": 90,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 90 | `json.Unmarshal` folds key case with Unicode rules | ASCII case folding (a `ſ` or Kelvin sign",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "digest": "41f9f678e467"
+  },
+  {
+   "line": 56,
+   "n": 91,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 91 | `net/http` rejects malformed framing | the same, from the text rules: a `Content-Length` that",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "gate_sip_observer",
+   "cases": [
+    "D-HTTP-FRAMING"
+   ],
+   "digest": "92783b1631cc"
+  },
+  {
+   "line": 57,
+   "n": 92,
+   "section": "Differences (continues the numbering of 4b)",
+   "text": "| 92 | `listenSettings` is a plain struct (a `%+v` would print the token) | `ListenSettings` (and so",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "digest": "d83c21bc097c"
+  },
+  {
+   "line": 113,
+   "n": 93,
+   "section": "Differences (continues the numbering of 5a)",
+   "text": "| 93 | `HangupCall` blocks (up to 3 s) | the `CallHangupper` trait gained `hangup_call_async` (defau",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_observer",
+   "digest": "4bfd6a1d630d"
+  },
+  {
+   "line": 114,
+   "n": 94,
+   "section": "Differences (continues the numbering of 5a)",
+   "text": "| 94 | the producer drops the OLDEST downlink frame by receiving from `a.out` itself; `Attach` trims",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "digest": "62010c642fee"
+  },
+  {
+   "line": 115,
+   "n": 95,
+   "section": "Differences (continues the numbering of 5a)",
+   "text": "| 95 | `DialCall` is a goroutine that the caller's context cancels | a future can be DROPPED: a drop",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_observer",
+   "digest": "f91fb7e1244e"
+  },
+  {
+   "line": 116,
+   "n": 96,
+   "section": "Differences (continues the numbering of 5a)",
+   "text": "| 96 | `Answer` hands its request over an unbuffered channel, so a caller that gave up can never hav",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_observer",
+   "digest": "8c0dcdb1993e"
+  },
+  {
+   "line": 117,
+   "n": 97,
+   "section": "Differences (continues the numbering of 5a)",
+   "text": "| 97 | a panic anywhere kills the process | a panic in the leg's run loop while it holds a call: the",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "gate_sip_observer",
+   "digest": "cb4f6e436bfa"
+  },
+  {
+   "line": 146,
+   "n": 340,
+   "section": "Phase R round 1, group E (gate_sip_observer): differences 340 to 349",
+   "text": "| 340 | `net.Dialer` and `http.Transport` connect with `dialParallel`: the addresses of the host nam",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "tests": [
+    "a_black_holed_primary_is_overtaken_after_the_fallback_delay",
+    "a_refusing_primary_hands_over_at_once",
+    "the_deadline_is_shared_between_the_addresses_of_one_family",
+    "when_both_fail_the_primary_error_is_reported",
+    "partial_deadline_is_go_s"
+   ],
+   "digest": "1dd8e6806495"
+  },
+  {
+   "line": 147,
+   "n": 341,
+   "section": "Phase R round 1, group E (gate_sip_observer): differences 340 to 349",
+   "text": "| 341 | `http.Transport` polls an `https` URL with `crypto/tls` (system roots, ALPN, HTTP/2 when the",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "tests": [
+    "an_https_gate_sip_url_is_polled_over_tls",
+    "https_is_polled_over_tls_and_an_untrusted_certificate_is_named"
+   ],
+   "digest": "c1b8b9bafc1d"
+  },
+  {
+   "line": 148,
+   "n": 342,
+   "section": "Phase R round 1, group E (gate_sip_observer): differences 340 to 349",
+   "text": "| 342 | a panic kills the process; nothing is left tracked | a poll-loop restart after a panic ends ",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "gate_sip_observer",
+   "tests": [
+    "a_panic_with_a_ring_up_ends_that_call_before_the_unavailable_report"
+   ],
+   "digest": "4fe8f1f2ec2d"
+  },
+  {
+   "line": 149,
+   "n": 343,
+   "section": "Phase R round 1, group E (gate_sip_observer): differences 340 to 349",
+   "text": "| 343 | a panic kills the process; `configure` is replayed and the capabilities are read again | a r",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "gate_sip_observer",
+   "tests": [
+    "a_restarted_poll_loop_republishes_can_dial_false_that_ha_still_holds_true"
+   ],
+   "digest": "42958aafefd7"
+  },
+  {
+   "line": 150,
+   "n": 345,
+   "section": "Phase R round 1, group E (gate_sip_observer): differences 340 to 349",
+   "text": "| 345 | `net/http` response framing and error texts | after R1-89 the texts follow the Go source rea",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "tests": [
+    "status_line_and_chunk_errors_read_like_net_http",
+    "the_header_limit_is_gos_ten_mib",
+    "a_reset_in_the_body_is_worded_like_a_net_op_error"
+   ],
+   "digest": "97e967b15234"
+  },
+  {
+   "line": 151,
+   "n": 346,
+   "section": "Phase R round 1, group E (gate_sip_observer): differences 340 to 349",
+   "text": "| 346 | `textproto` reads header lines ending in a bare LF | the head of a response is accepted with",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "tests": [
+    "a_head_with_bare_line_feeds_is_read",
+    "the_head_search_does_not_rescan_what_it_has_seen"
+   ],
+   "digest": "11d548b3e6fa"
+  },
+  {
+   "line": 152,
+   "n": 347,
+   "section": "Phase R round 1, group E (gate_sip_observer): differences 340 to 349",
+   "text": "| 347 | `NewRequest` removes an empty port from the Host header (`removeEmptyPort`); `time.ParseDura",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "tests": [
+    "a_duration_sum_that_overflows_wraps_like_go",
+    "an_empty_port_is_not_sent_in_the_host_header"
+   ],
+   "digest": "1db40f439d72"
+  },
+  {
+   "line": 153,
+   "n": 348,
+   "section": "Phase R round 1, group E (gate_sip_observer): differences 340 to 349",
+   "text": "| 348 | the sink runs on the poll goroutine's own queue goroutine (`ipc.Notify` can block on a stuck",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "gate_sip_observer",
+   "tests": [
+    "stop_is_bounded_when_the_sink_blocks_forever"
+   ],
+   "digest": "8a581c79270c"
+  },
+  {
+   "line": 154,
+   "n": 362,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 362 | `gate_sip_observer` claim flow: `answer` is granted with `listen_state owner` first, then th",
+   "kind": "partial",
+   "reason_code": "TASK",
+   "file": "gate_sip_observer",
+   "cases": [
+    "T-claim"
+   ],
+   "note": "the floating-reply steps of T-claim pin the order of the notifications",
+   "digest": "c27576c3dcac",
+   "no_test": "a race Go has too: the order of the events among themselves is pinned by the claim flow of scripts/ipc_smoke.py (`gate_sip_observer_claim_flow`, run against both binaries, the reply floating); the claim logic itself by the tests of the rows 340 to 348 and `observer_ipc`; no unit test fixes the reply position"
+  },
+  {
+   "line": 160,
+   "n": 464,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 460 to 479 that belong to this subject",
+   "text": "* **464 (R2-6, matched, corrects the wording of 340): the text of a connect that timed out.** At or ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "tests": [
+    "a_connect_that_never_completes_times_out_at_the_deadline",
+    "a_dial_timeout_reads_like_gos_context_or_dial_error",
+    "the_client_words_a_timed_out_dial_through_dial_failure"
+   ],
+   "digest": "d0b35aa693df"
+  },
+  {
+   "line": 161,
+   "n": 465,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 460 to 479 that belong to this subject",
+   "text": "* **465 (R2-73, matched): `Transfer-Encoding` is `chunked` or an error.** `net/http` takes only the ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_observer",
+   "tests": [
+    "only_the_single_token_chunked_is_a_transfer_encoding"
+   ],
+   "digest": "66c7041a4a43"
+  },
+  {
+   "line": 31,
+   "n": 98,
+   "section": "Differences (continues the numbering of 5b)",
+   "text": "| 98 | a second `Start` leaks the first endpoint and registrar; a second `Stop` returns the socket's",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "dahua",
+   "digest": "46b9df456f59"
+  },
+  {
+   "line": 32,
+   "n": 99,
+   "section": "Differences (continues the numbering of 5b)",
+   "text": "| 99 | `mediaHost` accepts any `net.ParseIP` result with `To4() != nil`: `::ffff:192.168.2.1`, `::ffff",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "dahua",
+   "digest": "5a6d01e0f5cd"
+  },
+  {
+   "line": 33,
+   "n": 100,
+   "section": "Differences (continues the numbering of 5b)",
+   "text": "| 100 | `Relay.Close` sends a BYE every time it is called (the browser's disconnect, the station's B",
+   "kind": "partial",
+   "cases": [
+    "T-wsmedia",
+    "T-dahua"
+   ],
+   "reason_code": "TASK",
+   "note": "Relay.Close BYE once: the wsmedia flow closes the leg and the VTO sees one BYE",
+   "file": "dahua",
+   "digest": "40420fe4d904"
+  },
+  {
+   "line": 34,
+   "n": 101,
+   "section": "Differences (continues the numbering of 5b)",
+   "text": "| 101 | `Dial` before `Start` dereferences a nil endpoint (a panic in a handler goroutine) | `dahua_",
+   "kind": "none",
+   "reason_code": "NOWIRE",
+   "note": "configure always starts the driver, so Dial-before-Start is unreachable over IPC",
+   "file": "dahua",
+   "digest": "87e0a4f60de6"
+  },
+  {
+   "line": 35,
+   "n": 102,
+   "section": "Differences (continues the numbering of 5b)",
+   "text": "| 102 | a panic anywhere ends the process | a panic in the registration task is caught by its superv",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "dahua",
+   "digest": "754b6fdab0cf"
+  },
+  {
+   "line": 36,
+   "n": 103,
+   "section": "Differences (continues the numbering of 5b)",
+   "text": "| 103 | a browser that leaves while `AnswerDevice` runs is handled by the `gone` flag of `joinCallTo",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "dahua",
+   "digest": "376c705392c5",
+   "tests": [
+    "a_browser_that_leaves_just_as_the_answer_completes_registers_no_relay",
+    "a_browser_that_leaves_while_the_talkback_opens_leaves_no_relay_behind"
+   ]
+  },
+  {
+   "line": 37,
+   "n": 104,
+   "section": "Differences (continues the numbering of 5b)",
+   "text": "| 104 | `relayClosingSink.StateChanged(ended)` closes the relay in the reporting goroutine, which th",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "dahua",
+   "digest": "e2ac4453f30a"
+  },
+  {
+   "line": 38,
+   "n": 105,
+   "section": "Differences (continues the numbering of 5b)",
+   "text": "| 105 | `findPendingRing` visits the drivers in map order | in device-id order | only visible with a",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "dahua",
+   "digest": "adb184d6fc5b"
+  },
+  {
+   "line": 39,
+   "n": 106,
+   "section": "Differences (continues the numbering of 5b)",
+   "text": "| 106 | `errorReporter` is found by a type assertion on the sink | `EventSink::error_reporter()` (an",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "dahua",
+   "digest": "3a9ab487d3c7"
+  },
+  {
+   "line": 72,
+   "n": 350,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 350 | a `Start` after a `Stop` on the same `Driver` opens a new endpoint (the old one stays refere",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "dahua",
+   "tests": [
+    "a_start_after_a_stop_opens_a_new_endpoint"
+   ],
+   "digest": "d075a72e21b8"
+  },
+  {
+   "line": 42,
+   "n": 107,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 107 | `scheme`, `ringMinHold`, `ringMaxHold`, `pingInterval`, `pongWait`, `backoffMin`, `backoffMa",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "unifi_protect",
+   "digest": "04d93eca94d9"
+  },
+  {
+   "line": 43,
+   "n": 108,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 108 | `net/http`: keep-alive, transparent gzip (`Accept-Encoding: gzip` is sent and a gzip answer ",
+   "kind": "partial",
+   "cases": [
+    "T-unifi"
+   ],
+   "reason_code": "UNIT",
+   "note": "fake console over plain ws/http; header and gzip corners are unit-level",
+   "file": "unifi_protect",
+   "digest": "5540bd992813"
+  },
+  {
+   "line": 44,
+   "n": 109,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 109 | `crypto/tls`, system roots from `crypto/x509` | rustls 0.23 with the aws-lc-rs provider str0",
+   "kind": "none",
+   "reason_code": "REAL",
+   "file": "unifi_protect",
+   "digest": "cfe6a1fef70f"
+  },
+  {
+   "line": 45,
+   "n": 110,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 110 | the events frame is decoded with `json.Unmarshal`: bytes that are not UTF-8 become U+FFFD, n",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "b8c723d4e709"
+  },
+  {
+   "line": 46,
+   "n": 111,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 111 | a reader goroutine, a ping goroutine and a write mutex; `read` closes the connection (close ",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "275ef2aeeb45"
+  },
+  {
+   "line": 47,
+   "n": 112,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 112 | `http.ReadResponse` parses the upgrade answer (any head size) | a hand parser: `HTTP/` + a 3",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "bda0f7e4be31"
+  },
+  {
+   "line": 48,
+   "n": 113,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 113 | a panic in the watcher goroutine ends the process | the watcher runs under a supervisor: the",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "unifi_protect",
+   "digest": "6506efd13ff8"
+  },
+  {
+   "line": 49,
+   "n": 114,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 114 | a panic in the sink during an events frame ends the process | caught per frame (`catch_unwin",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "unifi_protect",
+   "digest": "eb818da83017"
+  },
+  {
+   "line": 50,
+   "n": 115,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 115 | `Stop` waits for the watcher for ever | at most `Timing::stop_wait` (10 s), then it logs and",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "1fdc2e341c74"
+  },
+  {
+   "line": 51,
+   "n": 116,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 116 | a cancelled context makes the talkback open return an error, which clears `answering` | a dr",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "c83978f209e1"
+  },
+  {
+   "line": 52,
+   "n": 117,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 117 | `OpenRelay` and `AnswerTalkback` call the console's `talkback-session` and start `ffmpeg` | ",
+   "kind": "case",
+   "cases": [
+    "T-unifi",
+    "T-talk"
+   ],
+   "note": "OpenRelay/answer runs the talkback (superseded by 150)",
+   "file": "unifi_protect",
+   "digest": "90e3d9bddb32"
+  },
+  {
+   "line": 53,
+   "n": 118,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 118 | the dial resolves and tries addresses with happy eyeballs (RFC 8305) | tokio's `TcpStream::c",
+   "kind": "none",
+   "reason_code": "REAL",
+   "file": "unifi_protect",
+   "digest": "8ecb39518eac"
+  },
+  {
+   "line": 54,
+   "n": 119,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 119 | `nvr_host` is refused only for `/`, `@` and a space; `nvr_api_key` is unchecked; Go's REST p",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "90ec4e845e12"
+  },
+  {
+   "line": 55,
+   "n": 120,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 120 | an `AnswerTalkback` that fails, or whose future is dropped, only clears `answering`; if the ",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "3a2371be83e8"
+  },
+  {
+   "line": 56,
+   "n": 121,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 121 | `Stop` sets `stopped` without ordering against a report in flight | `stop` takes `emit` firs",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "f1991f65b753"
+  },
+  {
+   "line": 57,
+   "n": 122,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 122 | REST certificate failures all read `x509: certificate signed by unknown authority` (when it ",
+   "kind": "none",
+   "reason_code": "REAL",
+   "file": "unifi_protect",
+   "digest": "15f3fc50814a"
+  },
+  {
+   "line": 58,
+   "n": 123,
+   "section": "Differences (continues the numbering of slice 6)",
+   "text": "| 123 | duplicate or odd framing is tolerated by `net/http` in its own ways | a `+` in a chunk size ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "673c990ffd07"
+  },
+  {
+   "line": 134,
+   "n": 124,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 124 | `pacer.Push/Tick` take `time.Time` | a `Duration` since an arbitrary epoch (`Pacer::now()` i",
+   "kind": "none",
+   "reason_code": "TIMING",
+   "file": "unifi_protect",
+   "digest": "24f324c64180"
+  },
+  {
+   "line": 135,
+   "n": 125,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 125 | `Stop` closes a channel and waits for the loop goroutine | `stop` sets a flag under the lock",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "5a48a1172d8d"
+  },
+  {
+   "line": 136,
+   "n": 126,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 126 | `Start` runs a goroutine on `time.Timer` | a tokio task on `tokio::time::sleep_until`; needs",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "93ce99b03bea"
+  },
+  {
+   "line": 137,
+   "n": 127,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 127 | `Configure` refuses `protect_host` only for `/`, `@`, space; the key, `downlink_url` and `gu",
+   "kind": "partial",
+   "cases": [
+    "T-talk"
+   ],
+   "reason_code": "UNIT",
+   "note": "configure refusals for missing fields and gain are in the talk transcript; the url/host corners are unit-level",
+   "file": "unifi_protect",
+   "digest": "95cfc280c525"
+  },
+  {
+   "line": 138,
+   "n": 128,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 128 | `exec.LookPath` (stat, then `access(2)` for execute) | the same texts (`executable file not ",
+   "kind": "none",
+   "reason_code": "ENV",
+   "file": "unifi_protect",
+   "digest": "00a5aab0cc1d"
+  },
+  {
+   "line": 139,
+   "n": 129,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 129 | `exec.Command`, one goroutine `Wait`s, `Process.Kill` in `Close`/ctx | `kill_on_drop`, ONE t",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "43720b4aebd5"
+  },
+  {
+   "line": 140,
+   "n": 130,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 130 | the pump blocks in `stdin.Write` for ever on an `ffmpeg` that is alive but not reading | a w",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "486dab8ed073"
+  },
+  {
+   "line": 141,
+   "n": 131,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 131 | a panic in any goroutine of the family ends the process | every task of the family (the talk",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "unifi_protect",
+   "digest": "de8fe3218817"
+  },
+  {
+   "line": 142,
+   "n": 132,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 132 | `In()` is a channel of 64; ffmpeg's exit error is `exit status N` | the same sizes (`try_sen",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "90013d45ae42"
+  },
+  {
+   "line": 143,
+   "n": 133,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 133 | `talkbackSession` has no `Debug` problem | `TalkbackSession`'s `Debug` is written by hand an",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "unifi_protect",
+   "digest": "687ebc015b0b"
+  },
+  {
+   "line": 144,
+   "n": 134,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 134 | `bufio.Scanner` on ffmpeg's stderr stops at a 64 KiB line, after which nothing reads the pip",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "fb3741d826dc"
+  },
+  {
+   "line": 145,
+   "n": 135,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 135 | `<-errDone` waits for the stderr reader for ever | after the process is reaped the reader ge",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "eade6a100120"
+  },
+  {
+   "line": 146,
+   "n": 136,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 136 | `scheme`, `ffmpegBinary`, `talkOrphan`, `guardTimeout`, `talkDialOrphan`, `talkDialMax`, `ta",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "unifi_protect",
+   "digest": "d5eb95a70985"
+  },
+  {
+   "line": 147,
+   "n": 137,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 137 | `Close` blocks until both `ffmpeg`s are reaped, including inside `HangupCallWhy` and `Stop` ",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "9253d3a210cc"
+  },
+  {
+   "line": 148,
+   "n": 138,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 138 | `net/http` for the guard (keep-alive, `Accept-Encoding: gzip`, `Go-http-client/1.1`) | the o",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "unifi_protect",
+   "digest": "3c1fb27665c1"
+  },
+  {
+   "line": 149,
+   "n": 139,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 139 | the body is read as bytes; `json.Unmarshal` repairs invalid UTF-8 | a body that is not valid",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "87dccae70f5f"
+  },
+  {
+   "line": 150,
+   "n": 140,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 140 | a `guard_url` with `user:password@` is sent with `Authorization: Basic`; `https://` works; a",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "ac4c0577dfce"
+  },
+  {
+   "line": 151,
+   "n": 141,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 141 | the uplink pacer's silence frame is as long as the first frame | capped at 16 KiB | a hostil",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "7c645d63897a"
+  },
+  {
+   "line": 152,
+   "n": 142,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 142 | `dropsUp` counts a frame the talkback queue did not take | only a FULL queue counts; a queue",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "037392b91b3e"
+  },
+  {
+   "line": 153,
+   "n": 143,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 143 | a cancelled context ends the open with an error, which frees the door | a `dial_call` future",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "6cb33edbb90b"
+  },
+  {
+   "line": 154,
+   "n": 144,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 144 | the same cancelled context leaves the ring answerable until its hold runs out | an `answer_w",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "f7f533704663"
+  },
+  {
+   "line": 155,
+   "n": 145,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 145 | a sink that panics ends the process | a timer's end of a ring, the cap timer and the media w",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "unifi_protect",
+   "digest": "cd2f23373416"
+  },
+  {
+   "line": 156,
+   "n": 146,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 146 | `Stop` sets `stopped` without ordering against a report in flight | `stop` takes `emit` firs",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "7bf534258447"
+  },
+  {
+   "line": 157,
+   "n": 147,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 147 | `answerViaTalkback` puts the relay in the registry after the open, even when the browser lef",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "5d3b5918843f"
+  },
+  {
+   "line": 158,
+   "n": 148,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 148 | `Relay.Close` closes the talkback, then the audio, then BYEs | the same order, the talkback ",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "044783bd6391"
+  },
+  {
+   "line": 159,
+   "n": 149,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 149 | `Driver.Stop` closes the talkback and returns | and waits (at most 5 s) until the process is",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "unifi_protect",
+   "digest": "52a2bee8a3c3"
+  },
+  {
+   "line": 160,
+   "n": 151,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 151 | (superseded by 156) `media_open` for a call a driver holds answered `not_implemented` | sinc",
+   "kind": "case",
+   "cases": [
+    "T-wsmedia"
+   ],
+   "note": "media_open joins the call (supersedes 151)",
+   "file": "unifi_protect",
+   "digest": "9d26978e1190"
+  },
+  {
+   "line": 161,
+   "n": 152,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 152 | `OpenRelay`/`AnswerTalkback` POST `talkback-session`, THEN look up `ffmpeg` | `ffmpeg` is lo",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "98218c000bbe"
+  },
+  {
+   "line": 162,
+   "n": 153,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 153 | the console-supplied codec text is quoted whole into an error | cut at 256 bytes with `...` ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "5b0f2cbc0ac1"
+  },
+  {
+   "line": 163,
+   "n": 154,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 154 | the call-out cap timer hangs up by id | by id and call serial (as the 7a ring timers): a tim",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "digest": "d66dd9df5cae"
+  },
+  {
+   "line": 164,
+   "n": 155,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 155 | the default Rust/Go panic report | `panic_hook::install()` first in `main`: `portico-transpo",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "unifi_protect",
+   "digest": "1d9fbae9096a"
+  },
+  {
+   "line": 165,
+   "n": 150,
+   "section": "Differences (continues the numbering of slice 7a)",
+   "text": "| 150 | `unifi_protect`'s `OpenRelay` and the answer always run the talkback | the same since 7b; 7a",
+   "kind": "case",
+   "cases": [
+    "T-talk",
+    "T-unifi"
+   ],
+   "note": "unifi_protect OpenRelay/answer run the talkback",
+   "file": "unifi_protect",
+   "digest": "11961964584e"
+  },
+  {
+   "line": 219,
+   "n": 351,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 351 | `InsecureSkipVerify` accepts any certificate `crypto/x509` parses (a v1 certificate among th",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "an_unreadable_certificate_with_verify_off_is_not_reported_as_untrusted"
+   ],
+   "digest": "f13777b733c8"
+  },
+  {
+   "line": 220,
+   "n": 352,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 352 | after a media open that failed at the downlink, `session_up` stays true until the next call ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "an_open_that_fails_at_the_downlink_leaves_no_session_up"
+   ],
+   "digest": "1b41120eee2c"
+  },
+  {
+   "line": 221,
+   "n": 353,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 353 | `Stop` waits for ever for the watcher, so a `Start` cannot overlap it | `stop` gives up afte",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "a_start_does_not_add_a_watcher_beside_one_that_stop_gave_up_on"
+   ],
+   "digest": "149657be912b"
+  },
+  {
+   "line": 222,
+   "n": 354,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 354 | a panic kills the process (differences 122, 98): no restart | the restart backoff (unifi wat",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "unifi_protect",
+   "tests": [
+    "the_supervisors_backoff_starts_again_after_a_long_run"
+   ],
+   "digest": "9e879c8c3b16"
+  },
+  {
+   "line": 223,
+   "n": 355,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 355 | `exec.LookPath` finds the binary once per use | the binary of a talk open is looked up ONCE ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "the_talkback_looks_the_binary_up_once_per_open",
+    "the_binary_is_looked_up_once_per_answer"
+   ],
+   "digest": "1e3aff7ba78d"
+  },
+  {
+   "line": 224,
+   "n": 356,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 356 | `x509.SystemCertPool` is cached process-wide | the connector over the system pool is built o",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "the_system_pool_is_read_once_per_process"
+   ],
+   "digest": "b78a7c3cae75"
+  },
+  {
+   "line": 225,
+   "n": 358,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 358 | `filepath.SplitList(\"\")` is empty, and `syscall.Signal.String()` names signals 1 to 31 (`ill",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "exit_texts",
+    "an_empty_path_has_no_directories"
+   ],
+   "digest": "4ba834e78de3"
+  },
+  {
+   "line": 226,
+   "n": 359,
+   "section": "Phase R round 1, group F (dahua_sip and unifi_protect, talk family): differences 350 to 359",
+   "text": "| 359 | `Post \"<url>\": dial tcp ...` and the other errors of the talk open are returned raw (scrubbe",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "a_missing_stream_names_the_quality_as_go_quotes_it",
+    "the_stream_map_decodes_a_non_utf8_body_and_trims_json_white_space_only",
+    "a_failed_session_request_is_reported_as_go_words_it"
+   ],
+   "digest": "c648fd7c77d4"
+  },
+  {
+   "line": 232,
+   "n": 460,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 460 to 479 that belong to this subject",
+   "text": "* **460 (R2-7, matched, not a difference; the two clients dial differently on purpose): the REST cli",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "guard_targets",
+    "the_dial_target_and_host_header_are_net_https",
+    "the_rest_client_dials_net_https_target_for_odd_host_forms"
+   ],
+   "digest": "4ae18c9ed3b7"
+  },
+  {
+   "line": 233,
+   "n": 461,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 460 to 479 that belong to this subject",
+   "text": "* **461 (R2-76, deliberate approximation): the REST client's framing errors are laxer in wording and",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "the_api_names_the_certificate_failure_and_rejects_odd_framing"
+   ],
+   "digest": "22e4fd37394f"
+  },
+  {
+   "line": 234,
+   "n": 462,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 460 to 479 that belong to this subject",
+   "text": "* **462 (R2-102, deliberate difference): `configure` is refused while the driver runs a watcher or h",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "configure_is_refused_while_the_driver_runs_a_watcher",
+    "talk_configure_is_refused_while_the_driver_holds_a_call"
+   ],
+   "digest": "6bb3db9cfd82"
+  },
+  {
+   "line": 235,
+   "n": 463,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 460 to 479 that belong to this subject",
+   "text": "* **463 (R2-8, R2-74, R2-117, corrects 140): the session guard is judged like Go's.** The reply is t",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "unifi_protect",
+   "tests": [
+    "guard_targets",
+    "guard_truth_table",
+    "a_cut_off_guard_answer_is_judged_by_its_status_first"
+   ],
+   "digest": "079d2cf02d49"
+  },
+  {
+   "line": 35,
+   "n": 156,
+   "section": "Differences (continues the numbering of 7b)",
+   "text": "| 156 | `media_open` joins the phone's leg through `joinCallToBrowser` | the same; supersedes 151 (`",
+   "kind": "case",
+   "cases": [
+    "T-wsmedia",
+    "W-MEDIA-LIFECYCLE"
+   ],
+   "file": "wsmedia",
+   "digest": "7df0a75bcec3"
+  },
+  {
+   "line": 36,
+   "n": 157,
+   "section": "Differences (continues the numbering of 7b)",
+   "text": "| 157 | a panic in `join` crashes the process | the join runs under `catch_unwind`: the leg is close",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "wsmedia",
+   "digest": "e2bab227ea88"
+  },
+  {
+   "line": 37,
+   "n": 158,
+   "section": "Differences (continues the numbering of 7b)",
+   "text": "| 158 | the close callbacks run synchronously on the closing goroutine, a panic in one kills the pro",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "wsmedia",
+   "digest": "7bd2db84e09d"
+  },
+  {
+   "line": 38,
+   "n": 159,
+   "section": "Differences (continues the numbering of 7b)",
+   "text": "| 159 | after `Close` the buffered `in` channel still takes 8 frames that nobody reads | kept: the d",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "wsmedia",
+   "digest": "64b6fd4f88a5"
+  },
+  {
+   "line": 39,
+   "n": 160,
+   "section": "Differences (continues the numbering of 7b)",
+   "text": "| 160 | `send` (the `media_frame` notification) is a blocking call on the downlink goroutine | an aw",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "wsmedia",
+   "digest": "cdf07d4249f8"
+  },
+  {
+   "line": 40,
+   "n": 161,
+   "section": "Differences (continues the numbering of 7b)",
+   "text": "| 161 | `json.Unmarshal` turns a lone surrogate escape in a string into U+FFFD | `gojson::decode` di",
+   "kind": "case",
+   "cases": [
+    "W-MEDIA-OPEN-CODEC-LONE-SURROGATE"
+   ],
+   "note": "the field-string fix; the request-line difference is DIFF-FRAME-LONE-SURROGATE",
+   "file": "wsmedia",
+   "digest": "83fd1430721f"
+  },
+  {
+   "line": 85,
+   "n": 364,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 364 | `routeClose`: `_ = json.Unmarshal(raw, &p)`: a field of the wrong type is skipped, the decod",
+   "kind": "partial",
+   "reason_code": "UNIT",
+   "file": "wsmedia",
+   "tests": [
+    "route_close_keeps_the_reason_when_another_field_has_the_wrong_type"
+   ],
+   "cases": [
+    "W-HOUSE-MEDIA-CLOSE-LENIENT"
+   ],
+   "digest": "a0db1e2f8295"
+  },
+  {
+   "line": 86,
+   "n": 366,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 366 | the close callbacks run on the closing goroutine; a second `Close` returns at once | `Leg::c",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "wsmedia",
+   "tests": [
+    "a_close_torn_down_mid_callbacks_still_runs_the_rest",
+    "a_tail_dropped_mid_close_does_not_abort_the_leg_close"
+   ],
+   "digest": "f3c9706ec088"
+  },
+  {
+   "line": 87,
+   "n": 367,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 367 | `New` cannot fail for want of a runtime | `Leg::new` outside a tokio runtime panics (`Handle",
+   "kind": "none",
+   "reason_code": "API",
+   "file": "wsmedia",
+   "tests": [
+    "a_leg_outside_a_runtime_is_a_caller_bug_and_panics"
+   ],
+   "digest": "0003a70e18d2"
+  },
+  {
+   "line": 88,
+   "n": 368,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 368 | a panic in a downlink `send` is not recovered (the process ends) | caught by a poll guard (`",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "wsmedia",
+   "tests": [
+    "a_panic_in_send_closes_the_leg_with_reason_error"
+   ],
+   "digest": "e016cb0f2900"
+  },
+  {
+   "line": 89,
+   "n": 369,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 369 | the pump takes the leg's uplink lock with no way out | it selects on the bridge's `done` tok",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "wsmedia",
+   "tests": [
+    "a_pump_stuck_on_the_uplink_lock_ends_with_its_bridge"
+   ],
+   "digest": "a8899c72a7db"
+  },
+  {
+   "line": 41,
+   "n": 162,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 162 | `Bridge.end` closes the legs, writes the line and starts the events goroutine inline | `Brid",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "house",
+   "digest": "5aab4d7c0810"
+  },
+  {
+   "line": 42,
+   "n": 163,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 163 | each `house_leg_state` is a blocking `Notify` from the goroutine that has it; the `lost` eve",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "house",
+   "digest": "49ce68fb0c8c"
+  },
+  {
+   "line": 43,
+   "n": 164,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 164 | `CloseAll` is synchronous and closes the bridges one after the other | `close_all` is async:",
+   "kind": "none",
+   "reason_code": "TASK",
+   "file": "house",
+   "digest": "91ae15bb8257"
+  },
+  {
+   "line": 44,
+   "n": 165,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 165 | the counters read `time.Now()` (wall clock) | a monotonic clock (`Instant`), never 0 | a clo",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "house",
+   "digest": "69b1eb7f4834"
+  },
+  {
+   "line": 45,
+   "n": 166,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 166 | a panic in any goroutine crashes the process | every task that carries a call (the two forwa",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "house",
+   "digest": "f56c70f4c43e"
+  },
+  {
+   "line": 46,
+   "n": 167,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 167 | the IPC handler goroutine cannot be cancelled | `Manager::open` holds an `OpenGuard`: if the",
+   "kind": "none",
+   "reason_code": "DEFERRED-WIRE",
+   "note": "a client that drops while a webrtc leg's house_open is in flight",
+   "file": "house",
+   "digest": "707be6c43f21"
+  },
+  {
+   "line": 47,
+   "n": 168,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 168 | the decoder is `encoding/json` | `decode_open_params` (nested legs; the flat `gojson::decode",
+   "kind": "partial",
+   "cases": [
+    "T-house",
+    "W-HOUSE-ENABLED-VALIDATION"
+   ],
+   "reason_code": "UNIT",
+   "note": "decode refusals are in the house transcript; nested-array decoding corners are unit-level",
+   "file": "house",
+   "digest": "481a7a7958ee"
+  },
+  {
+   "line": 48,
+   "n": 169,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 169 | the session id is 8 bytes of `crypto/rand` (fallback: `UnixNano`) | `getrandom` (fallback: t",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "house",
+   "digest": "1b577b71f9dd"
+  },
+  {
+   "line": 49,
+   "n": 170,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 170 | a WebRTC leg is a pion session; `NewSession(legID)` has no interface policy | the str0m `Ses",
+   "kind": "case",
+   "cases": [
+    "T-house"
+   ],
+   "note": "a webrtc leg with a garbage offer: the open answers first, then the event",
+   "file": "house",
+   "digest": "5c14062d74ca"
+  },
+  {
+   "line": 50,
+   "n": 171,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 171 | `Manager.Frame` returns the leg's error value | `FrameError::Leg(PushError)`; the verb maps ",
+   "kind": "case",
+   "cases": [
+    "T-house",
+    "W-MEDIA-LIFECYCLE"
+   ],
+   "file": "house",
+   "digest": "a4c10e04fba3"
+  },
+  {
+   "line": 51,
+   "n": 172,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 172 | `TestManyCallsLeaveNoGoroutinesBehind` counts goroutines | counts the tokio runtime's alive ",
+   "kind": "none",
+   "reason_code": "TESTMETA",
+   "file": "house",
+   "digest": "c1664cca2b36"
+  },
+  {
+   "line": 52,
+   "n": 173,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 173 | `TestConcurrentOpensNeverOvershootTheCap`, `TestOpensRacingCloseAllNeverLeakABridge` race on",
+   "kind": "none",
+   "reason_code": "TESTMETA",
+   "file": "house",
+   "digest": "f31ab5ef3e60"
+  },
+  {
+   "line": 53,
+   "n": 174,
+   "section": "Differences (continues the numbering of slice 8)",
+   "text": "| 174 | `TestNoExistingCodeReferencesTheHouseBridge` greps Go sources | the Rust analogue reads `src",
+   "kind": "none",
+   "reason_code": "TESTMETA",
+   "file": "house",
+   "digest": "34ff6ee5f2cc"
+  },
+  {
+   "line": 96,
+   "n": 360,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 360 | on `media_frame` for a house leg the reply is written first and the `first_frame` / `media_f",
+   "kind": "partial",
+   "reason_code": "TASK",
+   "file": "house",
+   "tests": [
+    "house_a_phones_goodbye_writes_both_media_closed_before_the_reply_from_first",
+    "the_first_frame_event_is_written_before_the_frame_is_forwarded"
+   ],
+   "cases": [
+    "T-house"
+   ],
+   "note": "the floating-reply steps of T-house pin the notification order",
+   "digest": "6ae04af815c9"
+  },
+  {
+   "line": 97,
+   "n": 363,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 363 | with house calls on, `media_open` for an id that starts `house-` still opens a DOOR leg (onl",
+   "kind": "case",
+   "file": "house",
+   "cases": [
+    "W-HOUSE-MEDIA-OPEN-HOUSE-ID"
+   ],
+   "note": "a Go defect kept; the case pins the same behaviour in both binaries",
+   "digest": "09037233c1a0"
+  },
+  {
+   "line": 98,
+   "n": 365,
+   "section": "Phase R round 1, group G (wsmedia, house, tests, conformance): differences 360 to 369",
+   "text": "| 365 | `closeBridge` closes `from`, then `to`, one after the other | both leg closes start together",
+   "kind": "case",
+   "file": "house",
+   "cases": [
+    "T-house"
+   ],
+   "note": "the smoke step \"a phone's goodbye\" pins the order of the two media_closed lines",
+   "digest": "346c53287aac"
+  },
+  {
+   "line": 47,
+   "n": 175,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 175 | `serveReconnects` calls `Serve` in the main goroutine: a panic in it ends the container | ea",
+   "kind": "none",
+   "reason_code": "PANIC",
+   "file": "standalone",
+   "digest": "cd9548c7ab08"
+  },
+  {
+   "line": 48,
+   "n": 176,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 176 | `sipConfigFromEnv` ranges over two maps: with several malformed numeric (or boolean) variabl",
+   "kind": "partial",
+   "cases": [
+    "T-standalone"
+   ],
+   "reason_code": "UNIT",
+   "note": "single malformed variables are refused with the same text in the transcript; the several-at-once order is Go's random map order",
+   "file": "standalone",
+   "digest": "e7b55894bd57"
+  },
+  {
+   "line": 49,
+   "n": 177,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 177 | a `-listen` port that is not a number is looked up in `/etc/services` (`smtp`, `http`, ...) ",
+   "kind": "none",
+   "reason_code": "ENV",
+   "file": "standalone",
+   "digest": "ba8b6e3b1854"
+  },
+  {
+   "line": 50,
+   "n": 178,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 178 | `ListenTCP` resolves the address, tests the IP for loopback, then `net.Listen` resolves the ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "standalone",
+   "digest": "9e113ae636a3"
+  },
+  {
+   "line": 51,
+   "n": 179,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 179 | the token is compared as bytes; a token or a password that is not UTF-8 is carried as it is ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "standalone",
+   "digest": "764b2297c927"
+  },
+  {
+   "line": 52,
+   "n": 180,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 180 | the text of an unparsable `-ipc-allow-from` entry is `netip`'s (`ParseAddr(\"x\"): unable to p",
+   "kind": "case",
+   "cases": [
+    "S-START-ALLOW-FROM-BAD"
+   ],
+   "file": "standalone",
+   "digest": "5aa4312e61e5"
+  },
+  {
+   "line": 53,
+   "n": 181,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 181 | a connection that is still in its auth window is not the server's current one, so `Close` do",
+   "kind": "case",
+   "note": "executed against both binaries by the retired scripts/wire_deferred.py (DEV-831; results kept in conformance/deferred_wire_results.json)",
+   "file": "standalone",
+   "cases": [
+    "D-AUTH-WINDOW-CLOSE"
+   ],
+   "digest": "4762b3c32fdc"
+  },
+  {
+   "line": 54,
+   "n": 182,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 182 | Go's `net` enables `TCP_NODELAY` and keep-alive (15 s, 15 s, 9 probes) on every accepted TCP",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "standalone",
+   "digest": "650654fe4f95"
+  },
+  {
+   "line": 55,
+   "n": 183,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 183 | a failed read or write is `read tcp 127.0.0.1:8765->10.0.0.5:51234: ...` | `read tcp: ...` /",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "standalone",
+   "digest": "001d4b36df08"
+  },
+  {
+   "line": 56,
+   "n": 184,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 184 | `json.Marshal` of a `float64` is `5060`, `1e+21`, `9223372036854776000` | `gojson::marshal` ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "standalone",
+   "digest": "7989aeaf5278"
+  },
+  {
+   "line": 57,
+   "n": 185,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 185 | `TCPOptions` has no `Debug`; a panic text is printed whole | `TcpOptions` and the gate print",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "standalone",
+   "digest": "c12413ee2305"
+  },
+  {
+   "line": 58,
+   "n": 186,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 186 | `ReadTokenFile` and the `.env` reader read whatever they are pointed at, to the end, and say",
+   "kind": "partial",
+   "cases": [
+    "T-standalone"
+   ],
+   "note": "T-standalone shows the mode warning (DIFF-STANDALONE-ENV-MODE-WARNING); the regular-file and 64 KiB refusals are unit tests",
+   "file": "standalone",
+   "reason_code": "UNIT",
+   "tests": [
+    "secret_files_are_regular_small_and_warn_when_loose"
+   ],
+   "digest": "0ad6b05ca20a"
+  },
+  {
+   "line": 59,
+   "n": 187,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 187 | the token from the variable or the token file may hold white space (only the `.env` reader r",
+   "kind": "partial",
+   "cases": [
+    "T-standalone"
+   ],
+   "reason_code": "UNIT",
+   "note": "token with white space from the variable/file",
+   "file": "standalone",
+   "digest": "42280599eb7f"
+  },
+  {
+   "line": 60,
+   "n": 188,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 188 | a refused TCP connection is not logged | one line at most every 10 s, `ipc: refused a TCP co",
+   "kind": "partial",
+   "cases": [
+    "T-standalone"
+   ],
+   "note": "T-standalone shows one refused-connection line (DIFF-STANDALONE-LOG-LINES); the rate limit and the bad token / source not allowed texts are unit tests",
+   "file": "standalone",
+   "reason_code": "UNIT",
+   "tests": [
+    "refusals_are_logged_at_most_once_per_ten_seconds"
+   ],
+   "digest": "a6529949a5f9"
+  },
+  {
+   "line": 61,
+   "n": 189,
+   "section": "Differences (continues the numbering of slice 9)",
+   "text": "| 189 | the wildcard bind leaves `IPV6_V6ONLY` to the system default (Go forces dual-stack); a faile",
+   "kind": "none",
+   "reason_code": "ENV",
+   "file": "standalone",
+   "digest": "dbd916439ff6"
+  },
+  {
+   "line": 111,
+   "n": 302,
+   "section": "Phase R round 1, group A (ipc, main, dispatch, standalone): differences 300 to 305",
+   "text": "| 302 | the TCP server accepts, checks the token and serves ONE connection at a time in the acceptin",
+   "kind": "partial",
+   "reason_code": "UNIT",
+   "file": "standalone",
+   "tests": [
+    "a_fifth_waiting_connection_drops_the_oldest_not_the_newcomer",
+    "a_newly_authenticated_hub_replaces_a_half_open_one",
+    "a_silent_connection_does_not_hold_up_an_authentic_one",
+    "one_connection_at_a_time",
+    "wrong_tokens_slow_their_own_reply_and_never_the_right_token"
+   ],
+   "cases": [
+    "T-standalone"
+   ],
+   "note": "T-standalone sends one wrong token and then the right one; DIFF-TCP-ACCEPT (the rest of the TCP rules are unit tests)",
+   "digest": "94bb8733ed22"
+  },
+  {
+   "line": 134,
+   "n": 420,
+   "section": "Phase R round 2, group B (src/sip, pacer, gostd)",
+   "text": "* **420 (R2-4, corrects 311, deliberate difference and a Go defect): the digest client hashes an",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "tests": [
+    "golden_digest_raw_is_a_known_go_defect",
+    "register_answers_a_non_utf8_challenge_over_raw_bytes",
+    "challenge_with_non_utf8_bytes_is_hashed_and_echoed_raw"
+   ],
+   "digest": "7814737b6558"
+  },
+  {
+   "line": 135,
+   "n": 421,
+   "section": "Phase R round 2, group B (src/sip, pacer, gostd)",
+   "text": "* **421 (R2-5, matched, not a difference): `serde_json` has `float_roundtrip` in the shipped bui",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "no_test": "a build-time property of Cargo.toml (serde_json float_roundtrip in [dependencies]); checked with `cargo tree -e features` for the non-dev build, not by a test",
+   "digest": "875687bcab77"
+  },
+  {
+   "line": 136,
+   "n": 422,
+   "section": "Phase R round 2, group B (src/sip, pacer, gostd)",
+   "text": "* **422 (R2-64, a limit, deliberate): `parse_hex_float` is not Go's algorithm.** It accumulates ",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "sip",
+   "no_test": "a limit recorded in the function comment; the hex-float parser is exercised only by its unit tests, none of which pins the 53-bit rounding",
+   "digest": "d8e145a79fa9"
+  },
+  {
+   "line": 258,
+   "n": 423,
+   "section": "Phase R round 2, group D (gate_sip_server and the driver API)",
+   "text": "* **423 (R2-68, deliberate difference): a zoned `sip_listen` (`[fe80::1%eth0]:5060`) fails to st",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "no_test": "read from Go's code, not executed: the test host has no link-local interface",
+   "digest": "213828f6d592"
+  },
+  {
+   "line": 259,
+   "n": 424,
+   "section": "Phase R round 2, group D (gate_sip_server and the driver API)",
+   "text": "* **424 (R2-69, deliberate difference): two listen shapes bind differently from Go.** (a) `sip_l",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "no_test": "read from Go's net source, not executed: the test host has no IPv6 interface",
+   "digest": "396c1a7c3a79"
+  },
+  {
+   "line": 260,
+   "n": 425,
+   "section": "Phase R round 2, group D (gate_sip_server and the driver API)",
+   "text": "* **425 (R2-115, deliberate difference): the orphan grace checks and ends the call in one critic",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "gate_sip_server",
+   "no_test": "untestable without a hook inside the lock window",
+   "digest": "80d94fb2bce1"
+  },
+  {
+   "line": 117,
+   "n": 400,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 400 to 419 that belong to this subject",
+   "text": "| 400 | `admit` checks the source first (`tcp.go:118-120`) and then reads the one auth lin",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "standalone",
+   "tests": [
+    "wrong_tokens_slow_their_own_reply_and_never_the_right_token",
+    "a_burst_from_a_disallowed_source_does_not_lock_the_hub_out",
+    "slowed_replies_are_capped_and_hold_no_admission_place",
+    "a_fifth_waiting_connection_drops_the_oldest_not_the_newcomer",
+    "silent_connections_in_a_flood_do_not_lock_the_hub_out",
+    "a_burst_from_a_disallowed_source_does_not_push_out_a_hub_that_came_first"
+   ],
+   "digest": "76e1d83be824"
+  },
+  {
+   "line": 118,
+   "n": 401,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 400 to 419 that belong to this subject",
+   "text": "| 401 | `bufio.Scanner` hands out the unterminated tail as a token on ANY read error: an a",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "standalone",
+   "tests": [
+    "an_auth_line_without_a_newline_at_eof_is_still_a_token",
+    "an_endless_request_line_ends_the_tcp_connection"
+   ],
+   "digest": "c506e750ffba"
+  },
+  {
+   "line": 207,
+   "n": 402,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 400 to 419 that belong to this subject",
+   "text": "| 402 | `markJoined` accepts a session that is no longer in the table (`talkback_test.go:1",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "browser_sessions_are_kept_per_call_and_removed_per_call",
+    "a_session_that_died_before_it_was_joined_leaves_no_joined_entry"
+   ],
+   "digest": "a46dcb2b2013"
+  },
+  {
+   "line": 106,
+   "n": 444,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 440 to 459 that belong to this subject",
+   "text": "| 444 | `Bridge.end` closes the legs once, inline, then writes the line and starts the eve",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "house",
+   "tests": [
+    "a_restarted_tail_writes_the_lost_events_after_the_first_closes_finished"
+   ],
+   "digest": "7a374e40e496"
+  },
+  {
+   "line": 208,
+   "n": 440,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 400 to 419 that belong to this subject",
+   "text": "| 440 | pion drops non-STUN traffic (DTLS, RTP, RTCP) from an address that is not a remote",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "datagrams_from_a_foreign_address_are_refused_and_counted"
+   ],
+   "digest": "d0bf51b81dd5"
+  },
+  {
+   "line": 209,
+   "n": 441,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 400 to 419 that belong to this subject",
+   "text": "| 441 | `encodeLoop` is a goroutine of its own, so a flood on the read side cannot delay t",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "tests": [
+    "a_datagram_flood_on_several_addresses_does_not_starve_the_device_audio",
+    "one_pass_takes_a_batch_of_datagrams_and_then_one_device_frame",
+    "a_short_queue_ends_the_batch_and_no_frame_is_invented"
+   ],
+   "digest": "21b17c2a5c7d"
+  },
+  {
+   "line": 210,
+   "n": 442,
+   "section": "Phase R round 2 (comments R2-xx of the review log): differences 400 to 419 that belong to this subject",
+   "text": "| 442 | the session writes `peer connection <state>` for every pion state, `first RTP from",
+   "kind": "none",
+   "reason_code": "UNIT",
+   "file": "webrtc_sfu",
+   "no_test": "stdout wording of the session lines; no test pins pion text (R2-137)",
+   "digest": "3a427beab6bd"
+  }
+ ],
+ "section_map": {
+  "pkg/sip (slice 2) Matched": [
+   "T-gate_sip_server",
+   "T-dahua"
+  ],
+  "pkg/driver and gatesipserver core (slice 3a) Matched": [
+   "C-CAPS-*",
+   "W-ERR-TABLE",
+   "T-main"
+  ],
+  "Server loop (slice 3b-1) matched": [
+   "T-gate_sip_server"
+  ],
+  "Outbound call (slice 3b-2) matched": [
+   "T-gate_sip_server"
+  ],
+  "internal/sfu pure audio (slice 4a) Matched": [
+   "(golden vectors; no wire)"
+  ],
+  "internal/sfu WebRTC session (slice 4b) Matched": [
+   "T-webrtc"
+  ],
+  "gate_sip_observer (slice 5a) Matched": [
+   "T-observer",
+   "C-CAPS-gate_sip_observer"
+  ],
+  "gate_sip_observer claim and dial (slice 5b) Matched": [
+   "T-claim",
+   "C-CAPS-gate_sip_observer+claims+dial"
+  ],
+  "dahua_sip (slice 6)": [
+   "T-dahua",
+   "T-wsmedia"
+  ],
+  "unifi_protect core (slice 7a)": [
+   "T-unifi",
+   "C-CAPS-unifi_protect"
+  ],
+  "unifi_protect talk (slice 7b)": [
+   "T-talk",
+   "C-CAPS-unifi_protect_talk"
+  ],
+  "wsmedia (slice 8) Matched": [
+   "T-wsmedia",
+   "W-MEDIA-*"
+  ],
+  "house calls (slice 9) Matched": [
+   "T-house",
+   "W-HOUSE-*",
+   "S-LOG-HOUSE-CALL-PREFIX"
+  ],
+  "standalone (slice 10) Matched": [
+   "T-standalone",
+   "S-START-*"
+  ],
+  "Panic policy": [
+   "(spec panic_policy; no wire case)"
+  ],
+  "packaging (Phase 4)": [
+   "(not the transport binary; packaging tests)"
+  ]
+ }
+}

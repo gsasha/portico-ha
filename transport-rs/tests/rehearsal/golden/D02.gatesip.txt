@@ -1,0 +1,45 @@
+SEND REGISTER sip:127.0.0.1 SIP/2.0 (as 1 REGISTER)
+RECV 401 Unauthorized
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@127.0.0.1>;tag=st-reg
+     To: <sip:8001@127.0.0.1>;tag=<T1>
+     Call-ID: reg-A
+     CSeq: 1 REGISTER
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     WWW-Authenticate: Digest realm="VDP", nonce="<N1>", algorithm=MD5
+     Content-Length: 0
+SEND REGISTER sip:127.0.0.1 SIP/2.0 (as 2 REGISTER)
+RECV 200 OK
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@127.0.0.1>;tag=st-reg
+     To: <sip:8001@127.0.0.1>;tag=<T2>
+     Call-ID: reg-A
+     CSeq: 2 REGISTER
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Expires: 300
+     Content-Length: 0
+SEND REGISTER sip:127.0.0.1 SIP/2.0 (as 3 REGISTER)
+RECV 401 Unauthorized
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@127.0.0.1>;tag=st-reg
+     To: <sip:8001@127.0.0.1>;tag=<T3>
+     Call-ID: reg-B
+     CSeq: 3 REGISTER
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     WWW-Authenticate: Digest realm="VDP", nonce="<N2>", algorithm=MD5
+     Content-Length: 0
+SEND REGISTER sip:127.0.0.1 SIP/2.0 (as 4 REGISTER)
+RECV 200 OK
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@127.0.0.1>;tag=st-reg
+     To: <sip:8001@127.0.0.1>;tag=<T4>
+     Call-ID: reg-B
+     CSeq: 4 REGISTER
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Expires: 300
+     Content-Length: 0
+STATE registered=true ringing=false inCall=false dialogConfirmed=false calls=0 answered=0 rtpIn=0

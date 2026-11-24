@@ -1,0 +1,22 @@
+{
+ "ipc_response": {
+  "at_ms": 22069.5,
+  "msg": {
+   "error": {
+    "code": "dial_failed",
+    "message": "gate_sip_server: DialCall: the station did not answer within 20s"
+   },
+   "id": 40
+  }
+ },
+ "station_got": [
+  [
+   0.6,
+   "INVITE"
+  ],
+  [
+   20060.0,
+   "CANCEL"
+  ]
+ ]
+}

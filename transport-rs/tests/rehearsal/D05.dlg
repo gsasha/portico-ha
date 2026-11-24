@@ -1,0 +1,33 @@
+# source: SYNTHETIC
+# title: REGISTER pre-emptively carrying a nonce this server never issued (right password)
+# verdict: DIFFERS
+# basis: a station that caches a nonce, or a replayed header; gate-sip verifies statelessly
+# reason: GO-16 deviation: gate-sip accepts (digest=OK) any nonce; Portico re-challenges with a 401 and a fresh nonce. Whether the real station REGISTERs pre-emptively is unknown (live capture)
+
+>>> send
+REGISTER sip:{{SRVIP}} SIP/2.0
+Via: SIP/2.0/UDP {{ST}};branch=z9hG4bKreg1
+From: <sip:8001@{{SRVIP}}>;tag=st-reg
+To: <sip:8001@{{SRVIP}}>
+Call-ID: reg-A
+CSeq: 1 REGISTER
+Contact: <sip:8001@{{ST}}>
+Expires: 300
+Max-Forwards: 70
+Authorization: {{AUTH_FORGED}}
+.
+>>> recv
+>>> send
+REGISTER sip:{{SRVIP}} SIP/2.0
+Via: SIP/2.0/UDP {{ST}};branch=z9hG4bKreg2
+From: <sip:8001@{{SRVIP}}>;tag=st-reg
+To: <sip:8001@{{SRVIP}}>
+Call-ID: reg-A
+CSeq: 2 REGISTER
+Contact: <sip:8001@{{ST}}>
+Expires: 300
+Max-Forwards: 70
+Authorization: {{AUTH_OK}}
+.
+>>> recv
+>>> state

@@ -1,0 +1,1982 @@
+[
+ {
+  "name": "invite",
+  "in_hex": "494e56495445207369703a393930314031302e302e302e32205349502f322e300d0a5669613a205349502f322e302f5544502031302e302e302e313a353036303b6272616e63683d7a39684734624b310d0a46726f6d3a203c7369703a6140623e3b7461673d310d0a546f3a203c7369703a6340643e0d0a43616c6c2d49443a206162630d0a435365713a203120494e564954450d0a436f6e74656e742d547970653a206170706c69636174696f6e2f7364700d0a436f6e74656e742d4c656e6774683a2038350d0a0d0a763d300d0a6f3d2d2030203020494e204950342031302e302e302e310d0a733d2d0d0a633d494e204950342031302e302e302e310d0a743d3020300d0a6d3d617564696f2034303030205254502f41565020300d0a",
+  "request": {
+   "ok": true,
+   "method": "INVITE",
+   "uri": "sip:9901@10.0.0.2",
+   "headers": {
+    "call-id": [
+     "abc"
+    ],
+    "content-length": [
+     "85"
+    ],
+    "content-type": [
+     "application/sdp"
+    ],
+    "cseq": [
+     "1 INVITE"
+    ],
+    "from": [
+     "<sip:a@b>;tag=1"
+    ],
+    "to": [
+     "<sip:c@d>"
+    ],
+    "via": [
+     "SIP/2.0/UDP 10.0.0.1:5060;branch=z9hG4bK1"
+    ]
+   },
+   "body_hex": "763d300d0a6f3d2d2030203020494e204950342031302e302e302e310d0a733d2d0d0a633d494e204950342031302e302e302e310d0a743d3020300d0a6d3d617564696f2034303030205254502f41565020300d0a"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"INVITE sip:9901@10.0.0.2 SIP/2.0\""
+  }
+ },
+ {
+  "name": "register",
+  "in_hex": "5245474953544552207369703a31302e302e302e32205349502f322e300d0a5669613a205349502f322e302f5544502031302e302e302e313a353036303b6272616e63683d7a39684734624b320d0a435365713a20312052454749535445520d0a436f6e74656e742d4c656e6774683a20300d0a0d0a0d0a",
+  "request": {
+   "ok": true,
+   "method": "REGISTER",
+   "uri": "sip:10.0.0.2",
+   "headers": {
+    "content-length": [
+     "0"
+    ],
+    "cseq": [
+     "1 REGISTER"
+    ],
+    "via": [
+     "SIP/2.0/UDP 10.0.0.1:5060;branch=z9hG4bK2"
+    ]
+   },
+   "body_hex": "0d0a"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"REGISTER sip:10.0.0.2 SIP/2.0\""
+  }
+ },
+ {
+  "name": "200 ok",
+  "in_hex": "5349502f322e3020323030204f4b0d0a5669613a205349502f322e302f5544502031302e302e302e313a353036303b6272616e63683d7a39684734624b310d0a546f3a203c7369703a6340643e3b7461673d390d0a436f6e74656e742d4c656e6774683a2038350d0a0d0a763d300d0a6f3d2d2030203020494e204950342031302e302e302e310d0a733d2d0d0a633d494e204950342031302e302e302e310d0a743d3020300d0a6d3d617564696f2034303030205254502f41565020300d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-length": [
+     "85"
+    ],
+    "to": [
+     "<sip:c@d>;tag=9"
+    ],
+    "via": [
+     "SIP/2.0/UDP 10.0.0.1:5060;branch=z9hG4bK1"
+    ]
+   },
+   "body_hex": "763d300d0a6f3d2d2030203020494e204950342031302e302e302e310d0a733d2d0d0a633d494e204950342031302e302e302e310d0a743d3020300d0a6d3d617564696f2034303030205254502f41565020300d0a"
+  }
+ },
+ {
+  "name": "180 ringing",
+  "in_hex": "5349502f322e30203138302052696e67696e670d0a5669613a205349502f322e302f5544502031302e302e302e313b6272616e63683d7a39684734624b310d0a436f6e74656e742d4c656e6774683a20300d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 180 Ringing\""
+  },
+  "response": {
+   "ok": true,
+   "status": 180,
+   "reason": "Ringing",
+   "headers": {
+    "content-length": [
+     "0"
+    ],
+    "via": [
+     "SIP/2.0/UDP 10.0.0.1;branch=z9hG4bK1"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "486 busy",
+  "in_hex": "5349502f322e3020343836204275737920486572650d0a5669613a20780d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 486 Busy Here\""
+  },
+  "response": {
+   "ok": true,
+   "status": 486,
+   "reason": "Busy Here",
+   "headers": {
+    "via": [
+     "x"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "401 challenge",
+  "in_hex": "5349502f322e302034303120556e617574686f72697a65640d0a5669613a20780d0a5757572d41757468656e7469636174653a20446967657374207265616c6d3d2256544f222c206e6f6e63653d226e31222c20716f703d2261757468220d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 401 Unauthorized\""
+  },
+  "response": {
+   "ok": true,
+   "status": 401,
+   "reason": "Unauthorized",
+   "headers": {
+    "via": [
+     "x"
+    ],
+    "www-authenticate": [
+     "Digest realm=\"VTO\", nonce=\"n1\", qop=\"auth\""
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "bye",
+  "in_hex": "425945207369703a31302e302e302e32205349502f322e300d0a43616c6c2d49443a2063310d0a435365713a2032204259450d0a0d0a0d0a",
+  "request": {
+   "ok": true,
+   "method": "BYE",
+   "uri": "sip:10.0.0.2",
+   "headers": {
+    "call-id": [
+     "c1"
+    ],
+    "cseq": [
+     "2 BYE"
+    ]
+   },
+   "body_hex": "0d0a"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"BYE sip:10.0.0.2 SIP/2.0\""
+  }
+ },
+ {
+  "name": "ack",
+  "in_hex": "41434b207369703a784079205349502f322e300d0a43616c6c2d49443a2063310d0a0d0a0d0a",
+  "request": {
+   "ok": true,
+   "method": "ACK",
+   "uri": "sip:x@y",
+   "headers": {
+    "call-id": [
+     "c1"
+    ]
+   },
+   "body_hex": "0d0a"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"ACK sip:x@y SIP/2.0\""
+  }
+ },
+ {
+  "name": "lf only",
+  "in_hex": "494e56495445207369703a61205349502f322e300a43616c6c2d49443a206c660a435365713a203120494e564954450a0a626f6479",
+  "request": {
+   "ok": true,
+   "method": "INVITE",
+   "uri": "sip:a",
+   "headers": {
+    "call-id": [
+     "lf"
+    ],
+    "cseq": [
+     "1 INVITE"
+    ]
+   },
+   "body_hex": "626f6479"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"INVITE sip:a SIP/2.0\""
+  }
+ },
+ {
+  "name": "lf only response",
+  "in_hex": "5349502f322e3020323030204f4b0a43616c6c2d49443a206c660a0a626f6479",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "call-id": [
+     "lf"
+    ]
+   },
+   "body_hex": "626f6479"
+  }
+ },
+ {
+  "name": "mixed endings",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a20310a423a20320d0a0a626f6479",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "1"
+    ],
+    "b": [
+     "2"
+    ]
+   },
+   "body_hex": "626f6479"
+  }
+ },
+ {
+  "name": "cr only",
+  "in_hex": "5349502f322e3020323030204f4b0d413a20310d0d",
+  "request": {
+   "ok": false,
+   "err": "sip: reading request line: EOF"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: reading status line: EOF"
+  }
+ },
+ {
+  "name": "double cr before lf",
+  "in_hex": "5349502f322e3020323030204f4b0d0d0a413a20310d0d0a0d0d0a626f6479",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "1"
+    ]
+   },
+   "body_hex": "626f6479"
+  }
+ },
+ {
+  "name": "no trailing newline headers",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a20310d0a423a2032",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "1"
+    ],
+    "b": [
+     "2"
+    ]
+   }
+  }
+ },
+ {
+  "name": "no blank line then eof",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a20310d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "1"
+    ]
+   }
+  }
+ },
+ {
+  "name": "blank line then eof",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a20310d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "1"
+    ]
+   }
+  }
+ },
+ {
+  "name": "status line only",
+  "in_hex": "5349502f322e3020323030204f4b0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK"
+  }
+ },
+ {
+  "name": "status line no newline",
+  "in_hex": "5349502f322e3020323030204f4b",
+  "request": {
+   "ok": false,
+   "err": "sip: reading request line: EOF"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: reading status line: EOF"
+  }
+ },
+ {
+  "name": "empty",
+  "in_hex": "",
+  "request": {
+   "ok": false,
+   "err": "sip: reading request line: EOF"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: reading status line: EOF"
+  }
+ },
+ {
+  "name": "only crlf",
+  "in_hex": "0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"\""
+  }
+ },
+ {
+  "name": "only lf",
+  "in_hex": "0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"\""
+  }
+ },
+ {
+  "name": "body with blank lines",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a20310d0a0d0a6c696e65310d0a0d0a6c696e65320d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "1"
+    ]
+   },
+   "body_hex": "6c696e65310d0a0d0a6c696e65320d0a0d0a"
+  }
+ },
+ {
+  "name": "status code with plus",
+  "in_hex": "5349502f322e30202b323030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 +200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK"
+  }
+ },
+ {
+  "name": "status code negative",
+  "in_hex": "5349502f322e30202d31204261640d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 -1 Bad\""
+  },
+  "response": {
+   "ok": true,
+   "status": -1,
+   "reason": "Bad"
+  }
+ },
+ {
+  "name": "status code huge",
+  "in_hex": "5349502f322e30203939393939393939393939393939393939393939204269670d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 99999999999999999999 Big\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status code \"99999999999999999999\": strconv.Atoi: parsing \"99999999999999999999\": value out of range"
+  }
+ },
+ {
+  "name": "status code int64 max",
+  "in_hex": "5349502f322e302039323233333732303336383534373735383037204d61780d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 9223372036854775807 Max\""
+  },
+  "response": {
+   "ok": true,
+   "status": 9223372036854775807,
+   "reason": "Max"
+  }
+ },
+ {
+  "name": "status code non numeric",
+  "in_hex": "5349502f322e3020616263204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 abc OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status code \"abc\": strconv.Atoi: parsing \"abc\": invalid syntax"
+  }
+ },
+ {
+  "name": "status code with underscore",
+  "in_hex": "5349502f322e3020325f3030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 2_00 OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status code \"2_00\": strconv.Atoi: parsing \"2_00\": invalid syntax"
+  }
+ },
+ {
+  "name": "status double space",
+  "in_hex": "5349502f322e302020323030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0  200 OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status code \"\": strconv.Atoi: parsing \"\": invalid syntax"
+  }
+ },
+ {
+  "name": "status missing reason",
+  "in_hex": "5349502f322e30203230300d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"SIP/2.0 200\""
+  }
+ },
+ {
+  "name": "status trailing space reason empty",
+  "in_hex": "5349502f322e3020323030200d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 \""
+  },
+  "response": {
+   "ok": true,
+   "status": 200
+  }
+ },
+ {
+  "name": "status reason with spaces",
+  "in_hex": "5349502f322e302032303020416c6c20476f6f6420486572650d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 All Good Here\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "All Good Here"
+  }
+ },
+ {
+  "name": "status version prefix",
+  "in_hex": "5349502f322e3078797a20323030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0xyz 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK"
+  }
+ },
+ {
+  "name": "status wrong version",
+  "in_hex": "5349502f332e3020323030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/3.0 200 OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"SIP/3.0 200 OK\""
+  }
+ },
+ {
+  "name": "status lower case",
+  "in_hex": "7369702f322e3020323030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"sip/2.0 200 OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"sip/2.0 200 OK\""
+  }
+ },
+ {
+  "name": "status nbsp in code",
+  "in_hex": "5349502f322e302032c2a03030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 2\\u00a000 OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status code \"2\\u00a000\": strconv.Atoi: parsing \"2\\u00a000\": invalid syntax"
+  }
+ },
+ {
+  "name": "status tab separated",
+  "in_hex": "5349502f322e3009323030094f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0\\t200\\tOK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"SIP/2.0\\t200\\tOK\""
+  }
+ },
+ {
+  "name": "request extra tokens",
+  "in_hex": "494e56495445207369703a61205349502f322e302065787472612073747566660d0a0d0a",
+  "request": {
+   "ok": true,
+   "method": "INVITE",
+   "uri": "sip:a"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"INVITE sip:a SIP/2.0 extra stuff\""
+  }
+ },
+ {
+  "name": "request wrong version",
+  "in_hex": "494e56495445207369703a61205349502f332e300d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"INVITE sip:a SIP/3.0\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"INVITE sip:a SIP/3.0\""
+  }
+ },
+ {
+  "name": "request lower method",
+  "in_hex": "696e76697465207369703a61205349502f322e300d0a0d0a",
+  "request": {
+   "ok": true,
+   "method": "invite",
+   "uri": "sip:a"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"invite sip:a SIP/2.0\""
+  }
+ },
+ {
+  "name": "request empty method",
+  "in_hex": "207369703a61205349502f322e300d0a0d0a",
+  "request": {
+   "ok": true,
+   "uri": "sip:a"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \" sip:a SIP/2.0\""
+  }
+ },
+ {
+  "name": "request empty uri",
+  "in_hex": "494e5649544520205349502f322e300d0a0d0a",
+  "request": {
+   "ok": true,
+   "method": "INVITE"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"INVITE  SIP/2.0\""
+  }
+ },
+ {
+  "name": "request two parts",
+  "in_hex": "494e56495445207369703a610d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"INVITE sip:a\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"INVITE sip:a\""
+  }
+ },
+ {
+  "name": "request uri with spaces after version",
+  "in_hex": "4f5054494f4e53202a205349502f322e300d0a0d0a",
+  "request": {
+   "ok": true,
+   "method": "OPTIONS",
+   "uri": "*"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"OPTIONS * SIP/2.0\""
+  }
+ },
+ {
+  "name": "response as request shape",
+  "in_hex": "5349502f322e3020323030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK"
+  }
+ },
+ {
+  "name": "odd case names",
+  "in_hex": "5349502f322e3020323030204f4b0d0a7649613a2076310d0a43414c4c2d69643a20630d0a637365713a203120580d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "call-id": [
+     "c"
+    ],
+    "cseq": [
+     "1 X"
+    ],
+    "via": [
+     "v1"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "duplicate headers",
+  "in_hex": "5349502f322e3020323030204f4b0d0a5669613a2076310d0a5669613a2076320d0a7669613a2076330d0a43616c6c2d49443a20610d0a43616c6c2d49443a20620d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "call-id": [
+     "a",
+     "b"
+    ],
+    "via": [
+     "v1",
+     "v2",
+     "v3"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "compact forms",
+  "in_hex": "494e56495445207369703a61205349502f322e300d0a763a205349502f322e302f55445020683b6272616e63683d7a39684734624b630d0a663a203c7369703a6640683e3b7461673d310d0a743a203c7369703a7440683e0d0a693a2063616c6c310d0a6d3a203c7369703a6d40683e0d0a6c3a20300d0a0d0a0d0a",
+  "request": {
+   "ok": true,
+   "method": "INVITE",
+   "uri": "sip:a",
+   "headers": {
+    "f": [
+     "<sip:f@h>;tag=1"
+    ],
+    "i": [
+     "call1"
+    ],
+    "l": [
+     "0"
+    ],
+    "m": [
+     "<sip:m@h>"
+    ],
+    "t": [
+     "<sip:t@h>"
+    ],
+    "v": [
+     "SIP/2.0/UDP h;branch=z9hG4bKc"
+    ]
+   },
+   "body_hex": "0d0a"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"INVITE sip:a SIP/2.0\""
+  }
+ },
+ {
+  "name": "folded header continuation",
+  "in_hex": "5349502f322e3020323030204f4b0d0a5375626a6563743a2066697273740d0a20636f6e74696e7565640d0a096d6f72650d0a43616c6c2d49443a20780d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "call-id": [
+     "x"
+    ],
+    "subject": [
+     "first"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "folded value colon",
+  "in_hex": "5349502f322e3020323030204f4b0d0a5669613a20610d0a20623a20630d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "b": [
+     "c"
+    ],
+    "via": [
+     "a"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "header without colon",
+  "in_hex": "5349502f322e3020323030204f4b0d0a4e6f436f6c6f6e486572650d0a413a20310d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "1"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "header empty name",
+  "in_hex": "5349502f322e3020323030204f4b0d0a3a2076616c75650d0a413a20310d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "": [
+     "value"
+    ],
+    "a": [
+     "1"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "header empty value",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a0d0a423a202020200d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     ""
+    ],
+    "b": [
+     ""
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "header colon in value",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e746163743a203c7369703a6140623a353036303e3b783d793a7a0d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "contact": [
+     "<sip:a@b:5060>;x=y:z"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "header space before colon",
+  "in_hex": "5349502f322e3020323030204f4b0d0a43616c6c2d4944203a207370616365640d0a202050616464656420203a202020762020200d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "call-id": [
+     "spaced"
+    ],
+    "padded": [
+     "v"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "header unicode spaces",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413ac2a0e2808376616ce380800d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "val"
+    ]
+   }
+  }
+ },
+ {
+  "name": "header unicode upper name",
+  "in_hex": "5349502f322e3020323030204f4b0d0ac38442433a20780d0ac4b03a20790d0ace91cea33a207a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "i": [
+     "y"
+    ],
+    "äbc": [
+     "x"
+    ],
+    "ασ": [
+     "z"
+    ]
+   }
+  }
+ },
+ {
+  "name": "header name with spaces inside",
+  "in_hex": "5349502f322e3020323030204f4b0d0a4d79204865616465723a20760d0a0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "my header": [
+     "v"
+    ]
+   },
+   "body_hex": "0d0a"
+  }
+ },
+ {
+  "name": "header tab after colon",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a0976090d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "v"
+    ]
+   }
+  }
+ },
+ {
+  "name": "header nul byte",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a207600770d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "v\u0000w"
+    ]
+   }
+  }
+ },
+ {
+  "name": "header invalid utf8 value",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a2076fffe770d0a423a20e2820d0a0d0a",
+  "lossy_err": true,
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "v\ufffd\ufffdw"
+    ],
+    "b": [
+     "\ufffd\ufffd"
+    ]
+   }
+  }
+ },
+ {
+  "name": "header invalid utf8 name",
+  "in_hex": "5349502f322e3020323030204f4b0d0aff413a20760d0a0d0a",
+  "lossy_err": true,
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "�a": [
+     "v"
+    ]
+   }
+  }
+ },
+ {
+  "name": "status line invalid utf8",
+  "in_hex": "5349502f322e3020323030204fff4b0d0a0d0a",
+  "lossy_err": true,
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 O\\xffK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "O\ufffdK"
+  }
+ },
+ {
+  "name": "long header line",
+  "in_hex": "5349502f322e3020323030204f4b0d0a583a207878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878787878780d0a593a20310d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "x": [
+     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    ],
+    "y": [
+     "1"
+    ]
+   }
+  }
+ },
+ {
+  "name": "many headers",
+  "in_hex": "5349502f322e3020323030204f4b0d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a483a20760d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "h": [
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v",
+     "v"
+    ]
+   }
+  }
+ },
+ {
+  "name": "content-length zero with body",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e74656e742d4c656e6774683a20300d0a0d0a657874726120626f6479",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-length": [
+     "0"
+    ]
+   },
+   "body_hex": "657874726120626f6479"
+  }
+ },
+ {
+  "name": "content-length larger than body",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e74656e742d4c656e6774683a203530300d0a0d0a73686f7274",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-length": [
+     "500"
+    ]
+   },
+   "body_hex": "73686f7274"
+  }
+ },
+ {
+  "name": "content-length smaller than body",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e74656e742d4c656e6774683a20320d0a0d0a6c6f6e67657220626f6479",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-length": [
+     "2"
+    ]
+   },
+   "body_hex": "6c6f6e67657220626f6479"
+  }
+ },
+ {
+  "name": "content-length negative",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e74656e742d4c656e6774683a202d350d0a0d0a62",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-length": [
+     "-5"
+    ]
+   },
+   "body_hex": "62"
+  }
+ },
+ {
+  "name": "content-length non numeric",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e74656e742d4c656e6774683a206162630d0a0d0a62",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-length": [
+     "abc"
+    ]
+   },
+   "body_hex": "62"
+  }
+ },
+ {
+  "name": "content-length huge",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e74656e742d4c656e6774683a2039393939393939393939393939393939393939390d0a0d0a62",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-length": [
+     "99999999999999999999"
+    ]
+   },
+   "body_hex": "62"
+  }
+ },
+ {
+  "name": "content-length duplicated",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e74656e742d4c656e6774683a20310d0a6c3a20320d0a0d0a62",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-length": [
+     "1"
+    ],
+    "l": [
+     "2"
+    ]
+   },
+   "body_hex": "62"
+  }
+ },
+ {
+  "name": "no content-length",
+  "in_hex": "5349502f322e3020323030204f4b0d0a413a20310d0a0d0a626f6479",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "a": [
+     "1"
+    ]
+   },
+   "body_hex": "626f6479"
+  }
+ },
+ {
+  "name": "big body",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e74656e742d4c656e6774683a2031363030300d0a0d0a41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-length": [
+     "16000"
+    ]
+   },
+   "body_hex": "41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141"
+  }
+ },
+ {
+  "name": "big body request",
+  "in_hex": "4d455353414745207369703a61205349502f322e300d0a436f6e74656e742d4c656e6774683a2031363030300d0a0d0a41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141",
+  "request": {
+   "ok": true,
+   "method": "MESSAGE",
+   "uri": "sip:a",
+   "headers": {
+    "content-length": [
+     "16000"
+    ]
+   },
+   "body_hex": "41414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"MESSAGE sip:a SIP/2.0\""
+  }
+ },
+ {
+  "name": "binary body",
+  "in_hex": "5349502f322e3020323030204f4b0d0a0d0a0001fffe0d0a0d0a",
+  "lossy_err": true,
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "body_hex": "0001fffe0d0a0d0a"
+  }
+ },
+ {
+  "name": "body starts with crlf",
+  "in_hex": "5349502f322e3020323030204f4b0d0a0d0a0d0a0d0a626f6479",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "body_hex": "0d0a0d0a626f6479"
+  }
+ },
+ {
+  "name": "sdp body",
+  "in_hex": "5349502f322e3020323030204f4b0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f7364700d0a0d0a763d300d0a6f3d2d2030203020494e204950342031302e302e302e310d0a733d2d0d0a633d494e204950342031302e302e302e310d0a743d3020300d0a6d3d617564696f2034303030205254502f41565020300d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "headers": {
+    "content-type": [
+     "application/sdp"
+    ]
+   },
+   "body_hex": "763d300d0a6f3d2d2030203020494e204950342031302e302e302e310d0a733d2d0d0a633d494e204950342031302e302e302e310d0a743d3020300d0a6d3d617564696f2034303030205254502f41565020300d0a"
+  }
+ },
+ {
+  "name": "utf8 body",
+  "in_hex": "5349502f322e3020323030204f4b0d0a0d0ac3a9e4b8adf09f9880",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": true,
+   "status": 200,
+   "reason": "OK",
+   "body_hex": "c3a9e4b8adf09f9880"
+  }
+ },
+ {
+  "name": "status line with quote",
+  "in_hex": "5349502f322e30202232303022204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 \\\"200\\\" OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status code \"\\\"200\\\"\": strconv.Atoi: parsing \"\\\"200\\\"\": invalid syntax"
+  }
+ },
+ {
+  "name": "status line with backslash",
+  "in_hex": "5349502f322e3020325c3030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 2\\\\00 OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status code \"2\\\\00\": strconv.Atoi: parsing \"2\\\\00\": invalid syntax"
+  }
+ },
+ {
+  "name": "status line with control",
+  "in_hex": "5349502f322e302032073030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"SIP/2.0 2\\a00 OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status code \"2\\a00\": strconv.Atoi: parsing \"2\\a00\": invalid syntax"
+  }
+ },
+ {
+  "name": "garbage text",
+  "in_hex": "68656c6c6f20776f726c640d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"hello world\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"hello world\""
+  }
+ },
+ {
+  "name": "garbage binary",
+  "in_hex": "00010203",
+  "request": {
+   "ok": false,
+   "err": "sip: reading request line: EOF"
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: reading status line: EOF"
+  }
+ },
+ {
+  "name": "http response",
+  "in_hex": "485454502f312e3120323030204f4b0d0a436f6e74656e742d4c656e6774683a20300d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"HTTP/1.1 200 OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"HTTP/1.1 200 OK\""
+  }
+ },
+ {
+  "name": "leading blank line",
+  "in_hex": "0d0a5349502f322e3020323030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \"\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \"\""
+  }
+ },
+ {
+  "name": "leading spaces status",
+  "in_hex": "205349502f322e3020323030204f4b0d0a0d0a",
+  "request": {
+   "ok": false,
+   "err": "sip: malformed request line \" SIP/2.0 200 OK\""
+  },
+  "response": {
+   "ok": false,
+   "err": "sip: malformed status line \" SIP/2.0 200 OK\""
+  }
+ }
+]

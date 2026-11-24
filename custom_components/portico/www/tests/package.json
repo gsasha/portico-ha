@@ -1,0 +1,9 @@
+{
+  "name": "portico-card-tests",
+  "private": true,
+  "type": "module",
+  "description": "Protocol-level tests for portico-card.js (§9.7) — state transitions and the exact WebRTC signaling message sequence sent over hass.connection, with RTCPeerConnection/getUserMedia mocked. Run with: npm install && node test_card.mjs. Does NOT verify rendering/styling in a real browser or a real Home Assistant frontend — that has no automated coverage here, flagged rather than assumed correct.",
+  "devDependencies": {
+    "jsdom": "^25.0.0"
+  }
+}

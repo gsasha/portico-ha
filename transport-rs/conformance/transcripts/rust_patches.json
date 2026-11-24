@@ -1,0 +1,143 @@
+[
+ {
+  "id": "standalone-1",
+  "group": "standalone",
+  "differences": [
+   "DIFF-STANDALONE-LOG-LINES"
+  ],
+  "at": 41,
+  "go": [
+   "  process output: '<TIME> gate_sip_server: SIP on 127.0.0.1:<SIPPORT>, RTP on :<RTP>, realm \"VDP\", user \"8001\", ring limit 45s, orphan grace 15s\\n'"
+  ],
+  "rust": [
+   "  process output: '<TIME> gate_sip_server: SIP on 127.0.0.1:<SIPPORT>, RTP on :<RTP>, realm \"VDP\", user \"8001\", ring limit 45s, orphan grace 15s\\nportico-transport: ipc: refused a TCP connection from 127.0.0.1: no valid auth line\\n'"
+  ]
+ },
+ {
+  "id": "standalone-2",
+  "group": "standalone",
+  "differences": [
+   "DIFF-STANDALONE-LOG-LINES"
+  ],
+  "at": 49,
+  "go": [
+   "  process output: '<TIME> gate_sip_server: SIP on 127.0.0.1:<SIPPORT>, RTP on :<RTP>, realm \"VDP\", user \"8001\", ring limit 45s, orphan grace 15s\\n'"
+  ],
+  "rust": [
+   "  process output: 'portico-transport: warning: the -secrets-env file is readable by group or others (mode 0644); restrict it to its owner\\n<TIME> gate_sip_server: SIP on 127.0.0.1:<SIPPORT>, RTP on :<RTP>, realm \"VDP\", user \"8001\", ring limit 45s, orphan grace 15s\\nportico-transport: ipc: refused a TCP connection from 127.0.0.1: no valid auth line\\n'"
+  ]
+ },
+ {
+  "id": "standalone-3",
+  "group": "standalone",
+  "differences": [
+   "DIFF-STANDALONE-ENV-MODE-WARNING"
+  ],
+  "at": 94,
+  "go": [],
+  "rust": [
+   "  | portico-transport: warning: the -secrets-env file is readable by group or others (mode 0644); restrict it to its owner"
+  ]
+ },
+ {
+  "id": "webrtc-1",
+  "group": "webrtc",
+  "differences": [
+   "DIFF-WEBRTC-FAILED-OFFER-SESSION"
+  ],
+  "at": 26,
+  "go": [
+   "  {\"error_code\": \"webrtc_failed\", \"id\": 9, \"ok\": false}"
+  ],
+  "rust": [
+   "  {\"error_code\": \"unknown_session\", \"id\": 9, \"ok\": false}"
+  ]
+ },
+ {
+  "id": "webrtc-2",
+  "group": "webrtc",
+  "differences": [
+   "DIFF-WEBRTC-FAILED-OFFER-SESSION"
+  ],
+  "at": 28,
+  "go": [
+   "  {\"error_code\": \"webrtc_failed\", \"id\": 10, \"ok\": false}"
+  ],
+  "rust": [
+   "  {\"error_code\": \"unknown_session\", \"id\": 10, \"ok\": false}"
+  ]
+ },
+ {
+  "id": "webrtc-3",
+  "group": "webrtc",
+  "differences": [
+   "DIFF-WEBRTC-FAILED-OFFER-SESSION"
+  ],
+  "at": 30,
+  "go": [
+   "  {\"error_code\": \"webrtc_failed\", \"id\": 11, \"ok\": false}"
+  ],
+  "rust": [
+   "  {\"error_code\": \"unknown_session\", \"id\": 11, \"ok\": false}"
+  ]
+ },
+ {
+  "id": "webrtc-4",
+  "group": "webrtc",
+  "differences": [
+   "DIFF-WEBRTC-FAILED-OFFER-SESSION"
+  ],
+  "at": 32,
+  "go": [
+   "  {\"error_code\": \"webrtc_failed\", \"id\": 12, \"ok\": false}"
+  ],
+  "rust": [
+   "  {\"error_code\": \"unknown_session\", \"id\": 12, \"ok\": false}"
+  ]
+ },
+ {
+  "id": "webrtc-5",
+  "group": "webrtc",
+  "differences": [
+   "DIFF-WEBRTC-SETUP"
+  ],
+  "at": 42,
+  "go": [
+   "  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: ['a=setup:active']; rtcp-mux: True"
+  ],
+  "rust": [
+   "  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: ['a=setup:passive']; rtcp-mux: True"
+  ]
+ },
+ {
+  "id": "webrtc-6",
+  "group": "webrtc",
+  "differences": [
+   "DIFF-WEBRTC-RTPMAP",
+   "DIFF-WEBRTC-SETUP"
+  ],
+  "at": 47,
+  "go": [
+   "  rtpmap: ['a=rtpmap:0 PCMU/8000', 'a=rtpmap:9 G722/8000/1']",
+   "  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: ['a=setup:active']; rtcp-mux: True"
+  ],
+  "rust": [
+   "  rtpmap: ['a=rtpmap:0 PCMU/8000', 'a=rtpmap:9 G722/8000']",
+   "  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: ['a=setup:passive']; rtcp-mux: True"
+  ]
+ },
+ {
+  "id": "webrtc-7",
+  "group": "webrtc",
+  "differences": [
+   "DIFF-WEBRTC-SETUP"
+  ],
+  "at": 54,
+  "go": [
+   "  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: ['a=setup:active']; rtcp-mux: True"
+  ],
+  "rust": [
+   "  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: ['a=setup:passive']; rtcp-mux: True"
+  ]
+ }
+]

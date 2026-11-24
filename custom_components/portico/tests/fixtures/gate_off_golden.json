@@ -1,0 +1,419 @@
+{
+  "dials": 0,
+  "document_endpoints": [
+    {
+      "available": true,
+      "cameras": [],
+      "ha_user_id": "user-alice-phone-user",
+      "id": "ep-alice",
+      "kind": "phone",
+      "label": "Alice's phone",
+      "name": "Alice's phone",
+      "reason": null,
+      "room": null
+    },
+    {
+      "available": true,
+      "cameras": [],
+      "ha_user_id": "user-kitchen-tablet-user",
+      "id": "kitchen",
+      "kind": "dashboard",
+      "label": "Kitchen tablet",
+      "name": "Kitchen tablet",
+      "reason": null,
+      "room": "Kitchen"
+    },
+    {
+      "available": true,
+      "cameras": [
+        "camera.gate"
+      ],
+      "ha_user_id": null,
+      "id": "fake:gate-1",
+      "kind": "door",
+      "label": "Gate",
+      "name": "Gate",
+      "reason": null,
+      "room": null
+    }
+  ],
+  "get_phone": {
+    "id": 1,
+    "result": {
+      "callers": {
+        "*": {
+          "call_buttons": [],
+          "cameras": [],
+          "kind": null,
+          "name": null,
+          "ring_buttons": []
+        },
+        "fake:gate-1": {
+          "call_buttons": [
+            {
+              "available": true,
+              "confirm": true,
+              "device_id": "fake:gate-1",
+              "id": "open-door",
+              "kind": "portico_open",
+              "label": "Open the door",
+              "name": "Gate"
+            }
+          ],
+          "cameras": [
+            {
+              "available": true,
+              "id": "c-30102768d913",
+              "label": "Gate",
+              "name": "Gate camera"
+            }
+          ],
+          "kind": "door",
+          "name": "Gate",
+          "ring_buttons": [
+            {
+              "available": true,
+              "confirm": true,
+              "device_id": "fake:gate-1",
+              "id": "open-door",
+              "kind": "portico_open",
+              "label": "Open the door",
+              "name": "Gate"
+            }
+          ]
+        },
+        "kitchen": {
+          "call_buttons": [],
+          "cameras": [],
+          "kind": "dashboard",
+          "name": "Kitchen tablet",
+          "ring_buttons": []
+        }
+      },
+      "endpoint": "ep-alice",
+      "kind": "phone",
+      "pages": [
+        {
+          "blocks": [
+            {
+              "actions": [
+                {
+                  "available": true,
+                  "confirm": true,
+                  "device_id": "fake:gate-1",
+                  "id": "open-door",
+                  "kind": "portico_open",
+                  "label": "Open the door",
+                  "name": "Gate"
+                },
+                {
+                  "available": true,
+                  "color": "red",
+                  "confirm": true,
+                  "entity_id": "lock.gate",
+                  "icon": "lock-open-variant",
+                  "id": "unlock",
+                  "kind": "lock_unlock",
+                  "label": "Unlock",
+                  "name": "lock.gate",
+                  "show_label": false
+                },
+                {
+                  "available": false,
+                  "confirm": false,
+                  "id": "talk",
+                  "kind": "talk",
+                  "label": "Talk",
+                  "name": "Talk",
+                  "reason": "talk_off"
+                },
+                {
+                  "available": true,
+                  "confirm": false,
+                  "entity_id": "scene.evening",
+                  "id": "evening",
+                  "kind": "scene_activate",
+                  "label": "Evening",
+                  "name": "scene.evening"
+                },
+                {
+                  "available": false,
+                  "confirm": false,
+                  "id": "call-gate",
+                  "kind": "call",
+                  "label": "Gate",
+                  "name": "Gate",
+                  "reason": "not_available",
+                  "target": {
+                    "id": "fake:gate-1",
+                    "type": "door"
+                  },
+                  "target_state": {
+                    "available": false,
+                    "label": "Gate",
+                    "reason": "not_available"
+                  }
+                }
+              ],
+              "cameras": [
+                {
+                  "available": true,
+                  "entity_id": "camera.gate",
+                  "id": "gate",
+                  "label": "Gate",
+                  "name": "Gate camera",
+                  "size": "big"
+                },
+                {
+                  "available": true,
+                  "entity_id": "camera.yard",
+                  "id": "yard",
+                  "label": "Yard",
+                  "name": "camera.yard",
+                  "size": "big"
+                },
+                {
+                  "available": true,
+                  "entity_id": "camera.side",
+                  "id": "side",
+                  "label": "Side",
+                  "name": "camera.side",
+                  "size": "small"
+                }
+              ],
+              "door": "fake:gate-1",
+              "door_available": true,
+              "id": "entrance",
+              "title": "Entrance"
+            }
+          ],
+          "id": "home",
+          "label": "Home"
+        }
+      ],
+      "rev": "e8c6c419dc18",
+      "roster": [
+        {
+          "action_id": "r-3171d89ad005",
+          "available": false,
+          "id": "kitchen",
+          "kind": "dashboard",
+          "name": "Kitchen tablet",
+          "reason": "not_available"
+        },
+        {
+          "action_id": "r-6d5d27fd9118",
+          "available": false,
+          "id": "fake:gate-1",
+          "kind": "door",
+          "name": "Gate",
+          "reason": "not_available"
+        }
+      ]
+    },
+    "success": true,
+    "type": "result"
+  },
+  "get_screen": {
+    "id": 1,
+    "result": {
+      "callers": {
+        "*": {
+          "call_buttons": [],
+          "cameras": [],
+          "kind": null,
+          "name": null,
+          "ring_buttons": []
+        },
+        "ep-alice": {
+          "call_buttons": [],
+          "cameras": [],
+          "kind": "phone",
+          "name": "Alice's phone",
+          "ring_buttons": []
+        },
+        "fake:gate-1": {
+          "call_buttons": [
+            {
+              "available": true,
+              "confirm": true,
+              "device_id": "fake:gate-1",
+              "id": "open-door",
+              "kind": "portico_open",
+              "label": "Open the door",
+              "name": "Gate"
+            }
+          ],
+          "cameras": [
+            {
+              "available": true,
+              "id": "c-30102768d913",
+              "label": "Gate",
+              "name": "Gate camera"
+            }
+          ],
+          "kind": "door",
+          "name": "Gate",
+          "ring_buttons": [
+            {
+              "available": true,
+              "confirm": true,
+              "device_id": "fake:gate-1",
+              "id": "open-door",
+              "kind": "portico_open",
+              "label": "Open the door",
+              "name": "Gate"
+            }
+          ]
+        }
+      },
+      "endpoint": "kitchen",
+      "kind": "dashboard",
+      "pages": [
+        {
+          "blocks": [
+            {
+              "actions": [
+                {
+                  "available": true,
+                  "confirm": true,
+                  "device_id": "fake:gate-1",
+                  "id": "open-door",
+                  "kind": "portico_open",
+                  "label": "Open the door",
+                  "name": "Gate"
+                },
+                {
+                  "available": true,
+                  "color": "red",
+                  "confirm": true,
+                  "entity_id": "lock.gate",
+                  "icon": "lock-open-variant",
+                  "id": "unlock",
+                  "kind": "lock_unlock",
+                  "label": "Unlock",
+                  "name": "lock.gate",
+                  "show_label": false
+                },
+                {
+                  "available": false,
+                  "confirm": false,
+                  "id": "talk",
+                  "kind": "talk",
+                  "label": "Talk",
+                  "name": "Talk",
+                  "reason": "phone_only"
+                },
+                {
+                  "available": true,
+                  "confirm": false,
+                  "entity_id": "scene.evening",
+                  "id": "evening",
+                  "kind": "scene_activate",
+                  "label": "Evening",
+                  "name": "scene.evening"
+                },
+                {
+                  "available": false,
+                  "confirm": false,
+                  "id": "call-gate",
+                  "kind": "call",
+                  "label": "Gate",
+                  "name": "Gate",
+                  "reason": "not_available",
+                  "target": {
+                    "id": "fake:gate-1",
+                    "type": "door"
+                  },
+                  "target_state": {
+                    "available": false,
+                    "label": "Gate",
+                    "reason": "not_available"
+                  }
+                }
+              ],
+              "cameras": [
+                {
+                  "available": true,
+                  "entity_id": "camera.gate",
+                  "id": "gate",
+                  "label": "Gate",
+                  "name": "Gate camera",
+                  "size": "big"
+                },
+                {
+                  "available": true,
+                  "entity_id": "camera.yard",
+                  "id": "yard",
+                  "label": "Yard",
+                  "name": "camera.yard",
+                  "size": "big"
+                },
+                {
+                  "available": true,
+                  "entity_id": "camera.side",
+                  "id": "side",
+                  "label": "Side",
+                  "name": "camera.side",
+                  "size": "small"
+                }
+              ],
+              "door": "fake:gate-1",
+              "door_available": true,
+              "id": "entrance",
+              "title": "Entrance"
+            }
+          ],
+          "id": "home",
+          "label": "Home"
+        }
+      ],
+      "rev": "e9289fb45397",
+      "roster": [
+        {
+          "action_id": "r-bdd49bbfc6f4",
+          "available": false,
+          "id": "ep-alice",
+          "kind": "phone",
+          "name": "Alice's phone",
+          "reason": "not_available"
+        },
+        {
+          "action_id": "r-6d5d27fd9118",
+          "available": false,
+          "id": "fake:gate-1",
+          "kind": "door",
+          "name": "Gate",
+          "reason": "not_available"
+        }
+      ]
+    },
+    "success": true,
+    "type": "result"
+  },
+  "house_picker": [
+    [
+      "dashboard",
+      "kitchen"
+    ]
+  ],
+  "house_roster_rev": "ef4136c2e19a",
+  "run_button": {
+    "error": {
+      "code": "not_available",
+      "message": "this Home Assistant cannot place that call yet"
+    },
+    "id": 2,
+    "success": false,
+    "type": "result"
+  },
+  "run_roster_key": {
+    "error": {
+      "code": "not_available",
+      "message": "this Home Assistant cannot place that call yet"
+    },
+    "id": 3,
+    "success": false,
+    "type": "result"
+  }
+}

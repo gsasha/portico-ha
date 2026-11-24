@@ -1,0 +1,34 @@
+{
+  "phone_frames": [
+    {
+      "type": "talk_state",
+      "door_id": "http://gate-sip.example:8091",
+      "call_id": null,
+      "state": "dialing"
+    },
+    {
+      "type": "talk_state",
+      "door_id": "http://gate-sip.example:8091",
+      "call_id": "out-0123456789abcdef",
+      "state": "in_call"
+    },
+    {
+      "result": {
+        "ran": true,
+        "call_id": "out-0123456789abcdef",
+        "media": null
+      }
+    },
+    {
+      "type": "talk_state",
+      "door_id": "http://gate-sip.example:8091",
+      "call_id": "out-0123456789abcdef",
+      "state": "ended"
+    }
+  ],
+  "other_phone_frames": [],
+  "bus": [],
+  "sensor": [],
+  "push": [],
+  "gate": "http://gate-sip.example:8091"
+}

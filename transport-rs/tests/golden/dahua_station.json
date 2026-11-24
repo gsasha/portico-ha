@@ -1,0 +1,2025 @@
+[
+ {
+  "name": "register: available once, a clean Expires: 0 before Stop returns",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "step",
+    "ms": 200
+   },
+   {
+    "op": "stop"
+   },
+   {
+    "op": "step",
+    "ms": 100
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   {
+    "events": [],
+    "msgs": []
+   },
+   {
+    "deregisters": 1,
+    "err": "",
+    "registers": 1
+   },
+   {
+    "events": [],
+    "msgs": []
+   }
+  ]
+ },
+ {
+  "name": "register: 403 is definitive: unavailable once, then a driver_error",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "set",
+    "call": "reg",
+    "a": "403"
+   },
+   {
+    "op": "start"
+   },
+   {
+    "op": "step",
+    "ms": 900
+   },
+   {
+    "op": "stop"
+   }
+  ],
+  "results": [
+   null,
+   {
+    "err": ""
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|false|sip: registration rejected (authentication failed or forbidden): 403 Forbidden",
+     "error|127.0.0.1|registration_failed|sip: registration rejected (authentication failed or forbidden): 403 Forbidden"
+    ],
+    "msgs": []
+   },
+   {
+    "deregisters": 0,
+    "err": "",
+    "registers": 0
+   }
+  ]
+ },
+ {
+  "name": "register: 486 quota is definitive: unavailable once, then a driver_error",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "set",
+    "call": "reg",
+    "a": "486"
+   },
+   {
+    "op": "start"
+   },
+   {
+    "op": "step",
+    "ms": 900
+   },
+   {
+    "op": "stop"
+   }
+  ],
+  "results": [
+   null,
+   {
+    "err": ""
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|false|sip: 486 Busy Here (session quota exhausted)",
+     "error|127.0.0.1|registration_failed|sip: 486 Busy Here (session quota exhausted)"
+    ],
+    "msgs": []
+   },
+   {
+    "deregisters": 0,
+    "err": "",
+    "registers": 0
+   }
+  ]
+ },
+ {
+  "name": "register: a silent device does not hang Stop",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "set",
+    "call": "reg",
+    "a": "silent"
+   },
+   {
+    "op": "start"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   },
+   {
+    "op": "stop"
+   }
+  ],
+  "results": [
+   null,
+   {
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": []
+   },
+   {
+    "deregisters": 0,
+    "err": "",
+    "registers": 0
+   }
+  ]
+ },
+ {
+  "name": "stop twice is fine",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "stop"
+   },
+   {
+    "op": "stop"
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   {
+    "deregisters": 1,
+    "err": "",
+    "registers": 1
+   },
+   {
+    "deregisters": 1,
+    "err": "close udp 127.0.0.1:<P>->127.0.0.1:<P>: use of closed network connection",
+    "registers": 1
+   }
+  ]
+ },
+ {
+  "name": "ring: 180 with a tag, the retransmit is deduped, the answer keeps the tag, a late retransmit is ignored, BYE ends it",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "pending_ring_for",
+    "call": "ring-other"
+   },
+   {
+    "op": "answer",
+    "host": "127.0.0.1",
+    "port": 5000
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "BYE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKbye1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=b\r\nCall-ID: ring-1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "answer",
+    "host": "127.0.0.1",
+    "port": 5000
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "has": false
+   },
+   {
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 135\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 5000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "state|ring-1|ended"
+    ],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKbye1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=b\r\nCall-ID: ring-1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "err": "dahua_sip: Answer called with no call ringing"
+   }
+  ]
+ },
+ {
+  "name": "ring: CANCEL answers 200 and 487, ends the ring; a second CANCEL is 481 and silent",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "CANCEL sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   },
+   {
+    "op": "pending_ring"
+   },
+   {
+    "op": "answer",
+    "host": "127.0.0.1",
+    "port": 5000
+   },
+   {
+    "op": "send",
+    "raw": "CANCEL sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [
+     "state|ring-1|ended"
+    ],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n",
+     "SIP/2.0 487 Request Terminated\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "has": false
+   },
+   {
+    "err": "dahua_sip: Answer called with no call ringing"
+   },
+   null,
+   {
+    "events": [],
+    "msgs": [
+     "SIP/2.0 481 Call/Transaction Does Not Exist\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [],
+    "msgs": []
+   }
+  ]
+ },
+ {
+  "name": "ring: an INVITE with no Call-ID header on a fresh driver is not a ring (the empty id equals the empty ring id)",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKnocid\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   },
+   {
+    "op": "pending_ring"
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "pending_ring_for",
+    "call": "ring-1"
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [],
+    "msgs": []
+   },
+   {
+    "has": false
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "call_id": "ring-1",
+    "has": true,
+    "to_tag_set": true
+   }
+  ]
+ },
+ {
+  "name": "ring: an INVITE retransmit after the CANCEL is ignored (no second ring)",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "CANCEL sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   },
+   {
+    "op": "pending_ring"
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [
+     "state|ring-1|ended"
+    ],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n",
+     "SIP/2.0 487 Request Terminated\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [],
+    "msgs": []
+   },
+   {
+    "has": false
+   }
+  ]
+ },
+ {
+  "name": "ring: a CANCEL for another call changes nothing and is 481",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "CANCEL sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv2\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-2\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "pending_ring_for",
+    "call": "ring-1"
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [],
+    "msgs": [
+     "SIP/2.0 481 Call/Transaction Does Not Exist\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv2\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-2\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "call_id": "ring-1",
+    "has": true,
+    "to_tag_set": true
+   }
+  ]
+ },
+ {
+  "name": "ring: BYE of the ringing call drops it; BYE of another call leaves it; the call rings again after",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "BYE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKbye9\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=b\r\nCall-ID: x-9\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "pending_ring_for",
+    "call": "zzz"
+   },
+   {
+    "op": "send",
+    "raw": "BYE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKbye1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=b\r\nCall-ID: ring-1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "pending_ring"
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "pending_ring_for",
+    "call": "ring-1"
+   },
+   {
+    "op": "pending_ring"
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [
+     "state|x-9|ended"
+    ],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKbye9\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=b\r\nCall-ID: x-9\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "has": false
+   },
+   null,
+   {
+    "events": [
+     "state|ring-1|ended"
+    ],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKbye1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=b\r\nCall-ID: ring-1\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "has": false
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T2>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "call_id": "ring-1",
+    "has": true,
+    "to_tag_set": true
+   },
+   {
+    "has": false
+   }
+  ]
+ },
+ {
+  "name": "ring: taken by an offer (PendingRingFor), then CANCEL is 481 and ended is never reported",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "pending_ring_for",
+    "call": "ring-1"
+   },
+   {
+    "op": "send",
+    "raw": "CANCEL sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "call_id": "ring-1",
+    "has": true,
+    "to_tag_set": true
+   },
+   null,
+   {
+    "events": [],
+    "msgs": [
+     "SIP/2.0 481 Call/Transaction Does Not Exist\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 CANCEL\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "ring: PendingRing takes whichever ring is there, once",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv7\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-7\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "pending_ring"
+   },
+   {
+    "op": "pending_ring"
+   },
+   {
+    "op": "answer",
+    "host": "127.0.0.1",
+    "port": 5000
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-7|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv7\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-7\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "call_id": "ring-7",
+    "has": true,
+    "to_tag_set": true
+   },
+   {
+    "has": false
+   },
+   {
+    "err": "dahua_sip: Answer called with no call ringing"
+   }
+  ]
+ },
+ {
+  "name": "ring: two calls in a row, the second INVITE replaces the first ring",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv2\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-2\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "pending_ring_for",
+    "call": "ring-1"
+   },
+   {
+    "op": "pending_ring_for",
+    "call": "ring-2"
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-2|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv2\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T2>\r\nCall-ID: ring-2\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "has": false
+   },
+   {
+    "call_id": "ring-2",
+    "has": true,
+    "to_tag_set": true
+   }
+  ]
+ },
+ {
+  "name": "ring: an INVITE without SDP rings, and Answer then fails on the missing SDP",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "answer",
+    "host": "127.0.0.1",
+    "port": 5000
+   },
+   {
+    "op": "pending_ring"
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "err": "dahua_sip: Answer: sip: parsing INVITE SDP: sip: SDP missing connection address or audio port"
+   },
+   {
+    "has": false
+   }
+  ]
+ },
+ {
+  "name": "ring: the INVITE retransmit after an answer is ignored; a BYE with no call is answered and reported",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "answer",
+    "host": "10.0.0.5",
+    "port": 6000
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 87\r\n\r\nv=0\r\no=- 1 1 IN IP4 127.0.0.1\r\ns=-\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 4000 RTP/AVP 0\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "send",
+    "raw": "BYE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKbye2\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=b\r\nCall-ID: never-rang\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "ringing|ring-1|127.0.0.1"
+    ],
+    "msgs": [
+     "SIP/2.0 180 Ringing\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKinv1\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=<T1>\r\nCall-ID: ring-1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 133\r\n\r\nv=0\r\no=portico 0 0 IN IP4 10.0.0.5\r\ns=portico\r\nc=IN IP4 10.0.0.5\r\nt=0 0\r\nm=audio 6000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [],
+    "msgs": []
+   },
+   null,
+   {
+    "events": [
+     "state|never-rang|ended"
+    ],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKbye2\r\nFrom: <sip:vto@127.0.0.1>;tag=a\r\nTo: <sip:8001@127.0.0.1>;tag=b\r\nCall-ID: never-rang\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "ring: Answer with no ring, PendingRing with none",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "answer",
+    "host": "127.0.0.1",
+    "port": 5000
+   },
+   {
+    "op": "pending_ring"
+   },
+   {
+    "op": "pending_ring_for",
+    "call": "a"
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   {
+    "err": "dahua_sip: Answer called with no call ringing"
+   },
+   {
+    "has": false
+   },
+   {
+    "has": false
+   }
+  ]
+ },
+ {
+  "name": "OpenRelay is refused with Go's text",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "open_relay"
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   {
+    "err": "dahua_sip: OpenRelay not implemented — its real protocol for this driver (in-dialog SIP INFO vs. Dahua's own HTTP RPC2 API) needs checking against the estate's existing gate-sip/bell-talk implementation before building it, not guessing (Phase 1 follow-up)"
+   }
+  ]
+ },
+ {
+  "name": "dial: the device answers 200, ACK; its BYE ends the call and is reported with our Call-ID",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "set",
+    "call": "inv",
+    "a": "200"
+   },
+   {
+    "op": "dial_bg",
+    "call": "d1",
+    "host": "127.0.0.1",
+    "port": 6000
+   },
+   {
+    "op": "dial_result",
+    "ms": 3000,
+    "call": "d1"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   },
+   {
+    "op": "send",
+    "raw": "BYE sip:8001@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKdbye\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:8001#1@127.0.0.1>\r\nCall-ID: {{CALLID}}\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   null,
+   {
+    "done": true,
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "INVITE sip:8001#1@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:8001#1@127.0.0.1>;tag=<T1>\r\nTo: <sip:8001#1@127.0.0.1>\r\nCall-ID: <C1>\r\nCSeq: 1 INVITE\r\nContact: <sip:8001#1@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 135\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 6000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+     "ACK sip:8001#1@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B2>\r\nMax-Forwards: 70\r\nFrom: <sip:8001#1@127.0.0.1>;tag=<T1>\r\nTo: <sip:8001#1@127.0.0.1>;tag=devicetag\r\nCall-ID: <C1>\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   null,
+   {
+    "events": [
+     "state|<C1>|ended"
+    ],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKdbye\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:8001#1@127.0.0.1>\r\nCall-ID: <C1>\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "dial: the device refuses 486, the error carries its text, the refusal is ACKed",
+  "kind": "driver",
+  "cfg": {
+   "host": "127.0.0.1",
+   "sip_password": "pw",
+   "sip_user": "8001#1"
+  },
+  "ops": [
+   {
+    "op": "start"
+   },
+   {
+    "op": "wait_registered",
+    "ms": 4000
+   },
+   {
+    "op": "step",
+    "ms": 100
+   },
+   {
+    "op": "set",
+    "call": "inv",
+    "a": "486"
+   },
+   {
+    "op": "dial_bg",
+    "call": "d1",
+    "host": "127.0.0.1",
+    "port": 6000
+   },
+   {
+    "op": "dial_result",
+    "ms": 3000,
+    "call": "d1"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   {
+    "err": ""
+   },
+   {
+    "registered": true
+   },
+   {
+    "events": [
+     "avail|127.0.0.1|true|"
+    ],
+    "msgs": []
+   },
+   null,
+   null,
+   {
+    "done": true,
+    "err": "dahua_sip: Dial: sip: INVITE failed: 486 Busy Here"
+   },
+   {
+    "events": [],
+    "msgs": [
+     "INVITE sip:8001#1@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:8001#1@127.0.0.1>;tag=<T1>\r\nTo: <sip:8001#1@127.0.0.1>\r\nCall-ID: <C1>\r\nCSeq: 1 INVITE\r\nContact: <sip:8001#1@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 135\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio 6000 RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+     "ACK sip:8001#1@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:8001#1@127.0.0.1>;tag=<T1>\r\nTo: <sip:8001#1@127.0.0.1>;tag=<T2>\r\nCall-ID: <C1>\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "relay: DialDevice with a configured host offers it; Close ends the call with a BYE",
+  "kind": "relay",
+  "mask_media": true,
+  "ops": [
+   {
+    "op": "relay_start"
+   },
+   {
+    "op": "set",
+    "call": "inv",
+    "a": "200"
+   },
+   {
+    "op": "relay_dial",
+    "host": "192.168.2.77",
+    "a": "portico",
+    "b": "9901#0"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "relay_close"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   null,
+   null,
+   {
+    "audio_open": true,
+    "call_id_set": true,
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C1>\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 142\r\n\r\nv=0\r\no=portico 0 0 IN IP4 192.168.2.77\r\ns=portico\r\nc=IN IP4 192.168.2.77\r\nt=0 0\r\nm=audio <MP> RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+     "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B2>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>;tag=<T2>\r\nCall-ID: <C1>\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B3>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:127.0.0.1>;tag=<T2>\r\nCall-ID: <C1>\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "relay: DialDevice with no host offers the routed address",
+  "kind": "relay",
+  "mask_media": true,
+  "ops": [
+   {
+    "op": "relay_start"
+   },
+   {
+    "op": "set",
+    "call": "inv",
+    "a": "200"
+   },
+   {
+    "op": "relay_dial",
+    "a": "portico",
+    "b": "9901#0"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "relay_close"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   null,
+   null,
+   {
+    "audio_open": true,
+    "call_id_set": true,
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C1>\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <MP> RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+     "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B2>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>;tag=<T2>\r\nCall-ID: <C1>\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B3>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:127.0.0.1>;tag=<T2>\r\nCall-ID: <C1>\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "relay: DialDevice refuses an unusable host and sends nothing",
+  "kind": "relay",
+  "mask_media": true,
+  "ops": [
+   {
+    "op": "relay_start"
+   },
+   {
+    "op": "set",
+    "call": "inv",
+    "a": "200"
+   },
+   {
+    "op": "relay_dial",
+    "host": "0.0.0.0",
+    "a": "portico",
+    "b": "9901#0"
+   },
+   {
+    "op": "relay_dial",
+    "host": "not-an-ip",
+    "a": "portico",
+    "b": "9901#0"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   null,
+   null,
+   {
+    "audio_open": false,
+    "call_id_set": false,
+    "err": "call: \"0.0.0.0\" is not a usable IPv4 media host for the device leg's SDP"
+   },
+   {
+    "audio_open": false,
+    "call_id_set": false,
+    "err": "call: \"not-an-ip\" is not a usable IPv4 media host for the device leg's SDP"
+   },
+   {
+    "events": [],
+    "msgs": []
+   }
+  ]
+ },
+ {
+  "name": "relay: DialDevice, the device refuses 486",
+  "kind": "relay",
+  "mask_media": true,
+  "ops": [
+   {
+    "op": "relay_start"
+   },
+   {
+    "op": "set",
+    "call": "inv",
+    "a": "486"
+   },
+   {
+    "op": "relay_dial",
+    "host": "192.168.2.77",
+    "a": "portico",
+    "b": "9901#0"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   null,
+   null,
+   {
+    "audio_open": false,
+    "call_id_set": false,
+    "err": "call: dialing device leg: sip: INVITE failed: 486 Busy Here"
+   },
+   {
+    "events": [],
+    "msgs": [
+     "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C1>\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 142\r\n\r\nv=0\r\no=portico 0 0 IN IP4 192.168.2.77\r\ns=portico\r\nc=IN IP4 192.168.2.77\r\nt=0 0\r\nm=audio <MP> RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+     "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>;tag=<T2>\r\nCall-ID: <C1>\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "relay: DialDevice exchanges real RTP audio both ways",
+  "kind": "relay",
+  "mask_media": true,
+  "ops": [
+   {
+    "op": "relay_start"
+   },
+   {
+    "op": "set",
+    "call": "inv",
+    "a": "200"
+   },
+   {
+    "op": "relay_dial",
+    "host": "127.0.0.1",
+    "a": "portico",
+    "b": "9901#0"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "relay_audio"
+   },
+   {
+    "op": "relay_close"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   null,
+   null,
+   {
+    "audio_open": true,
+    "call_id_set": true,
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "INVITE sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: <C1>\r\nCSeq: 1 INVITE\r\nContact: <sip:portico@127.0.0.1:<P>>\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <MP> RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n",
+     "ACK sip:9901#0@127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B2>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>;tag=<T2>\r\nCall-ID: <C1>\r\nCSeq: 1 ACK\r\nContent-Length: 0\r\n\r\n"
+    ]
+   },
+   {
+    "device_to_relay": {
+     "equal": true,
+     "len": 1280,
+     "md5": "10fcb509a29b765e023bf36c4fb27171"
+    },
+    "relay_to_device": {
+     "equal": true,
+     "len": 1280,
+     "md5": "48e36cc84a3b6c4888ba32894f177753",
+     "pt": 96
+    }
+   },
+   {
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B3>\r\nMax-Forwards: 70\r\nFrom: <sip:portico@127.0.0.1>;tag=<T1>\r\nTo: <sip:127.0.0.1>;tag=<T2>\r\nCall-ID: <C1>\r\nCSeq: 2 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "relay: AnswerDevice with no host advertises the ring's local address, then audio both ways, then BYE",
+  "kind": "relay",
+  "mask_media": true,
+  "ops": [
+   {
+    "op": "relay_start"
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:9901#0@{{EP}} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKhost1\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: host-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: {{CL}}\r\n\r\n{{SDP}}"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "relay_answer"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   },
+   {
+    "op": "relay_audio"
+   },
+   {
+    "op": "relay_close"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   null,
+   null,
+   {
+    "events": [],
+    "msgs": []
+   },
+   {
+    "audio_open": true,
+    "call_id": "host-1@127.0.0.1",
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKhost1\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:9901#0@127.0.0.1>;tag=<T1>\r\nCall-ID: host-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 136\r\n\r\nv=0\r\no=portico 0 0 IN IP4 127.0.0.1\r\ns=portico\r\nc=IN IP4 127.0.0.1\r\nt=0 0\r\nm=audio <MP> RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "device_to_relay": {
+     "equal": true,
+     "len": 1280,
+     "md5": "10fcb509a29b765e023bf36c4fb27171"
+    },
+    "relay_to_device": {
+     "equal": true,
+     "len": 1280,
+     "md5": "48e36cc84a3b6c4888ba32894f177753",
+     "pt": 96
+    }
+   },
+   {
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:9901#0@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nCall-ID: host-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "relay: AnswerDevice with a configured host advertises it",
+  "kind": "relay",
+  "mask_media": true,
+  "ops": [
+   {
+    "op": "relay_start"
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:9901#0@{{EP}} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKhost1\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: host-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: {{CL}}\r\n\r\n{{SDP}}"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "relay_answer",
+    "host": "192.168.2.77"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   },
+   {
+    "op": "relay_close"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   null,
+   null,
+   {
+    "events": [],
+    "msgs": []
+   },
+   {
+    "audio_open": true,
+    "call_id": "host-1@127.0.0.1",
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "SIP/2.0 200 OK\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKhost1\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:9901#0@127.0.0.1>;tag=<T1>\r\nCall-ID: host-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: 142\r\n\r\nv=0\r\no=portico 0 0 IN IP4 192.168.2.77\r\ns=portico\r\nc=IN IP4 192.168.2.77\r\nt=0 0\r\nm=audio <MP> RTP/AVP 96\r\na=rtpmap:96 L16/16000\r\na=ptime:40\r\n"
+    ]
+   },
+   {
+    "err": ""
+   },
+   {
+    "events": [],
+    "msgs": [
+     "BYE sip:127.0.0.1 SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1:<P>;branch=z9hG4bK<B1>\r\nMax-Forwards: 70\r\nFrom: <sip:9901#0@127.0.0.1>;tag=<T1>\r\nTo: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nCall-ID: host-1@127.0.0.1\r\nCSeq: 1 BYE\r\nContent-Length: 0\r\n\r\n"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "relay: AnswerDevice with an unusable host sends no 200",
+  "kind": "relay",
+  "mask_media": true,
+  "ops": [
+   {
+    "op": "relay_start"
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:9901#0@{{EP}} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKhost1\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: host-1@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Type: application/sdp\r\nContent-Length: {{CL}}\r\n\r\n{{SDP}}"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "relay_answer",
+    "host": "0.0.0.0"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   null,
+   null,
+   {
+    "events": [],
+    "msgs": []
+   },
+   {
+    "audio_open": false,
+    "call_id": "",
+    "err": "call: \"0.0.0.0\" is not a usable IPv4 media host for the device leg's SDP"
+   },
+   {
+    "events": [],
+    "msgs": []
+   }
+  ]
+ },
+ {
+  "name": "relay: AnswerDevice of a ring with no SDP fails before any 200",
+  "kind": "relay",
+  "mask_media": true,
+  "ops": [
+   {
+    "op": "relay_start"
+   },
+   {
+    "op": "send",
+    "raw": "INVITE sip:9901#0@{{EP}} SIP/2.0\r\nVia: SIP/2.0/UDP 127.0.0.1;branch=z9hG4bKhost2\r\nFrom: <sip:9901#0@127.0.0.1>;tag=devicetag\r\nTo: <sip:9901#0@127.0.0.1>\r\nCall-ID: host-2@127.0.0.1\r\nCSeq: 1 INVITE\r\nContent-Length: 0\r\n\r\n"
+   },
+   {
+    "op": "step",
+    "ms": 250
+   },
+   {
+    "op": "relay_answer"
+   },
+   {
+    "op": "step",
+    "ms": 300
+   }
+  ],
+  "results": [
+   null,
+   null,
+   {
+    "events": [],
+    "msgs": []
+   },
+   {
+    "audio_open": false,
+    "call_id": "",
+    "err": "call: answering device leg: sip: parsing INVITE SDP: sip: SDP missing connection address or audio port"
+   },
+   {
+    "events": [],
+    "msgs": []
+   }
+  ]
+ }
+]

@@ -1,0 +1,10 @@
+SEND OPTIONS sip:<SRV> SIP/2.0 (as 1 OPTIONS)
+RECV 200 OK
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-opt
+     To: <sip:<SRV>>;tag=<T1>
+     Call-ID: opt-1
+     CSeq: 1 OPTIONS
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Length: 0

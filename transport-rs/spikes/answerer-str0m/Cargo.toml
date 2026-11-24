@@ -1,0 +1,30 @@
+[package]
+name = "answerer-str0m"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+str0m = { version = "=0.25.0", default-features = false }
+serde_json = "=1.0.154"
+if-addrs = "=0.13.4"
+
+[[bin]]
+name = "answerer-str0m"
+path = "src/main.rs"
+
+[[bin]]
+name = "prod"
+path = "src/prod.rs"
+
+[features]
+default = ["aws-lc-rs"]
+aws-lc-rs = ["str0m/aws-lc-rs"]
+rust-crypto = ["str0m/rust-crypto"]
+
+[workspace]
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true

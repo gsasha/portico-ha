@@ -1,0 +1,15 @@
+# ordered: a reply versus the events emitted inside its handler (arrival order)
+## configure: driver_availability, then the reply
+  {"method":"driver_availability","params":{"available":true,"device_id":"ha_event:front","reason":""}}
+    raw='{"method":"driver_availability","params":{"device_id":"ha_event:front","available":true,"reason":""}}'
+  {"id":1,"result":{"CanDial":true,"DirectCapable":false,"HasRelay":false,"InboundAudio":1,"OutboundAudio":2,"RTSPTemplate":"","ReportsAvailability":true}}
+    raw='{"id":1,"result":{"InboundAudio":1,"OutboundAudio":2,"DirectCapable":false,"HasRelay":false,"RTSPTemplate":"","ReportsAvailability":true,"CanDial":true}}'
+## dial: ringing, answered, active, then the reply
+  {"method":"call_state_changed","params":{"call_id":"<OUT>","device_id":"ha_event:front","state":"ringing"}}
+  {"method":"call_state_changed","params":{"call_id":"<OUT>","device_id":"ha_event:front","state":"answered"}}
+  {"method":"call_state_changed","params":{"call_id":"<OUT>","device_id":"ha_event:front","state":"active"}}
+  {"id":2,"result":{"call_id":"<OUT>","ok":true}}
+## deconfigure
+  {"id":3,"result":{"ok":true}}
+## nothing else arrives: []
+  exit code: 0

@@ -1,0 +1,562 @@
+{
+ "provenance": {
+  "go": {
+   "binary": "portico-transport-go",
+   "commit": "aed8113",
+   "sha256": "f97c67ce5686ce6f6e34f9246f1b91952f0ab7741bf7ba2964d5f1aa6218c094"
+  },
+  "note": "Rust binary: aed8113 (main) plus the commits of branch dev-764-r3-fix (round 3), which change src/ipc/tcp.rs, src/sfu/session/run.rs, src/gostd/http1.rs and tests; the Go binary is aed8113 (transport/ is unchanged by this branch). The branch commits are not in main until merged, so the commit named here is the base.",
+  "repo_head": "6eacd01586f4f6c909e6a7e131cd1b6e702743c2",
+  "run_date": "2026-11-13T22:54:30Z",
+  "rust": {
+   "binary": "portico-transport-release",
+   "commit": "aed8113",
+   "sha256": "b583bea54cc8fab515565caf11275be85725c3d1426d6ca64d3b2c0609da754c"
+  }
+ },
+ "results": [
+  {
+   "expect": "an IPC client that never reads: the server closes the connection after the 5 s write timeout (both)",
+   "go": {
+    "alive_at_end": false,
+    "bytes_drained": 16680,
+    "bytes_sent": 50000,
+    "eof_after_drain": true,
+    "process_exit_after_s": 5.11
+   },
+   "go_matches_row": true,
+   "id": "D-IPC-WRITE-TIMEOUT",
+   "ok": true,
+   "parity_rows": [
+    "ipc_process 19 (Write timeout)"
+   ],
+   "rust": {
+    "alive_at_end": false,
+    "bytes_drained": 16680,
+    "bytes_sent": 90000,
+    "eof_after_drain": true,
+    "process_exit_after_s": 5.01
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: the endpoint is deaf after the ICMP refusal (never registers); Rust: registers once the station is up",
+   "go": {
+    "after_s": null,
+    "availability_events": [
+     [
+      -0.5,
+      false
+     ]
+    ],
+    "register_requests_seen": 8,
+    "registered_with_credentials": false
+   },
+   "go_matches_row": true,
+   "id": "D-ICMP-DEAF",
+   "ok": true,
+   "parity_rows": [
+    "sip difference 17",
+    "sip Go defect 2"
+   ],
+   "rust": {
+    "after_s": 1.5,
+    "availability_events": [
+     [
+      1.5,
+      true
+     ]
+    ],
+    "register_requests_seen": 2,
+    "registered_with_credentials": true
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: a 200 with unparseable SDP gets neither ACK nor BYE (Rust observed, no claim in the row)",
+   "go": {
+    "dial_answer": {
+     "error": {
+      "code": "dial_failed",
+      "message": "dahua_sip: Dial: sip: parsing INVITE 200 OK SDP: sip: SDP missing connection address or audio port"
+     },
+     "id": 10
+    },
+    "station_got": [
+     "INVITE"
+    ]
+   },
+   "go_matches_row": true,
+   "id": "D-DIAL-BAD-SDP",
+   "ok": true,
+   "parity_rows": [
+    "sip Go defect 4"
+   ],
+   "rust": {
+    "dial_answer": {
+     "error": {
+      "code": "dial_failed",
+      "message": "dahua_sip: Dial: sip: parsing INVITE 200 OK SDP: sip: SDP missing connection address or audio port"
+     },
+     "id": 10
+    },
+    "station_got": [
+     "INVITE"
+    ]
+   },
+   "rust_judged_by": "equal to Go",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: a 200 re-sent after Dial returned is not re-ACKed (Rust observed)",
+   "go": {
+    "acks_after_resent_200": 0
+   },
+   "go_matches_row": true,
+   "id": "D-DIAL-RESENT-200",
+   "ok": true,
+   "parity_rows": [
+    "sip Go defect 7"
+   ],
+   "rust": {
+    "acks_after_resent_200": 0
+   },
+   "rust_judged_by": "equal to Go",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: a CANCEL from another source IP ends the ringing call; Rust: answered, ends nothing",
+   "go": {
+    "call_ended": true,
+    "ipc_after": [
+     [
+      "call_state_changed",
+      "ended"
+     ]
+    ],
+    "reply_to_the_foreign_source": [
+     "SIP/2.0 200 OK"
+    ]
+   },
+   "go_matches_row": true,
+   "id": "D-CANCEL-FOREIGN",
+   "ok": true,
+   "parity_rows": [
+    "gate_sip_server 44"
+   ],
+   "rust": {
+    "call_ended": false,
+    "ipc_after": [],
+    "reply_to_the_foreign_source": [
+     "SIP/2.0 200 OK"
+    ]
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: a BYE from another source IP ends the answered call; Rust: answered, ends nothing",
+   "go": {
+    "call_ended": true,
+    "ipc_after": [
+     [
+      "call_state_changed",
+      "ended"
+     ]
+    ],
+    "reply_to_the_foreign_source": [
+     "SIP/2.0 200 OK"
+    ]
+   },
+   "go_matches_row": true,
+   "id": "D-BYE-FOREIGN",
+   "ok": true,
+   "parity_rows": [
+    "gate_sip_server 44"
+   ],
+   "rust": {
+    "call_ended": false,
+    "ipc_after": [],
+    "reply_to_the_foreign_source": [
+     "SIP/2.0 200 OK"
+    ]
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: a BYE for the dialled call from another source IP ends it; Rust: ends nothing",
+   "go": {
+    "call_ended": true,
+    "ipc_after": [
+     [
+      "call_state_changed",
+      "ended"
+     ]
+    ],
+    "reply_to_the_foreign_source": [
+     "SIP/2.0 200 OK"
+    ]
+   },
+   "go_matches_row": true,
+   "id": "D-BYE-FOREIGN-DIALLED",
+   "ok": true,
+   "parity_rows": [
+    "gate_sip_server 52"
+   ],
+   "rust": {
+    "call_ended": false,
+    "ipc_after": [],
+    "reply_to_the_foreign_source": [
+     "SIP/2.0 200 OK"
+    ]
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: Expires: 0 is answered Expires: 300; Rust: answered Expires: 0 and the registration cleared",
+   "go": {
+    "dial_answer": null,
+    "expires_header": "300",
+    "ipc_after": [],
+    "status": "SIP/2.0 200 OK"
+   },
+   "go_matches_row": true,
+   "id": "D-REGISTER-EXPIRES0",
+   "ok": true,
+   "parity_rows": [
+    "gate_sip_server 45"
+   ],
+   "rust": {
+    "dial_answer": "dial_failed",
+    "expires_header": "0",
+    "ipc_after": [
+     [
+      "capabilities_changed",
+      {
+       "capabilities": {
+        "DirectCapable": false,
+        "HasRelay": false,
+        "InboundAudio": 0,
+        "OutboundAudio": 0,
+        "RTSPTemplate": "",
+        "ReportsAvailability": false
+       },
+       "device_id": "gss"
+      }
+     ]
+    ],
+    "status": "SIP/2.0 200 OK"
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: a nonce issued to host A is accepted from host B (200); Rust: B is re-challenged (401, fresh nonce)",
+   "go": {
+    "foreign_host_gets": [
+     "SIP/2.0 200 OK"
+    ],
+    "rechallenged_with_new_nonce": false
+   },
+   "go_matches_row": true,
+   "id": "D-NONCE-REPLAY",
+   "ok": true,
+   "parity_rows": [
+    "gate_sip_server 50"
+   ],
+   "rust": {
+    "foreign_host_gets": [
+     "SIP/2.0 401 Unauthorized"
+    ],
+    "rechallenged_with_new_nonce": true
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "an SDP media port over 65535: still answered 200, the process lives (the same on the wire in both)",
+   "go": {
+    "answered_200": true,
+    "process_alive": true,
+    "ringing": true
+   },
+   "go_matches_row": true,
+   "id": "D-MEDIA-PORT-OVERFLOW",
+   "ok": true,
+   "parity_rows": [
+    "gate_sip_server 48"
+   ],
+   "rust": {
+    "answered_200": true,
+    "process_alive": true,
+    "ringing": true
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "SIGTERM with a held call (wsmedia leg): BOTH binaries BYE the station before exit (Go's main closes the legs too). Only the WebRTC part of rows 74/80 (close_notify of a DTLS session) needs a real peer and stays open",
+   "go": {
+    "bye_sent_to_station": 1,
+    "exit_after_s": 0.0,
+    "exit_code": 0
+   },
+   "go_matches_row": true,
+   "id": "D-SHUTDOWN-BYE",
+   "ok": true,
+   "parity_rows": [
+    "webrtc_sfu 74",
+    "webrtc_sfu 80"
+   ],
+   "rust": {
+    "bye_sent_to_station": 1,
+    "exit_after_s": 0.0,
+    "exit_code": 0
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: shutdown waits for a silent connection's auth window (up to 5 s); Rust: exits at once",
+   "go": {
+    "exit_after_s": 4.54,
+    "exit_code": 0
+   },
+   "go_matches_row": true,
+   "id": "D-AUTH-WINDOW-CLOSE",
+   "ok": true,
+   "parity_rows": [
+    "standalone 181"
+   ],
+   "rust": {
+    "exit_after_s": 0.0,
+    "exit_code": 0
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "Go: User-Agent Go-http-client/1.1 and Accept-Encoding gzip; Rust: portico-transport-rs/<version>, no Accept-Encoding",
+   "go": {
+    "accept_encoding": "gzip",
+    "request_line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "user_agent": "Go-http-client/1.1"
+   },
+   "go_matches_row": true,
+   "id": "D-HTTP-REQUEST-HEAD",
+   "ok": true,
+   "parity_rows": [
+    "gate_sip_observer 83"
+   ],
+   "rust": {
+    "accept_encoding": "",
+    "request_line": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream HTTP/1.1",
+    "user_agent": "portico-transport-rs/0.0.1"
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "malformed framing in the API answer is refused by both; the TEXTS are compared: identical for the chunk-size errors, different (TD-5) for a negative and for a conflicting Content-Length",
+   "framing_problems": [],
+   "framing_texts_as_expected": true,
+   "go": {
+    "chunk_size_not_hex": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: reading response: invalid byte in chunk length",
+    "chunk_size_with_sign": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: reading response: invalid byte in chunk length",
+    "content_length_conflict": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: Post \"https://<HOST>/proxy/protect/integration/v1/cameras/cam1/rtsps-stream\": net/http: HTTP/1.x transport connection broken: http: message cannot contain multiple Content-Length headers; got [\"2\" \"3\"]",
+    "content_length_minus1": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: Post \"https://<HOST>/proxy/protect/integration/v1/cameras/cam1/rtsps-stream\": net/http: HTTP/1.x transport connection broken: bad Content-Length \"-1\""
+   },
+   "go_matches_row": true,
+   "id": "D-HTTP-FRAMING",
+   "ok": true,
+   "parity_rows": [
+    "gate_sip_observer 91"
+   ],
+   "rust": {
+    "chunk_size_not_hex": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: reading response: invalid byte in chunk length",
+    "chunk_size_with_sign": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: reading response: invalid byte in chunk length",
+    "content_length_conflict": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: Post \"https://<HOST>/proxy/protect/integration/v1/cameras/cam1/rtsps-stream\": malformed HTTP response",
+    "content_length_minus1": "POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: Post \"https://<HOST>/proxy/protect/integration/v1/cameras/cam1/rtsps-stream\": malformed HTTP response"
+   },
+   "rust_judged_by": "row",
+   "rust_matches_row": true
+  },
+  {
+   "expect": "oversized offer, mDNS candidate, end-of-candidates attribute: both answers printed and judged below",
+   "go": {
+    "end_of_candidates_attribute": {
+     "error": "sfu: adding ICE candidate: failed to parse foundation: invalid ice-char token: = in a=end-of-candidates",
+     "error_code": "webrtc_failed"
+    },
+    "end_of_candidates_empty": {
+     "ok": true
+    },
+    "mdns_candidate": {
+     "ok": true
+    },
+    "offer_normal": {
+     "ok": true
+    },
+    "offer_over_1000_lines (1136 lines, 14471 bytes)": {
+     "ok": true
+    },
+    "offer_over_64KiB (78281 bytes)": {
+     "ok": true
+    }
+   },
+   "id": "D-OFFER-LIMITS",
+   "ok": true,
+   "parity_rows": [
+    "webrtc_sfu 65",
+    "webrtc_sfu 68",
+    "webrtc_sfu 69"
+   ],
+   "rust": {
+    "end_of_candidates_attribute": {
+     "ok": true
+    },
+    "end_of_candidates_empty": {
+     "ok": true
+    },
+    "mdns_candidate": {
+     "ok": true
+    },
+    "offer_normal": {
+     "ok": true
+    },
+    "offer_over_1000_lines (1136 lines, 14471 bytes)": {
+     "error": "sfu: setting remote offer: offer too large (14471 bytes, 1136 lines; the limits are 65536 bytes and 1000 lines)",
+     "error_code": "webrtc_failed"
+    },
+    "offer_over_64KiB (78281 bytes)": {
+     "error": "sfu: setting remote offer: offer too large (78281 bytes, 736 lines; the limits are 65536 bytes and 1000 lines)",
+     "error_code": "webrtc_failed"
+    }
+   },
+   "verdict": {
+    "end_of_candidates_accepted": true,
+    "mdns_candidate_ignored": true,
+    "offer_over_64KiB_refused": true
+   }
+  },
+  {
+   "expect": "CANCEL answered 'only200': Go sends a spurious ACK and BYE, Rust neither",
+   "go": {
+    "ack_cseq_after_cancel": [
+     "1 ACK"
+    ],
+    "bye_after_cancel": true,
+    "events": [
+     [
+      0.0,
+      "INVITE",
+      "1 INVITE"
+     ],
+     [
+      180.1,
+      "CANCEL",
+      "1 CANCEL"
+     ],
+     [
+      180.1,
+      "ACK",
+      "1 ACK"
+     ],
+     [
+      180.1,
+      "BYE",
+      "2 BYE"
+     ]
+    ]
+   },
+   "go_matches_row": true,
+   "id": "D-TIMER-C-CANCEL-ONLY200",
+   "ok": true,
+   "parity_rows": [
+    "sip difference 16"
+   ],
+   "rust": {
+    "ack_cseq_after_cancel": [],
+    "bye_after_cancel": false,
+    "events": [
+     [
+      0.0,
+      "INVITE",
+      "1 INVITE"
+     ],
+     [
+      180.0,
+      "CANCEL",
+      "1 CANCEL"
+     ]
+    ]
+   },
+   "rust_matches_row": true
+  },
+  {
+   "expect": "CANCEL answered 'ok': Go sends a spurious ACK and BYE, Rust neither",
+   "go": {
+    "ack_cseq_after_cancel": [
+     "1 ACK"
+    ],
+    "bye_after_cancel": true,
+    "events": [
+     [
+      0.0,
+      "INVITE",
+      "1 INVITE"
+     ],
+     [
+      180.1,
+      "CANCEL",
+      "1 CANCEL"
+     ],
+     [
+      180.1,
+      "ACK",
+      "1 ACK"
+     ],
+     [
+      180.1,
+      "BYE",
+      "2 BYE"
+     ]
+    ]
+   },
+   "go_matches_row": true,
+   "id": "D-TIMER-C-CANCEL-OK",
+   "ok": true,
+   "parity_rows": [
+    "sip difference 16"
+   ],
+   "rust": {
+    "ack_cseq_after_cancel": [
+     "1 ACK"
+    ],
+    "bye_after_cancel": false,
+    "events": [
+     [
+      0.0,
+      "INVITE",
+      "1 INVITE"
+     ],
+     [
+      180.0,
+      "CANCEL",
+      "1 CANCEL"
+     ],
+     [
+      180.0,
+      "ACK",
+      "1 ACK"
+     ]
+    ]
+   },
+   "rust_matches_row": true
+  }
+ ]
+}

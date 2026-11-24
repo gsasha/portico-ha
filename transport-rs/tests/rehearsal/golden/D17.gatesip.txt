@@ -1,0 +1,39 @@
+SEND INVITE sip:9901@<SRV> SIP/2.0 (as 1 INVITE)
+RECV 100 Trying
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-call-1
+     To: <sip:9901@<SRV>>;tag=<T1>
+     Call-ID: call-1
+     CSeq: 1 INVITE
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Length: 0
+RECV 180 Ringing
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-call-1
+     To: <sip:9901@<SRV>>;tag=<T1>
+     Call-ID: call-1
+     CSeq: 1 INVITE
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Length: 0
+ACT answer -> answered
+RECV 200 OK
+     Via: SIP/2.0/UDP <ST>;branch=z9hG4bK<B>
+     From: <sip:8001@<ST>>;tag=st-call-1
+     To: <sip:9901@<SRV>>;tag=<T1>
+     Call-ID: call-1
+     CSeq: 1 INVITE
+     Contact: <sip:8001@<SRV>>
+     Allow: INVITE, ACK, BYE, CANCEL, OPTIONS
+     Content-Type: application/sdp
+     Content-Length: <body>
+     | v=0
+     | c=IN IP4 <IP>
+     | t=0 0
+     | m=audio <RTP> RTP/AVP 8
+     | a=rtpmap:8 PCMA/8000
+     | a=sendrecv
+SEND ACK sip:9901@<SRV> SIP/2.0 (as 1 ACK)
+ACT rtp 3 packets from station
+STATE registered=false ringing=false inCall=true dialogConfirmed=true calls=1 answered=1 rtpIn=3

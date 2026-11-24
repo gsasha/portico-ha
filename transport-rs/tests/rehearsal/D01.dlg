@@ -1,0 +1,32 @@
+# source: REAL-FRAGMENT
+# title: REGISTER: 401 digest challenge (realm VDP), then 200 Expires 300
+# verdict: MATCH
+# basis: journal 13.13/13.18 and gate-sip README: realm VDP, user 8001, the log line 'REGISTER ... digest=OK' for 24 h; framing (headers, Via, CSeq) is synthetic
+
+>>> send
+REGISTER sip:{{SRVIP}} SIP/2.0
+Via: SIP/2.0/UDP {{ST}};branch=z9hG4bKreg1
+From: <sip:8001@{{SRVIP}}>;tag=st-reg
+To: <sip:8001@{{SRVIP}}>
+Call-ID: reg-A
+CSeq: 1 REGISTER
+Contact: <sip:8001@{{ST}}>
+Expires: 300
+Max-Forwards: 70
+.
+>>> recv
+>>> state
+>>> send
+REGISTER sip:{{SRVIP}} SIP/2.0
+Via: SIP/2.0/UDP {{ST}};branch=z9hG4bKreg2
+From: <sip:8001@{{SRVIP}}>;tag=st-reg
+To: <sip:8001@{{SRVIP}}>
+Call-ID: reg-A
+CSeq: 2 REGISTER
+Contact: <sip:8001@{{ST}}>
+Expires: 300
+Max-Forwards: 70
+Authorization: {{AUTH_OK}}
+.
+>>> recv
+>>> state

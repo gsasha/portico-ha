@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Go
+transport/portico-transport
+*.wheel-build/
+wheelhouse/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+custom_components/portico/www/tests/node_modules/

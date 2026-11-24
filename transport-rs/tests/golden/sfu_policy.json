@@ -1,0 +1,544 @@
+[
+ {
+  "name": "opus first: opus g722 pcmu pcma (a phone)",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "g722 first",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "pcmu first then g722",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 0 9\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 0 9",
+  "pts": [
+   "0",
+   "9"
+  ],
+  "rtpmap": [
+   "a=rtpmap:0 PCMU/8000",
+   "a=rtpmap:9 G722/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "g722 pcmu",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9 0\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "pcmu only",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 0\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 0",
+  "pts": [
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "g722 only",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9",
+  "pts": [
+   "9"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "pcma only",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "err": "sfu: creating answer: unable to populate media section, RTPSender created with no codecs",
+  "pts": [],
+  "rtpmap": [],
+  "fmtp": []
+ },
+ {
+  "name": "opus only",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "err": "sfu: creating answer: unable to populate media section, RTPSender created with no codecs",
+  "pts": [],
+  "rtpmap": [],
+  "fmtp": []
+ },
+ {
+  "name": "pcma then pcmu then g722",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 8 0 9\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 0 9",
+  "pts": [
+   "0",
+   "9"
+  ],
+  "rtpmap": [
+   "a=rtpmap:0 PCMU/8000",
+   "a=rtpmap:9 G722/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "opus then pcma",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "err": "sfu: creating answer: unable to populate media section, RTPSender created with no codecs",
+  "pts": [],
+  "rtpmap": [],
+  "fmtp": []
+ },
+ {
+  "name": "pcmu with comfort noise",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 0 13\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:13 CN/8000\r\na=rtcp-fb:13 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 0",
+  "pts": [
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "g722 pcmu pcma opus (opus last)",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9 0 8 111\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "real Chrome 124 offer (S1b capture)",
+  "offer": "v=0\r\no=- 4178527616007668059 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE 0\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS adfc3ebb-be30-4d57-a058-67dca34daeca\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 63 9 0 8 13 110 126\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:1oxG\r\na=ice-pwd:giVyQNXgXVjIJP2Nkhk9o/XD\r\na=ice-options:trickle\r\na=fingerprint:sha-256 11:42:87:FD:CF:8D:55:27:06:37:36:F8:05:EF:28:CD:4A:E4:AE:36:B9:F3:F3:AA:B9:29:4A:EC:3A:16:9F:52\r\na=setup:actpass\r\na=mid:0\r\na=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\na=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=extmap:3 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=extmap:4 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=sendrecv\r\na=msid:adfc3ebb-be30-4d57-a058-67dca34daeca ad7144f7-933f-4a57-a102-c430af026ec3\r\na=rtcp-mux\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=fmtp:111 minptime=10;useinbandfec=1\r\na=rtpmap:63 red/48000/2\r\na=fmtp:63 111/111\r\na=rtpmap:9 G722/8000\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:13 CN/8000\r\na=rtpmap:110 telephone-event/48000\r\na=rtpmap:126 telephone-event/8000\r\na=ssrc:3154020972 cname:BZ5Fm47CHuW1Oypz\r\na=ssrc:3154020972 msid:adfc3ebb-be30-4d57-a058-67dca34daeca ad7144f7-933f-4a57-a102-c430af026ec3\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "real Firefox 153 offer (S1b capture)",
+  "offer": "v=0\r\no=mozilla...THIS_IS_SDPARTA-99.0 4141569745251053772 0 IN IP4 0.0.0.0\r\ns=-\r\nt=0 0\r\na=fingerprint:sha-256 CE:BD:A8:9B:8B:ED:24:02:C7:91:4E:4E:FA:B1:DC:2C:3D:57:E7:1A:E6:E5:EF:FD:C5:3B:3F:D9:2C:8F:FC:7C\r\na=group:BUNDLE 0\r\na=ice-options:trickle\r\na=msid-semantic:WMS *\r\nm=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8 101\r\nc=IN IP4 0.0.0.0\r\na=sendrecv\r\na=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\na=extmap:2/recvonly urn:ietf:params:rtp-hdrext:csrc-audio-level\r\na=extmap:3 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=extmap:7 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=extmap-allow-mixed\r\na=fmtp:109 maxplaybackrate=48000;stereo=1;useinbandfec=1\r\na=fmtp:101 0-15\r\na=ice-pwd:9ecc012348dd3df6ee4a75f15b77d16c\r\na=ice-ufrag:f00eacf9\r\na=mid:0\r\na=msid:{17588704-50d2-429e-a168-5c73643d2c65} {c2daeea9-9cee-4ac0-8bad-0418d7c4066e}\r\na=rtcp-fb:109 transport-cc\r\na=rtcp-fb:9 transport-cc\r\na=rtcp-fb:0 transport-cc\r\na=rtcp-fb:8 transport-cc\r\na=rtcp-mux\r\na=rtpmap:109 opus/48000/2\r\na=rtpmap:9 G722/8000/1\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:101 telephone-event/8000/1\r\na=setup:actpass\r\na=ssrc:3734187237 cname:{177684f0-0240-4b42-b740-23a4c55d3805}\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000/1",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "m-line reordered: 0 9 (pcmu before g722)",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 0 9\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 0 9",
+  "pts": [
+   "0",
+   "9"
+  ],
+  "rtpmap": [
+   "a=rtpmap:0 PCMU/8000",
+   "a=rtpmap:9 G722/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "m-line lists only 8 (pcma), rtpmap for all",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "err": "sfu: creating answer: unable to populate media section, RTPSender created with no codecs",
+  "pts": [],
+  "rtpmap": [],
+  "fmtp": []
+ },
+ {
+  "name": "m-line lists only 111 (opus), rtpmap for all",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "err": "sfu: creating answer: unable to populate media section, RTPSender created with no codecs",
+  "pts": [],
+  "rtpmap": [],
+  "fmtp": []
+ },
+ {
+  "name": "m-line lists 0 9 111 8",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 0 9 111 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 0 9",
+  "pts": [
+   "0",
+   "9"
+  ],
+  "rtpmap": [
+   "a=rtpmap:0 PCMU/8000",
+   "a=rtpmap:9 G722/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "g722 and pcmu on dynamic payload types 96 97",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 96 97 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:96 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:97 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 96 97",
+  "pts": [
+   "96",
+   "97"
+  ],
+  "rtpmap": [
+   "a=rtpmap:96 G722/8000",
+   "a=rtpmap:97 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "static types without rtpmap lines",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtcp-fb:9 transport-cc\r\na=rtcp-fb:0 transport-cc\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "lower-case codec names",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 g722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 pcmu/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "g722 with a stray fmtp",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=fmtp:9 foo=bar\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": [
+   "a=fmtp:9 foo=bar"
+  ]
+ },
+ {
+  "name": "g722 clock 16000 in the rtpmap",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/16000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "pcmu with two channels in the rtpmap",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000/2\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9",
+  "pts": [
+   "9"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "rtpmap of g722 without a clock rate",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "rtpmap of pcmu without a clock rate",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "dynamic g722 (96) without a clock rate",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 96 0\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:96 G722\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 0",
+  "pts": [
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "malformed rtpmap line is ignored",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "m-line names a payload type with no rtpmap",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=x-gone:1\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "dynamic lower-case names g722 pcmu",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 96 97\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:96 g722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:97 pcmu/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 96 97",
+  "pts": [
+   "96",
+   "97"
+  ],
+  "rtpmap": [
+   "a=rtpmap:96 g722/8000",
+   "a=rtpmap:97 pcmu/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "dynamic pcmu (97) without a clock rate",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9 97\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:97 PCMU\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 97",
+  "pts": [
+   "9",
+   "97"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:97 PCMU/0"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "dynamic pcmu (97) with channels 1",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9 97\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:97 PCMU/8000/1\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 97",
+  "pts": [
+   "9",
+   "97"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:97 PCMU/8000/1"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "dynamic g722 at clock 16000",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 96 0\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:96 G722/16000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 0",
+  "pts": [
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "m-line names a payload type unknown everywhere",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9 0 99\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "err": "sfu: setting remote offer: payload type not found",
+  "pts": [],
+  "rtpmap": [],
+  "fmtp": []
+ },
+ {
+  "name": "m-line names a payload type unknown everywhere, first",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 99 9 0\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "err": "sfu: setting remote offer: payload type not found",
+  "pts": [],
+  "rtpmap": [],
+  "fmtp": []
+ },
+ {
+  "name": "m-line names payload type 300",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9 0 300\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "err": "sfu: setting remote offer: strconv.ParseUint: parsing \"300\": value out of range",
+  "pts": [],
+  "rtpmap": [],
+  "fmtp": []
+ },
+ {
+  "name": "m-line repeats payload type 9",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9 9 0\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "m-line names a non-numeric payload type",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 9 x 0\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "err": "sfu: setting remote offer: strconv.ParseUint: parsing \"x\": invalid syntax",
+  "pts": [],
+  "rtpmap": [],
+  "fmtp": []
+ },
+ {
+  "name": "g722 and pcmu both dynamic, opus first",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 101 100\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:100 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:101 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 101 100",
+  "pts": [
+   "101",
+   "100"
+  ],
+  "rtpmap": [
+   "a=rtpmap:101 PCMU/8000",
+   "a=rtpmap:100 G722/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "fmtp on pcmu",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=fmtp:0 ptime=20\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": [
+   "a=fmtp:0 ptime=20"
+  ]
+ },
+ {
+  "name": "fmtp with an empty value on g722",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=fmtp:9 a=;b\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendrecv\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": [
+   "a=fmtp:9 a=;b"
+  ]
+ },
+ {
+  "name": "recvonly offer",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=recvonly\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ },
+ {
+  "name": "sendonly offer",
+  "offer": "v=0\r\no=- 1 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB:AB\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 9 0 8\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=ice-ufrag:fixedufrag\r\na=ice-pwd:fixedpasswordfixedpassword00\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=rtpmap:9 G722/8000\r\na=rtcp-fb:9 transport-cc\r\na=rtpmap:0 PCMU/8000\r\na=rtcp-fb:0 transport-cc\r\na=rtpmap:8 PCMA/8000\r\na=rtcp-fb:8 transport-cc\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=ssrc:1111111111 cname:fixedcname\r\na=ssrc:1111111111 msid:phone mic\r\na=ssrc:1111111111 mslabel:phone\r\na=ssrc:1111111111 label:mic\r\na=msid:phone mic\r\na=sendonly\r\n",
+  "m_line": "m=audio PORT UDP/TLS/RTP/SAVPF 9 0",
+  "pts": [
+   "9",
+   "0"
+  ],
+  "rtpmap": [
+   "a=rtpmap:9 G722/8000",
+   "a=rtpmap:0 PCMU/8000"
+  ],
+  "fmtp": []
+ }
+]

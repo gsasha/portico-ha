@@ -1,0 +1,65 @@
+# unifi_protect: configure, the events websocket, rings, stream_url, hangup, deconfigure
+## configure with missing fields
+  {"error":{"code":"configure_failed","message":"unifi_protect: nvr_host, nvr_api_key and camera_id are required"},"id":101}
+    raw='{"id":101,"error":{"code":"configure_failed","message":"unifi_protect: nvr_host, nvr_api_key and camera_id are required"}}'
+## configure with a host with a slash
+  {"error":{"code":"configure_failed","message":"unifi_protect: nvr_host must be a bare host or host:port"},"id":102}
+    raw='{"id":102,"error":{"code":"configure_failed","message":"unifi_protect: nvr_host must be a bare host or host:port"}}'
+## configure with ring_events that is not a bool
+  {"error":{"code":"configure_failed","message":"unifi_protect: ring_events must be true or false"},"id":103}
+    raw='{"id":103,"error":{"code":"configure_failed","message":"unifi_protect: ring_events must be true or false"}}'
+## configure with ring_events: the Capabilities struct, then driver_availability
+  {"id":104,"result":{"DirectCapable":false,"HasRelay":true,"InboundAudio":1,"OutboundAudio":2,"RTSPTemplate":"rtsps://{nvr_host}/{camera_id}","ReportsAvailability":true}}
+    raw='{"id":104,"result":{"InboundAudio":1,"OutboundAudio":2,"DirectCapable":false,"HasRelay":true,"RTSPTemplate":"rtsps://{nvr_host}/{camera_id}","ReportsAvailability":true}}'
+  {"method":"driver_availability","params":{"available":true,"device_id":"<HOST>","reason":""}}
+    raw='{"method":"driver_availability","params":{"device_id":"<HOST>","available":true,"reason":""}}'
+## the console saw 1 upgrade(s)
+## configure the same host again
+  {"error":{"code":"already_configured","message":"<HOST>"},"id":105}
+    raw='{"id":105,"error":{"code":"already_configured","message":"<HOST>"}}'
+## ringing
+  {"method":"ringing","params":{"call_id":"unifi-e1","device_id":"<HOST>"}}
+## a second ring while ringing: []
+## stream_url
+  {"id":106,"result":{"url":"rtsps://127.0.0.1:7441/SMOKETOKEN?enableSrtp"}}
+## stream_url refused
+  {"error":{"code":"stream_url_failed","message":"POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 401"},"id":107}
+    raw='{"id":107,"error":{"code":"stream_url_failed","message":"POST /proxy/protect/integration/v1/cameras/cam1/rtsps-stream: HTTP 401"}}'
+## stream_url of an unknown device
+  {"error":{"code":"unknown_device","message":"nope"},"id":108}
+    raw='{"id":108,"error":{"code":"unknown_device","message":"nope"}}'
+## dial
+  {"error":{"code":"not_supported","message":"unifi_protect: no SIP dialog to dial (talkback is REST + RTP push): not_supported"},"id":109}
+    raw='{"id":109,"error":{"code":"not_supported","message":"unifi_protect: no SIP dialog to dial (talkback is REST + RTP push): not_supported"}}'
+## answer
+  {"error":{"code":"not_supported","message":"unifi_protect: no SIP dialog to answer (talkback is REST + RTP push): not_supported"},"id":110}
+    raw='{"id":110,"error":{"code":"not_supported","message":"unifi_protect: no SIP dialog to answer (talkback is REST + RTP push): not_supported"}}'
+## hangup the ring: the reply and call_state_changed ended
+  {"method":"call_state_changed","params":{"call_id":"unifi-e1","device_id":"<HOST>","state":"ended"}}
+  {"id":111,"result":{"ok":true}}
+## hangup again: nobody holds it
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":112}
+    raw='{"id":112,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## a ring after the hang-up
+  {"method":"ringing","params":{"call_id":"unifi-e3","device_id":"<HOST>"}}
+## hangup it: the reply and call_state_changed ended
+  {"method":"call_state_changed","params":{"call_id":"unifi-e3","device_id":"<HOST>","state":"ended"}}
+  {"id":113,"result":{"ok":true}}
+## after a drop: reconnected True, nothing reported []
+## driver_availability false: refused (HTTP 503)
+  {"method":"driver_availability","params":{"available":false,"device_id":"<HOST>","reason":"events stream refused (HTTP 503)"}}
+    raw='{"method":"driver_availability","params":{"device_id":"<HOST>","available":false,"reason":"events stream refused (HTTP 503)"}}'
+## still refused: nothing more reported []
+## driver_availability true again
+  {"method":"driver_availability","params":{"available":true,"device_id":"<HOST>","reason":""}}
+    raw='{"method":"driver_availability","params":{"device_id":"<HOST>","available":true,"reason":""}}'
+## a ring on the new connection
+  {"method":"ringing","params":{"call_id":"unifi-e4","device_id":"<HOST>"}}
+## deconfigure
+  {"id":114,"result":{"ok":true}}
+## deconfigure again
+  {"error":{"code":"unknown_device","message":"<HOST>"},"id":115}
+    raw='{"id":115,"error":{"code":"unknown_device","message":"<HOST>"}}'
+## nothing else arrives: []
+  exit code: 0
+  socket file gone: True

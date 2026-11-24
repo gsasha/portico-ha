@@ -1,0 +1,2 @@
+- STATE registered=false ringing=false inCall=true dialogConfirmed=true calls=1 answered=1 rtpIn=3
++ STATE registered=false ringing=false inCall=true dialogConfirmed=true calls=1 answered=1 rtpIn=0

@@ -1,0 +1,20 @@
+# Portico transport (RUST build) as a standalone container (DEV-764 Phase 4). NOT deployed anywhere.
+#
+# The context is the output directory of packaging/rust/build_rust_binaries.sh (it holds the two static binaries):
+#
+#   packaging/rust/build_rust_binaries.sh /tmp/portico-rs-out
+#   docker build -f packaging/standalone/Dockerfile.rust --build-arg ARCH=amd64 \
+#       -t local/portico-sip-standalone-rs:test /tmp/portico-rs-out          (ARCH=arm64 for aarch64)
+#
+# One static binary, nothing else, no shell, no CA bundle from the image (the binary reads the bundle from the places
+# Go's crypto/x509 does; mount one if the unifi_protect driver is used), the defaults, ports, user and command line the
+# former Go image had, so compose.snippet.yml and README.md apply. This is the only standalone image (the Go Dockerfile
+# was deleted, D-20261123-cc1e). Swapping it onto a live host is a GitOps change in docker-host.
+FROM scratch
+ARG ARCH=amd64
+COPY portico-transport-linux-${ARCH} /portico-transport
+USER 10001:10001
+EXPOSE 5060/udp 40000/udp 8765/tcp
+ENV PORTICO_SIP_LISTEN=127.0.0.1:5060
+ENTRYPOINT ["/portico-transport"]
+CMD ["-listen", "127.0.0.1:8765", "-ipc-token-file", "/run/secrets/portico_ipc_token", "-sip-from-env"]

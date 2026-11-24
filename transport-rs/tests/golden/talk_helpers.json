@@ -1,0 +1,1500 @@
+{
+ "configure": [
+  {
+   "name": "minimal",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "empty",
+   "cfg": "{}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "only device_id",
+   "cfg": "{\"device_id\":\"x\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "missing device_id",
+   "cfg": "{\"camera_id\":\"c\",\"protect_api_key\":\"k\",\"protect_host\":\"h\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "device_id not a string",
+   "cfg": "{\"camera_id\":\"c\",\"device_id\":5,\"protect_api_key\":\"k\",\"protect_host\":\"h\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "device_id empty",
+   "cfg": "{\"camera_id\":\"c\",\"device_id\":\"\",\"protect_api_key\":\"k\",\"protect_host\":\"h\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "missing protect_host",
+   "cfg": "{\"camera_id\":\"c\",\"device_id\":\"d\",\"protect_api_key\":\"k\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "protect_host not a string",
+   "cfg": "{\"camera_id\":\"c\",\"device_id\":\"d\",\"protect_api_key\":\"k\",\"protect_host\":5}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "protect_host empty",
+   "cfg": "{\"camera_id\":\"c\",\"device_id\":\"d\",\"protect_api_key\":\"k\",\"protect_host\":\"\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "missing protect_api_key",
+   "cfg": "{\"camera_id\":\"c\",\"device_id\":\"d\",\"protect_host\":\"h\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "protect_api_key not a string",
+   "cfg": "{\"camera_id\":\"c\",\"device_id\":\"d\",\"protect_api_key\":5,\"protect_host\":\"h\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "protect_api_key empty",
+   "cfg": "{\"camera_id\":\"c\",\"device_id\":\"d\",\"protect_api_key\":\"\",\"protect_host\":\"h\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "missing camera_id",
+   "cfg": "{\"device_id\":\"d\",\"protect_api_key\":\"k\",\"protect_host\":\"h\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "camera_id not a string",
+   "cfg": "{\"camera_id\":5,\"device_id\":\"d\",\"protect_api_key\":\"k\",\"protect_host\":\"h\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "camera_id empty",
+   "cfg": "{\"camera_id\":\"\",\"device_id\":\"d\",\"protect_api_key\":\"k\",\"protect_host\":\"h\"}",
+   "err": "unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"
+  },
+  {
+   "name": "protect_host https://h",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"https://h\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "unifi_protect_talk: protect_host must be a bare host or host:port"
+  },
+  {
+   "name": "protect_host h/x",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h/x\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "unifi_protect_talk: protect_host must be a bare host or host:port"
+  },
+  {
+   "name": "protect_host u@h",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"u@h\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "unifi_protect_talk: protect_host must be a bare host or host:port"
+  },
+  {
+   "name": "protect_host h x",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h x\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "unifi_protect_talk: protect_host must be a bare host or host:port"
+  },
+  {
+   "name": "protect_host h:8443",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h:8443\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "protect_host [::1]:443",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"[::1]:443\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "protect_host h?x",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h?x\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "protect_host h#x",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h#x\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "protect_host h\\x",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h\\\\x\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "protect_host h\tx",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h\\tx\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "protect_host h\nX: 1",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h\\nX: 1\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "unifi_protect_talk: protect_host must be a bare host or host:port"
+  },
+  {
+   "name": "protect_host h:1:2",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h:1:2\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "protect_host 10.0.0.1",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"10.0.0.1\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "protect_host høst",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"høst\",\"protect_api_key\":\"k\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "key k\nX: 1",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h\",\"protect_api_key\":\"k\\nX: 1\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "key k\u0001",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h\",\"protect_api_key\":\"k\\u0001\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "key k with space",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h\",\"protect_api_key\":\"k with space\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "key ключ",
+   "cfg": "{\"device_id\":\"d\",\"protect_host\":\"h\",\"protect_api_key\":\"ключ\",\"camera_id\":\"c\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "downlink_url rtsp://10.0.0.1:8554/x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp://10.0.0.1:8554/x\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "downlink_url rtsps://h/x?y",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsps://h/x?y\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "downlink_url http://x/y",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"http://x/y\"}",
+   "err": "unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"
+  },
+  {
+   "name": "downlink_url RTSP://H/x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"RTSP://H/x\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "downlink_url rtsp:///x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp:///x\"}",
+   "err": "unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"
+  },
+  {
+   "name": "downlink_url rtsp://",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp://\"}",
+   "err": "unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"
+  },
+  {
+   "name": "downlink_url rtsp:x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp:x\"}",
+   "err": "unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"
+  },
+  {
+   "name": "downlink_url x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"x\"}",
+   "err": "unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"
+  },
+  {
+   "name": "downlink_url rtsp://h/a b",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp://h/a b\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "downlink_url rtsp://h/a\nb",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp://h/a\\nb\"}",
+   "err": "unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"
+  },
+  {
+   "name": "downlink_url rtsp://u:p@h/x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp://u:p@h/x\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "downlink_url rtsp://[::1]:8554/x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp://[::1]:8554/x\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "downlink_url rtsp://h:x/y",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp://h:x/y\"}",
+   "err": "unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"
+  },
+  {
+   "name": "downlink_url rtsp://h/%zz",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"downlink_url\":\"rtsp://h/%zz\"}",
+   "err": "unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"
+  },
+  {
+   "name": "guard_url http://127.0.0.1:1/health",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"http://127.0.0.1:1/health\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "guard_url https://h/health",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"https://h/health\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "guard_url file:///etc/passwd",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"file:///etc/passwd\"}",
+   "err": "unifi_protect_talk: guard_url must be a http/https:// URL"
+  },
+  {
+   "name": "guard_url ftp://h/x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"ftp://h/x\"}",
+   "err": "unifi_protect_talk: guard_url must be a http/https:// URL"
+  },
+  {
+   "name": "guard_url http://",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"http://\"}",
+   "err": "unifi_protect_talk: guard_url must be a http/https:// URL"
+  },
+  {
+   "name": "guard_url h:80",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"h:80\"}",
+   "err": "unifi_protect_talk: guard_url must be a http/https:// URL"
+  },
+  {
+   "name": "guard_url http://u:p@h/x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"http://u:p@h/x\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "guard_url http://h/a b",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"http://h/a b\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "guard_url http://h?x=1",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"http://h?x=1\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "guard_url HTTP://H",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"HTTP://H\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "guard_url http://h/\r\nHost: x",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"guard_url\":\"http://h/\\r\\nHost: x\"}",
+   "err": "unifi_protect_talk: guard_url must be a http/https:// URL"
+  },
+  {
+   "name": "gain 0.5",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":0.5}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain 0",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":0}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain 1",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":1}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "gain 2",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":2}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "gain 16",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":16}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "gain 17",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":17}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain -1",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":-1}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain 99",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":99}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain 2.0",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":2.0}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "gain 1e0",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":1e0}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "gain 1.5",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":1.5}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain \"2\"",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":\"2\"}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain true",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":true}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain null",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":null}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain []",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":[]}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain 3.0000001",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":3.0000001}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain 1e2",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":1e2}",
+   "err": "unifi_protect_talk: gain must be a whole number from 1 to 16"
+  },
+  {
+   "name": "gain 16.0",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"gain\":16.0}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "verify_ssl true",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"verify_ssl\":true}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "dial_enabled true",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"dial_enabled\":true}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "verify_ssl false",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"verify_ssl\":false}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "dial_enabled false",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"dial_enabled\":false}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true}"
+  },
+  {
+   "name": "verify_ssl \"no\"",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"verify_ssl\":\"no\"}",
+   "err": "unifi_protect_talk: verify_ssl must be true or false"
+  },
+  {
+   "name": "dial_enabled \"no\"",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"dial_enabled\":\"no\"}",
+   "err": "unifi_protect_talk: dial_enabled must be true or false"
+  },
+  {
+   "name": "verify_ssl 0",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"verify_ssl\":0}",
+   "err": "unifi_protect_talk: verify_ssl must be true or false"
+  },
+  {
+   "name": "dial_enabled 0",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"dial_enabled\":0}",
+   "err": "unifi_protect_talk: dial_enabled must be true or false"
+  },
+  {
+   "name": "verify_ssl 1",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"verify_ssl\":1}",
+   "err": "unifi_protect_talk: verify_ssl must be true or false"
+  },
+  {
+   "name": "dial_enabled 1",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"dial_enabled\":1}",
+   "err": "unifi_protect_talk: dial_enabled must be true or false"
+  },
+  {
+   "name": "verify_ssl null",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"verify_ssl\":null}",
+   "err": "unifi_protect_talk: verify_ssl must be true or false"
+  },
+  {
+   "name": "dial_enabled null",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"dial_enabled\":null}",
+   "err": "unifi_protect_talk: dial_enabled must be true or false"
+  },
+  {
+   "name": "verify_ssl []",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"verify_ssl\":[]}",
+   "err": "unifi_protect_talk: verify_ssl must be true or false"
+  },
+  {
+   "name": "dial_enabled []",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"dial_enabled\":[]}",
+   "err": "unifi_protect_talk: dial_enabled must be true or false"
+  },
+  {
+   "name": "unknown keys ignored",
+   "cfg": "{\"device_id\":\"ha_event:front\",\"protect_host\":\"h\",\"protect_api_key\":\"SECRET-API-KEY\",\"camera_id\":\"cam\",\"ring_events\":true,\"nvr_host\":\"x\",\"stream_quality\":\"low\"}",
+   "err": "",
+   "caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  }
+ ],
+ "downlink_args": [
+  {
+   "in": "rtsp://127.0.0.1:1/doorbell",
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-rtsp_transport",
+    "tcp",
+    "-i",
+    "rtsp://127.0.0.1:1/doorbell",
+    "-vn",
+    "-ac",
+    "1",
+    "-ar",
+    "16000",
+    "-f",
+    "s16le",
+    "pipe:1"
+   ]
+  },
+  {
+   "in": "rtsps://u:p@h/x?y=z",
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-rtsp_transport",
+    "tcp",
+    "-i",
+    "rtsps://u:p@h/x?y=z",
+    "-vn",
+    "-ac",
+    "1",
+    "-ar",
+    "16000",
+    "-f",
+    "s16le",
+    "pipe:1"
+   ]
+  },
+  {
+   "in": "",
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-rtsp_transport",
+    "tcp",
+    "-i",
+    "",
+    "-vn",
+    "-ac",
+    "1",
+    "-ar",
+    "16000",
+    "-f",
+    "s16le",
+    "pipe:1"
+   ]
+  },
+  {
+   "in": "rtsp://h/a b",
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-rtsp_transport",
+    "tcp",
+    "-i",
+    "rtsp://h/a b",
+    "-vn",
+    "-ac",
+    "1",
+    "-ar",
+    "16000",
+    "-f",
+    "s16le",
+    "pipe:1"
+   ]
+  }
+ ],
+ "ffmpeg_args": [
+  {
+   "sink": "rtp://192.168.2.9:7004",
+   "codec": "opus",
+   "rate": 24000,
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-f",
+    "s16le",
+    "-ar",
+    "16000",
+    "-ac",
+    "1",
+    "-i",
+    "pipe:0",
+    "-c:a",
+    "libopus",
+    "-application",
+    "voip",
+    "-ar",
+    "24000",
+    "-ac",
+    "1",
+    "-f",
+    "rtp",
+    "rtp://192.168.2.9:7004"
+   ]
+  },
+  {
+   "sink": "rtp://192.168.2.9:7004",
+   "codec": "opus",
+   "rate": 48000,
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-f",
+    "s16le",
+    "-ar",
+    "16000",
+    "-ac",
+    "1",
+    "-i",
+    "pipe:0",
+    "-c:a",
+    "libopus",
+    "-application",
+    "voip",
+    "-ar",
+    "48000",
+    "-ac",
+    "1",
+    "-f",
+    "rtp",
+    "rtp://192.168.2.9:7004"
+   ]
+  },
+  {
+   "sink": "udp://h:1",
+   "codec": "opus",
+   "rate": 8000,
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-f",
+    "s16le",
+    "-ar",
+    "16000",
+    "-ac",
+    "1",
+    "-i",
+    "pipe:0",
+    "-c:a",
+    "libopus",
+    "-application",
+    "voip",
+    "-ar",
+    "8000",
+    "-ac",
+    "1",
+    "-f",
+    "rtp",
+    "udp://h:1"
+   ]
+  },
+  {
+   "sink": "rtp://h:1",
+   "codec": "OPUS",
+   "rate": 24000,
+   "err": "talkback codec \"OPUS\" is not supported (only opus)"
+  },
+  {
+   "sink": "rtp://h:1",
+   "codec": "aac",
+   "rate": 24000,
+   "err": "talkback codec \"aac\" is not supported (only opus)"
+  },
+  {
+   "sink": "rtp://h:1",
+   "codec": "",
+   "rate": 24000,
+   "err": "talkback codec \"\" is not supported (only opus)"
+  },
+  {
+   "sink": "rtp://h:1",
+   "codec": "opus ",
+   "rate": 24000,
+   "err": "talkback codec \"opus \" is not supported (only opus)"
+  },
+  {
+   "sink": "rtp://h:1",
+   "codec": "vorbis",
+   "rate": 0,
+   "err": "talkback codec \"vorbis\" is not supported (only opus)"
+  },
+  {
+   "sink": "",
+   "codec": "opus",
+   "rate": 24000,
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-f",
+    "s16le",
+    "-ar",
+    "16000",
+    "-ac",
+    "1",
+    "-i",
+    "pipe:0",
+    "-c:a",
+    "libopus",
+    "-application",
+    "voip",
+    "-ar",
+    "24000",
+    "-ac",
+    "1",
+    "-f",
+    "rtp",
+    ""
+   ]
+  },
+  {
+   "sink": "rtp://h:1?x=1&y=2",
+   "codec": "opus",
+   "rate": 16000,
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-f",
+    "s16le",
+    "-ar",
+    "16000",
+    "-ac",
+    "1",
+    "-i",
+    "pipe:0",
+    "-c:a",
+    "libopus",
+    "-application",
+    "voip",
+    "-ar",
+    "16000",
+    "-ac",
+    "1",
+    "-f",
+    "rtp",
+    "rtp://h:1?x=1&y=2"
+   ]
+  },
+  {
+   "sink": "rtp://h:1",
+   "codec": "opus",
+   "rate": -5,
+   "args": [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-f",
+    "s16le",
+    "-ar",
+    "16000",
+    "-ac",
+    "1",
+    "-i",
+    "pipe:0",
+    "-c:a",
+    "libopus",
+    "-application",
+    "voip",
+    "-ar",
+    "-5",
+    "-ac",
+    "1",
+    "-f",
+    "rtp",
+    "rtp://h:1"
+   ]
+  },
+  {
+   "sink": "rtp://h:1",
+   "codec": "o\"p",
+   "rate": 1,
+   "err": "talkback codec \"o\\\"p\" is not supported (only opus)"
+  },
+  {
+   "sink": "rtp://h:1",
+   "codec": "ópus",
+   "rate": 1,
+   "err": "talkback codec \"ópus\" is not supported (only opus)"
+  },
+  {
+   "sink": "rtp://h:1",
+   "codec": "a\u0000b",
+   "rate": 1,
+   "err": "talkback codec \"a\\x00b\" is not supported (only opus)"
+  }
+ ],
+ "gain": [
+  {
+   "in_hex": "",
+   "gain": -3,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "",
+   "gain": 0,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "",
+   "gain": 1,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "",
+   "gain": 2,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "",
+   "gain": 3,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "",
+   "gain": 4,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "",
+   "gain": 16,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "",
+   "gain": 17,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "",
+   "gain": 1000,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "01",
+   "gain": -3,
+   "out_hex": "01",
+   "same": true
+  },
+  {
+   "in_hex": "01",
+   "gain": 0,
+   "out_hex": "01",
+   "same": true
+  },
+  {
+   "in_hex": "01",
+   "gain": 1,
+   "out_hex": "01",
+   "same": true
+  },
+  {
+   "in_hex": "01",
+   "gain": 2,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "01",
+   "gain": 3,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "01",
+   "gain": 4,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "01",
+   "gain": 16,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "01",
+   "gain": 17,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "01",
+   "gain": 1000,
+   "out_hex": "",
+   "same": false
+  },
+  {
+   "in_hex": "0100",
+   "gain": -3,
+   "out_hex": "0100",
+   "same": true
+  },
+  {
+   "in_hex": "0100",
+   "gain": 0,
+   "out_hex": "0100",
+   "same": true
+  },
+  {
+   "in_hex": "0100",
+   "gain": 1,
+   "out_hex": "0100",
+   "same": true
+  },
+  {
+   "in_hex": "0100",
+   "gain": 2,
+   "out_hex": "0200",
+   "same": false
+  },
+  {
+   "in_hex": "0100",
+   "gain": 3,
+   "out_hex": "0300",
+   "same": false
+  },
+  {
+   "in_hex": "0100",
+   "gain": 4,
+   "out_hex": "0400",
+   "same": false
+  },
+  {
+   "in_hex": "0100",
+   "gain": 16,
+   "out_hex": "1000",
+   "same": false
+  },
+  {
+   "in_hex": "0100",
+   "gain": 17,
+   "out_hex": "1100",
+   "same": false
+  },
+  {
+   "in_hex": "0100",
+   "gain": 1000,
+   "out_hex": "e803",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f0080",
+   "gain": -3,
+   "out_hex": "6400ff7f0080",
+   "same": true
+  },
+  {
+   "in_hex": "6400ff7f0080",
+   "gain": 0,
+   "out_hex": "6400ff7f0080",
+   "same": true
+  },
+  {
+   "in_hex": "6400ff7f0080",
+   "gain": 1,
+   "out_hex": "6400ff7f0080",
+   "same": true
+  },
+  {
+   "in_hex": "6400ff7f0080",
+   "gain": 2,
+   "out_hex": "c800ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f0080",
+   "gain": 3,
+   "out_hex": "2c01ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f0080",
+   "gain": 4,
+   "out_hex": "9001ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f0080",
+   "gain": 16,
+   "out_hex": "4006ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f0080",
+   "gain": 17,
+   "out_hex": "a406ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f0080",
+   "gain": 1000,
+   "out_hex": "ff7fff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f008007",
+   "gain": -3,
+   "out_hex": "6400ff7f008007",
+   "same": true
+  },
+  {
+   "in_hex": "6400ff7f008007",
+   "gain": 0,
+   "out_hex": "6400ff7f008007",
+   "same": true
+  },
+  {
+   "in_hex": "6400ff7f008007",
+   "gain": 1,
+   "out_hex": "6400ff7f008007",
+   "same": true
+  },
+  {
+   "in_hex": "6400ff7f008007",
+   "gain": 2,
+   "out_hex": "c800ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f008007",
+   "gain": 3,
+   "out_hex": "2c01ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f008007",
+   "gain": 4,
+   "out_hex": "9001ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f008007",
+   "gain": 16,
+   "out_hex": "4006ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f008007",
+   "gain": 17,
+   "out_hex": "a406ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "6400ff7f008007",
+   "gain": 1000,
+   "out_hex": "ff7fff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "ffff01800040ff3f",
+   "gain": -3,
+   "out_hex": "ffff01800040ff3f",
+   "same": true
+  },
+  {
+   "in_hex": "ffff01800040ff3f",
+   "gain": 0,
+   "out_hex": "ffff01800040ff3f",
+   "same": true
+  },
+  {
+   "in_hex": "ffff01800040ff3f",
+   "gain": 1,
+   "out_hex": "ffff01800040ff3f",
+   "same": true
+  },
+  {
+   "in_hex": "ffff01800040ff3f",
+   "gain": 2,
+   "out_hex": "feff0080ff7ffe7f",
+   "same": false
+  },
+  {
+   "in_hex": "ffff01800040ff3f",
+   "gain": 3,
+   "out_hex": "fdff0080ff7fff7f",
+   "same": false
+  },
+  {
+   "in_hex": "ffff01800040ff3f",
+   "gain": 4,
+   "out_hex": "fcff0080ff7fff7f",
+   "same": false
+  },
+  {
+   "in_hex": "ffff01800040ff3f",
+   "gain": 16,
+   "out_hex": "f0ff0080ff7fff7f",
+   "same": false
+  },
+  {
+   "in_hex": "ffff01800040ff3f",
+   "gain": 17,
+   "out_hex": "efff0080ff7fff7f",
+   "same": false
+  },
+  {
+   "in_hex": "ffff01800040ff3f",
+   "gain": 1000,
+   "out_hex": "18fc0080ff7fff7f",
+   "same": false
+  },
+  {
+   "in_hex": "3412cdab",
+   "gain": -3,
+   "out_hex": "3412cdab",
+   "same": true
+  },
+  {
+   "in_hex": "3412cdab",
+   "gain": 0,
+   "out_hex": "3412cdab",
+   "same": true
+  },
+  {
+   "in_hex": "3412cdab",
+   "gain": 1,
+   "out_hex": "3412cdab",
+   "same": true
+  },
+  {
+   "in_hex": "3412cdab",
+   "gain": 2,
+   "out_hex": "68240080",
+   "same": false
+  },
+  {
+   "in_hex": "3412cdab",
+   "gain": 3,
+   "out_hex": "9c360080",
+   "same": false
+  },
+  {
+   "in_hex": "3412cdab",
+   "gain": 4,
+   "out_hex": "d0480080",
+   "same": false
+  },
+  {
+   "in_hex": "3412cdab",
+   "gain": 16,
+   "out_hex": "ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "3412cdab",
+   "gain": 17,
+   "out_hex": "ff7f0080",
+   "same": false
+  },
+  {
+   "in_hex": "3412cdab",
+   "gain": 1000,
+   "out_hex": "ff7f0080",
+   "same": false
+  }
+ ],
+ "look_path": [
+  {
+   "name": "/nonexistent/ffmpeg",
+   "path": "",
+   "err": "exec: \"/nonexistent/ffmpeg\": stat /nonexistent/ffmpeg: no such file or directory"
+  },
+  {
+   "name": "DIR/plain",
+   "path": "",
+   "err": "exec: \"DIR/plain\": permission denied"
+  },
+  {
+   "name": "DIR/prog",
+   "path": "",
+   "ok": true
+  },
+  {
+   "name": "DIR/adir",
+   "path": "",
+   "err": "exec: \"DIR/adir\": is a directory"
+  },
+  {
+   "name": "DIR/nope",
+   "path": "",
+   "err": "exec: \"DIR/nope\": stat DIR/nope: no such file or directory"
+  },
+  {
+   "name": "DIR",
+   "path": "",
+   "err": "exec: \"DIR\": is a directory"
+  },
+  {
+   "name": "/nonexistent-dir/x/y",
+   "path": "",
+   "err": "exec: \"/nonexistent-dir/x/y\": stat /nonexistent-dir/x/y: no such file or directory"
+  },
+  {
+   "name": "prog",
+   "path": "DIR",
+   "ok": true
+  },
+  {
+   "name": "plain",
+   "path": "DIR",
+   "err": "exec: \"plain\": executable file not found in $PATH"
+  },
+  {
+   "name": "nothing",
+   "path": "DIR",
+   "err": "exec: \"nothing\": executable file not found in $PATH"
+  },
+  {
+   "name": "adir",
+   "path": "DIR",
+   "err": "exec: \"adir\": executable file not found in $PATH"
+  },
+  {
+   "name": "nothing",
+   "path": "",
+   "err": "exec: \"nothing\": executable file not found in $PATH"
+  },
+  {
+   "name": "prog",
+   "path": "/nonexistent:DIR",
+   "ok": true
+  },
+  {
+   "name": "prog",
+   "path": "DIR:/bin",
+   "ok": true
+  },
+  {
+   "name": "ffmpeg",
+   "path": "/nonexistent",
+   "err": "exec: \"ffmpeg\": executable file not found in $PATH"
+  },
+  {
+   "name": "a b",
+   "path": "DIR",
+   "err": "exec: \"a b\": executable file not found in $PATH"
+  },
+  {
+   "name": "",
+   "path": "DIR",
+   "err": "exec: \"\": executable file not found in $PATH"
+  }
+ ],
+ "scrub_line": [
+  {
+   "in": ""
+  },
+  {
+   "in": "  "
+  },
+  {
+   "in": "plain line",
+   "out": "plain line"
+  },
+  {
+   "in": "  open rtsp://u:p@h/x failed; also http://a/b  ",
+   "out": "open <url> failed; also <url>"
+  },
+  {
+   "in": "rtsp://h",
+   "out": "<url>"
+  },
+  {
+   "in": "a://b",
+   "out": "<url>"
+  },
+  {
+   "in": "a://",
+   "out": "a://"
+  },
+  {
+   "in": "x://\ty",
+   "out": "x://\ty"
+  },
+  {
+   "in": "xhttp://a",
+   "out": "<url>"
+  },
+  {
+   "in": "1http://a",
+   "out": "1<url>"
+  },
+  {
+   "in": "see ftp://h:1/ and rtsp://u:p@h x",
+   "out": "see <url> and <url> x"
+  },
+  {
+   "in": "://nope",
+   "out": "://nope"
+  },
+  {
+   "in": "proto+x.y-z://q r",
+   "out": "<url> r"
+  },
+  {
+   "in": "héllo http://é",
+   "out": "héllo <url>"
+  },
+  {
+   "in": "Connection to rtsp://user:s3cret@10.6.0.6:8554/doorbell failed",
+   "out": "Connection to <url> failed"
+  },
+  {
+   "in": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "out": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  {
+   "in": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx rtsp://h/x",
+   "out": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  {
+   "in": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé",
+   "out": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+  },
+  {
+   "in": "aéééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééb",
+   "out": "aéééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééb"
+  },
+  {
+   "in": "  padded  ",
+   "out": "padded"
+  },
+  {
+   "in": " em space ",
+   "out": "em space"
+  },
+  {
+   "in": "tab\tseparated\thttp://a/b\tafter",
+   "out": "tab\tseparated\t<url>\tafter"
+  },
+  {
+   "in": "line1\nline2 http://x\nline3",
+   "out": "line1\nline2 <url>\nline3"
+  },
+  {
+   "in": "http://a/b c",
+   "out": "<url>"
+  },
+  {
+   "in": "ab://cd ef://gh",
+   "out": "<url> <url>"
+  },
+  {
+   "in": "a.b+c-d://e",
+   "out": "<url>"
+  },
+  {
+   "in": "HTTP://UP",
+   "out": "<url>"
+  },
+  {
+   "in": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "out": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  {
+   "in": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaé",
+   "out": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\ufffd"
+  },
+  {
+   "in": "xhttp://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u http://u ",
+   "out": "<url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url> <url>"
+  }
+ ],
+ "unconfigured_caps": "{\"InboundAudio\":1,\"OutboundAudio\":2,\"DirectCapable\":false,\"HasRelay\":false,\"RTSPTemplate\":\"\",\"ReportsAvailability\":true}",
+ "valid_sink": [
+  {
+   "in": "rtp://192.168.2.9:7004"
+  },
+  {
+   "in": "udp://h:1"
+  },
+  {
+   "in": "rtp://h"
+  },
+  {
+   "in": "RTP://H:1"
+  },
+  {
+   "in": "rtp://[::1]:7004"
+  },
+  {
+   "in": "rtp://h:1?localport=5004"
+  },
+  {
+   "in": "file:///etc/passwd",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "file://h/etc/passwd",
+   "err": "talkback sink scheme \"file\" is not allowed"
+  },
+  {
+   "in": "http://evil.example/x",
+   "err": "talkback sink scheme \"http\" is not allowed"
+  },
+  {
+   "in": "https://h",
+   "err": "talkback sink scheme \"https\" is not allowed"
+  },
+  {
+   "in": "rtsp://h",
+   "err": "talkback sink scheme \"rtsp\" is not allowed"
+  },
+  {
+   "in": "rtp://",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "rtp:///x",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "rtp:h:1",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "rtp:",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "h:1",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "://x",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "rtp://h:x",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "rtp://us er@h",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "rtp://u:p@h:1"
+  },
+  {
+   "in": "rtp://h:1/a b"
+  },
+  {
+   "in": "rtp://h:1/%zz",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "rtp://h\n",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "rtp://[::1",
+   "err": "talkback sink is not a usable URL"
+  },
+  {
+   "in": "rtp://h:99999"
+  },
+  {
+   "in": "rtp://h:1#frag"
+  },
+  {
+   "in": "udp://0.0.0.0:0"
+  },
+  {
+   "in": "rtp://h:1/ü"
+  },
+  {
+   "in": " rtp://h",
+   "err": "talkback sink is not a usable URL"
+  }
+ ]
+}

@@ -1,0 +1,2978 @@
+{
+ "contract": "transport_ipc/v1",
+ "about": "Language-neutral contract of the portico-transport IPC (the Rust binary in transport-rs/; it also covers the former Go binary, whose source `transport/` was deleted after the cut-over, D-20261123-cc1e, and is in git history at commit bdd8e61). Derived on 2026-11-13 from transport/cmd/portico-transport/main.go, internal/ipc/*.go and the Go binary's own answers (wire_cases / empty_hub_errors were generated from the Go binary and read against main.go), then checked against the Rust binary. Where the two binaries differ, the difference is a row of `implementation_differences` that names its PARITY.md entry; it is never a spec choice. Executed by transport-rs/scripts/contract_runner.py against the Rust binary (the Go binary can no longer be built; the Go `go` fields below are the frozen reference). Request/notification shapes are the contract; the free-text of Go's errors (json.Unmarshal wording) is part of it because the Python side logs it.",
+ "transport": {
+  "unix": "newline-delimited JSON on a unix socket created 0600, ONE connection served; the process exits when it closes",
+  "tcp": "-listen: same framing after an auth line; reconnects allowed; see requests.auth"
+ },
+ "framing": {
+  "line_limit_bytes": 1048576,
+  "line_limit_note": "a line plus its newline must fit in 1 MiB; 1048575 content bytes served, 1048576 fails the serve loop (exit 1, socket file left behind)",
+  "dropped_silently": [
+   "empty line",
+   "malformed JSON",
+   "non-object JSON",
+   "id not an integer literal (1.5, 1e2, strings)",
+   "method not a string",
+   "id outside int64"
+  ],
+  "zero_request": "the JSON literal null is a zero request: unknown_method, id 0, message empty",
+  "keys": "case-insensitive (ASCII), duplicates: last wins, null fields ignored, missing id is 0",
+  "response": {
+   "ok": {
+    "id": "int",
+    "result": "any"
+   },
+   "error": {
+    "id": "int",
+    "error": {
+     "code": "string",
+     "message": "string"
+    }
+   },
+   "notification": {
+    "method": "string",
+    "params": "object"
+   }
+  },
+  "string_escaping": "Go encoding/json: \\u003c \\u003e \\u0026 \\u2028 \\u2029, short escapes \\b \\f \\n \\r \\t, other controls \\u00xx",
+  "write_timeout_seconds": 5,
+  "order": "plain handlers run concurrently (responses matched by id); inline handlers (media_*) run on the read loop in arrival order; keyed handlers serialise per key in arrival order"
+ },
+ "requests": {
+  "configure": {
+   "dispatch": "keyed (device_id | host | nvr_host of config)",
+   "params": {
+    "driver": "string, one of the drivers below",
+    "config": "object"
+   },
+   "result": "Capabilities",
+   "errors": [
+    "bad_params",
+    "unknown_driver",
+    "already_configured",
+    "configure_failed",
+    "start_failed",
+    "shutting_down"
+   ],
+   "notes": "a configure of an id already present is already_configured; the reply precedes driver_availability when the event is raised from the driver's own task, but an event raised inside Start precedes the reply (PARITY 301; the transcripts keep the real order)"
+  },
+  "deconfigure": {
+   "dispatch": "keyed (device_id)",
+   "params": {
+    "device_id": "string",
+    "host": "string (fallback key)"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "bad_params",
+    "unknown_device",
+    "deconfigure_failed"
+   ]
+  },
+  "dial": {
+   "dispatch": "plain",
+   "params": {
+    "device_id": "string",
+    "host": "string",
+    "port": "int"
+   },
+   "result": {
+    "ok": true,
+    "call_id": "string, only for drivers with a call-placing dial (gate_sip_observer, gate_sip_server)"
+   },
+   "errors": [
+    "bad_params",
+    "unknown_device",
+    "dial_failed",
+    "not_supported",
+    "already_answered",
+    "claims_disabled"
+   ]
+  },
+  "answer": {
+   "dispatch": "plain",
+   "params": {
+    "device_id": "string"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "bad_params",
+    "unknown_device",
+    "answer_failed",
+    "not_supported",
+    "already_answered",
+    "claims_disabled"
+   ]
+  },
+  "open_relay": {
+   "dispatch": "plain",
+   "params": {
+    "device_id": "string"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "bad_params",
+    "unknown_device",
+    "open_relay_failed",
+    "not_supported",
+    "already_answered",
+    "claims_disabled"
+   ]
+  },
+  "stream_url": {
+   "dispatch": "plain",
+   "params": {
+    "device_id": "string"
+   },
+   "result": {
+    "url": "string"
+   },
+   "errors": [
+    "bad_params",
+    "unknown_device",
+    "stream_url_failed",
+    "not_supported"
+   ]
+  },
+  "hangup": {
+   "dispatch": "plain",
+   "params": {
+    "call_id": "string",
+    "reason": "string"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "bad_params",
+    "not_implemented (no driver ends calls)",
+    "hangup_failed"
+   ],
+   "notes": "on an empty hub, not_implemented"
+  },
+  "keepalive": {
+   "dispatch": "plain",
+   "params": "ignored",
+   "result": null,
+   "errors": [
+    "not_implemented"
+   ],
+   "notes": "always not_implemented: Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+  },
+  "webrtc_offer": {
+   "dispatch": "keyed (call_id)",
+   "params": {
+    "call_id": "string",
+    "sdp": "string"
+   },
+   "result": {
+    "sdp": "answer SDP"
+   },
+   "errors": [
+    "bad_params",
+    "webrtc_failed"
+   ],
+   "notes": "joins the pending ring of that call id; the answer is G.722 else PCMU"
+  },
+  "webrtc_answer": {
+   "dispatch": "keyed (call_id)",
+   "params": {
+    "call_id": "string",
+    "sdp": "string"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "bad_params",
+    "unknown_session",
+    "webrtc_failed"
+   ]
+  },
+  "webrtc_ice": {
+   "dispatch": "keyed (call_id)",
+   "params": {
+    "call_id": "string",
+    "candidate": "string"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "bad_params",
+    "unknown_session",
+    "webrtc_failed"
+   ]
+  },
+  "media_open": {
+   "dispatch": "inline (arrival order)",
+   "params": {
+    "call_id": "string",
+    "codec": "pcmu|l16",
+    "stats": "bool, optional (DEV-811 P3): true asks for the leg's counters in media_closed; absent or anything but true = off"
+   },
+   "result": {
+    "codec": "string",
+    "frame_bytes": "320|1280",
+    "frame_ms": 40
+   },
+   "errors": [
+    "bad_params",
+    "already_open"
+   ],
+   "notes": "5 s without a frame closes the leg: media_closed reason idle. Since slice 8 the leg is joined to its call's device leg"
+  },
+  "media_frame": {
+   "dispatch": "inline",
+   "params": {
+    "call_id": "string",
+    "d": "base64 frame"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "bad_params",
+    "bad_frame",
+    "unknown_session"
+   ]
+  },
+  "media_close": {
+   "dispatch": "inline",
+   "params": {
+    "call_id": "string",
+    "reason": "string"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "bad_params"
+   ],
+   "notes": "media_closed is notified BEFORE the response; an unknown leg is {ok:true}. DEV-811 P3: call_audio_stats is sent only by a gate_sip_server configured with call_stats:true, once per answered call at the end of its audio; the configure reply of that driver lists Features [call_stats]"
+  },
+  "house_open": {
+   "dispatch": "keyed (call_id) when -house-calls is on, plain when it is off (main.go registers Handle, then HandleKeyed)",
+   "params": {
+    "call_id": "hso-*",
+    "legs": "exactly two of {side,kind,codec,sdp,owner}"
+   },
+   "result": {
+    "session": "string",
+    "legs": "array"
+   },
+   "errors": [
+    "bad_params",
+    "already_open",
+    "too_many_calls",
+    "shutting_down",
+    "house_open_failed",
+    "not_supported"
+   ],
+   "notes": "default OFF (-house-calls); cap 4 bridges, per-owner cap"
+  },
+  "house_close": {
+   "dispatch": "keyed (call_id) when -house-calls is on, plain when it is off",
+   "params": {
+    "call_id": "string"
+   },
+   "result": {
+    "ok": true,
+    "closed": "bool"
+   },
+   "errors": [
+    "bad_params",
+    "not_supported"
+   ]
+  },
+  "external_ring": {
+   "dispatch": "keyed (device_id)",
+   "params": {
+    "device_id": "string",
+    "call_id": "string",
+    "hold": "number 0..3600 seconds, 0 = default"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "bad_params",
+    "unknown_device",
+    "not_supported",
+    "external_ring_failed",
+    "busy"
+   ]
+  },
+  "talk_health": {
+   "dispatch": "plain",
+   "params": {
+    "device_id": "string"
+   },
+   "result": "object (driver-specific health)",
+   "errors": [
+    "bad_params",
+    "unknown_device",
+    "not_supported"
+   ]
+  },
+  "auth": {
+   "dispatch": "TCP mode only, first line",
+   "params": {
+    "token": "string"
+   },
+   "result": {
+    "ok": true
+   },
+   "errors": [
+    "unauthorized"
+   ],
+   "notes": "must arrive within 5 s; anything else drops the connection; not available on the unix socket"
+  }
+ },
+ "notifications": {
+  "ringing": {
+   "call_id": "string",
+   "device_id": "string"
+  },
+  "call_state_changed": {
+   "call_id": "string",
+   "device_id": "string",
+   "state": "ringing|answered|active|ended (driver.State*; idle is HA-side only)"
+  },
+  "driver_availability": {
+   "device_id": "string",
+   "available": "bool",
+   "reason": "string"
+  },
+  "driver_error": {
+   "device_id": "string",
+   "message": "string",
+   "code": "string"
+  },
+  "listen_state": {
+   "device_id": "string",
+   "state": "string",
+   "reason": "string"
+  },
+  "call_reason": {
+   "device_id": "string",
+   "call_id": "string",
+   "kind": "string",
+   "reason": "string"
+  },
+  "capabilities_changed": {
+   "device_id": "string",
+   "capabilities": "Capabilities"
+  },
+  "media_frame": {
+   "call_id": "string",
+   "d": "base64 frame"
+  },
+  "media_closed": {
+   "call_id": "string",
+   "reason": "string",
+   "stats": "object, only when media_open said stats:true (DEV-811 P3): uplink_frames, uplink_bad_frame, uplink_full_drops, downlink_frames, downlink_send_ms_max, uplink_gap_ms_max, uplink_gap_ms_p95 (counts and milliseconds)"
+  },
+  "call_audio_stats": {
+   "device_id": "string",
+   "call_id": "string",
+   "station_rate": "8000|16000, the call's rate",
+   "station_frames": "int, station frames the downlink saw",
+   "pre_gain_hist": "31 ints: per-frame peak before the x4 gain, 3 dB bins; bin 0 below -90 dBFS, bin i (1..30) covers [-93+3i, -90+3i) dBFS, bin 30 holds full scale",
+   "would_clip_frames": "int, frames whose pre-gain peak would clip at x4",
+   "saturated_samples": "int, samples at +-full scale (both signs) as they leave the server",
+   "queued_to_app, dropped_to_app, received_from_app, dropped_from_app": "int, the call's own queue counters"
+  },
+  "house_leg_state": {
+   "call_id": "string",
+   "leg": "from|to",
+   "state": "attached|first_frame|lost|..."
+  }
+ },
+ "notifications_note": "notifications go out only while a client is connected; a ring before the connection exists is not replayed",
+ "error_codes": [
+  "already_answered",
+  "already_configured",
+  "already_open",
+  "answer_failed",
+  "bad_frame",
+  "bad_params",
+  "busy",
+  "claims_disabled",
+  "configure_failed",
+  "deconfigure_failed",
+  "dial_failed",
+  "external_ring_failed",
+  "hangup_failed",
+  "house_open_failed",
+  "internal_error",
+  "not_implemented",
+  "not_supported",
+  "open_relay_failed",
+  "shutting_down",
+  "start_failed",
+  "stream_url_failed",
+  "too_many_calls",
+  "unauthorized",
+  "unknown_device",
+  "unknown_driver",
+  "unknown_method",
+  "unknown_session",
+  "webrtc_failed"
+ ],
+ "drivers": [
+  "gate_sip_server",
+  "gate_sip_observer",
+  "dahua_sip",
+  "unifi_protect",
+  "unifi_protect_talk"
+ ],
+ "capabilities": {
+  "gate_sip_server": {
+   "configure": "{driver: gate_sip_server, config: {sip_listen, password, ...}}",
+   "result": {
+    "InboundAudio": 0,
+    "OutboundAudio": 0,
+    "DirectCapable": false,
+    "HasRelay": false,
+    "RTSPTemplate": "",
+    "ReportsAvailability": false
+   }
+  },
+  "dahua_sip": {
+   "result": {
+    "InboundAudio": 0,
+    "OutboundAudio": 0,
+    "DirectCapable": true,
+    "HasRelay": true,
+    "RTSPTemplate": "rtsp://{host}/cam/realmonitor?channel=1&subtype=1",
+    "ReportsAvailability": true
+   }
+  },
+  "unifi_protect": {
+   "note": "ring_events: true",
+   "result": {
+    "InboundAudio": 1,
+    "OutboundAudio": 2,
+    "DirectCapable": false,
+    "HasRelay": true,
+    "RTSPTemplate": "rtsps://{nvr_host}/{camera_id}",
+    "ReportsAvailability": true
+   }
+  },
+  "unifi_protect_talk": {
+   "note": "dial_enabled: true adds CanDial",
+   "result": {
+    "InboundAudio": 1,
+    "OutboundAudio": 2,
+    "DirectCapable": false,
+    "HasRelay": false,
+    "RTSPTemplate": "",
+    "ReportsAvailability": true,
+    "CanDial": true
+   }
+  },
+  "gate_sip_observer": {
+   "note": "no claims, no dial: it listens only",
+   "result": {
+    "InboundAudio": 3,
+    "OutboundAudio": 3,
+    "DirectCapable": false,
+    "HasRelay": false,
+    "RTSPTemplate": "",
+    "ReportsAvailability": true
+   }
+  },
+  "gate_sip_observer+claims+dial": {
+   "note": "claims_enabled and dial_enabled: audio is carried by the claim; CanDial",
+   "result": {
+    "InboundAudio": 0,
+    "OutboundAudio": 0,
+    "DirectCapable": false,
+    "HasRelay": false,
+    "RTSPTemplate": "",
+    "ReportsAvailability": true,
+    "CanDial": true
+   }
+  }
+ },
+ "capabilities_note": "Capabilities is marshalled in struct order InboundAudio, OutboundAudio, DirectCapable, HasRelay, RTSPTemplate, ReportsAvailability, then CanDial only when true (checked in the raw lines of the transcripts). InboundAudio/OutboundAudio are driver.AudioTopology: 0 SIPRTP, 1 InVideoStream, 2 TalkbackPush, 3 NoAudio. capabilities_changed repeats the object after a start-up republish (observer/talk with dial).",
+ "soft_contracts": {
+  "flags": [
+   {
+    "name": "-socket",
+    "type": "string",
+    "default": "",
+    "meaning": "IPC unix socket path"
+   },
+   {
+    "name": "-host",
+    "type": "string",
+    "default": "",
+    "meaning": "own LAN/tailnet IPv4 for relay SDP"
+   },
+   {
+    "name": "-house-calls",
+    "type": "bool",
+    "default": false,
+    "meaning": "enable house_open / house_close"
+   },
+   {
+    "name": "-listen",
+    "type": "string",
+    "default": "",
+    "meaning": "serve the IPC over TCP host:port (standalone)"
+   },
+   {
+    "name": "-ipc-token-file",
+    "type": "string",
+    "default": "",
+    "meaning": "file with the TCP IPC token; overrides PORTICO_IPC_TOKEN"
+   },
+   {
+    "name": "-ipc-allow-non-loopback",
+    "type": "bool",
+    "default": false,
+    "meaning": "allow -listen on a non-loopback address (also needs -ipc-allow-from)"
+   },
+   {
+    "name": "-ipc-allow-from",
+    "type": "string",
+    "default": "",
+    "meaning": "comma list of IPs/CIDRs allowed to connect"
+   },
+   {
+    "name": "-sip-from-env",
+    "type": "bool",
+    "default": false,
+    "meaning": "start one gate_sip_server from PORTICO_SIP_* at start-up"
+   },
+   {
+    "name": "-secrets-env",
+    "type": "string",
+    "default": "",
+    "meaning": "KEY=VALUE .env with GATE_SIP_PASSWORD/USER/REALM/PEER_TOKEN"
+   }
+  ],
+  "environment": {
+   "PORTICO_IPC_TOKEN": "TCP IPC token (min length enforced)",
+   "PORTICO_SIP_LISTEN": "-sip-from-env",
+   "PORTICO_SIP_PASSWORD": "-sip-from-env",
+   "PORTICO_SIP_PASSWORD_FILE": "-sip-from-env",
+   "PORTICO_SIP_USER": "",
+   "PORTICO_SIP_REALM": "",
+   "PORTICO_SIP_RTP_PORT": "",
+   "PORTICO_SIP_RING_SECONDS": "",
+   "PORTICO_SIP_ORPHAN_SECONDS": "",
+   "PORTICO_SIP_DEVICE_ID": "",
+   "PORTICO_SIP_DIAL_ENABLED": "",
+   "PORTICO_SIP_ALLOW_FROM": "",
+   "PORTICO_SIP_ALLOW_NON_LOOPBACK": "",
+   "env_file_keys": [
+    "GATE_SIP_PASSWORD",
+    "GATE_SIP_USER",
+    "GATE_SIP_REALM",
+    "GATE_SIP_PEER_TOKEN"
+   ],
+   "note": "explicit PORTICO_* variables and -ipc-token-file override -secrets-env"
+  },
+  "log": {
+   "stream": "stdout and stderr both used by Go; hub.py merges and drains both; Rust writes to stderr only (PARITY 87)",
+   "line_prefix": "portico-transport: ",
+   "house_call_summary": "portico-transport: house call <call_id> ended reason=<reason> cause=<cause> dur=<duration>"
+  },
+  "house_call_log": {
+   "prefix": "portico-transport: house call ",
+   "consumer": "hub.py HOUSE_CALL_SUMMARY_PREFIX, promoted to INFO"
+  },
+  "exit_codes": {
+   "0": "clean: SIGINT/SIGTERM, unix client closed, -h",
+   "1": "start-up error (flags/secrets/bind/listen), serve error (over-limit line)",
+   "2": "flag parse error (also the Go runtime exit code of an unrecovered panic)"
+  },
+  "restart_policy": "hub.py restarts the process once; a unix-mode client disconnect is an exit 0 that hub.py sees as an unexpected exit",
+  "socket": {
+   "mode": "0600 (bind then chmod: a window with 0777&~umask exists in both)",
+   "stale": "a file at the path is removed first",
+   "removed_on": "clean exit",
+   "left_behind_on": "over-limit line (exit 1)"
+  },
+  "signals": {
+   "SIGINT": "stop accepting, close the connection, stop drivers, remove socket, exit 0",
+   "SIGTERM": "same",
+   "hub.py_kill": "terminate, 5 s, kill"
+  },
+  "wheel_features": {
+   "MIN_WHEEL_VERSION": "0.5.0",
+   "HOUSE_CALLS_MIN_WHEEL": "0.6.0",
+   "note": "Python-side feature detection; not a binary behaviour"
+  }
+ },
+ "panic_policy": {
+  "go": "there is NO recover() in the non-test Go sources (grep of transport/ 2026-11-13): a panic in any goroutine ends the process (runtime exit 2, trace on stderr) and hub.py restarts it once. The plan and PARITY text that speak of Go recover() sites do not match the code.",
+  "rust": "panic = unwind (Cargo.toml). A panic in a tokio task is contained to that task (supervised drivers restart their loop; a call-carrying task ends THAT call and reports an end), call-carrying tasks run under catch_unwind with guaranteed teardown; a panic on the main thread aborts the process. panic_hook::install() prints 'portico-transport: panic at <file>:<line>: <payload>' first (PARITY 155).",
+  "wire_observable": false,
+  "why_not_a_runner_case": "no request makes either binary panic on purpose; the policy is pinned by the Rust unit tests that inject a panic (tests/panic_hook.rs, talk_panics.rs, sfu_session.rs, house.rs) and by PARITY rows sip difference 4, 88, 97, 102, 113, 114, 131, 145, 157, 166, 175"
+ },
+ "implementation_differences": [
+  {
+   "id": "DIFF-WEBRTC-SETUP",
+   "group": "webrtc",
+   "parity": [
+    "tavor Deliberate differences (smoke diff) row 3",
+    "61"
+   ],
+   "go": "  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: \\['a=setup:active'\\]; rtcp-mux: True",
+   "rust": "  has host candidates: True; end-of-candidates: True; ice-ufrag: True; ice-pwd: True; fingerprint: True; setup: \\['a=setup:passive'\\]; rtcp-mux: True",
+   "note": "Go (pion) is the DTLS client, Rust (str0m) the server; both interoperate (INTEROP.md)"
+  },
+  {
+   "id": "DIFF-WEBRTC-RTPMAP",
+   "group": "webrtc",
+   "parity": [
+    "66"
+   ],
+   "go": "  rtpmap: \\['a=rtpmap:0 PCMU/8000', 'a=rtpmap:9 G722/8000/1'\\]",
+   "rust": "  rtpmap: \\['a=rtpmap:0 PCMU/8000', 'a=rtpmap:9 G722/8000'\\]",
+   "note": "the /1 channel suffix is removed from the offer before str0m parses it and not written back"
+  },
+  {
+   "id": "DIFF-WEBRTC-FAILED-OFFER-SESSION",
+   "group": "webrtc",
+   "parity": [
+    "79"
+   ],
+   "go": "  \\{\"error_code\": \"webrtc_failed\", \"id\": (9|10|11|12), \"ok\": false\\}",
+   "rust": "  \\{\"error_code\": \"unknown_session\", \"id\": (9|10|11|12), \"ok\": false\\}",
+   "note": "Go keeps the session of a refused first offer in the registry (candidate/answer then fail as webrtc_failed); Rust drops it (unknown_session)"
+  },
+  {
+   "id": "DIFF-STANDALONE-ENV-MODE-WARNING",
+   "group": "standalone",
+   "parity": [
+    "186"
+   ],
+   "go": null,
+   "rust": "  \\| portico-transport: warning: the -secrets-env file is readable by group or others \\(mode 0[0-7]{3}\\); restrict it to its owner",
+   "note": "Rust warns when the .env file is group/other readable; Go reads whatever it is pointed at and says nothing (the line of the transcript's log section; the same text inside the process-output line is covered by DIFF-STANDALONE-LOG-LINES)"
+  },
+  {
+   "id": "DIFF-FRAME-LONE-SURROGATE",
+   "group": null,
+   "wire_case": "W-FRAME-LONE-SURROGATE",
+   "not_in_transcripts": true,
+   "parity": [
+    "Other differences: Rust cannot hold ... a lone \\ud800 escape in a decoded string: such a request line is dropped"
+   ],
+   "go": null,
+   "rust": null,
+   "note": "Go replaces the lone surrogate with U+FFFD and answers; Rust drops the whole line (no response). Row 161 fixed the field strings the dispatcher reads, not the request line itself"
+  },
+  {
+   "id": "DIFF-STANDALONE-LOG-LINES",
+   "group": "standalone",
+   "parity": [
+    "186",
+    "188"
+   ],
+   "go": "  process output: '<TIME> gate_sip_server: SIP on 127\\.0\\.0\\.1:<SIPPORT>, RTP on :<RTP>, realm \"VDP\", user \"8001\", ring limit 45s, orphan grace 15s\\\\n'",
+   "rust": "  process output: '(portico-transport: warning: the -secrets-env file is readable by group or others \\(mode 0[0-7]{3}\\); restrict it to its owner\\\\n)?<TIME> gate_sip_server: SIP on 127\\.0\\.0\\.1:<SIPPORT>, RTP on :<RTP>, realm \"VDP\", user \"8001\", ring limit 45s, orphan grace 15s\\\\n(portico-transport: ipc: refused a TCP connection from 127\\.0\\.0\\.1: no valid auth line\\\\n)?'",
+   "note": "the process-output lines of the standalone flow, matched as whole lines: the Go line is the SIP start line only; the Rust line may add the mode warning (DIFF-STANDALONE-ENV-MODE-WARNING, parity 186) before it and the refused-connection line (parity 188) after it"
+  },
+  {
+   "id": "DIFF-REGISTER-EXPIRES0",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "gate_sip_server 45"
+   ],
+   "deferred_case": "D-REGISTER-EXPIRES0",
+   "go": null,
+   "rust": null,
+   "note": "a REGISTER with Expires 0: Go answers Expires 300 and registers, Rust de-registers (the Contact expiry wins); proven by the retired scripts/wire_deferred.py (DEV-831; conformance/deferred_wire_results.json)"
+  },
+  {
+   "id": "DIFF-NONCE-REPLAY",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "gate_sip_server 50"
+   ],
+   "deferred_case": "D-NONCE-REPLAY",
+   "go": null,
+   "rust": null,
+   "note": "a nonce issued to one host is refused from another host in Rust, accepted by Go"
+  },
+  {
+   "id": "DIFF-CANCEL-FOREIGN",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "gate_sip_server 44"
+   ],
+   "deferred_case": "D-CANCEL-FOREIGN",
+   "go": null,
+   "rust": null,
+   "note": "a CANCEL for a live call from a different source host is refused in Rust, ends the call in Go"
+  },
+  {
+   "id": "DIFF-BYE-FOREIGN",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "gate_sip_server 44"
+   ],
+   "deferred_case": "D-BYE-FOREIGN",
+   "go": null,
+   "rust": null,
+   "note": "a BYE for a live call from a different source host is refused in Rust, ends the call in Go"
+  },
+  {
+   "id": "DIFF-BYE-FOREIGN-DIALLED",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "gate_sip_server 52"
+   ],
+   "deferred_case": "D-BYE-FOREIGN-DIALLED",
+   "go": null,
+   "rust": null,
+   "note": "the same for a call the transport dialled"
+  },
+  {
+   "id": "DIFF-AUTH-WINDOW-CLOSE",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "standalone 181"
+   ],
+   "deferred_case": "D-AUTH-WINDOW-CLOSE",
+   "go": null,
+   "rust": null,
+   "note": "SIGTERM during a TCP auth window: Go waits for the window (3 s and more), Rust exits at once"
+  },
+  {
+   "id": "DIFF-ICMP-DEAF",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "sip 17"
+   ],
+   "deferred_case": "D-ICMP-DEAF",
+   "go": null,
+   "rust": null,
+   "note": "an ICMP port-unreachable deafens a Go endpoint for good; Rust keeps reading"
+  },
+  {
+   "id": "DIFF-OFFER-LIMITS",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "webrtc_sfu 65",
+    "webrtc_sfu 69"
+   ],
+   "deferred_case": "D-OFFER-LIMITS",
+   "go": null,
+   "rust": null,
+   "note": "an offer over 64 KiB is refused in Rust; a=end-of-candidates is accepted in Rust, an error in Go"
+  },
+  {
+   "id": "DIFF-HANDLER-PANIC",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "ipc_process 300"
+   ],
+   "tests": [
+    "a_panicking_handler_is_answered_in_every_dispatch_class"
+   ],
+   "go": null,
+   "rust": null,
+   "note": "a panic in a handler: Go exits (runtime exit 2), Rust answers internal_error / `handler panicked` and keeps serving"
+  },
+  {
+   "id": "DIFF-TCP-ACCEPT",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "standalone 302",
+    "standalone 400"
+   ],
+   "tests": [
+    "a_silent_connection_does_not_hold_up_an_authentic_one",
+    "a_newly_authenticated_hub_replaces_a_half_open_one",
+    "a_fifth_waiting_connection_drops_the_oldest_not_the_newcomer",
+    "wrong_tokens_slow_their_own_reply_and_never_the_right_token",
+    "one_connection_at_a_time"
+   ],
+   "go": null,
+   "rust": null,
+   "note": "the TCP listener: Rust accepts all the time, at most 4 waiting, the newest authenticated hub replaces the served one, three wrong tokens from one source are slowed (Go serves one connection at a time in the accepting goroutine)"
+  },
+  {
+   "id": "DIFF-CONFIG-DEPTH",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "ipc_process 304"
+   ],
+   "tests": [
+    "configure_with_an_unrepresentable_number_is_bad_params"
+   ],
+   "go": null,
+   "rust": null,
+   "note": "a config nested deeper than 128 is bad_params in Rust (serde_json's limit); Go accepts up to 10 000"
+  },
+  {
+   "id": "DIFF-ARG-NON-UTF8",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "ipc_process 305"
+   ],
+   "process_case": "S-ARG-NON-UTF8",
+   "go": null,
+   "rust": null,
+   "note": "a non-UTF-8 command-line argument: Rust exits 2, Go uses the bytes"
+  },
+  {
+   "id": "DIFF-CANDIDATE-CAP",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "webrtc_sfu 322"
+   ],
+   "tests": [
+    "remote_candidates_are_capped_per_session"
+   ],
+   "go": null,
+   "rust": null,
+   "note": "the 33rd remote candidate of a session is refused in Rust"
+  },
+  {
+   "id": "DIFF-SFU-STOPPING",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "webrtc_sfu 328"
+   ],
+   "tests": [
+    "no_session_is_created_after_the_shutdown_started"
+   ],
+   "go": null,
+   "rust": null,
+   "note": "a session request after the shutdown started: `sfu: the transport is stopping` in Rust"
+  },
+  {
+   "id": "DIFF-DRIVER-ERROR-SOCKET-FAILED",
+   "group": null,
+   "not_in_transcripts": true,
+   "parity": [
+    "gate_sip_server 330"
+   ],
+   "tests": [
+    "a_read_loop_that_gives_up_reports_and_stops"
+   ],
+   "go": null,
+   "rust": null,
+   "note": "Rust sends driver_error with the code `socket_failed` when the gate_sip_server read loop gives up; Go never sends that code (see driver_error_codes)"
+  }
+ ],
+ "wire_cases": [
+  {
+   "id": "W-FRAME-DROPPED",
+   "title": "empty, malformed, non-object, wrong-typed-id/method lines are dropped silently; only the probe is answered",
+   "parity": [
+    "Matched: Framing",
+    "Matched: Request decoding"
+   ],
+   "steps": [
+    {
+     "send": "not json\n{\"id\":1,\n[]\n\"x\"\n42\ntrue\n\n{\"id\":\"s\",\"method\":\"dial\"}\n{\"id\":1.5,\"method\":\"dial\"}\n{\"id\":1,\"method\":5}\n{\"id\":1e2,\"method\":\"dial\"}\n{\"id\":null,\"method\":123}\n{}}\n{\"id\":99,\"method\":\"keepalive\"}\n",
+     "expect": [
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 99
+      }
+     ],
+     "quiet": 0.3
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-CRLF",
+   "title": "a CRLF line ending is accepted",
+   "steps": [
+    {
+     "send": "{\"id\":98,\"method\":\"keepalive\"}\r\n",
+     "expect": [
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 98
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-NULL-LINE",
+   "title": "a null line is a zero request: unknown_method, id 0, empty message",
+   "steps": [
+    {
+     "send": "null\n",
+     "expect": [
+      {
+       "id": 0,
+       "error": {
+        "code": "unknown_method",
+        "message": ""
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-UNKNOWN-METHOD",
+   "title": "unknown method: code unknown_method, message = the method",
+   "steps": [
+    {
+     "send": "{\"id\":2,\"method\":\"nope\"}\n",
+     "expect": [
+      {
+       "id": 2,
+       "error": {
+        "code": "unknown_method",
+        "message": "nope"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-ESCAPING",
+   "title": "Go encoder HTML escaping and short escapes in a response string (raw bytes checked)",
+   "steps": [
+    {
+     "send": "{\"id\":3,\"method\":\"a<b>&\\u2028\\u2029\\b\\f\\u0001\\\"\\\\é\"}\n",
+     "expect": [
+      {
+       "id": 3,
+       "error": {
+        "code": "unknown_method",
+        "message": "a<b>&  \b\f\u0001\"\\é"
+       }
+      }
+     ],
+     "raw_contains": [
+      "a\\u003cb\\u003e\\u0026\\u2028\\u2029\\b\\f\\u0001\\\"\\\\é"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-MISSING-ID",
+   "title": "a missing id is 0",
+   "steps": [
+    {
+     "send": "{\"method\":\"keepalive\"}\n",
+     "expect": [
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-MISSING-METHOD",
+   "title": "a missing method is unknown_method with an empty message",
+   "steps": [
+    {
+     "send": "{\"id\":7}\n",
+     "expect": [
+      {
+       "id": 7,
+       "error": {
+        "code": "unknown_method",
+        "message": ""
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-KEYS-CASE-INSENSITIVE",
+   "title": "request keys fold ASCII case",
+   "steps": [
+    {
+     "send": "{\"ID\":4,\"METHOD\":\"keepalive\"}\n",
+     "expect": [
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 4
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-KEYS-DUPLICATE",
+   "title": "duplicate keys: the last wins",
+   "steps": [
+    {
+     "send": "{\"id\":1,\"id\":5,\"method\":\"keepalive\",\"method\":\"nope\"}\n",
+     "expect": [
+      {
+       "id": 5,
+       "error": {
+        "code": "unknown_method",
+        "message": "nope"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-ID-RANGE",
+   "title": "id null is 0, negative and int64 max pass, 2^63 drops the line",
+   "steps": [
+    {
+     "send": "{\"id\":null,\"method\":\"keepalive\"}\n{\"id\":-3,\"method\":\"keepalive\"}\n{\"id\":9223372036854775807,\"method\":\"keepalive\"}\n{\"id\":9223372036854775808,\"method\":\"keepalive\"}\n{\"id\":99,\"method\":\"keepalive\"}\n",
+     "expect": [
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 0
+      },
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": -3
+      },
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 9223372036854775807
+      },
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 99
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-PIPELINE",
+   "title": "two requests in one write are both answered",
+   "steps": [
+    {
+     "send": "{\"id\":10,\"method\":\"keepalive\"}\n{\"id\":11,\"method\":\"nope\"}\n",
+     "expect": [
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 10
+      },
+      {
+       "id": 11,
+       "error": {
+        "code": "unknown_method",
+        "message": "nope"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-PARTIAL-LINE",
+   "title": "a line without its newline is held until the newline arrives",
+   "steps": [
+    {
+     "send": "{\"id\":12,\"method\":\"keepalive\"}",
+     "expect": [],
+     "quiet": 0.5
+    },
+    {
+     "send": "\n",
+     "expect": [
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 12
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-LIMIT-OK",
+   "title": "a line of 1048575 bytes (+ newline = 1 MiB) is served",
+   "steps": [
+    {
+     "send_padded": 1048575,
+     "expect": [
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 5
+      }
+     ],
+     "timeout": 10
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-LARGE-OK",
+   "title": "a line of 600000 bytes is served",
+   "steps": [
+    {
+     "send_padded": 600000,
+     "expect": [
+      {
+       "error": {
+        "code": "not_implemented",
+        "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+       },
+       "id": 5
+      }
+     ],
+     "timeout": 10
+    }
+   ]
+  },
+  {
+   "id": "W-FRAME-LONE-SURROGATE",
+   "title": "a request string with a lone surrogate escape: Go answers with U+FFFD, Rust drops the line (documented difference DIFF-FRAME-LONE-SURROGATE)",
+   "steps": [
+    {
+     "send": "{\"id\":1,\"method\":\"x\\ud800y\"}\n{\"id\":2,\"method\":\"x\\u00e9\\ud83d\\ude00\"}\n",
+     "expect_go": [
+      {
+       "id": 1,
+       "error": {
+        "code": "unknown_method",
+        "message": "x�y"
+       }
+      },
+      {
+       "id": 2,
+       "error": {
+        "code": "unknown_method",
+        "message": "xé😀"
+       }
+      }
+     ],
+     "expect_rust": [
+      {
+       "id": 2,
+       "error": {
+        "code": "unknown_method",
+        "message": "xé😀"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-MEDIA-OPEN-VALIDATION",
+   "title": "media_open refuses missing call_id/codec and unsupported codecs",
+   "steps": [
+    {
+     "ordered": true,
+     "send": "{\"id\":1,\"method\":\"media_open\"}\n{\"id\":2,\"method\":\"media_open\",\"params\":{}}\n{\"id\":3,\"method\":\"media_open\",\"params\":{\"call_id\":\"m1\"}}\n{\"id\":4,\"method\":\"media_open\",\"params\":{\"call_id\":\"m1\",\"codec\":\"opus\"}}\n{\"id\":5,\"method\":\"media_open\",\"params\":\"x\"}\n",
+     "expect": [
+      {
+       "id": 1,
+       "error": {
+        "code": "bad_params",
+        "message": "media_open needs call_id and codec"
+       }
+      },
+      {
+       "id": 2,
+       "error": {
+        "code": "bad_params",
+        "message": "media_open needs call_id and codec"
+       }
+      },
+      {
+       "id": 3,
+       "error": {
+        "code": "bad_params",
+        "message": "wsmedia: unsupported codec \"\""
+       }
+      },
+      {
+       "id": 4,
+       "error": {
+        "code": "bad_params",
+        "message": "wsmedia: unsupported codec \"opus\""
+       }
+      },
+      {
+       "id": 5,
+       "error": {
+        "code": "bad_params",
+        "message": "media_open needs call_id and codec"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-MEDIA-LIFECYCLE",
+   "title": "media_open answers the frame size, a repeat is already_open, media_frame checks size/base64/leg, media_close notifies BEFORE its response, a closed leg is unknown_session",
+   "steps": [
+    {
+     "send": "{\"id\":1,\"method\":\"media_open\",\"params\":{\"call_id\":\"m1\",\"codec\":\"pcmu\"}}\n",
+     "expect": [
+      {
+       "id": 1,
+       "result": {
+        "codec": "pcmu",
+        "frame_bytes": 320,
+        "frame_ms": 40
+       }
+      }
+     ]
+    },
+    {
+     "send": "{\"id\":2,\"method\":\"media_open\",\"params\":{\"call_id\":\"m1\",\"codec\":\"l16\"}}\n",
+     "expect": [
+      {
+       "id": 2,
+       "error": {
+        "code": "already_open",
+        "message": "m1"
+       }
+      }
+     ]
+    },
+    {
+     "ordered": true,
+     "send": "{\"id\":1,\"method\":\"media_frame\",\"params\":{\"call_id\":\"m1\",\"d\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}}\n{\"id\":2,\"method\":\"media_frame\",\"params\":{\"call_id\":\"m1\",\"d\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}}\n{\"id\":3,\"method\":\"media_frame\",\"params\":{\"call_id\":\"m1\",\"d\":\"!!\"}}\n{\"id\":4,\"method\":\"media_frame\",\"params\":{\"call_id\":\"nope\",\"d\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}}\n{\"id\":6,\"method\":\"media_frame\"}\n",
+     "expect": [
+      {
+       "id": 1,
+       "result": {
+        "ok": true
+       }
+      },
+      {
+       "id": 2,
+       "error": {
+        "code": "bad_frame",
+        "message": "wsmedia: frame has the wrong size for the codec"
+       }
+      },
+      {
+       "id": 3,
+       "error": {
+        "code": "bad_params",
+        "message": "d is not base64"
+       }
+      },
+      {
+       "id": 4,
+       "error": {
+        "code": "unknown_session",
+        "message": "nope"
+       }
+      },
+      {
+       "id": 6,
+       "error": {
+        "code": "bad_params",
+        "message": "unexpected end of JSON input"
+       }
+      }
+     ]
+    },
+    {
+     "ordered": true,
+     "send": "{\"id\":1,\"method\":\"media_close\",\"params\":{\"call_id\":\"m1\",\"reason\":\"bye\"}}\n",
+     "expect": [
+      {
+       "method": "media_closed",
+       "params": {
+        "call_id": "m1",
+        "reason": "bye"
+       }
+      },
+      {
+       "id": 1,
+       "result": {
+        "ok": true
+       }
+      }
+     ]
+    },
+    {
+     "send": "{\"id\":2,\"method\":\"media_close\",\"params\":{\"call_id\":\"m1\"}}\n",
+     "expect": [
+      {
+       "id": 2,
+       "result": {
+        "ok": true
+       }
+      }
+     ]
+    },
+    {
+     "send": "{\"id\":7,\"method\":\"media_frame\",\"params\":{\"call_id\":\"m1\",\"d\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}}\n",
+     "expect": [
+      {
+       "id": 7,
+       "error": {
+        "code": "unknown_session",
+        "message": "m1"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-MEDIA-IDLE-CLOSE",
+   "title": "a leg that gets no frame for 5 s is closed: media_closed reason idle",
+   "steps": [
+    {
+     "send": "{\"id\":1,\"method\":\"media_open\",\"params\":{\"call_id\":\"m2\",\"codec\":\"l16\"}}\n",
+     "ordered": true,
+     "timeout": 9.0,
+     "expect": [
+      {
+       "id": 1,
+       "result": {
+        "codec": "l16",
+        "frame_bytes": 1280,
+        "frame_ms": 40
+       }
+      },
+      {
+       "method": "media_closed",
+       "params": {
+        "call_id": "m2",
+        "reason": "idle"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-HOUSE-DISABLED",
+   "title": "without -house-calls both house verbs answer not_supported and nothing is created",
+   "steps": [
+    {
+     "send": "{\"id\":1,\"method\":\"house_open\",\"params\":{\"call_id\":\"hso-1\"}}\n{\"id\":2,\"method\":\"house_close\"}\n",
+     "expect": [
+      {
+       "id": 1,
+       "error": {
+        "code": "not_supported",
+        "message": "house calls are not enabled on this hub"
+       }
+      },
+      {
+       "id": 2,
+       "error": {
+        "code": "not_supported",
+        "message": "house calls are not enabled on this hub"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-HOUSE-ENABLED-VALIDATION",
+   "title": "with -house-calls a call id must start with hso-",
+   "args": [
+    "-house-calls"
+   ],
+   "steps": [
+    {
+     "send": "{\"id\":1,\"method\":\"house_open\",\"params\":{}}\n",
+     "expect": [
+      {
+       "id": 1,
+       "error": {
+        "code": "bad_params",
+        "message": "house: bad parameters: call_id must start with \"hso-\""
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-CONFIGURE-NUMBER-RANGE",
+   "title": "a configure whose config holds a number json.Unmarshal rejects (1e999) is bad_params with Unmarshal's text (PARITY 304)",
+   "parity": [
+    "304"
+   ],
+   "steps": [
+    {
+     "send": "{\"id\":1,\"method\":\"configure\",\"params\":{\"driver\":\"gate_sip_server\",\"config\":{\"x\":1e999}}}\n",
+     "expect": [
+      {
+       "id": 1,
+       "error": {
+        "code": "bad_params",
+        "message": "json: cannot unmarshal number 1e999 into Go struct field configureParams.config of type float64"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-MEDIA-OPEN-CODEC-LONE-SURROGATE",
+   "title": "a lone surrogate escape in a string FIELD (the codec) reads as U+FFFD in both binaries (PARITY 161)",
+   "parity": [
+    "161"
+   ],
+   "steps": [
+    {
+     "send": "{\"id\":1,\"method\":\"media_open\",\"params\":{\"call_id\":\"m1\",\"codec\":\"\\ud800\"}}\n",
+     "expect": [
+      {
+       "id": 1,
+       "error": {
+        "code": "bad_params",
+        "message": "wsmedia: unsupported codec \"�\""
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-HOUSE-MEDIA-OPEN-HOUSE-ID",
+   "title": "with -house-calls, media_open for a house- id still opens a door leg that no frame reaches (a Go defect kept, PARITY 363)",
+   "parity": [
+    "363"
+   ],
+   "args": [
+    "-house-calls"
+   ],
+   "steps": [
+    {
+     "send": "{\"id\":1,\"method\":\"media_open\",\"params\":{\"call_id\":\"house-x\",\"codec\":\"l16\"}}\n",
+     "expect": [
+      {
+       "id": 1,
+       "result": {
+        "codec": "l16",
+        "frame_bytes": 1280,
+        "frame_ms": 40
+       }
+      }
+     ]
+    },
+    {
+     "send": "{\"id\":2,\"method\":\"media_frame\",\"params\":{\"call_id\":\"house-x\",\"leg\":\"a\",\"frame\":\"AAAA\"}}\n",
+     "expect": [
+      {
+       "id": 2,
+       "error": {
+        "code": "unknown_session",
+        "message": "house-x"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "W-HOUSE-MEDIA-CLOSE-LENIENT",
+   "title": "with -house-calls, media_close for a house- id skips a wrong-typed or duplicate-cased field and still answers ok (PARITY 364)",
+   "parity": [
+    "364"
+   ],
+   "args": [
+    "-house-calls"
+   ],
+   "steps": [
+    {
+     "send": "{\"id\":1,\"method\":\"media_close\",\"params\":{\"call_id\":\"house-x\",\"reason\":\"bye\",\"Reason\":5}}\n",
+     "expect": [
+      {
+       "id": 1,
+       "result": {
+        "ok": true
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "empty_hub_errors": {
+  "configure": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "unknown_driver",
+    "message": ""
+   },
+   {
+    "params": "null",
+    "code": "unknown_driver",
+    "message": ""
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.configureParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.configureParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "unknown_driver",
+    "message": ""
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "unknown_driver",
+    "message": ""
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "unknown_driver",
+    "message": ""
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "unknown_driver",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "unknown_driver",
+    "message": "nonexistent"
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal number into Go struct field configureParams.driver of type string"
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "unknown_driver",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "unknown_driver",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "unknown_driver",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_driver",
+    "message": ""
+   }
+  ],
+  "deconfigure": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "null",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.deviceParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.deviceParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "unknown_device",
+    "message": "d1"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "unknown_device",
+    "message": "h1"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_device",
+    "message": "d"
+   }
+  ],
+  "dial": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "null",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.deviceParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.deviceParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "unknown_device",
+    "message": "d1"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "unknown_device",
+    "message": "h1"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_device",
+    "message": "d"
+   }
+  ],
+  "answer": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "null",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.deviceParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.deviceParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "unknown_device",
+    "message": "d1"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "unknown_device",
+    "message": "h1"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_device",
+    "message": "d"
+   }
+  ],
+  "open_relay": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "null",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.deviceParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.deviceParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "unknown_device",
+    "message": "d1"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "unknown_device",
+    "message": "h1"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_device",
+    "message": "d"
+   }
+  ],
+  "stream_url": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "null",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.deviceParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.deviceParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "unknown_device",
+    "message": "d1"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "unknown_device",
+    "message": "h1"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "unknown_device",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_device",
+    "message": "d"
+   }
+  ],
+  "hangup": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "null",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.hangupParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.hangupParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   }
+  ],
+  "keepalive": [
+   {
+    "params": null,
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "null",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "\"str\"",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "[1]",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "not_implemented",
+    "message": "Phase 1: keepalive/hangup tracking not built yet (§9.5)"
+   }
+  ],
+  "webrtc_offer": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "null",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.webrtcParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.webrtcParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "bad_params",
+    "message": "webrtc_offer needs call_id and sdp"
+   }
+  ],
+  "webrtc_answer": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "null",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.webrtcParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.webrtcParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "unknown_session",
+    "message": "c1"
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "unknown_session",
+    "message": "c1"
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "unknown_session",
+    "message": "c"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "unknown_session",
+    "message": "c"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_session",
+    "message": "c"
+   }
+  ],
+  "webrtc_ice": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "null",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.webrtcParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.webrtcParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "unknown_session",
+    "message": "c1"
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "unknown_session",
+    "message": "c1"
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "unknown_session",
+    "message": ""
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "unknown_session",
+    "message": "c"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "unknown_session",
+    "message": "c"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_session",
+    "message": "c"
+   }
+  ],
+  "house_open": [
+   {
+    "params": null,
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "null",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "\"str\"",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "[1]",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   }
+  ],
+  "house_close": [
+   {
+    "params": null,
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "null",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "\"str\"",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "[1]",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "not_supported",
+    "message": "house calls are not enabled on this hub"
+   }
+  ],
+  "external_ring": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "unexpected end of JSON input"
+   },
+   {
+    "params": "{}",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "null",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal string into Go value of type main.externalRingParams"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal array into Go value of type main.externalRingParams"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "bad_params",
+    "message": "json: cannot unmarshal number into Go struct field externalRingParams.device_id of type string"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "bad_params",
+    "message": "external_ring needs device_id, call_id and a hold of 0..3600 seconds"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_device",
+    "message": "d"
+   }
+  ],
+  "talk_health": [
+   {
+    "params": null,
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "{}",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "null",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "\"str\"",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "[1]",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "{\"device_id\":\"d1\"}",
+    "code": "unknown_device",
+    "message": "d1"
+   },
+   {
+    "params": "{\"host\":\"h1\",\"port\":5060}",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "{\"call_id\":\"c1\"}",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "{\"call_id\":\"c1\",\"sdp\":\"v=0\"}",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "{\"driver\":\"nonexistent\",\"config\":{}}",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "{\"driver\":5}",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "{\"device_id\":5}",
+    "code": "bad_params",
+    "message": "talk_health needs a device_id"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":-1}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":4000}",
+    "code": "unknown_device",
+    "message": "d"
+   },
+   {
+    "params": "{\"device_id\":\"d\",\"call_id\":\"c\",\"hold\":10}",
+    "code": "unknown_device",
+    "message": "d"
+   }
+  ]
+ },
+ "empty_hub_errors_note": "request shapes x method on a hub with no devices: the answer of Go's handlers, byte for byte, including json.Unmarshal wording. webrtc_offer with a call_id AND an sdp is excluded (it reaches the WebRTC stack; covered structurally by the webrtc transcript group).",
+ "process_cases": [
+  {
+   "id": "S-FLAG-HELP",
+   "title": "-h prints the usage (9 flags) and exits 0",
+   "args": [
+    "-h"
+   ],
+   "exit": 0,
+   "output_contains": [
+    "Usage of",
+    "-host string",
+    "-house-calls",
+    "-ipc-allow-from string",
+    "-ipc-allow-non-loopback",
+    "-ipc-token-file string",
+    "-listen string",
+    "-secrets-env string",
+    "-sip-from-env",
+    "-socket string"
+   ],
+   "flag_count": 9
+  },
+  {
+   "id": "S-FLAG-HELP-LONG",
+   "title": "--help and -help as -h",
+   "args": [
+    "--help"
+   ],
+   "exit": 0,
+   "output_contains": [
+    "Usage of",
+    "-host string",
+    "-house-calls",
+    "-ipc-allow-from string",
+    "-ipc-allow-non-loopback",
+    "-ipc-token-file string",
+    "-listen string",
+    "-secrets-env string",
+    "-sip-from-env",
+    "-socket string"
+   ],
+   "flag_count": 9
+  },
+  {
+   "id": "S-FLAG-HELP-SINGLE",
+   "title": "-help as -h",
+   "args": [
+    "-help"
+   ],
+   "exit": 0,
+   "output_contains": [
+    "Usage of",
+    "-host string",
+    "-house-calls",
+    "-ipc-allow-from string",
+    "-ipc-allow-non-loopback",
+    "-ipc-token-file string",
+    "-listen string",
+    "-secrets-env string",
+    "-sip-from-env",
+    "-socket string"
+   ],
+   "flag_count": 9
+  },
+  {
+   "id": "S-FLAG-UNKNOWN",
+   "title": "an undefined flag: message and usage, exit 2",
+   "args": [
+    "--bogus"
+   ],
+   "exit": 2,
+   "output_contains": [
+    "flag provided but not defined: -bogus",
+    "Usage of"
+   ]
+  },
+  {
+   "id": "S-FLAG-NEEDS-ARG",
+   "title": "a string flag without its value, exit 2",
+   "args": [
+    "-socket"
+   ],
+   "exit": 2,
+   "output_contains": [
+    "flag needs an argument: -socket",
+    "Usage of"
+   ]
+  },
+  {
+   "id": "S-FLAG-BAD-BOOL",
+   "title": "a bool flag with a bad value, exit 2",
+   "args": [
+    "--house-calls=maybe",
+    "-socket=a"
+   ],
+   "exit": 2,
+   "output_contains": [
+    "invalid boolean value \"maybe\" for -house-calls: parse error"
+   ]
+  },
+  {
+   "id": "S-FLAG-BAD-SYNTAX-1",
+   "title": "---x",
+   "args": [
+    "---x"
+   ],
+   "exit": 2,
+   "output_contains": [
+    "bad flag syntax: ---x"
+   ]
+  },
+  {
+   "id": "S-FLAG-BAD-SYNTAX-2",
+   "title": "-=x",
+   "args": [
+    "-=x"
+   ],
+   "exit": 2,
+   "output_contains": [
+    "bad flag syntax: -=x"
+   ]
+  },
+  {
+   "id": "S-START-NO-SOCKET",
+   "title": "no -socket and no -listen",
+   "args": [],
+   "exit": 1,
+   "output_exact": "portico-transport: -socket or -listen is required\n"
+  },
+  {
+   "id": "S-START-FIRST-NON-FLAG",
+   "title": "the first non-flag argument ends flag parsing",
+   "args": [
+    "x",
+    "-socket",
+    "a"
+   ],
+   "exit": 1,
+   "output_exact": "portico-transport: -socket or -listen is required\n"
+  },
+  {
+   "id": "S-START-EXCLUSIVE",
+   "title": "-socket and -listen together",
+   "args": [
+    "-listen=x",
+    "-socket=y"
+   ],
+   "exit": 1,
+   "output_exact": "portico-transport: -socket and -listen are mutually exclusive\n"
+  },
+  {
+   "id": "S-START-SECRETS-MISSING",
+   "title": "-secrets-env of a missing file",
+   "args": [
+    "-secrets-env=/nonexistent",
+    "-socket=a"
+   ],
+   "exit": 1,
+   "output_exact": "portico-transport: -secrets-env: cannot open the file: open /nonexistent: no such file or directory\n"
+  },
+  {
+   "id": "S-START-ALLOW-FROM-BAD",
+   "title": "an unparsable -ipc-allow-from entry: netip's text, exit 1",
+   "args": [
+    "-listen=127.0.0.1:0",
+    "-ipc-allow-from=x"
+   ],
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "exit": 1,
+   "output_exact": "portico-transport: -ipc-allow-from \"x\": ParseAddr(\"x\"): unable to parse IP\n"
+  },
+  {
+   "id": "S-START-LISTEN-NEEDS-TOKEN",
+   "title": "-listen without a token is refused",
+   "args": [
+    "-listen=127.0.0.1:0"
+   ],
+   "exit": 1,
+   "output_exact": "portico-transport: ipc: the TCP listener needs a token of at least 24 characters\n"
+  },
+  {
+   "id": "S-START-LISTEN-NON-LOOPBACK",
+   "title": "-listen on a non-loopback address needs -ipc-allow-non-loopback AND -ipc-allow-from",
+   "args": [
+    "-listen=0.0.0.0:0"
+   ],
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "exit": 1,
+   "output_exact": "portico-transport: ipc: refusing to listen on \"0.0.0.0:0\": loopback only until the non-loopback flag is set\n"
+  },
+  {
+   "id": "S-ARG-NON-UTF8",
+   "title": "an argument that is not valid UTF-8 is refused with exit 2 (PARITY 305; Go would name that file, so the case runs against the Rust binary only)",
+   "parity": [
+    "305"
+   ],
+   "only_impl": "rust",
+   "args": [
+    "-socket",
+    "{TMP}/x{BADBYTE}y"
+   ],
+   "exit": 2,
+   "output_contains": [
+    "portico-transport: an argument is not valid UTF-8"
+   ]
+  }
+ ],
+ "lifecycle_cases": [
+  {
+   "id": "S-SOCKET-MODE-SIGTERM",
+   "kind": "sigterm",
+   "title": "socket created 0600; SIGTERM with a live connection: exit 0, socket removed, silent",
+   "exit": 0,
+   "socket_removed": true,
+   "output_empty": true
+  },
+  {
+   "id": "S-SIGINT",
+   "kind": "sigint",
+   "title": "SIGINT as SIGTERM",
+   "exit": 0,
+   "socket_removed": true,
+   "output_empty": true
+  },
+  {
+   "id": "S-DISCONNECT-EXITS",
+   "kind": "disconnect",
+   "title": "unix mode serves ONE connection: the client closing ends the process, exit 0, socket removed",
+   "exit": 0,
+   "socket_removed": true,
+   "output_empty": true
+  },
+  {
+   "id": "S-STALE-SOCKET",
+   "kind": "stale_socket",
+   "title": "a stale file at the socket path is removed and replaced (then 0600, served, SIGTERM clean)",
+   "exit": 0,
+   "socket_removed": true
+  },
+  {
+   "id": "S-LINE-LIMIT",
+   "kind": "oversize_line",
+   "title": "a line over 1 MiB: serve fails, stderr 'portico-transport: serve: bufio.Scanner: token too long', exit 1, socket left behind",
+   "exit": 1,
+   "socket_removed": false,
+   "output_contains": [
+    "portico-transport: serve: bufio.Scanner: token too long"
+   ]
+  },
+  {
+   "id": "S-BIND-FAILURE",
+   "kind": "bind_failure",
+   "title": "bind failure text and exit 1",
+   "exit": 1,
+   "output_regex": "portico-transport: ipc: listening on {SOCK}: listen unix {SOCK}: bind: no such file or directory"
+  }
+ ],
+ "driver_error_codes": {
+  "go": [
+   "registration_failed"
+  ],
+  "rust_adds": [
+   "socket_failed"
+  ],
+  "note": "Go: only the dahua driver sends driver_error, with `registration_failed` (grep of transport/ for DriverError, 2026-11-13; the reviewer's `register_failed` does not exist). Rust adds `socket_failed` (gate_sip_server, PARITY 330). Both send the fields device_id, message, code."
+ }
+}

@@ -1,0 +1,16 @@
+# source: SYNTHETIC
+# title: INVITE with no Call-ID
+# verdict: DIFFERS
+# basis: built from gate-sip's header() returning '' for a missing header
+# reason: gate-sip rings it as call '' (100 + 180, calls=1); Portico drops it. Deliberate (D5 in PARITY.md)
+
+>>> send
+INVITE sip:9901@{{SRV}} SIP/2.0
+Via: SIP/2.0/UDP {{ST}};branch=z9hG4bKnocid
+From: <sip:8001@{{ST}}>;tag=st-nocid
+To: <sip:9901@{{SRV}}>
+CSeq: 1 INVITE
+Max-Forwards: 70
+.
+>>> recv
+>>> state

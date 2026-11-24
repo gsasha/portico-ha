@@ -1,0 +1,1164 @@
+{
+ "scenarios": [
+  {
+   "name": "connects with the key and reports available",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe",
+     "all": true
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ],
+     "attempts": 1
+    }
+   ]
+  },
+  {
+   "name": "watching is off without ring_events",
+   "ops": [
+    {
+     "op": "sleep",
+     "ms": 200
+    },
+    {
+     "op": "observe",
+     "all": true
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [],
+     "attempts": 0
+    }
+   ]
+  },
+  {
+   "name": "ring, then the max hold ends it",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "sleep",
+     "ms": 500
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-e1 HOST"
+     ]
+    },
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-e1 HOST",
+      "state unifi-e1 ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "ring with an update end",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 30
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"e1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":1700000003000}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 60
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "sleep",
+     "ms": 250
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-e1 HOST"
+     ]
+    },
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-e1 HOST",
+      "state unifi-e1 ended"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "rings of other cameras and kinds, junk, ghost end",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e0\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"someOtherCam\"}}"
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"m1\",\"modelKey\":\"event\",\"type\":\"motion\",\"start\":1,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "send",
+     "text": "not json at all"
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"update\",\"item\":{\"id\":\"ghost\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\",\"end\":5}}"
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"evt1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-evt1 HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "a second ring while ringing is ignored",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"a\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"b\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-a HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "a new ring after the end",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e2\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 750
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"e3\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-e2 HOST",
+      "state unifi-e2 ended"
+     ]
+    },
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-e2 HOST",
+      "state unifi-e2 ended",
+      "ringing unifi-e3 HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "fragments with a ping inside",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send_hex",
+     "hex": "01357b2274797065223a22616464222c226974656d223a7b226964223a2266726167222c226d6f64656c4b6579223a226576656e74222c"
+    },
+    {
+     "op": "send_hex",
+     "hex": "890570696e6721"
+    },
+    {
+     "op": "send_hex",
+     "hex": "80352274797065223a2272696e67222c227374617274223a313730303030303030303030302c22646576696365223a2263616d31227d7d"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-frag HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "a quick drop and reconnect is not unavailable",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "drop"
+    },
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe",
+     "all": true
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    {
+     "conn": true
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ],
+     "attempts": 2
+    }
+   ]
+  },
+  {
+   "name": "drop then refuse then recover",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "status",
+     "n": 503
+    },
+    {
+     "op": "drop"
+    },
+    {
+     "op": "sleep",
+     "ms": 400
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "status"
+    },
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"r1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "unavailable HOST events stream refused (HTTP 503)"
+     ]
+    },
+    null,
+    {
+     "conn": true
+    },
+    null,
+    {
+     "events": [
+      "available HOST",
+      "unavailable HOST events stream refused (HTTP 503)",
+      "available HOST"
+     ]
+    },
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "unavailable HOST events stream refused (HTTP 503)",
+      "available HOST",
+      "ringing unifi-r1 HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "refused key at start",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "status",
+     "n": 401
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    {
+     "events": [
+      "unavailable HOST events stream refused (HTTP 401)"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "refused with each status",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "status",
+     "n": 403
+    },
+    {
+     "op": "sleep",
+     "ms": 200
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "status",
+     "n": 404
+    },
+    {
+     "op": "sleep",
+     "ms": 200
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    null,
+    {
+     "events": [
+      "unavailable HOST events stream refused (HTTP 403)"
+     ]
+    },
+    null,
+    null,
+    {
+     "events": [
+      "unavailable HOST events stream refused (HTTP 403)"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "unreachable console",
+   "closed": true,
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "unavailable HOST console unreachable"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "tls, verify_ssl true, self-signed",
+   "tls": true,
+   "cfg": {
+    "ring_events": true,
+    "verify_ssl": true
+   },
+   "ops": [
+    {
+     "op": "sleep",
+     "ms": 400
+    },
+    {
+     "op": "observe",
+     "all": true
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "unavailable HOST console certificate not trusted (verify_ssl)"
+     ],
+     "attempts": 0
+    }
+   ]
+  },
+  {
+   "name": "tls, verify_ssl default, self-signed",
+   "tls": true,
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "sleep",
+     "ms": 400
+    },
+    {
+     "op": "observe",
+     "all": true
+    }
+   ],
+   "results": [
+    null,
+    {
+     "events": [
+      "unavailable HOST console certificate not trusted (verify_ssl)"
+     ],
+     "attempts": 0
+    }
+   ]
+  },
+  {
+   "name": "tls, verify_ssl false",
+   "tls": true,
+   "cfg": {
+    "ring_events": true,
+    "verify_ssl": false
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe",
+     "all": true
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"t1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ],
+     "attempts": 1
+    },
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-t1 HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "a silent connection is replaced",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "no_pong",
+     "b": true
+    },
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    {
+     "conn": true
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "an oversize message is replaced",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send_hex",
+     "hex": "817f0000000000100001 78*1048577"
+    },
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    {
+     "conn": true
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "a protocol error is replaced",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send_hex",
+     "hex": "c10178"
+    },
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    {
+     "conn": true
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "a close frame is replaced",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send_hex",
+     "hex": "8800"
+    },
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    {
+     "conn": true
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "stop ends the watcher",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "stop"
+    },
+    {
+     "op": "sleep",
+     "ms": 50
+    },
+    {
+     "op": "observe",
+     "all": true
+    },
+    {
+     "op": "sleep",
+     "ms": 200
+    },
+    {
+     "op": "observe",
+     "all": true
+    },
+    {
+     "op": "stop"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    {
+     "err": ""
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ],
+     "attempts": 1
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ],
+     "attempts": 1
+    },
+    {
+     "err": ""
+    }
+   ]
+  },
+  {
+   "name": "stop during a ring reports nothing; start watches again",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"s1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "stop"
+    },
+    {
+     "op": "sleep",
+     "ms": 700
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "start"
+    },
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"s2\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-s1 HOST"
+     ]
+    },
+    {
+     "err": ""
+    },
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-s1 HOST"
+     ]
+    },
+    null,
+    {
+     "conn": true
+    },
+    null,
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-s1 HOST",
+      "ringing unifi-s2 HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "hangup of a ringing call",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"h1\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-h1"
+    },
+    {
+     "op": "hangup",
+     "call": "unifi-h1"
+    },
+    {
+     "op": "observe"
+    },
+    {
+     "op": "ringing",
+     "call": "unifi-h1"
+    },
+    {
+     "op": "hangup",
+     "call": "unifi-h1"
+    },
+    {
+     "op": "send",
+     "text": "{\"type\":\"add\",\"item\":{\"id\":\"h2\",\"modelKey\":\"event\",\"type\":\"ring\",\"start\":1700000000000,\"device\":\"cam1\"}}"
+    },
+    {
+     "op": "sleep",
+     "ms": 100
+    },
+    {
+     "op": "observe"
+    }
+   ],
+   "results": [
+    {
+     "conn": true
+    },
+    null,
+    null,
+    {
+     "ringing": true
+    },
+    {
+     "err": ""
+    },
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-h1 HOST",
+      "state unifi-h1 ended"
+     ]
+    },
+    {
+     "ringing": false
+    },
+    {
+     "err": "unifi_protect: unifi-h1: no_such_call"
+    },
+    null,
+    null,
+    {
+     "events": [
+      "available HOST",
+      "ringing unifi-h1 HOST",
+      "state unifi-h1 ended",
+      "ringing unifi-h2 HOST"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "a second Start keeps one watcher",
+   "cfg": {
+    "ring_events": true
+   },
+   "ops": [
+    {
+     "op": "start"
+    },
+    {
+     "op": "wait_conn",
+     "ms": 3000
+    },
+    {
+     "op": "sleep",
+     "ms": 300
+    },
+    {
+     "op": "observe",
+     "all": true
+    }
+   ],
+   "results": [
+    null,
+    {
+     "conn": true
+    },
+    null,
+    {
+     "events": [
+      "available HOST"
+     ],
+     "attempts": 1
+    }
+   ]
+  }
+ ]
+}

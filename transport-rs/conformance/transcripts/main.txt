@@ -1,0 +1,864 @@
+# main script
+## malformed lines then probe
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":99}
+    raw='{"id":99,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## crlf line
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":98}
+    raw='{"id":98,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## null line
+  {"error":{"code":"unknown_method","message":""},"id":0}
+    raw='{"id":0,"error":{"code":"unknown_method","message":""}}'
+## unknown method
+  {"error":{"code":"unknown_method","message":"nope"},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_method","message":"nope"}}'
+## unknown method with escapes
+  {"error":{"code":"unknown_method","message":"a<b>&  \b\f\u0001\"\\é"},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_method","message":"a\\u003cb\\u003e\\u0026\\u2028\\u2029\\b\\f\\u0001\\"\\\\é"}}'
+## missing id
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":0}
+    raw='{"id":0,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## missing method
+  {"error":{"code":"unknown_method","message":""},"id":7}
+    raw='{"id":7,"error":{"code":"unknown_method","message":""}}'
+## case-insensitive keys
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":4}
+    raw='{"id":4,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## duplicate keys, last wins
+  {"error":{"code":"unknown_method","message":"nope"},"id":5}
+    raw='{"id":5,"error":{"code":"unknown_method","message":"nope"}}'
+## id null/negative/large (order open in Go: concurrent keyed requests)
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":-3}
+    raw='{"id":-3,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":0}
+    raw='{"id":0,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":9223372036854775807}
+    raw='{"id":9223372036854775807,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":99}
+    raw='{"id":99,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## method configure (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.configureParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.configureParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.configureParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.configureParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field configureParams.driver of type string"},"id":19}
+    raw='{"id":19,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field configureParams.driver of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.configureParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.configureParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go struct field configureParams.config of type map[string]interface {}"},"id":20}
+    raw='{"id":20,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go struct field configureParams.config of type map[string]interface {}"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.configureParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.configureParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"},"id":18}
+    raw='{"id":18,"error":{"code":"configure_failed","message":"gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"}}'
+  {"error":{"code":"unknown_driver","message":""},"id":10}
+    raw='{"id":10,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":11}
+    raw='{"id":11,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":12}
+    raw='{"id":12,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":13}
+    raw='{"id":13,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":14}
+    raw='{"id":14,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":15}
+    raw='{"id":15,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":16}
+    raw='{"id":16,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":22}
+    raw='{"id":22,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":23}
+    raw='{"id":23,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":24}
+    raw='{"id":24,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":""},"id":5}
+    raw='{"id":5,"error":{"code":"unknown_driver","message":""}}'
+  {"error":{"code":"unknown_driver","message":"nonexistent"},"id":17}
+    raw='{"id":17,"error":{"code":"unknown_driver","message":"nonexistent"}}'
+## method deconfigure (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"},"id":12}
+    raw='{"id":12,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"},"id":11}
+    raw='{"id":11,"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"},"id":10}
+    raw='{"id":10,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"unknown_device","message":""},"id":14}
+    raw='{"id":14,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":15}
+    raw='{"id":15,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":16}
+    raw='{"id":16,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":17}
+    raw='{"id":17,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":18}
+    raw='{"id":18,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":19}
+    raw='{"id":19,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":20}
+    raw='{"id":20,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":"cased"},"id":13}
+    raw='{"id":13,"error":{"code":"unknown_device","message":"cased"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":22}
+    raw='{"id":22,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":23}
+    raw='{"id":23,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":24}
+    raw='{"id":24,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d1"},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_device","message":"d1"}}'
+  {"error":{"code":"unknown_device","message":"h1"},"id":5}
+    raw='{"id":5,"error":{"code":"unknown_device","message":"h1"}}'
+## method dial (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"},"id":12}
+    raw='{"id":12,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"},"id":11}
+    raw='{"id":11,"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"},"id":10}
+    raw='{"id":10,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"unknown_device","message":""},"id":14}
+    raw='{"id":14,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":15}
+    raw='{"id":15,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":16}
+    raw='{"id":16,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":17}
+    raw='{"id":17,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":18}
+    raw='{"id":18,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":19}
+    raw='{"id":19,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":20}
+    raw='{"id":20,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":"cased"},"id":13}
+    raw='{"id":13,"error":{"code":"unknown_device","message":"cased"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":22}
+    raw='{"id":22,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":23}
+    raw='{"id":23,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":24}
+    raw='{"id":24,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d1"},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_device","message":"d1"}}'
+  {"error":{"code":"unknown_device","message":"h1"},"id":5}
+    raw='{"id":5,"error":{"code":"unknown_device","message":"h1"}}'
+## method answer (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"},"id":12}
+    raw='{"id":12,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"},"id":11}
+    raw='{"id":11,"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"},"id":10}
+    raw='{"id":10,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"unknown_device","message":""},"id":14}
+    raw='{"id":14,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":15}
+    raw='{"id":15,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":16}
+    raw='{"id":16,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":17}
+    raw='{"id":17,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":18}
+    raw='{"id":18,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":19}
+    raw='{"id":19,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":20}
+    raw='{"id":20,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":"cased"},"id":13}
+    raw='{"id":13,"error":{"code":"unknown_device","message":"cased"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":22}
+    raw='{"id":22,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":23}
+    raw='{"id":23,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":24}
+    raw='{"id":24,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d1"},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_device","message":"d1"}}'
+  {"error":{"code":"unknown_device","message":"h1"},"id":5}
+    raw='{"id":5,"error":{"code":"unknown_device","message":"h1"}}'
+## method open_relay (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"},"id":12}
+    raw='{"id":12,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"},"id":11}
+    raw='{"id":11,"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"},"id":10}
+    raw='{"id":10,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"unknown_device","message":""},"id":14}
+    raw='{"id":14,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":15}
+    raw='{"id":15,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":16}
+    raw='{"id":16,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":17}
+    raw='{"id":17,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":18}
+    raw='{"id":18,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":19}
+    raw='{"id":19,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":20}
+    raw='{"id":20,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":"cased"},"id":13}
+    raw='{"id":13,"error":{"code":"unknown_device","message":"cased"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":22}
+    raw='{"id":22,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":23}
+    raw='{"id":23,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":24}
+    raw='{"id":24,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d1"},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_device","message":"d1"}}'
+  {"error":{"code":"unknown_device","message":"h1"},"id":5}
+    raw='{"id":5,"error":{"code":"unknown_device","message":"h1"}}'
+## method stream_url (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"},"id":12}
+    raw='{"id":12,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"},"id":11}
+    raw='{"id":11,"error":{"code":"bad_params","message":"json: cannot unmarshal number 1.5 into Go struct field deviceParams.port of type int"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"},"id":10}
+    raw='{"id":10,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field deviceParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.deviceParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"unknown_device","message":""},"id":14}
+    raw='{"id":14,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":15}
+    raw='{"id":15,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":16}
+    raw='{"id":16,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":17}
+    raw='{"id":17,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":18}
+    raw='{"id":18,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":19}
+    raw='{"id":19,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":20}
+    raw='{"id":20,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":""},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_device","message":""}}'
+  {"error":{"code":"unknown_device","message":"cased"},"id":13}
+    raw='{"id":13,"error":{"code":"unknown_device","message":"cased"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":22}
+    raw='{"id":22,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":23}
+    raw='{"id":23,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":24}
+    raw='{"id":24,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d1"},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_device","message":"d1"}}'
+  {"error":{"code":"unknown_device","message":"h1"},"id":5}
+    raw='{"id":5,"error":{"code":"unknown_device","message":"h1"}}'
+## method hangup (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.hangupParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.hangupParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.hangupParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.hangupParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.hangupParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.hangupParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.hangupParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.hangupParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":10}
+    raw='{"id":10,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":11}
+    raw='{"id":11,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":12}
+    raw='{"id":12,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":13}
+    raw='{"id":13,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":14}
+    raw='{"id":14,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":15}
+    raw='{"id":15,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":16}
+    raw='{"id":16,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":17}
+    raw='{"id":17,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":18}
+    raw='{"id":18,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":19}
+    raw='{"id":19,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":20}
+    raw='{"id":20,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":21}
+    raw='{"id":21,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":22}
+    raw='{"id":22,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":23}
+    raw='{"id":23,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":24}
+    raw='{"id":24,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":2}
+    raw='{"id":2,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":3}
+    raw='{"id":3,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":4}
+    raw='{"id":4,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":5}
+    raw='{"id":5,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## method keepalive (order open in Go: concurrent keyed requests)
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":10}
+    raw='{"id":10,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":11}
+    raw='{"id":11,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":12}
+    raw='{"id":12,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":13}
+    raw='{"id":13,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":14}
+    raw='{"id":14,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":15}
+    raw='{"id":15,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":16}
+    raw='{"id":16,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":17}
+    raw='{"id":17,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":18}
+    raw='{"id":18,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":19}
+    raw='{"id":19,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":1}
+    raw='{"id":1,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":20}
+    raw='{"id":20,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":21}
+    raw='{"id":21,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":22}
+    raw='{"id":22,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":23}
+    raw='{"id":23,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":24}
+    raw='{"id":24,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":2}
+    raw='{"id":2,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":3}
+    raw='{"id":3,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":4}
+    raw='{"id":4,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":5}
+    raw='{"id":5,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":6}
+    raw='{"id":6,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":7}
+    raw='{"id":7,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":8}
+    raw='{"id":8,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":9}
+    raw='{"id":9,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## method webrtc_offer (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.webrtcParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.webrtcParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.webrtcParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.webrtcParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":10}
+    raw='{"id":10,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":11}
+    raw='{"id":11,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":12}
+    raw='{"id":12,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":13}
+    raw='{"id":13,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":14}
+    raw='{"id":14,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":16}
+    raw='{"id":16,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":17}
+    raw='{"id":17,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":18}
+    raw='{"id":18,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":19}
+    raw='{"id":19,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":20}
+    raw='{"id":20,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":21}
+    raw='{"id":21,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":22}
+    raw='{"id":22,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":23}
+    raw='{"id":23,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":24}
+    raw='{"id":24,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":2}
+    raw='{"id":2,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":3}
+    raw='{"id":3,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":4}
+    raw='{"id":4,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+  {"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"},"id":5}
+    raw='{"id":5,"error":{"code":"bad_params","message":"webrtc_offer needs call_id and sdp"}}'
+## method webrtc_answer (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.webrtcParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.webrtcParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.webrtcParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.webrtcParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"unknown_session","message":""},"id":10}
+    raw='{"id":10,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":11}
+    raw='{"id":11,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":12}
+    raw='{"id":12,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":13}
+    raw='{"id":13,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":17}
+    raw='{"id":17,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":18}
+    raw='{"id":18,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":19}
+    raw='{"id":19,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":20}
+    raw='{"id":20,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":5}
+    raw='{"id":5,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":"c"},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_session","message":"c"}}'
+  {"error":{"code":"unknown_session","message":"c"},"id":22}
+    raw='{"id":22,"error":{"code":"unknown_session","message":"c"}}'
+  {"error":{"code":"unknown_session","message":"c"},"id":23}
+    raw='{"id":23,"error":{"code":"unknown_session","message":"c"}}'
+  {"error":{"code":"unknown_session","message":"c"},"id":24}
+    raw='{"id":24,"error":{"code":"unknown_session","message":"c"}}'
+  {"error":{"code":"unknown_session","message":"c1"},"id":14}
+    raw='{"id":14,"error":{"code":"unknown_session","message":"c1"}}'
+  {"error":{"code":"unknown_session","message":"c1"},"id":15}
+    raw='{"id":15,"error":{"code":"unknown_session","message":"c1"}}'
+  {"error":{"code":"unknown_session","message":"c1"},"id":16}
+    raw='{"id":16,"error":{"code":"unknown_session","message":"c1"}}'
+## method webrtc_ice (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.webrtcParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.webrtcParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.webrtcParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.webrtcParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.webrtcParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"unknown_session","message":""},"id":10}
+    raw='{"id":10,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":11}
+    raw='{"id":11,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":12}
+    raw='{"id":12,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":13}
+    raw='{"id":13,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":17}
+    raw='{"id":17,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":18}
+    raw='{"id":18,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":19}
+    raw='{"id":19,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":20}
+    raw='{"id":20,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":2}
+    raw='{"id":2,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":3}
+    raw='{"id":3,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":""},"id":5}
+    raw='{"id":5,"error":{"code":"unknown_session","message":""}}'
+  {"error":{"code":"unknown_session","message":"c"},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_session","message":"c"}}'
+  {"error":{"code":"unknown_session","message":"c"},"id":22}
+    raw='{"id":22,"error":{"code":"unknown_session","message":"c"}}'
+  {"error":{"code":"unknown_session","message":"c"},"id":23}
+    raw='{"id":23,"error":{"code":"unknown_session","message":"c"}}'
+  {"error":{"code":"unknown_session","message":"c"},"id":24}
+    raw='{"id":24,"error":{"code":"unknown_session","message":"c"}}'
+  {"error":{"code":"unknown_session","message":"c1"},"id":14}
+    raw='{"id":14,"error":{"code":"unknown_session","message":"c1"}}'
+  {"error":{"code":"unknown_session","message":"c1"},"id":15}
+    raw='{"id":15,"error":{"code":"unknown_session","message":"c1"}}'
+  {"error":{"code":"unknown_session","message":"c1"},"id":16}
+    raw='{"id":16,"error":{"code":"unknown_session","message":"c1"}}'
+## method house_open (order open in Go: concurrent keyed requests)
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":10}
+    raw='{"id":10,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":11}
+    raw='{"id":11,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":12}
+    raw='{"id":12,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":13}
+    raw='{"id":13,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":14}
+    raw='{"id":14,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":15}
+    raw='{"id":15,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":16}
+    raw='{"id":16,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":17}
+    raw='{"id":17,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":18}
+    raw='{"id":18,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":19}
+    raw='{"id":19,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":1}
+    raw='{"id":1,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":20}
+    raw='{"id":20,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":21}
+    raw='{"id":21,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":22}
+    raw='{"id":22,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":23}
+    raw='{"id":23,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":24}
+    raw='{"id":24,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":2}
+    raw='{"id":2,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":3}
+    raw='{"id":3,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":4}
+    raw='{"id":4,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":5}
+    raw='{"id":5,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":6}
+    raw='{"id":6,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":7}
+    raw='{"id":7,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":8}
+    raw='{"id":8,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":9}
+    raw='{"id":9,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+## method house_close (order open in Go: concurrent keyed requests)
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":10}
+    raw='{"id":10,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":11}
+    raw='{"id":11,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":12}
+    raw='{"id":12,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":13}
+    raw='{"id":13,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":14}
+    raw='{"id":14,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":15}
+    raw='{"id":15,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":16}
+    raw='{"id":16,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":17}
+    raw='{"id":17,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":18}
+    raw='{"id":18,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":19}
+    raw='{"id":19,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":1}
+    raw='{"id":1,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":20}
+    raw='{"id":20,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":21}
+    raw='{"id":21,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":22}
+    raw='{"id":22,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":23}
+    raw='{"id":23,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":24}
+    raw='{"id":24,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":2}
+    raw='{"id":2,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":3}
+    raw='{"id":3,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":4}
+    raw='{"id":4,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":5}
+    raw='{"id":5,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":6}
+    raw='{"id":6,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":7}
+    raw='{"id":7,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":8}
+    raw='{"id":8,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+  {"error":{"code":"not_supported","message":"house calls are not enabled on this hub"},"id":9}
+    raw='{"id":9,"error":{"code":"not_supported","message":"house calls are not enabled on this hub"}}'
+## method external_ring (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":11}
+    raw='{"id":11,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":13}
+    raw='{"id":13,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":14}
+    raw='{"id":14,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":15}
+    raw='{"id":15,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":16}
+    raw='{"id":16,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":17}
+    raw='{"id":17,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":18}
+    raw='{"id":18,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":19}
+    raw='{"id":19,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":20}
+    raw='{"id":20,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":22}
+    raw='{"id":22,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":23}
+    raw='{"id":23,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":2}
+    raw='{"id":2,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":3}
+    raw='{"id":3,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":4}
+    raw='{"id":4,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":5}
+    raw='{"id":5,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field externalRingParams.device_id of type string"},"id":12}
+    raw='{"id":12,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go struct field externalRingParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.externalRingParams"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"json: cannot unmarshal array into Go value of type main.externalRingParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.externalRingParams"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"json: cannot unmarshal bool into Go value of type main.externalRingParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field externalRingParams.device_id of type string"},"id":10}
+    raw='{"id":10,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go struct field externalRingParams.device_id of type string"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.externalRingParams"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"json: cannot unmarshal number into Go value of type main.externalRingParams"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go struct field externalRingParams.hold of type float64"},"id":24}
+    raw='{"id":24,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go struct field externalRingParams.hold of type float64"}}'
+  {"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.externalRingParams"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"json: cannot unmarshal string into Go value of type main.externalRingParams"}}'
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_device","message":"d"}}'
+## method talk_health (order open in Go: concurrent keyed requests)
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":10}
+    raw='{"id":10,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":11}
+    raw='{"id":11,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":12}
+    raw='{"id":12,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":14}
+    raw='{"id":14,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":15}
+    raw='{"id":15,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":16}
+    raw='{"id":16,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":17}
+    raw='{"id":17,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":18}
+    raw='{"id":18,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":19}
+    raw='{"id":19,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":20}
+    raw='{"id":20,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":2}
+    raw='{"id":2,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":3}
+    raw='{"id":3,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":5}
+    raw='{"id":5,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":7}
+    raw='{"id":7,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":8}
+    raw='{"id":8,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":9}
+    raw='{"id":9,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+  {"error":{"code":"unknown_device","message":"cased"},"id":13}
+    raw='{"id":13,"error":{"code":"unknown_device","message":"cased"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":21}
+    raw='{"id":21,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":22}
+    raw='{"id":22,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":23}
+    raw='{"id":23,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d"},"id":24}
+    raw='{"id":24,"error":{"code":"unknown_device","message":"d"}}'
+  {"error":{"code":"unknown_device","message":"d1"},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_device","message":"d1"}}'
+## configure gate_sip_server refusals (order open in Go)
+  {"error":{"code":"configure_failed","message":"gate_sip_server: a non-loopback sip_listen needs an allow_from list"},"id":8}
+    raw='{"id":8,"error":{"code":"configure_failed","message":"gate_sip_server: a non-loopback sip_listen needs an allow_from list"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: allow_from must be a list of IPs/CIDRs"},"id":11}
+    raw='{"id":11,"error":{"code":"configure_failed","message":"gate_sip_server: allow_from must be a list of IPs/CIDRs"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: bad allow_from entry \"0.0.0.0/0\": a /0 allows everyone"},"id":9}
+    raw='{"id":9,"error":{"code":"configure_failed","message":"gate_sip_server: bad allow_from entry \\"0.0.0.0/0\\": a /0 allows everyone"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: bad allow_from entry \"nope\": ParseAddr(\"nope\"): unable to parse IP"},"id":10}
+    raw='{"id":10,"error":{"code":"configure_failed","message":"gate_sip_server: bad allow_from entry \\"nope\\": ParseAddr(\\"nope\\"): unable to parse IP"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: bad sip_listen \"127.0.0.1:99999\": address 99999: invalid port"},"id":17}
+    raw='{"id":17,"error":{"code":"configure_failed","message":"gate_sip_server: bad sip_listen \\"127.0.0.1:99999\\": address 99999: invalid port"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: bad sip_listen \"127.0.0.1\": address 127.0.0.1: missing port in address"},"id":16}
+    raw='{"id":16,"error":{"code":"configure_failed","message":"gate_sip_server: bad sip_listen \\"127.0.0.1\\": address 127.0.0.1: missing port in address"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: bad sip_listen \"[::1\": address [::1: missing ']' in address"},"id":18}
+    raw='{"id":18,"error":{"code":"configure_failed","message":"gate_sip_server: bad sip_listen \\"[::1\\": address [::1: missing \']\' in address"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: dial_enabled must be true or false"},"id":15}
+    raw='{"id":15,"error":{"code":"configure_failed","message":"gate_sip_server: dial_enabled must be true or false"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: orphan_seconds must be 1-120"},"id":14}
+    raw='{"id":14,"error":{"code":"configure_failed","message":"gate_sip_server: orphan_seconds must be 1-120"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: password is 18 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"},"id":6}
+    raw='{"id":6,"error":{"code":"configure_failed","message":"gate_sip_server: password is 18 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: password is 5 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"},"id":5}
+    raw='{"id":5,"error":{"code":"configure_failed","message":"gate_sip_server: password is 5 characters; Dahua requires 8-15 or the station never sends a REGISTER at all"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: password is required"},"id":4}
+    raw='{"id":4,"error":{"code":"configure_failed","message":"gate_sip_server: password is required"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: refusing sip_listen \"0.0.0.0:5060\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"},"id":7}
+    raw='{"id":7,"error":{"code":"configure_failed","message":"gate_sip_server: refusing sip_listen \\"0.0.0.0:5060\\": this mode binds loopback only until allow_non_loopback is set (design §7 activation gate)"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: ring_seconds must be 1-300"},"id":13}
+    raw='{"id":13,"error":{"code":"configure_failed","message":"gate_sip_server: ring_seconds must be 1-300"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: rtp_port must be 0-65535"},"id":12}
+    raw='{"id":12,"error":{"code":"configure_failed","message":"gate_sip_server: rtp_port must be 0-65535"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"},"id":1}
+    raw='{"id":1,"error":{"code":"configure_failed","message":"gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"},"id":2}
+    raw='{"id":2,"error":{"code":"configure_failed","message":"gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"}}'
+  {"error":{"code":"configure_failed","message":"gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"},"id":3}
+    raw='{"id":3,"error":{"code":"configure_failed","message":"gate_sip_server: sip_listen is required (no default: this mode never binds by accident)"}}'
+## media_open bad
+  {"error":{"code":"bad_params","message":"media_open needs call_id and codec"},"id":1}
+    raw='{"id":1,"error":{"code":"bad_params","message":"media_open needs call_id and codec"}}'
+  {"error":{"code":"bad_params","message":"media_open needs call_id and codec"},"id":2}
+    raw='{"id":2,"error":{"code":"bad_params","message":"media_open needs call_id and codec"}}'
+  {"error":{"code":"bad_params","message":"wsmedia: unsupported codec \"\""},"id":3}
+    raw='{"id":3,"error":{"code":"bad_params","message":"wsmedia: unsupported codec \\"\\""}}'
+  {"error":{"code":"bad_params","message":"wsmedia: unsupported codec \"opus\""},"id":4}
+    raw='{"id":4,"error":{"code":"bad_params","message":"wsmedia: unsupported codec \\"opus\\""}}'
+  {"error":{"code":"bad_params","message":"media_open needs call_id and codec"},"id":5}
+    raw='{"id":5,"error":{"code":"bad_params","message":"media_open needs call_id and codec"}}'
+## media_open pcmu
+  {"id":1,"result":{"codec":"pcmu","frame_bytes":320,"frame_ms":40}}
+## media_open again
+  {"error":{"code":"already_open","message":"m1"},"id":2}
+    raw='{"id":2,"error":{"code":"already_open","message":"m1"}}'
+## media_frame
+  {"id":1,"result":{"ok":true}}
+  {"error":{"code":"bad_frame","message":"wsmedia: frame has the wrong size for the codec"},"id":2}
+    raw='{"id":2,"error":{"code":"bad_frame","message":"wsmedia: frame has the wrong size for the codec"}}'
+  {"error":{"code":"bad_params","message":"d is not base64"},"id":3}
+    raw='{"id":3,"error":{"code":"bad_params","message":"d is not base64"}}'
+  {"error":{"code":"unknown_session","message":"nope"},"id":4}
+    raw='{"id":4,"error":{"code":"unknown_session","message":"nope"}}'
+  {"id":5,"result":{"ok":true}}
+  {"error":{"code":"bad_params","message":"unexpected end of JSON input"},"id":6}
+    raw='{"id":6,"error":{"code":"bad_params","message":"unexpected end of JSON input"}}'
+## media_close (notification then response)
+  {"method":"media_closed","params":{"call_id":"m1","reason":"bye"}}
+  {"id":1,"result":{"ok":true}}
+## media_close unknown
+  {"id":2,"result":{"ok":true}}
+## media_frame after close
+  {"error":{"code":"unknown_session","message":"m1"},"id":7}
+    raw='{"id":7,"error":{"code":"unknown_session","message":"m1"}}'
+## media_open l16 then idle close
+  {"id":1,"result":{"codec":"l16","frame_bytes":1280,"frame_ms":40}}
+  {"method":"media_closed","params":{"call_id":"m2","reason":"idle"}}
+## pipelined pair
+  {"error":{"code":"unknown_method","message":"nope"},"id":11}
+    raw='{"id":11,"error":{"code":"unknown_method","message":"nope"}}'
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":10}
+    raw='{"id":10,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## no trailing newline is held until the newline arrives
+## ...newline
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":12}
+    raw='{"id":12,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## line of 1048575 bytes (+newline = 1 MiB) is accepted
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":5}
+    raw='{"id":5,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## line of 600000 bytes
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":5}
+    raw='{"id":5,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## over-limit line (1048576 bytes + newline)
+  exit code: 1
+  socket file left behind: True
+  process output: 'portico-transport: serve: bufio.Scanner: token too long\n'

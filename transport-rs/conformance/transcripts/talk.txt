@@ -1,0 +1,109 @@
+# unifi_protect_talk: configure, external_ring, hangup, talk_health, dial, deconfigure
+## configure with missing fields
+  {"error":{"code":"configure_failed","message":"unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"},"id":201}
+    raw='{"id":201,"error":{"code":"configure_failed","message":"unifi_protect_talk: device_id, protect_host, protect_api_key and camera_id are required"}}'
+## configure with a gain out of range
+  {"error":{"code":"configure_failed","message":"unifi_protect_talk: gain must be a whole number from 1 to 16"},"id":202}
+    raw='{"id":202,"error":{"code":"configure_failed","message":"unifi_protect_talk: gain must be a whole number from 1 to 16"}}'
+## configure with a bad downlink_url
+  {"error":{"code":"configure_failed","message":"unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"},"id":203}
+    raw='{"id":203,"error":{"code":"configure_failed","message":"unifi_protect_talk: downlink_url must be a rtsp/rtsps:// URL"}}'
+## configure with a non-bool dial_enabled
+  {"error":{"code":"configure_failed","message":"unifi_protect_talk: dial_enabled must be true or false"},"id":204}
+    raw='{"id":204,"error":{"code":"configure_failed","message":"unifi_protect_talk: dial_enabled must be true or false"}}'
+## configure: the Capabilities struct, then driver_availability
+  {"method":"driver_availability","params":{"available":true,"device_id":"ha_event:front","reason":""}}
+    raw='{"method":"driver_availability","params":{"device_id":"ha_event:front","available":true,"reason":""}}'
+  {"id":205,"result":{"CanDial":true,"DirectCapable":false,"HasRelay":false,"InboundAudio":1,"OutboundAudio":2,"RTSPTemplate":"","ReportsAvailability":true}}
+    raw='{"id":205,"result":{"InboundAudio":1,"OutboundAudio":2,"DirectCapable":false,"HasRelay":false,"RTSPTemplate":"","ReportsAvailability":true,"CanDial":true}}'
+## configure the same door again
+  {"error":{"code":"already_configured","message":"ha_event:front"},"id":206}
+    raw='{"id":206,"error":{"code":"already_configured","message":"ha_event:front"}}'
+## talk_health before any call
+  {"id":207,"result":{"bytes_to_camera":0,"drops_down":0,"drops_up":0,"frames_from_camera":0,"last_end":"","last_ffmpeg":"","session_up":false}}
+    raw='{"id":207,"result":{"session_up":false,"bytes_to_camera":0,"frames_from_camera":0,"drops_up":0,"drops_down":0,"last_ffmpeg":"","last_end":""}}'
+## talk_health of an unknown door
+  {"error":{"code":"unknown_device","message":"nope"},"id":208}
+    raw='{"id":208,"error":{"code":"unknown_device","message":"nope"}}'
+## talk_health without a device
+  {"error":{"code":"bad_params","message":"talk_health needs a device_id"},"id":209}
+    raw='{"id":209,"error":{"code":"bad_params","message":"talk_health needs a device_id"}}'
+## external_ring
+  {"id":210,"result":{"ok":true}}
+## nothing announced by external_ring: []
+## a new press supersedes it: the reply and call_state_changed ended
+  {"method":"call_state_changed","params":{"call_id":"ha-event-1","device_id":"ha_event:front","state":"ended"}}
+  {"method":"call_reason","params":{"call_id":"ha-event-1","device_id":"ha_event:front","kind":"ended","reason":"superseded by a new ring"}}
+    raw='{"method":"call_reason","params":{"device_id":"ha_event:front","call_id":"ha-event-1","kind":"ended","reason":"superseded by a new ring"}}'
+  {"id":211,"result":{"ok":true}}
+## external_ring without a call_id
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":212}
+    raw='{"id":212,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+## external_ring with a negative hold
+  {"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"},"id":213}
+    raw='{"id":213,"error":{"code":"bad_params","message":"external_ring needs device_id, call_id and a hold of 0..3600 seconds"}}'
+## external_ring of an unknown door
+  {"error":{"code":"unknown_device","message":"nope"},"id":214}
+    raw='{"id":214,"error":{"code":"unknown_device","message":"nope"}}'
+## hangup with the reason bell_pressed: the reply and call_state_changed ended
+  {"method":"call_state_changed","params":{"call_id":"ha-event-2","device_id":"ha_event:front","state":"ended"}}
+  {"method":"call_reason","params":{"call_id":"ha-event-2","device_id":"ha_event:front","kind":"ended","reason":"hung up (bell_pressed)"}}
+    raw='{"method":"call_reason","params":{"device_id":"ha_event:front","call_id":"ha-event-2","kind":"ended","reason":"hung up (bell_pressed)"}}'
+  {"id":215,"result":{"ok":true}}
+## talk_health: why the last call ended
+  {"id":216,"result":{"bytes_to_camera":0,"drops_down":0,"drops_up":0,"frames_from_camera":0,"last_end":"hung up (bell_pressed)","last_ffmpeg":"","session_up":false}}
+    raw='{"id":216,"result":{"session_up":false,"bytes_to_camera":0,"frames_from_camera":0,"drops_up":0,"drops_down":0,"last_ffmpeg":"","last_end":"hung up (bell_pressed)"}}'
+## hangup again: nobody holds it
+  {"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"},"id":217}
+    raw='{"id":217,"error":{"code":"not_implemented","message":"Phase 1: keepalive/hangup tracking not built yet (§9.5)"}}'
+## answer
+  {"error":{"code":"not_supported","message":"unifi_protect_talk: Answer: not_supported (media is bridged in-process)"},"id":218}
+    raw='{"id":218,"error":{"code":"not_supported","message":"unifi_protect_talk: Answer: not_supported (media is bridged in-process)"}}'
+## open_relay
+  {"error":{"code":"not_supported","message":"unifi_protect_talk: OpenRelay: not_supported"},"id":219}
+    raw='{"id":219,"error":{"code":"not_supported","message":"unifi_protect_talk: OpenRelay: not_supported"}}'
+## dial: the reply, then ringing, answered, active
+  {"method":"call_state_changed","params":{"call_id":"<OUT>","device_id":"ha_event:front","state":"ringing"}}
+  {"method":"call_state_changed","params":{"call_id":"<OUT>","device_id":"ha_event:front","state":"answered"}}
+  {"method":"call_state_changed","params":{"call_id":"<OUT>","device_id":"ha_event:front","state":"active"}}
+  {"id":220,"result":{"call_id":"<OUT>","ok":true}}
+## the console saw 1 talkback-session POST(s), the guard 1 GET(s)
+## dial while the door is in a call
+  {"error":{"code":"dial_failed","message":"unifi_protect_talk: DialCall: the door is in a call: busy"},"id":221}
+    raw='{"id":221,"error":{"code":"dial_failed","message":"unifi_protect_talk: DialCall: the door is in a call: busy"}}'
+## talk_health during the call out
+  {"id":222,"result":{"bytes_to_camera":0,"drops_down":0,"drops_up":0,"frames_from_camera":0,"last_end":"hung up (bell_pressed)","last_ffmpeg":"","session_up":true}}
+    raw='{"id":222,"result":{"session_up":true,"bytes_to_camera":0,"frames_from_camera":0,"drops_up":0,"drops_down":0,"last_ffmpeg":"","last_end":"hung up (bell_pressed)"}}'
+## hangup the call out with the reason bell_pressed
+  {"method":"call_state_changed","params":{"call_id":"<OUT>","device_id":"ha_event:front","state":"ended"}}
+  {"method":"call_reason","params":{"call_id":"<OUT>","device_id":"ha_event:front","kind":"ended","reason":"hung up (bell_pressed)"}}
+    raw='{"method":"call_reason","params":{"device_id":"ha_event:front","call_id":"<OUT>","kind":"ended","reason":"hung up (bell_pressed)"}}'
+  {"id":223,"result":{"ok":true}}
+## talk_health after the call out
+  {"id":224,"result":{"bytes_to_camera":0,"drops_down":0,"drops_up":0,"frames_from_camera":0,"last_end":"hung up (bell_pressed)","last_ffmpeg":"","session_up":false}}
+    raw='{"id":224,"result":{"session_up":false,"bytes_to_camera":0,"frames_from_camera":0,"drops_up":0,"drops_down":0,"last_ffmpeg":"","last_end":"hung up (bell_pressed)"}}'
+## dial while the old intercom holds the sink
+  {"method":"call_reason","params":{"call_id":"<OUT>","device_id":"ha_event:front","kind":"dial_failed","reason":"unifi_protect_talk: the old intercom holds the talkback session: busy"}}
+    raw='{"method":"call_reason","params":{"device_id":"ha_event:front","call_id":"<OUT>","kind":"dial_failed","reason":"unifi_protect_talk: the old intercom holds the talkback session: busy"}}'
+  {"error":{"code":"dial_failed","message":"unifi_protect_talk: the old intercom holds the talkback session: busy"},"id":225}
+    raw='{"id":225,"error":{"code":"dial_failed","message":"unifi_protect_talk: the old intercom holds the talkback session: busy"}}'
+## nothing reported by the refused dial: []
+## configure a second door with dial_enabled false: the Capabilities struct, then driver_availability
+  {"method":"driver_availability","params":{"available":true,"device_id":"ha_event:side","reason":""}}
+    raw='{"method":"driver_availability","params":{"device_id":"ha_event:side","available":true,"reason":""}}'
+  {"id":226,"result":{"DirectCapable":false,"HasRelay":false,"InboundAudio":1,"OutboundAudio":2,"RTSPTemplate":"","ReportsAvailability":true}}
+    raw='{"id":226,"result":{"InboundAudio":1,"OutboundAudio":2,"DirectCapable":false,"HasRelay":false,"RTSPTemplate":"","ReportsAvailability":true}}'
+## dial a door with dial out switched off
+  {"error":{"code":"not_supported","message":"unifi_protect_talk: DialCall: not_supported (dial out is switched off for this door)"},"id":227}
+    raw='{"id":227,"error":{"code":"not_supported","message":"unifi_protect_talk: DialCall: not_supported (dial out is switched off for this door)"}}'
+## deconfigure
+  {"id":228,"result":{"ok":true}}
+## deconfigure again
+  {"error":{"code":"unknown_device","message":"ha_event:front"},"id":229}
+    raw='{"id":229,"error":{"code":"unknown_device","message":"ha_event:front"}}'
+## deconfigure the second door
+  {"id":230,"result":{"ok":true}}
+## nothing else arrives: []
+  exit code: 0
+  socket file gone: True
+  ffmpeg processes left behind: 0

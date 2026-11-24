@@ -1,0 +1,24 @@
+{
+ "events": [
+  [
+   0.2,
+   "INVITE",
+   "1 INVITE"
+  ],
+  [
+   180001.3,
+   "CANCEL",
+   "1 CANCEL"
+  ]
+ ],
+ "ipc_response": {
+  "at_ms": 182003.22,
+  "msg": {
+   "error": {
+    "code": "dial_failed",
+    "message": "dahua_sip: Dial: sip: timed out waiting for a response"
+   },
+   "id": 10
+  }
+ }
+}

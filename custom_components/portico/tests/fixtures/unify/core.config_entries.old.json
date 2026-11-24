@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "minor_version": 5,
+  "key": "core.config_entries",
+  "data": {
+    "entries": [
+      {
+        "created_at": "2026-10-23T21:21:13.721921+00:00",
+        "data": {
+          "device_id": "http://gate-sip.example:8091",
+          "driver": "gate_sip_observer",
+          "existing_camera_entity": "camera.gate_intercom",
+          "gate_sip_listen": {
+            "audio_port": 8092,
+            "claims": false,
+            "enabled": true,
+            "ring_answered_entity": null
+          },
+          "gate_sip_url": "http://gate-sip.example:8091",
+          "interval": 1.0,
+          "open_relay_action": [
+            {
+              "action": "switch.turn_on",
+              "target": {
+                "entity_id": "switch.gate_relay"
+              }
+            }
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "portico_intercom",
+        "entry_id": "01M5A7DXY2YXMJYQ0HZ9FXNWSS",
+        "minor_version": 1,
+        "modified_at": "2026-10-23T21:21:13.721925+00:00",
+        "options": {},
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Portico (gate_sip_observer)",
+        "unique_id": "gate_sip_observer:http://gate-sip.example:8091",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-23T21:21:13.891911+00:00",
+        "data": {
+          "client_email": "fcm-sender@portico-test.iam.example.invalid",
+          "entry_type": "push",
+          "package": "com.meda.portico",
+          "private_key_id": "test-kid-0001",
+          "project_id": "portico-test"
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "portico",
+        "entry_id": "01M5A7DXY2PUSHENTRY00000AA",
+        "minor_version": 1,
+        "modified_at": "2026-10-23T21:21:13.891914+00:00",
+        "options": {
+          "enabled": true,
+          "new_phones_enabled": true,
+          "ring_window": 45,
+          "test_phones": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Portico away ring",
+        "unique_id": "push",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-23T21:21:13.891931+00:00",
+        "data": {
+          "enroll_id": "fake-enroll-id-0001",
+          "enrolled_at": "2026-10-01T10:00:00+00:00",
+          "entry_type": "phone",
+          "ha_user_id": "0f1e2d3c4b5a69788796a5b4c3d2e1f1",
+          "name": "Alice's Pixel"
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "portico",
+        "entry_id": "01M5A7DXY2PHONEENTRY0000BB",
+        "minor_version": 1,
+        "modified_at": "2026-10-23T21:21:13.891932+00:00",
+        "options": {},
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "phone",
+        "subentries": [],
+        "title": "Alice's Pixel",
+        "unique_id": "phone:fake-enroll-id-0001",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-23T21:21:13.891947+00:00",
+        "data": {
+          "broker": "core-mosquitto.example"
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "mqtt",
+        "entry_id": "01M5A7DXY2MQTTENTRY00000CC",
+        "minor_version": 1,
+        "modified_at": "2026-10-23T21:21:13.891948+00:00",
+        "options": {},
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "MQTT",
+        "unique_id": null,
+        "version": 1
+      }
+    ]
+  }
+}

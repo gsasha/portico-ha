@@ -1,0 +1,421 @@
+{
+  "contract": "ws_media",
+  "version": "2.0",
+  "doc": "Away call audio: a claimed phone carries a call's audio as frames on its HA websocket (design: automation/portico_away_media_design.md, estate repo). Each case starts from one door (door_id 127.0.0.1) with one enrolled phone and a call 'c1' that is ringing. A step is either a client message with the frames HA sends back, in order, or a transport notification. Off by default: 'flag' is the door entry's away_media option. d is base64 of one 40 ms frame: 320 bytes for pcmu (8 kHz mu-law), 1280 for l16 (16 kHz little-endian PCM). Uplink portico/media_frame is never answered on success. Contract 3 (portico-ha M6 E3): the commands name the door by `door_id` (v1: `device_id`) and an unknown door is `unknown_door` (v1: `unknown_device`). The frames are otherwise unchanged from ws_media_v1.json.",
+  "cases": [
+    {
+      "name": "flag off: refused, nothing opened",
+      "flag": false,
+      "steps": [
+        {
+          "send": {
+            "id": 1,
+            "type": "portico/answer",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "client_kind": "browser"
+          },
+          "recv": [
+            {
+              "id": 1,
+              "type": "result",
+              "success": true,
+              "result": {
+                "mode": "relay"
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 2,
+            "type": "portico/media_open",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "codec": "pcmu"
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "result",
+              "success": false,
+              "error": {
+                "code": "away_media_disabled",
+                "message": "call audio over the websocket is not enabled"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "open, downlink frame, uplink frame, phone closes",
+      "flag": true,
+      "steps": [
+        {
+          "send": {
+            "id": 1,
+            "type": "portico/answer",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "client_kind": "browser"
+          },
+          "recv": [
+            {
+              "id": 1,
+              "type": "result",
+              "success": true,
+              "result": {
+                "mode": "relay"
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 2,
+            "type": "portico/media_open",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "codec": "pcmu"
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "result",
+              "success": true,
+              "result": {
+                "codec": "pcmu",
+                "frame_bytes": 320,
+                "frame_ms": 40
+              }
+            }
+          ]
+        },
+        {
+          "notify": {
+            "method": "media_frame",
+            "params": {
+              "call_id": "c1",
+              "d": "QUJD"
+            }
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "event",
+              "event": {
+                "t": "f",
+                "d": "QUJD"
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 3,
+            "type": "portico/media_frame",
+            "call_id": "c1",
+            "d": "REVG"
+          },
+          "recv": []
+        },
+        {
+          "send": {
+            "id": 4,
+            "type": "portico/media_close",
+            "call_id": "c1"
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "event",
+              "event": {
+                "t": "end",
+                "reason": "closed_by_phone"
+              }
+            },
+            {
+              "id": 4,
+              "type": "result",
+              "success": true,
+              "result": {
+                "ok": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "l16: open, 1280-byte downlink frame, 1280-byte uplink frame, phone closes",
+      "flag": true,
+      "steps": [
+        {
+          "send": {
+            "id": 1,
+            "type": "portico/answer",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "client_kind": "browser"
+          },
+          "recv": [
+            {
+              "id": 1,
+              "type": "result",
+              "success": true,
+              "result": {
+                "mode": "relay"
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 2,
+            "type": "portico/media_open",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "codec": "l16"
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "result",
+              "success": true,
+              "result": {
+                "codec": "l16",
+                "frame_bytes": 1280,
+                "frame_ms": 40
+              }
+            }
+          ]
+        },
+        {
+          "notify": {
+            "method": "media_frame",
+            "params": {
+              "call_id": "c1",
+              "d": "AAcOFRwjKjE4P0ZNVFtiaXB3foWMk5qhqK+2vcTL0tng5+71/AMKERgfJi00O0JJUFdeZWxzeoGIj5adpKuyucDHztXc4+rx+P8GDRQbIikwNz5FTFNaYWhvdn2Ei5KZoKeutbzDytHY3+bt9PsCCRAXHiUsMzpBSE9WXWRrcnmAh46VnKOqsbi/xs3U2+Lp8Pf+BQwTGiEoLzY9REtSWWBnbnV8g4qRmJ+mrbS7wsnQ197l7PP6AQgPFh0kKzI5QEdOVVxjanF4f4aNlJuiqbC3vsXM09rh6O/2/QQLEhkgJy41PENKUVhfZm10e4KJkJeepayzusHIz9bd5Ovy+QAHDhUcIyoxOD9GTVRbYmlwd36FjJOaoaivtr3Ey9LZ4Ofu9fwDChEYHyYtNDtCSVBXXmVsc3qBiI+WnaSrsrnAx87V3OPq8fj/Bg0UGyIpMDc+RUxTWmFob3Z9hIuSmaCnrrW8w8rR2N/m7fT7AgkQFx4lLDM6QUhPVl1ka3J5gIeOlZyjqrG4v8bN1Nvi6fD3/gUMExohKC82PURLUllgZ251fIOKkZifpq20u8LJ0Nfe5ezz+gEIDxYdJCsyOUBHTlVcY2pxeH+GjZSboqmwt77FzNPa4ejv9v0ECxIZICcuNTxDSlFYX2ZtdHuCiZCXnqWss7rByM/W3eTr8vkABw4VHCMqMTg/Rk1UW2JpcHd+hYyTmqGor7a9xMvS2eDn7vX8AwoRGB8mLTQ7QklQV15lbHN6gYiPlp2kq7K5wMfO1dzj6vH4/wYNFBsiKTA3PkVMU1phaG92fYSLkpmgp661vMPK0djf5u30+wIJEBceJSwzOkFIT1ZdZGtyeYCHjpWco6qxuL/GzdTb4unw9/4FDBMaISgvNj1ES1JZYGdudXyDipGYn6attLvCydDX3uXs8/oBCA8WHSQrMjlAR05VXGNqcXh/ho2Um6KpsLe+xczT2uHo7/b9BAsSGSAnLjU8Q0pRWF9mbXR7gomQl56lrLO6wcjP1t3k6/L5AAcOFRwjKjE4P0ZNVFtiaXB3foWMk5qhqK+2vcTL0tng5+71/AMKERgfJi00O0JJUFdeZWxzeoGIj5adpKuyucDHztXc4+rx+P8GDRQbIikwNz5FTFNaYWhvdn2Ei5KZoKeutbzDytHY3+bt9PsCCRAXHiUsMzpBSE9WXWRrcnmAh46VnKOqsbi/xs3U2+Lp8Pf+BQwTGiEoLzY9REtSWWBnbnV8g4qRmJ+mrbS7wsnQ197l7PP6AQgPFh0kKzI5QEdOVVxjanF4f4aNlJuiqbC3vsXM09rh6O/2/QQLEhkgJy41PENKUVhfZm10e4KJkJeepayzusHIz9bd5Ovy+QAHDhUcIyoxOD9GTVRbYmlwd36FjJOaoaivtr3Ey9LZ4Ofu9fwDChEYHyYtNDtCSVBXXmVsc3qBiI+WnaSrsrnAx87V3OPq8fj/Bg0UGyIpMDc+RUxTWmFob3Z9hIuSmaCnrrW8w8rR2N/m7fT7AgkQFx4lLDM6QUhPVl1ka3J5gIeOlZyjqrG4v8bN1Nvi6fD3/gUMExohKC82PURLUllgZ251fIOKkZifpq20u8LJ0Nfe5ezz+gEIDxYdJCsyOUBHTlVcY2pxeH+GjZSboqmwt77FzNPa4ejv9v0ECxIZICcuNTxDSlFYX2ZtdHuCiZCXnqWss7rByM/W3eTr8vk="
+            }
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "event",
+              "event": {
+                "t": "f",
+                "d": "AAcOFRwjKjE4P0ZNVFtiaXB3foWMk5qhqK+2vcTL0tng5+71/AMKERgfJi00O0JJUFdeZWxzeoGIj5adpKuyucDHztXc4+rx+P8GDRQbIikwNz5FTFNaYWhvdn2Ei5KZoKeutbzDytHY3+bt9PsCCRAXHiUsMzpBSE9WXWRrcnmAh46VnKOqsbi/xs3U2+Lp8Pf+BQwTGiEoLzY9REtSWWBnbnV8g4qRmJ+mrbS7wsnQ197l7PP6AQgPFh0kKzI5QEdOVVxjanF4f4aNlJuiqbC3vsXM09rh6O/2/QQLEhkgJy41PENKUVhfZm10e4KJkJeepayzusHIz9bd5Ovy+QAHDhUcIyoxOD9GTVRbYmlwd36FjJOaoaivtr3Ey9LZ4Ofu9fwDChEYHyYtNDtCSVBXXmVsc3qBiI+WnaSrsrnAx87V3OPq8fj/Bg0UGyIpMDc+RUxTWmFob3Z9hIuSmaCnrrW8w8rR2N/m7fT7AgkQFx4lLDM6QUhPVl1ka3J5gIeOlZyjqrG4v8bN1Nvi6fD3/gUMExohKC82PURLUllgZ251fIOKkZifpq20u8LJ0Nfe5ezz+gEIDxYdJCsyOUBHTlVcY2pxeH+GjZSboqmwt77FzNPa4ejv9v0ECxIZICcuNTxDSlFYX2ZtdHuCiZCXnqWss7rByM/W3eTr8vkABw4VHCMqMTg/Rk1UW2JpcHd+hYyTmqGor7a9xMvS2eDn7vX8AwoRGB8mLTQ7QklQV15lbHN6gYiPlp2kq7K5wMfO1dzj6vH4/wYNFBsiKTA3PkVMU1phaG92fYSLkpmgp661vMPK0djf5u30+wIJEBceJSwzOkFIT1ZdZGtyeYCHjpWco6qxuL/GzdTb4unw9/4FDBMaISgvNj1ES1JZYGdudXyDipGYn6attLvCydDX3uXs8/oBCA8WHSQrMjlAR05VXGNqcXh/ho2Um6KpsLe+xczT2uHo7/b9BAsSGSAnLjU8Q0pRWF9mbXR7gomQl56lrLO6wcjP1t3k6/L5AAcOFRwjKjE4P0ZNVFtiaXB3foWMk5qhqK+2vcTL0tng5+71/AMKERgfJi00O0JJUFdeZWxzeoGIj5adpKuyucDHztXc4+rx+P8GDRQbIikwNz5FTFNaYWhvdn2Ei5KZoKeutbzDytHY3+bt9PsCCRAXHiUsMzpBSE9WXWRrcnmAh46VnKOqsbi/xs3U2+Lp8Pf+BQwTGiEoLzY9REtSWWBnbnV8g4qRmJ+mrbS7wsnQ197l7PP6AQgPFh0kKzI5QEdOVVxjanF4f4aNlJuiqbC3vsXM09rh6O/2/QQLEhkgJy41PENKUVhfZm10e4KJkJeepayzusHIz9bd5Ovy+QAHDhUcIyoxOD9GTVRbYmlwd36FjJOaoaivtr3Ey9LZ4Ofu9fwDChEYHyYtNDtCSVBXXmVsc3qBiI+WnaSrsrnAx87V3OPq8fj/Bg0UGyIpMDc+RUxTWmFob3Z9hIuSmaCnrrW8w8rR2N/m7fT7AgkQFx4lLDM6QUhPVl1ka3J5gIeOlZyjqrG4v8bN1Nvi6fD3/gUMExohKC82PURLUllgZ251fIOKkZifpq20u8LJ0Nfe5ezz+gEIDxYdJCsyOUBHTlVcY2pxeH+GjZSboqmwt77FzNPa4ejv9v0ECxIZICcuNTxDSlFYX2ZtdHuCiZCXnqWss7rByM/W3eTr8vk="
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 3,
+            "type": "portico/media_frame",
+            "call_id": "c1",
+            "d": "BRIfLDlGU2BteoeUoa67yNXi7/wJFiMwPUpXZHF+i5ilsr/M2ebzAA0aJzRBTltodYKPnKm2w9Dd6vcEER4rOEVSX2x5hpOgrbrH1OHu+wgVIi88SVZjcH2Kl6SxvsvY5fL/DBkmM0BNWmd0gY6bqLXCz9zp9gMQHSo3RFFea3iFkp+sucbT4O36BxQhLjtIVWJvfImWo7C9ytfk8f4LGCUyP0xZZnOAjZqntMHO2+j1Ag8cKTZDUF1qd4SRnqu4xdLf7PkGEyAtOkdUYW57iJWir7zJ1uPw/QoXJDE+S1hlcn+MmaazwM3a5/QBDhsoNUJPXGl2g5CdqrfE0d7r+AUSHyw5RlNgbXqHlKGuu8jV4u/8CRYjMD1KV2RxfouYpbK/zNnm8wANGic0QU5baHWCj5yptsPQ3er3BBEeKzhFUl9seYaToK26x9Th7vsIFSIvPElWY3B9ipeksb7L2OXy/wwZJjNATVpndIGOm6i1ws/c6fYDEB0qN0RRXmt4hZKfrLnG0+Dt+gcUIS47SFVib3yJlqOwvcrX5PH+CxglMj9MWWZzgI2ap7TBztvo9QIPHCk2Q1BdaneEkZ6ruMXS3+z5BhMgLTpHVGFue4iVoq+8ydbj8P0KFyQxPktYZXJ/jJmms8DN2uf0AQ4bKDVCT1xpdoOQnaq3xNHe6/gFEh8sOUZTYG16h5ShrrvI1eLv/AkWIzA9SldkcX6LmKWyv8zZ5vMADRonNEFOW2h1go+cqbbD0N3q9wQRHis4RVJfbHmGk6CtusfU4e77CBUiLzxJVmNwfYqXpLG+y9jl8v8MGSYzQE1aZ3SBjpuotcLP3On2AxAdKjdEUV5reIWSn6y5xtPg7foHFCEuO0hVYm98iZajsL3K1+Tx/gsYJTI/TFlmc4CNmqe0wc7b6PUCDxwpNkNQXWp3hJGeq7jF0t/s+QYTIC06R1RhbnuIlaKvvMnW4/D9ChckMT5LWGVyf4yZprPAzdrn9AEOGyg1Qk9caXaDkJ2qt8TR3uv4BRIfLDlGU2BteoeUoa67yNXi7/wJFiMwPUpXZHF+i5ilsr/M2ebzAA0aJzRBTltodYKPnKm2w9Dd6vcEER4rOEVSX2x5hpOgrbrH1OHu+wgVIi88SVZjcH2Kl6SxvsvY5fL/DBkmM0BNWmd0gY6bqLXCz9zp9gMQHSo3RFFea3iFkp+sucbT4O36BxQhLjtIVWJvfImWo7C9ytfk8f4LGCUyP0xZZnOAjZqntMHO2+j1Ag8cKTZDUF1qd4SRnqu4xdLf7PkGEyAtOkdUYW57iJWir7zJ1uPw/QoXJDE+S1hlcn+MmaazwM3a5/QBDhsoNUJPXGl2g5CdqrfE0d7r+AUSHyw5RlNgbXqHlKGuu8jV4u/8CRYjMD1KV2RxfouYpbK/zNnm8wANGic0QU5baHWCj5yptsPQ3er3BBEeKzhFUl9seYaToK26x9Th7vsIFSIvPElWY3B9ipeksb7L2OXy/wwZJjNATVpndIGOm6i1ws/c6fYDEB0qN0RRXmt4hZKfrLnG0+Dt+gcUIS47SFVib3yJlqOwvcrX5PH+CxglMj9MWWZzgI2ap7TBztvo9QIPHCk2Q1BdaneEkZ6ruMXS3+z5BhMgLTpHVGFue4iVoq+8ydbj8P0KFyQxPktYZXJ/jJmms8DN2uf0AQ4bKDVCT1xpdoOQnaq3xNHe6/g="
+          },
+          "recv": []
+        },
+        {
+          "send": {
+            "id": 4,
+            "type": "portico/media_close",
+            "call_id": "c1"
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "event",
+              "event": {
+                "t": "end",
+                "reason": "closed_by_phone"
+              }
+            },
+            {
+              "id": 4,
+              "type": "result",
+              "success": true,
+              "result": {
+                "ok": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "the transport reports the leg gone (no uplink for 5 s)",
+      "flag": true,
+      "steps": [
+        {
+          "send": {
+            "id": 1,
+            "type": "portico/answer",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "client_kind": "browser"
+          },
+          "recv": [
+            {
+              "id": 1,
+              "type": "result",
+              "success": true,
+              "result": {
+                "mode": "relay"
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 2,
+            "type": "portico/media_open",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "codec": "pcmu"
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "result",
+              "success": true,
+              "result": {
+                "codec": "pcmu",
+                "frame_bytes": 320,
+                "frame_ms": 40
+              }
+            }
+          ]
+        },
+        {
+          "notify": {
+            "method": "media_closed",
+            "params": {
+              "call_id": "c1",
+              "reason": "idle"
+            }
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "event",
+              "event": {
+                "t": "end",
+                "reason": "idle"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "refusals: unclaimed call, unknown device, second open",
+      "flag": true,
+      "steps": [
+        {
+          "send": {
+            "id": 1,
+            "type": "portico/media_open",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "codec": "pcmu"
+          },
+          "recv": [
+            {
+              "id": 1,
+              "type": "result",
+              "success": false,
+              "error": {
+                "code": "unknown_call",
+                "message": "c1"
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 2,
+            "type": "portico/media_open",
+            "door_id": "nope",
+            "call_id": "c1",
+            "codec": "pcmu"
+          },
+          "recv": [
+            {
+              "id": 2,
+              "type": "result",
+              "success": false,
+              "error": {
+                "code": "unknown_door",
+                "message": "nope"
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 3,
+            "type": "portico/answer",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "client_kind": "browser"
+          },
+          "recv": [
+            {
+              "id": 3,
+              "type": "result",
+              "success": true,
+              "result": {
+                "mode": "relay"
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 4,
+            "type": "portico/media_open",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "codec": "pcmu"
+          },
+          "recv": [
+            {
+              "id": 4,
+              "type": "result",
+              "success": true,
+              "result": {
+                "codec": "pcmu",
+                "frame_bytes": 320,
+                "frame_ms": 40
+              }
+            }
+          ]
+        },
+        {
+          "send": {
+            "id": 5,
+            "type": "portico/media_open",
+            "door_id": "127.0.0.1",
+            "call_id": "c1",
+            "codec": "pcmu"
+          },
+          "recv": [
+            {
+              "id": 5,
+              "type": "result",
+              "success": false,
+              "error": {
+                "code": "already_open",
+                "message": "c1"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

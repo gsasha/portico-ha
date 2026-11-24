@@ -1,0 +1,175 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>transport-rs interop offerer</title></head>
+<body><pre id="o">transport-rs interop offerer page</pre>
+<script>
+// Offerer page of the transport-rs interop harness (DEV-764 slice 4b; adapted from spikes/browser/page.html). Query parameters:
+//  hz         frequency of the oscillator when src=osc (default 1000)
+//  codecs     default | pcmu (offer PCMU only) | pcmufirst (opus, PCMU, G722, ...: PCMU before G722)
+//  sid        session id (the harness keys the answerer connection by it)
+//  src        fake (getUserMedia, the browser's fake microphone) | osc (WebAudio oscillator, no getUserMedia,
+//             so Chrome keeps mDNS host-candidate obfuscation on)
+//  mode       normal (offer first, candidates trickle after it) | candfirst (all candidates go to the
+//             harness before the offer does) | candsdp (wait for gathering, send localDescription with the
+//             candidates inside, like a non-trickle offerer)
+//  restart_at seconds after connected at which pc.restartIce() is called (0 = never)
+//  duration   seconds after connected at which the page closes the pc and reports done
+fetch('/log?sid=0', {method: 'POST', body: JSON.stringify({pt: Date.now(), m: 'page loaded ' + navigator.userAgent})});
+window.onerror = (m) => fetch('/log?sid=0', {method: 'POST', body: JSON.stringify({pt: Date.now(), m: 'onerror ' + m})});
+const q = new URLSearchParams(location.search);
+const sid = q.get('sid') || '1', src = q.get('src') || 'fake', mode = q.get('mode') || 'normal';
+const restartAt = +(q.get('restart_at') || 0), duration = +(q.get('duration') || 60), codecsMode = q.get('codecs') || 'default';
+const out = document.getElementById('o');
+function post(path, body) {
+  return fetch(path + (path.includes('?') ? '&' : '?') + 'sid=' + sid, {method: 'POST', body: JSON.stringify(body)}).then(r => r.json()).catch(e => ({error: String(e)}));
+}
+const L = (m, extra) => { out.textContent += '\n' + m; post('/log', {pt: Date.now(), m, ...extra}); };
+
+let pc, connectedAt = 0, done = false, lastRecv = 0, lastRecvT = 0, maxStall = 0, stallAt = 0, restartDone = false;
+let candSent = 0, domHz = -1, domDb = 0;
+
+async function getStream() {
+  if (src === 'osc') {
+    const ac = new AudioContext(); const o = ac.createOscillator(); o.frequency.value = +(q.get('hz') || 1000);
+    const d = ac.createMediaStreamDestination(); o.connect(d); o.start(); await ac.resume();
+    return d.stream;
+  }
+  return navigator.mediaDevices.getUserMedia({audio: true});
+}
+
+async function stats() {
+  const rep = await pc.getStats();
+  const o = {t: Date.now(), cs: pc.connectionState, ics: pc.iceConnectionState, sig: pc.signalingState, codecs: {}, pair: null};
+  const byId = {}; rep.forEach(s => byId[s.id] = s);
+  rep.forEach(s => {
+    if (s.type === 'inbound-rtp' && (s.kind || s.mediaType) === 'audio') {
+      o.in = {packetsReceived: s.packetsReceived, packetsLost: s.packetsLost, jitter: s.jitter, bytesReceived: s.bytesReceived,
+              audioLevel: s.audioLevel, totalAudioEnergy: s.totalAudioEnergy, codec: s.codecId && byId[s.codecId] ? byId[s.codecId].mimeType : null,
+              concealed: s.concealedSamples, totalSamples: s.totalSamplesReceived};
+    }
+    if (s.type === 'outbound-rtp' && (s.kind || s.mediaType) === 'audio') {
+      o.out = {packetsSent: s.packetsSent, bytesSent: s.bytesSent, codec: s.codecId && byId[s.codecId] ? byId[s.codecId].mimeType : null};
+    }
+    if (s.type === 'candidate-pair' && (s.selected || s.nominated && s.state === 'succeeded')) {
+      const l = byId[s.localCandidateId], r = byId[s.remoteCandidateId];
+      o.pair = {state: s.state, nominated: s.nominated, local: l && [l.candidateType, l.address || l.ip, l.port, l.protocol], remote: r && [r.candidateType, r.address || r.ip, r.port, r.protocol], rtt: s.currentRoundTripTime};
+    }
+  });
+  try { const ss = pc.getReceivers()[0].getSynchronizationSources(); if (ss.length) o.ssrcAudioLevel = ss[0].audioLevel; } catch (e) {}
+  return o;
+}
+
+async function main() {
+  pc = new RTCPeerConnection({iceServers: []});
+  const stream = await getStream();
+  stream.getTracks().forEach(t => pc.addTrack(t, stream));
+  if (codecsMode !== 'default') {
+    const caps = RTCRtpSender.getCapabilities('audio').codecs;
+    const by = n => caps.filter(c => c.mimeType.toLowerCase() === 'audio/' + n);
+    let prefs;
+    if (codecsMode === 'pcmu') prefs = by('pcmu');
+    else prefs = [...by('opus'), ...by('pcmu'), ...by('g722'), ...by('pcma'), ...caps.filter(c => !['opus', 'pcmu', 'g722', 'pcma'].includes(c.mimeType.toLowerCase().slice(6)))];
+    pc.getTransceivers()[0].setCodecPreferences(prefs);
+    L('codec preferences ' + codecsMode + ': ' + prefs.map(c => c.mimeType).join(','));
+  }
+  const queued = []; let sendLive = false, gatherDone = false;
+  const cands = [];
+  async function sendCand(c) {
+    candSent++;
+    await post('/cand', {c: c});
+  }
+  pc.onicecandidate = e => {
+    const c = e.candidate ? e.candidate.candidate : '';
+    if (e.candidate) cands.push(c);
+    if (mode === 'normal') { if (sendLive) sendCand(c); else queued.push(c); }
+    if (!e.candidate) gatherDone = true;
+  };
+  pc.onconnectionstatechange = () => { L('connectionState ' + pc.connectionState); if (pc.connectionState === 'connected' && !connectedAt) connectedAt = Date.now(); };
+  pc.oniceconnectionstatechange = () => L('iceConnectionState ' + pc.iceConnectionState);
+  pc.ontrack = e => {
+    L('ontrack ' + e.track.kind);
+    // the browser's own view of what it received: an FFT peak of the remote stream
+    try {
+      const rs = e.streams[0] || new MediaStream([e.track]);
+      const a = document.createElement('audio'); a.srcObject = rs; a.autoplay = true; document.body.appendChild(a); a.play().catch(() => {});
+      const ac = new AudioContext(); ac.resume();
+      const an = ac.createAnalyser(); an.fftSize = 8192; ac.createMediaStreamSource(rs).connect(an);
+      const f = new Float32Array(an.frequencyBinCount);
+      setInterval(() => { an.getFloatFrequencyData(f); let b = 0; for (let i = 1; i < f.length; i++) if (f[i] > f[b]) b = i; domHz = f[b] > -90 ? Math.round(b * ac.sampleRate / an.fftSize) : 0; domDb = Math.round(f[b]); }, 500);
+    } catch (err) { L('analyser failed ' + err); }
+  };
+
+  const offer = await pc.createOffer();
+  await pc.setLocalDescription(offer);
+  L('offer created', {sdp: offer.sdp});
+  let offerSdp = offer.sdp;
+  let ans;
+  if (mode === 'candfirst') {
+    // candidates reach the answerer BEFORE the offer does
+    const t0 = Date.now();
+    while (!gatherDone && Date.now() - t0 < 4000) await new Promise(r => setTimeout(r, 50));
+    for (const c of cands) await sendCand(c);
+    await sendCand('');
+    ans = await post('/offer', {sdp: offerSdp});
+  } else if (mode === 'candsdp') {
+    const t0 = Date.now();
+    while (!gatherDone && Date.now() - t0 < 4000) await new Promise(r => setTimeout(r, 50));
+    offerSdp = pc.localDescription.sdp;
+    L('offer with candidates', {sdp: offerSdp});
+    ans = await post('/offer', {sdp: offerSdp});
+  } else {
+    // normal: the offer first. Candidates queued so far and the later ones follow immediately, i.e. while the
+    // answerer is still working on (or delaying) its answer.
+    const p = post('/offer', {sdp: offerSdp});
+    sendLive = true;
+    for (const c of queued) sendCand(c);
+    ans = await p;
+  }
+  if (ans.error) { L('offer failed ' + ans.error); await post('/report', {fatal: ans.error}); return; }
+  L('answer received', {sdp: ans.sdp});
+  await pc.setRemoteDescription({type: 'answer', sdp: ans.sdp});
+  L('remote description set');
+
+  // remote candidates trickled by the answerer (the prod str0m answerer sends none; webrtc-rs may)
+  let since = 0;
+  (async () => { while (!done) { const r = await fetch('/cands?sid=' + sid + '&since=' + since).then(r => r.json()).catch(() => ({c: [], n: since}));
+    for (const c of r.c) { try { await pc.addIceCandidate({candidate: c, sdpMid: '0', sdpMLineIndex: 0}); } catch (e) { L('addIceCandidate failed ' + e); } }
+    since = r.n; } })();
+
+  // stall detector, 100 ms resolution, on the inbound packet counter
+  const tick = setInterval(async () => {
+    try {
+      const s = await stats();
+      if (s.in) {
+        const now = Date.now();
+        if (s.in.packetsReceived > lastRecv) { const stall = now - lastRecvT; if (lastRecv > 0 && stall > maxStall) { maxStall = stall; stallAt = now; } lastRecv = s.in.packetsReceived; lastRecvT = now; }
+      }
+    } catch (e) {}
+  }, 100);
+  const rep = setInterval(async () => {
+    try { const s = await stats(); s.domHz = domHz; s.domDb = domDb; s.maxStallMs = maxStall; s.sinceConnectedMs = connectedAt ? Date.now() - connectedAt : null; post('/report', s); } catch (e) {}
+  }, 1000);
+
+  const ctl = setInterval(async () => {
+    if (!connectedAt || done) return;
+    const age = (Date.now() - connectedAt) / 1000;
+    if (restartAt && !restartDone && age >= restartAt) {
+      restartDone = true; maxStall = 0;
+      L('restartIce at ' + age.toFixed(1) + ' s');
+      const t0 = Date.now();
+      pc.restartIce();
+      const o2 = await pc.createOffer(); await pc.setLocalDescription(o2);
+      L('restart offer created', {sdp: o2.sdp});
+      const a2 = await post('/offer', {sdp: o2.sdp});
+      if (a2.error) { L('restart failed ' + a2.error); return; }
+      await pc.setRemoteDescription({type: 'answer', sdp: a2.sdp});
+      L('restart answer applied after ' + (Date.now() - t0) + ' ms', {sdp: a2.sdp});
+    }
+    if (age >= duration) {
+      done = true; clearInterval(tick); clearInterval(rep); clearInterval(ctl);
+      const s = await stats(); s.maxStallMs = maxStall; s.final = true; await post('/report', s);
+      pc.close(); await post('/bye', {}); await post('/report', {done: true});
+    }
+  }, 200);
+}
+main().catch(e => { L('page error ' + e + ' ' + (e && e.stack)); post('/report', {fatal: String(e)}); });
+</script></body></html>

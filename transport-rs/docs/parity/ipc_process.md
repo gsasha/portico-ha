@@ -1,0 +1,89 @@
+# transport-rs parity: IPC server and process
+
+Scope: the Unix-socket IPC server, framing, dispatch, flags, signals, exit codes, the panic policy, the smoke-script differences and the Go oddities of the first slice.
+
+The numbered differences of the whole port are indexed in [../../PARITY.md](../../PARITY.md); their numbers are stable (code comments, tests, the review log and the contract map cite them), so a new difference takes the next free number of its range and goes into the file of its subject. "Smoke" means `scripts/ipc_smoke.py` gave byte-identical output on both binaries, "unit" means a `cargo test` case. Reference: Go `transport/` at the branch point of `dev-764-rust-skeleton` (main `a52af72`), built with `golang:1.23`. Long table cells are shortened to a summary with the full text below the table.
+
+## Matched
+
+| Area | Behaviour | Evidence |
+|---|---|---|
+| Framing | newline-delimited JSON; trailing `\r` dropped; empty and malformed lines dropped without a response; a final line with no newline is processed at EOF | smoke |
+| Line limit | a line plus its `\n` must fit in 1 MiB (1048575 bytes of content is served, 1048576 fails); over the limit `serve` fails with `bufio.Scanner: token too long`, stderr `portico-transport: serve: ...`, exit 1, socket file left behind | smoke, unit (`tests/wire.rs`) |
+| Request decoding | `null` line is a zero request (`unknown_method`, id 0, message `""`); keys case-insensitive; duplicate keys last-wins; `id` must be an integer literal (1.5, 1e2, strings drop the line); `null` fields ignored; missing id is 0; id range is int64 | smoke |
+| Response shape | `{"id":N,"result":...}` or `{"id":N,"error":{"code","message"}}`; field order as Go's structs; maps key-sorted | smoke |
+| String escaping | Go encoder HTML escaping (`\u003c \u003e \u0026 \u2028 \u2029`), short escapes `\b \f \n \r \t`, other controls `\u00xx` | smoke |
+| Notifications | `{"method":...,"params":...}`; error `ipc: no connection` when nothing is connected | unit |
+| Dispatch | plain handlers concurrent, responses matched by id; inline handlers on the read loop (arrival order); keyed handlers serialised per key in arrival order, other keys and unkeyed requests never wait | unit (ported) |
+| Stale replies | a reply from a handler that outlives its connection is dropped, not sent on the next one | unit (ported) |
+| Write timeout | 5 s per write; a failed or timed-out write closes the connection and `serve` returns | unit (ported) |
+| One connection | the server serves a single connection; `serve` returns `Ok` when it closes, and the process then exits 0 and removes the socket (as Go: no reconnect loop in Unix mode) | smoke |
+| Socket | stale file removed first; created, then chmod 0600; bind failure text `ipc: listening on P: listen unix P: bind: <errno>`, exit 1 | smoke, unit |
+| Signals | SIGINT and SIGTERM: stop accepting, close the connection, remove the socket, exit 0 | smoke |
+| Flags | all 9 flags with Go's names and defaults; `-f`/`--f`, `-f=v`, `-f v`; bool flags take a value only with `=` (`strconv.ParseBool` spellings); `--` and the first non-flag end parsing; `-h`/`-help`/`--help` print usage, exit 0; errors print the message and usage on stderr, exit 2; usage text identical to Go's | smoke, unit |
+| Start-up errors | `portico-transport: -socket or -listen is required` (note: Go's text, not just "-socket is required"), `-socket and -listen are mutually exclusive`, exit 1 | smoke |
+| Log format | Go uses `fmt.Fprintln(os.Stderr, "portico-transport:", ...)`, no timestamp, no `log` package; so does this. `HOUSE_CALL_SUMMARY_PREFIX` lines come with the house module (not started) | reading Go |
+| Methods | all 16 in the brief plus `external_ring` and `talk_health`, in the dispatch class Go uses (keyed: `configure`, `deconfigure`, `external_ring`, `webrtc_*`; inline: `media_*`; the rest plain) | smoke |
+| Empty-registry answers | `bad_params` with Go's `json.Unmarshal` error text (`unexpected end of JSON input` for absent params, `cannot unmarshal <kind> into Go value of type main.<T>`, `... Go struct field <T>.<field> of type <type>`) [...] (full text below the table) | smoke (24 params shapes per method) |
+| `media_*` | `media_open` validates and answers `{codec, frame_bytes, frame_ms}`, rejects a repeat (`already_open`), `media_frame` checks base64 and frame size (`bad_frame`), `media_close` notifies `media_closed` before its response, 5 s idle close notifies [...] (full text below the table) | smoke, golden |
+
+**Row Empty-registry answers, Behaviour column, in full.** `bad_params` with Go's `json.Unmarshal` error text (`unexpected end of JSON input` for absent params, `cannot unmarshal <kind> into Go value of type main.<T>`, `... Go struct field <T>.<field> of type <type>`); then `unknown_device` (message = device_id, else host); `unknown_session` for `webrtc_answer`/`webrtc_ice`/`media_frame`; `not_implemented` + `Phase 1: keepalive/hangup tracking not built yet (§9.5)` for `keepalive` and `hangup`; `not_supported` + `house calls are not enabled on this hub` for `house_*`; `unknown_driver` for an unknown driver; `external_ring`/`talk_health` parameter checks
+
+**Row `media_*`, Behaviour column, in full.** `media_open` validates and answers `{codec, frame_bytes, frame_ms}`, rejects a repeat (`already_open`), `media_frame` checks base64 and frame size (`bad_frame`), `media_close` notifies `media_closed` before its response, 5 s idle close notifies `media_closed {reason: idle}`; **since slice 8 the leg is joined to the device leg of its call** (`wsMediaHub.join` -> `joinCallToBrowser`: claimed audio, a Protect ring through its talkback, an in-process ring, dahua_sip's pending ring), see "wsmedia (slice 8)" below
+
+## Deliberate differences (smoke diff)
+
+| Case | Go | Rust | Why |
+|---|---|---|---|
+| `configure` of `gate_sip_server` with a config that PASSES validation | starts the SIP server and answers the capabilities | the same since slice 3b-1: it binds, starts and answers the Capabilities bytes in struct order (smoke: identical). Since slice 3b-2 the smoke script also dials the registered station three times (an INVITE challenge answered and the call hung up through IPC, a refusal, a station hang-up) and both binaries print the same | `dial.go` is done in slice 3b-2 |
+| `webrtc_offer` / `webrtc_answer` / `webrtc_ice` | a pion session | a str0m session (slice 4b); the error paths and garbage offers are byte-identical, a valid offer is answered with a structurally equal SDP (ids, ufrag, fingerprint, candidates and attribute order differ by library) | see "internal/sfu WebRTC session and internal/call (slice 4b)" below; the smoke script compares both |
+| a valid `webrtc_offer` (smoke: Chrome 124 and Firefox 153 offers) | pion's answer: `a=setup:active`, rtpmap lines as the offerer wrote them (`G722/8000/1` kept) | str0m's answer: **`a=setup:passive`** (str0m is the DTLS server, pion the client; both interoperate, INTEROP.md) and `G722/8000` (the `/1` is removed from the offer before parsing and not written back) | library differences; the smoke script prints the structure of the answer, and these are its only diff lines besides the two rows below |
+| `-secrets-env FILE` | reads the file (or fails `cannot open the file: ...`) | the same since slice 10 (smoke: identical, see "standalone/container mode (slice 10)") | slice 10 |
+| `-house-calls` | real `house_open`/`house_close` | the same since slice 9 (smoke: identical, see "house calls (slice 9)"); the start-up note on stderr is gone | slice 9 |
+
+## Other differences (not exercised by the smoke script)
+
+* `-listen` (TCP IPC), `-ipc-token-file`, `-ipc-allow-non-loopback`, `-ipc-allow-from`, `-sip-from-env` and `-secrets-env` are ported in slice 10 (below). With `-socket` the three `-ipc-*` flags parse and are ignored, as in Go.
+* Rust cannot hold invalid UTF-8 in a decoded string: such a request line is dropped (Go replaces it with U+FFFD and answers). A lone `\ud800` escape is NOT dropped: the line reaches the handler, which decodes the member as Go does (U+FFFD), see row 304 and the lane keys (R2-55). JSON nesting deeper than 128 is dropped (Go: 10000).
+* JSON keys fold ASCII case only (Go folds Unicode); `%q` quoting covers quotes, backslash, `\n \r \t` and controls only.
+* A write failure closes the connection; `serve` then reports `read unix: use of closed network connection` where Go prints `read unix <path>-><peer>: use of closed network connection`. Only the text differs.
+* `Server::close` waits for an in-flight write (it takes the write lock), as Go's `Close` does; a stalled peer can delay it by the 5 s write timeout.
+* The bind-then-chmod window exists in both: between `bind` and `chmod` the socket has mode `0777 & ~umask`. Not fixed, to stay a port.
+* Stale-file removal uses `remove_file`; Go's `os.Remove` would also remove an empty directory at that path.
+* `float64` formatting in results (`gojson::marshal`) is serde_json's, not Go's. No current result carries one.
+
+## TODO (not in this slice)
+
+(TCP IPC mode, `-sip-from-env`, `-secrets-env` and the `preloadedSet` adopt/detach wrappers arrived in slice 10.) `media_*` joined to a device leg and the PCMU/L16 audio path (the talkback half of the Protect drivers, `unifi_protect`'s ffmpeg talkback and `unifi_protect_talk`, with the talkback bridge of `main.go`, arrived in slice 7b; `dahua_sip` and the pending-ring relay in slice 6, `unifi_protect`'s core in slice 7a). The WebRTC session and the sequencer are slice 4b, below.
+
+## Go oddities (ported, not fixed)
+
+* In Unix-socket mode `main` calls `Serve` once. When Python disconnects the process exits 0 and removes its socket (there is no reconnect loop; `hub.py`'s restart-once policy treats that as an unexpected exit). The doc comment on `Serve` ("Call again to accept a reconnect") only holds in TCP mode.
+* A line over 1 MiB ends the process with exit 1 and leaves the socket file behind (`os.Exit(1)` skips the deferred `Close`). The next start removes it.
+* Responses of in-flight plain handlers can be lost when `Serve` returns an error and `main` calls `os.Exit(1)`.
+* `TestKeyedRequestsAreOrderedPerKey` asserts `order[1] != 1 && order[0] != 3`, which, by operator precedence, is weaker than its comment suggests. Ported literally; the per-key order is checked by the next assertion.
+* The `-socket is required` wording in the task brief is really `-socket or -listen is required`.
+* A request `{"params": null}` reaches handlers as the literal `null` (so `json.Unmarshal` succeeds with zero values), while an absent `params` reaches them empty (`unexpected end of JSON input`). Matched.
+* `configureKey` reads the device id from `config.device_id`, `config.host` or `config.nvr_host`; `deviceIDKey` reads `device_id` at the top level. Both share the `device_id:` key space. Matched.
+
+* **`deconfigure` forgets the device in the sink BEFORE `Stop`** (`main.go:1166-1168`; Rust `handlers.rs`), so the `ended` a driver reports for a live call while it stops carries `device_id` `""` in both binaries; at shutdown there is no forget and it carries the id (R2-59). Ported as it is; if the owner prefers the id, forget after `stop` in both. Test `deconfigure_forgets_the_device_in_the_sink`.
+* **Round 2, cleanliness rows declined (R2-125).** `Result<_, String>` stays the error type of the process modules (R1-150): the texts are Go's and several are compared byte for byte by the golden replays, so an error enum would carry the same strings behind a `Display` and change nothing observable; the admission verdict is an enum (`Refusal`) since that one was matched as a literal. R1-148 (`open_ipc` took the socket path twice) and R1-149 (the flag table and its `match` were two lists) are done: `open_ipc(f, getenv)` reads `f.socket`, and each flag definition carries its own setter.
+* **Round 2, R2-109 partly declined, with evidence.** The review asked for `guard::catch` instead of a task for EVERY request. Done for the inline `media_*` lane. For plain and keyed handlers the task hop is load-bearing: with `catch` the `T-gate_sip_server` conformance transcript fails (`python3 scripts/contract_runner.py --impl rust <debug binary>`: 67 checks, 1 failed, the `answer` reply written BEFORE the `call_state_changed answered` that the driver's own task emits right after `answer` returns; the transcript has them the other way round, as Go's). The notification-before-reply order of events emitted INSIDE a handler is the reply barrier's (PARITY 301); the order of events a driver emits from its own task right after the handler returns is the scheduler's, and the hop is what it has always depended on. Checked: `catch` everywhere fails the runner, the hybrid passes (67 checks, 0 failed).
+* **Round 2, one line scanner (R2-44).** Go's `bufio.Scanner` framing existed three times (request loop, TCP auth line, `-secrets-env` reader) and the request loop re-scanned a partial line after every read; `ipc/line.rs` is the one `LineScanner` (it remembers where it stopped looking), with the same 1 MiB rule. The endless line without a newline is pinned after the handshake too (`an_endless_line_without_a_newline_fails_serve_with_token_too_long`, `an_endless_request_line_ends_the_tcp_connection`, R2-12).
+
+## Panic policy
+
+Go has no `recover()` anywhere in its non-test code (grep of `transport/`; DESIGN.md's last section and `contract/transport_ipc_v1.json` `panic_policy.go` say the same): a panic there ends the process and `hub.py` restarts it. `panic = "unwind"` is pinned explicitly in `Cargo.toml` for the dev and release profiles (slice 4a, S1b review: `catch_unwind` per session needs unwinding; `abort` would make every contained panic fatal). Slice 4b's session is the first user: every call into str0m is under `catch_unwind`, and the session task is supervised through its `JoinHandle`; three tests inject a panic (in `accept_offer`, in a str0m poll, in the task outside every guard) and each ends THAT session only, with `OnDisconnected` fired once and another session still answered. A panic in a tokio task is contained to that task (a keyed lane is released on unwind); since Phase R round 1 a panic in an IPC handler of any dispatch class is answered with `internal_error` (PARITY 300), and one on the main thread exits with 2, Go's runtime code (PARITY 303).
+
+## Phase R round 1 (comments R1-xx of the review log): differences 300 to 369 that belong to this subject
+
+| # | Go | Rust | why |
+|---|---|---|---|
+| 300 | no `recover()`: a panic in a handler ends the process (exit 2) and `hub.py` restarts it | every handler (plain, keyed) runs on a task of its own and the inline `media_*` lane runs under `guard::catch` (R2-109: no task per frame, the lane delivers 50 a second per call); a panic is answered `{"code":"internal_error","message":"handler panicked"}` (the code the contract lists), the scrubbed `panic at` line is on stderr, the connection and the process carry on; unix and TCP mode now behave alike (an inline handler used to end the unix-mode process with 101 and no shutdown) | R1-13. A request that never gets an answer hangs the hub until its own timeout; the contained panic is the rule of PARITY 175 applied to the handler. Tests `a_panicking_handler_is_answered_in_every_dispatch_class` |
+| 301 | `Notify` writes in the calling goroutine, so an event a driver emits inside a handler (`driver_availability` from `Start`, `ringing`/`answered`/`active` from `DialCall`) is on the wire BEFORE that handler's reply | not a difference any more: the sink's writer is a task, and the server awaits a reply barrier (the sink's `flush`, 5 s at most) after the handler returns and before it writes the reply, so every event queued inside the handler is written first | R1-2. Events a driver emits from its own task keep no order against replies, as in Go. Tests `the_dial_reply_follows_the_events_emitted_inside_the_handler`, `the_reply_barrier_runs_before_the_reply`, and the `ordered` flow of `ipc_smoke.py` / the contract runner (recorded from the Go binary) |
+| 303 | an unrecovered panic on the main goroutine exits with 2 | the main future runs under `catch_unwind`; the panic hook has printed the report and the process exits with 2 (Rust's own code is 101) | R1-71. Test `a_panic_on_the_main_thread_is_exit_code_2` |
+| 304 | a `config` that `json.Unmarshal` rejects (`1e999`) is `bad_params` with the Unmarshal text; a lone surrogate escape becomes U+FFFD; nesting up to 10 000 is accepted | the same texts for the number and the surrogate (checked against the real decoder); nesting deeper than 128 is refused with `bad_params` ("exceeded max depth"), `serde_json`'s limit; a lone surrogate in an object KEY still fails the whole params (`unexpected end of JSON input`) | R1-3. Python never sends either; the limits are far beyond a real config. Tests in `gojson::map_tests`, `configure_with_an_unrepresentable_number_is_bad_params` |
+| 305 | command-line arguments are bytes; a non-UTF-8 `-socket` names that file | an argument that is not valid UTF-8 is refused (exit 2, the lossy text on stderr) instead of being silently rewritten with U+FFFD | R1-72. Unix paths with non-UTF-8 bytes do not occur in the estate |
+| 357 | secrets scrubbed from a panic text: not applicable (a panic ends the process) | `panic_hook` keeps 64 secrets and, past that, forgets the OLDEST instead of refusing the newest | R1-116. Test `the_newest_secret_is_kept_when_the_list_is_full` |
+
+> **Go sources removed (D-20261123-cc1e).** Go paths in this file, such as `transport/...`, `tools/gen_golden/...` and `scripts/golden_check.sh`, name the Go transport and the golden generators as they were at commit `bdd8e61`; they are deleted from `main` and live in git history only. The golden vectors in `tests/golden/` are frozen recordings. See [tests_and_vectors.md](../tests_and_vectors.md).

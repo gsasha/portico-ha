@@ -1,0 +1,3090 @@
+{
+ "adopt": [
+  {
+   "name": "configure of a preloaded device is adopted",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "configure",
+   "params": "{\"driver\":\"gate_sip_server\",\"config\":{\"device_id\":\"gate-sa\",\"password\":\"x\"}}",
+   "result": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":false,\"RTSPTemplate\":\"rtsp://{host}/x\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "configure of another device passes",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "configure",
+   "params": "{\"driver\":\"gate_sip_server\",\"config\":{\"device_id\":\"other\",\"password\":\"x\"}}",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "configure of a preloaded device whose driver is gone",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": null,
+   "method": "configure",
+   "params": "{\"driver\":\"gate_sip_server\",\"config\":{\"device_id\":\"gate-sa\",\"password\":\"x\"}}",
+   "err_code": "unknown_device",
+   "err_msg": "gate-sa"
+  },
+  {
+   "name": "configure naming the device by host",
+   "preload": [
+    "device_id:h1"
+   ],
+   "registry": [
+    "h1"
+   ],
+   "method": "configure",
+   "params": "{\"driver\":\"x\",\"config\":{\"host\":\"h1\"}}",
+   "result": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":false,\"RTSPTemplate\":\"rtsp://{host}/x\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "configure naming the device by nvr_host",
+   "preload": [
+    "device_id:n1"
+   ],
+   "registry": [
+    "n1"
+   ],
+   "method": "configure",
+   "params": "{\"driver\":\"x\",\"config\":{\"nvr_host\":\"n1\"}}",
+   "result": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":false,\"RTSPTemplate\":\"rtsp://{host}/x\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "configure with device_id and host: device_id is the key",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "configure",
+   "params": "{\"config\":{\"device_id\":\"gate-sa\",\"host\":\"zz\"}}",
+   "result": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":false,\"RTSPTemplate\":\"rtsp://{host}/x\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "configure with no device id passes",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "configure",
+   "params": "{\"config\":{}}",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "configure with unparsable params passes",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "configure",
+   "params": "not json",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "configure with absent params passes",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "configure",
+   "params": "",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "configure with a non-string device id passes",
+   "preload": [
+    "device_id:5"
+   ],
+   "registry": [
+    "5"
+   ],
+   "method": "configure",
+   "params": "{\"config\":{\"device_id\":5}}",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "configure with an empty device_id falls to host",
+   "preload": [
+    "device_id:h1"
+   ],
+   "registry": [
+    "h1"
+   ],
+   "method": "configure",
+   "params": "{\"config\":{\"device_id\":\"\",\"host\":\"h1\"}}",
+   "result": "{\"InboundAudio\":0,\"OutboundAudio\":0,\"DirectCapable\":true,\"HasRelay\":false,\"RTSPTemplate\":\"rtsp://{host}/x\",\"ReportsAvailability\":true,\"CanDial\":true}"
+  },
+  {
+   "name": "nothing preloaded passes everything",
+   "preload": null,
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "configure",
+   "params": "{\"driver\":\"gate_sip_server\",\"config\":{\"device_id\":\"gate-sa\",\"password\":\"x\"}}",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "an id that merely contains the preloaded one passes",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa",
+    "gate-sa2"
+   ],
+   "method": "configure",
+   "params": "{\"driver\":\"gate_sip_server\",\"config\":{\"device_id\":\"gate-sa2\",\"password\":\"x\"}}",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "deconfigure of a preloaded device only detaches",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "deconfigure",
+   "params": "{\"device_id\":\"gate-sa\"}",
+   "result": "{\"ok\":true}"
+  },
+  {
+   "name": "deconfigure of another device passes",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "deconfigure",
+   "params": "{\"device_id\":\"other\"}",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "deconfigure by host passes (not a device_id)",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": [
+    "gate-sa"
+   ],
+   "method": "deconfigure",
+   "params": "{\"host\":\"gate-sa\"}",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "deconfigure with no id passes",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": null,
+   "method": "deconfigure",
+   "params": "{}",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "deconfigure with absent params passes",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": null,
+   "method": "deconfigure",
+   "params": "",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "deconfigure with a null device id passes",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": null,
+   "method": "deconfigure",
+   "params": "{\"device_id\":null}",
+   "passed": true,
+   "result": "{\"next\":\"ran\"}"
+  },
+  {
+   "name": "deconfigure of a preloaded device already gone is still a no-op",
+   "preload": [
+    "device_id:gate-sa"
+   ],
+   "registry": null,
+   "method": "deconfigure",
+   "params": "{\"device_id\":\"gate-sa\"}",
+   "result": "{\"ok\":true}"
+  }
+ ],
+ "open_ipc": [
+  {
+   "name": "neither -socket nor -listen",
+   "listen": "",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "-socket or -listen is required"
+  },
+  {
+   "name": "-socket with -listen",
+   "listen": "127.0.0.1:0",
+   "socket": "{DIR}/x.sock",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "-socket and -listen are mutually exclusive",
+   "tcp": true
+  },
+  {
+   "name": "no token",
+   "listen": "127.0.0.1:0",
+   "err": "ipc: the TCP listener needs a token of at least 24 characters",
+   "tcp": true
+  },
+  {
+   "name": "token one short of the minimum",
+   "listen": "127.0.0.1:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456"
+   },
+   "err": "ipc: the TCP listener needs a token of at least 24 characters",
+   "tcp": true
+  },
+  {
+   "name": "token of exactly the minimum",
+   "listen": "127.0.0.1:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef01234567"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "LAN bind with neither flag",
+   "listen": "0.0.0.0:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: refusing to listen on \"0.0.0.0:0\": loopback only until the non-loopback flag is set",
+   "tcp": true
+  },
+  {
+   "name": "LAN bind with the flag but no allow-from",
+   "listen": "0.0.0.0:0",
+   "allow_non_loopback": true,
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: a non-loopback listen address needs an allow-from list",
+   "tcp": true
+  },
+  {
+   "name": "LAN bind with both",
+   "listen": "0.0.0.0:0",
+   "allow_non_loopback": true,
+   "allow_from": "10.8.0.39",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "LAN bind, allow-from but no flag",
+   "listen": "0.0.0.0:0",
+   "allow_from": "10.8.0.39",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: refusing to listen on \"0.0.0.0:0\": loopback only until the non-loopback flag is set",
+   "tcp": true
+  },
+  {
+   "name": "loopback with a /0 allow-from",
+   "listen": "127.0.0.1:0",
+   "allow_from": "0.0.0.0/0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "-ipc-allow-from \"0.0.0.0/0\": a /0 allows everyone",
+   "tcp": true
+  },
+  {
+   "name": "loopback with an unparsable allow-from entry",
+   "listen": "127.0.0.1:0",
+   "allow_from": "10.8.0.39,not-an-ip",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "-ipc-allow-from \"not-an-ip\": ParseAddr(\"not-an-ip\"): unable to parse IP",
+   "tcp": true
+  },
+  {
+   "name": "loopback with a good allow-from list",
+   "listen": "127.0.0.1:0",
+   "allow_from": " 10.8.0.39 , 10.3.0.0/16,, ",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "loopback with an allow-from of only commas",
+   "listen": "127.0.0.1:0",
+   "allow_from": ",,",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "an empty allow-from list on a LAN bind",
+   "listen": "0.0.0.0:0",
+   "allow_non_loopback": true,
+   "allow_from": " , ",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: a non-loopback listen address needs an allow-from list",
+   "tcp": true
+  },
+  {
+   "name": "127.0.0.2 is loopback",
+   "listen": "127.0.0.2:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "127.255.255.254 is loopback",
+   "listen": "127.255.255.254:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "ipv6 loopback",
+   "listen": "[::1]:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "ipv4-mapped ipv6 loopback",
+   "listen": "[::ffff:127.0.0.1]:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "ipv4-mapped ipv6 non-loopback",
+   "listen": "[::ffff:10.8.0.39]:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: refusing to listen on \"[::ffff:10.8.0.39]:0\": loopback only until the non-loopback flag is set",
+   "tcp": true
+  },
+  {
+   "name": "ipv6 wildcard",
+   "listen": "[::]:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: refusing to listen on \"[::]:0\": loopback only until the non-loopback flag is set",
+   "tcp": true
+  },
+  {
+   "name": "empty host is the wildcard",
+   "listen": ":0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: refusing to listen on \":0\": loopback only until the non-loopback flag is set",
+   "tcp": true
+  },
+  {
+   "name": "empty host with both flags",
+   "listen": ":0",
+   "allow_non_loopback": true,
+   "allow_from": "10.8.0.39",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "localhost",
+   "listen": "localhost:0",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "no port",
+   "listen": "127.0.0.1",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"127.0.0.1\": address 127.0.0.1: missing port in address",
+   "tcp": true
+  },
+  {
+   "name": "empty port",
+   "listen": "127.0.0.1:",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "port out of range",
+   "listen": "127.0.0.1:70000",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"127.0.0.1:70000\": address 70000: invalid port",
+   "tcp": true
+  },
+  {
+   "name": "port 65536",
+   "listen": "127.0.0.1:65536",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"127.0.0.1:65536\": address 65536: invalid port",
+   "tcp": true
+  },
+  {
+   "name": "port negative",
+   "listen": "127.0.0.1:-1",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"127.0.0.1:-1\": address -1: invalid port",
+   "tcp": true
+  },
+  {
+   "name": "port with leading zeros",
+   "listen": "127.0.0.1:000",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "port with a plus sign",
+   "listen": "127.0.0.1:+80",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "port huge",
+   "listen": "127.0.0.1:99999999999999999999",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"127.0.0.1:99999999999999999999\": address 99999999999999999999: invalid port",
+   "tcp": true
+  },
+  {
+   "name": "port unknown name",
+   "listen": "127.0.0.1:nosuchservice",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"127.0.0.1:nosuchservice\": lookup tcp/nosuchservice: unknown port",
+   "tcp": true
+  },
+  {
+   "name": "too many colons",
+   "listen": "127.0.0.1:1:2",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"127.0.0.1:1:2\": address 127.0.0.1:1:2: too many colons in address",
+   "tcp": true
+  },
+  {
+   "name": "bare ipv6 without brackets",
+   "listen": "::1:5000",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"::1:5000\": address ::1:5000: too many colons in address",
+   "tcp": true
+  },
+  {
+   "name": "unclosed bracket",
+   "listen": "[::1:5000",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"[::1:5000\": address [::1:5000: missing ']' in address",
+   "tcp": true
+  },
+  {
+   "name": "stray bracket",
+   "listen": "127.0.0.1]:5000",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"127.0.0.1]:5000\": address 127.0.0.1]:5000: unexpected ']' in address",
+   "tcp": true
+  },
+  {
+   "name": "bracket in the middle",
+   "listen": "12[7.0.0.1]:5000",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: bad listen address \"12[7.0.0.1]:5000\": address 12[7.0.0.1]:5000: unexpected '[' in address",
+   "tcp": true
+  },
+  {
+   "name": "empty listen address with -socket",
+   "listen": "",
+   "socket": "{DIR}/y.sock",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "ok": true
+  },
+  {
+   "name": "token file overrides the variable",
+   "listen": "127.0.0.1:0",
+   "token_file": "{DIR}/tok",
+   "token_file_content": "0123456789abcdef0123456789abcdef\n",
+   "env": {
+    "PORTICO_IPC_TOKEN": "short"
+   },
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "token file too short wins over a good variable",
+   "listen": "127.0.0.1:0",
+   "token_file": "{DIR}/tok",
+   "token_file_content": "short\n",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: the TCP listener needs a token of at least 24 characters",
+   "tcp": true
+  },
+  {
+   "name": "token file missing",
+   "listen": "127.0.0.1:0",
+   "token_file": "{DIR}/absent",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "reading -ipc-token-file: open {DIR}/absent: no such file or directory",
+   "tcp": true
+  },
+  {
+   "name": "token file empty",
+   "listen": "127.0.0.1:0",
+   "token_file": "{DIR}/tok",
+   "token_file_content": "",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef"
+   },
+   "err": "ipc: the TCP listener needs a token of at least 24 characters",
+   "tcp": true
+  },
+  {
+   "name": "token file with CRLF endings",
+   "listen": "127.0.0.1:0",
+   "token_file": "{DIR}/tok",
+   "token_file_content": "0123456789abcdef0123456789abcdef\r\n\r\n",
+   "tcp": true,
+   "ok": true
+  },
+  {
+   "name": "token file where newlines pad a short token",
+   "listen": "127.0.0.1:0",
+   "token_file": "{DIR}/tok",
+   "token_file_content": "0123456789abcdef0123456\n\n\n",
+   "err": "ipc: the TCP listener needs a token of at least 24 characters",
+   "tcp": true
+  }
+ ],
+ "parse_allow": [
+  {
+   "in": "10.8.0.39",
+   "out": "10.8.0.39/32"
+  },
+  {
+   "in": "10.8.0.39/32",
+   "out": "10.8.0.39/32"
+  },
+  {
+   "in": "10.8.0.0/16",
+   "out": "10.8.0.0/16"
+  },
+  {
+   "in": "10.8.7.9/16",
+   "out": "10.8.0.0/16"
+  },
+  {
+   "in": "10.0.0.0/8",
+   "out": "10.0.0.0/8"
+  },
+  {
+   "in": "0.0.0.0/1",
+   "out": "0.0.0.0/1"
+  },
+  {
+   "in": "0.0.0.0/0",
+   "err": true
+  },
+  {
+   "in": "1.2.3.4/0",
+   "err": true
+  },
+  {
+   "in": "::/0",
+   "err": true
+  },
+  {
+   "in": "::1",
+   "out": "::1/128"
+  },
+  {
+   "in": "::1/128",
+   "out": "::1/128"
+  },
+  {
+   "in": "fe80::/10",
+   "out": "fe80::/10"
+  },
+  {
+   "in": "fd00:1:2::5/48",
+   "out": "fd00:1:2::/48"
+  },
+  {
+   "in": "2001:db8::1",
+   "out": "2001:db8::1/128"
+  },
+  {
+   "in": "::ffff:10.8.0.39",
+   "out": "10.8.0.39/32"
+  },
+  {
+   "in": "::ffff:10.8.0.0/112",
+   "out": "::ffff:10.8.0.0/112"
+  },
+  {
+   "in": "::ffff:0.0.0.0/96",
+   "out": "::ffff:0.0.0.0/96"
+  },
+  {
+   "in": "::ffff:1.2.3.4/128",
+   "out": "::ffff:1.2.3.4/128"
+  },
+  {
+   "in": "10.8.0.39/33",
+   "err": true
+  },
+  {
+   "in": "10.8.0.39/-1",
+   "err": true
+  },
+  {
+   "in": "10.8.0.39/+8",
+   "err": true
+  },
+  {
+   "in": "10.8.0.39/08",
+   "err": true
+  },
+  {
+   "in": "10.8.0.39/",
+   "err": true
+  },
+  {
+   "in": "10.8.0.39/ 8",
+   "err": true
+  },
+  {
+   "in": "10.8.0.39/8x",
+   "err": true
+  },
+  {
+   "in": "/8",
+   "err": true
+  },
+  {
+   "in": "10.4.0/24",
+   "err": true
+  },
+  {
+   "in": "10.8.0.256",
+   "err": true
+  },
+  {
+   "in": "10.8.0.039",
+   "err": true
+  },
+  {
+   "in": "01.2.3.4",
+   "err": true
+  },
+  {
+   "in": "1.2.3.4.5",
+   "err": true
+  },
+  {
+   "in": "1.2.3",
+   "err": true
+  },
+  {
+   "in": "localhost",
+   "err": true
+  },
+  {
+   "in": "example.com",
+   "err": true
+  },
+  {
+   "in": "fe80::1%eth0",
+   "out": "fe80::1/128"
+  },
+  {
+   "in": "fe80::1%eth0/64",
+   "err": true
+  },
+  {
+   "in": "::1/129",
+   "err": true
+  },
+  {
+   "in": "2001:db8::/32",
+   "out": "2001:db8::/32"
+  },
+  {
+   "in": " 10.8.0.39",
+   "err": true
+  },
+  {
+   "in": "10.8.0.39 ",
+   "err": true
+  },
+  {
+   "in": "",
+   "err": true
+  },
+  {
+   "in": "[::1]",
+   "err": true
+  },
+  {
+   "in": "::ffff:1.2.3.4/96",
+   "out": "::ffff:0.0.0.0/96"
+  },
+  {
+   "in": "0:0:0:0:0:ffff:a08:27",
+   "out": "10.8.0.39/32"
+  },
+  {
+   "in": "1:2:3:4:5:6:7:8",
+   "out": "1:2:3:4:5:6:7:8/128"
+  },
+  {
+   "in": "1:2:3:4:5:6:7:8:9",
+   "err": true
+  },
+  {
+   "in": "1::2::3",
+   "err": true
+  },
+  {
+   "in": "::",
+   "out": "::/128"
+  },
+  {
+   "in": "0.0.0.0",
+   "out": "0.0.0.0/32"
+  },
+  {
+   "in": "255.255.255.255/32",
+   "out": "255.255.255.255/32"
+  },
+  {
+   "in": "10.8.0.39/00",
+   "err": true
+  },
+  {
+   "in": "10.8.0.39/0",
+   "err": true
+  }
+ ],
+ "preload": [
+  {
+   "name": "ok",
+   "cfg": {
+    "device_id": "gate-sa",
+    "password": "s3cretpass",
+    "rtp_port": 0,
+    "sip_listen": "127.0.0.1:0"
+   },
+   "raw": "{\"driver\":\"gate_sip_server\",\"config\":{\"device_id\":\"gate-sa\",\"password\":\"s3cretpass\",\"rtp_port\":0,\"sip_listen\":\"127.0.0.1:0\"}}",
+   "in_set": [
+    "device_id:gate-sa"
+   ]
+  },
+  {
+   "name": "configure fails",
+   "cfg": {
+    "device_id": "gate-sa",
+    "sip_listen": "127.0.0.1:0"
+   },
+   "fail_code": "configure_failed",
+   "fail_msg": "password must be 8-15 characters",
+   "err": "configure_failed: password must be 8-15 characters",
+   "raw": "{\"driver\":\"gate_sip_server\",\"config\":{\"device_id\":\"gate-sa\",\"sip_listen\":\"127.0.0.1:0\"}}",
+   "in_set": []
+  },
+  {
+   "name": "no device id in the config: no lane key, nothing added",
+   "cfg": {
+    "sip_listen": "127.0.0.1:0"
+   },
+   "raw": "{\"driver\":\"gate_sip_server\",\"config\":{\"sip_listen\":\"127.0.0.1:0\"}}",
+   "in_set": [
+    ""
+   ]
+  },
+  {
+   "name": "device id by host",
+   "cfg": {
+    "host": "h1"
+   },
+   "raw": "{\"driver\":\"gate_sip_server\",\"config\":{\"host\":\"h1\"}}",
+   "in_set": [
+    "device_id:h1"
+   ]
+  },
+  {
+   "name": "keys are sorted, numbers plain",
+   "cfg": {
+    "a": true,
+    "device_id": "d",
+    "m": "x<>&y",
+    "z": 5060
+   },
+   "raw": "{\"driver\":\"gate_sip_server\",\"config\":{\"a\":true,\"device_id\":\"d\",\"m\":\"x\\u003c\\u003e\\u0026y\",\"z\":5060}}",
+   "in_set": [
+    "device_id:d"
+   ]
+  }
+ ],
+ "secrets": [
+  {
+   "name": "the box env",
+   "content_b64": "IyBib3ggZW52CkdBVEVfU0lQX1VTRVI9ODAwMQpHQVRFX1NJUF9SRUFMTT1WRFAKR0FURV9TSVBfUEFTU1dPUkQ9ZmFrZXBhc3MxMjM0CkdBVEVfU0lQX1BFRVJfVE9LRU49cGVlcjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5CkdBVEVfU0lQX1RPS0VOPU9XTkVSU0VDUkVULW11c3QtbmV2ZXItYmUtcmVhZC0wMDAwCk9USEVSPXgK",
+   "loaded": {
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "empty file",
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "only comments and blanks",
+   "content_b64": "IyBhCgogICAKI0dBVEVfU0lQX1VTRVI9YmFkCg==",
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "export, quotes and spaces",
+   "content_b64": "ZXhwb3J0IEdBVEVfU0lQX1BBU1NXT1JEPSJmYWtlcGFzczEyMzQiCiAgR0FURV9TSVBfUEVFUl9UT0tFTiA9ICdwZWVyMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODknICAKbm9lcXVhbHMKI0dBVEVfU0lQX1VTRVI9YmFkCg==",
+   "loaded": {
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_PASSWORD": "fakepass1234"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "export with a tab",
+   "content_b64": "ZXhwb3J0CUdBVEVfU0lQX1BBU1NXT1JEPWZha2VwYXNzMTIzNAo=",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "fakepass1234"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "export glued to the key is another key",
+   "content_b64": "ZXhwb3J0R0FURV9TSVBfUEFTU1dPUkQ9ZmFrZXBhc3MxMjM0Cg==",
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "export with three spaces",
+   "content_b64": "ZXhwb3J0ICAgR0FURV9TSVBfVVNFUj03MDAwCg==",
+   "loaded": {
+    "PORTICO_SIP_USER": "7000"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "7000"
+   }
+  },
+  {
+   "name": "defaults when absent",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9ZmFrZXBhc3MxMjM0Cg==",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "fakepass1234"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "user and realm only",
+   "content_b64": "R0FURV9TSVBfVVNFUj05MDAwCkdBVEVfU0lQX1JFQUxNPUhPTUUK",
+   "loaded": {
+    "PORTICO_SIP_REALM": "HOME",
+    "PORTICO_SIP_USER": "9000"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "HOME",
+    "PORTICO_SIP_USER": "9000"
+   }
+  },
+  {
+   "name": "empty user keeps the empty value",
+   "content_b64": "R0FURV9TSVBfVVNFUj0KR0FURV9TSVBfUEFTU1dPUkQ9ZmFrZXBhc3MxMjM0Cg==",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_USER": ""
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": ""
+   }
+  },
+  {
+   "name": "empty quoted realm",
+   "content_b64": "R0FURV9TSVBfUkVBTE09IiIK",
+   "loaded": {
+    "PORTICO_SIP_REALM": ""
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "last duplicate wins",
+   "content_b64": "R0FURV9TSVBfVVNFUj0xCkdBVEVfU0lQX1VTRVI9Mgo=",
+   "loaded": {
+    "PORTICO_SIP_USER": "2"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "2"
+   }
+  },
+  {
+   "name": "value containing an equals sign",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9YWI9Y2RlZmdoCg==",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "ab=cdefgh"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "ab=cdefgh",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "short password",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9c2hvcnQK",
+   "load_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 5)",
+   "view_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 5)"
+  },
+  {
+   "name": "7 character password",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9MTIzNDU2Nwo=",
+   "load_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 7)",
+   "view_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 7)"
+  },
+  {
+   "name": "8 character password",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9MTIzNDU2NzgK",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "12345678"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "12345678",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "15 character password",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9MTIzNDU2Nzg5MDEyMzQ1Cg==",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "123456789012345"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "123456789012345",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "16 character password",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9MTIzNDU2Nzg5MDEyMzQ1Ngo=",
+   "load_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 16)",
+   "view_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 16)"
+  },
+  {
+   "name": "long password",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9MDEyMzQ1Njc4OWFiY2RlZmcK",
+   "load_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 17)",
+   "view_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 17)"
+  },
+  {
+   "name": "empty password",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9Cg==",
+   "load_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 0)",
+   "view_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 0)"
+  },
+  {
+   "name": "quoted empty password",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9IiIK",
+   "load_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 0)",
+   "view_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 0)"
+  },
+  {
+   "name": "short token",
+   "content_b64": "R0FURV9TSVBfUEVFUl9UT0tFTj10b29zaG9ydAo=",
+   "load_err": "-secrets-env: GATE_SIP_PEER_TOKEN must be at least 24 characters (got 8)",
+   "view_err": "-secrets-env: GATE_SIP_PEER_TOKEN must be at least 24 characters (got 8)"
+  },
+  {
+   "name": "23 character token",
+   "content_b64": "R0FURV9TSVBfUEVFUl9UT0tFTj0wMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Ngo=",
+   "load_err": "-secrets-env: GATE_SIP_PEER_TOKEN must be at least 24 characters (got 23)",
+   "view_err": "-secrets-env: GATE_SIP_PEER_TOKEN must be at least 24 characters (got 23)"
+  },
+  {
+   "name": "24 character token",
+   "content_b64": "R0FURV9TSVBfUEVFUl9UT0tFTj0wMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1NjcK",
+   "loaded": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef01234567"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "0123456789abcdef01234567",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "token with a space",
+   "content_b64": "R0FURV9TSVBfUEVFUl9UT0tFTj0iYWJjZGVmZ2hpaiBrbG1ub3BxcnN0dXZ3eHl6MDEyMyIK",
+   "load_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace",
+   "view_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace"
+  },
+  {
+   "name": "token with an inner tab",
+   "content_b64": "R0FURV9TSVBfUEVFUl9UT0tFTj0iYWJjZGVmZ2hpaglrbG1ub3BxcnN0dXZ3eHl6MDEyMyIK",
+   "load_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace",
+   "view_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace"
+  },
+  {
+   "name": "token with a no-break space",
+   "content_b64": "R0FURV9TSVBfUEVFUl9UT0tFTj1hYmNkZWZnaGlqwqBrbG1ub3BxcnN0dXZ3eHl6MDEyMwo=",
+   "load_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace",
+   "view_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace"
+  },
+  {
+   "name": "token with an ideographic space",
+   "content_b64": "R0FURV9TSVBfUEVFUl9UT0tFTj1hYmNkZWZnaGlq44CAa2xtbm9wcXJzdHV2d3h5ejAxMjMK",
+   "load_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace",
+   "view_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace"
+  },
+  {
+   "name": "token with a U+0085",
+   "content_b64": "R0FURV9TSVBfUEVFUl9UT0tFTj1hYmNkZWZnaGlqwoVrbG1ub3BxcnN0dXZ3eHl6MDEyMwo=",
+   "load_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace",
+   "view_err": "-secrets-env: GATE_SIP_PEER_TOKEN must not contain whitespace"
+  },
+  {
+   "name": "owner token with a bad value never fails the load",
+   "content_b64": "R0FURV9TSVBfVE9LRU49eCB5CkdBVEVfU0lQX1BBU1NXT1JEPWZha2VwYXNzMTIzNAo=",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "fakepass1234"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "owner token alone",
+   "content_b64": "R0FURV9TSVBfVE9LRU49eCB5Cg==",
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "password error does not echo the value",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9d2F5VG9vTG9uZ1Bhc3N3b3JkVmFsdWUK",
+   "load_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 23)",
+   "view_err": "-secrets-env: GATE_SIP_PASSWORD must be 8-15 characters (got 23)"
+  },
+  {
+   "name": "CRLF line endings",
+   "content_b64": "R0FURV9TSVBfVVNFUj04MDAxDQpHQVRFX1NJUF9QQVNTV09SRD1mYWtlcGFzczEyMzQNCg==",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_USER": "8001"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "no final newline",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9ZmFrZXBhc3MxMjM0",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "fakepass1234"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "unmatched quote",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9ImZha2VwYXNzMTIzNAo=",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "\"fakepass1234"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "\"fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "mismatched quotes",
+   "content_b64": "R0FURV9TSVBfUEFTU1dPUkQ9ImZha2VwYXNzMTIzNCcK",
+   "loaded": {
+    "PORTICO_SIP_PASSWORD": "\"fakepass1234'"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "\"fakepass1234'",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "one quote character",
+   "content_b64": "R0FURV9TSVBfUkVBTE09Igo=",
+   "loaded": {
+    "PORTICO_SIP_REALM": "\""
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "\"",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "doubled quotes",
+   "content_b64": "R0FURV9TSVBfUkVBTE09IiJWRFAiIgo=",
+   "loaded": {
+    "PORTICO_SIP_REALM": "\"VDP\""
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "\"VDP\"",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "spaces inside quotes are kept",
+   "content_b64": "R0FURV9TSVBfUkVBTE09IiAgViBEIFAgICIK",
+   "loaded": {
+    "PORTICO_SIP_REALM": "  V D P  "
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "  V D P  ",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "spaces around the equals sign",
+   "content_b64": "R0FURV9TSVBfVVNFUiAgID0gICA4MDAxICAgCg==",
+   "loaded": {
+    "PORTICO_SIP_USER": "8001"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "key in lower case is another key",
+   "content_b64": "Z2F0ZV9zaXBfdXNlcj0xCg==",
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "key with trailing text is another key",
+   "content_b64": "R0FURV9TSVBfVVNFUlM9MQo=",
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "line with only an equals sign",
+   "content_b64": "PQo=",
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "indented comment",
+   "content_b64": "ICAgIyBHQVRFX1NJUF9VU0VSPTEK",
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "hash inside a value is kept",
+   "content_b64": "R0FURV9TSVBfUkVBTE09ViNEUAo=",
+   "loaded": {
+    "PORTICO_SIP_REALM": "V#DP"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "V#DP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "unicode value",
+   "content_b64": "R0FURV9TSVBfUkVBTE09zpdvbWUK",
+   "loaded": {
+    "PORTICO_SIP_REALM": "Ηome"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "Ηome",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "unicode padding around the line",
+   "content_b64": "wqBHQVRFX1NJUF9VU0VSPTfCoAo=",
+   "loaded": {
+    "PORTICO_SIP_USER": "7"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "7"
+   }
+  },
+  {
+   "name": "invalid UTF-8 in an ignored line",
+   "content_b64": "T1RIRVI9//4KR0FURV9TSVBfVVNFUj01Cg==",
+   "loaded": {
+    "PORTICO_SIP_USER": "5"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "5"
+   }
+  },
+  {
+   "name": "invalid UTF-8 in the user",
+   "content_b64": "R0FURV9TSVBfVVNFUj3/Nwo=",
+   "loaded": {
+    "PORTICO_SIP_USER": "\ufffd7"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "\ufffd7"
+   }
+  },
+  {
+   "name": "a line of 1 MiB minus 2 bytes",
+   "content_gen": {
+    "prefix_b64": "T1RIRVI9",
+    "pad": 1048568,
+    "suffix_b64": "CkdBVEVfU0lQX1VTRVI9NQo="
+   },
+   "loaded": {
+    "PORTICO_SIP_USER": "5"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "5"
+   }
+  },
+  {
+   "name": "a line of 1 MiB",
+   "content_gen": {
+    "prefix_b64": "T1RIRVI9",
+    "pad": 1048570,
+    "suffix_b64": "CkdBVEVfU0lQX1VTRVI9NQo="
+   },
+   "load_err": "-secrets-env: reading the file: bufio.Scanner: token too long",
+   "view_err": "-secrets-env: reading the file: bufio.Scanner: token too long"
+  },
+  {
+   "name": "a line of 1 MiB after a short line",
+   "content_gen": {
+    "prefix_b64": "R0FURV9TSVBfVVNFUj01Ck9USEVSPQ==",
+    "pad": 1048570,
+    "suffix_b64": "CkdBVEVfU0lQX1JFQUxNPVIK"
+   },
+   "load_err": "-secrets-env: reading the file: bufio.Scanner: token too long",
+   "view_err": "-secrets-env: reading the file: bufio.Scanner: token too long"
+  },
+  {
+   "name": "a long last line without a newline",
+   "content_gen": {
+    "prefix_b64": "R0FURV9TSVBfVVNFUj01Ck9USEVSPQ==",
+    "pad": 1048568,
+    "suffix_b64": ""
+   },
+   "loaded": {
+    "PORTICO_SIP_USER": "5"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "5"
+   }
+  },
+  {
+   "name": "explicit variables win",
+   "content_b64": "IyBib3ggZW52CkdBVEVfU0lQX1VTRVI9ODAwMQpHQVRFX1NJUF9SRUFMTT1WRFAKR0FURV9TSVBfUEFTU1dPUkQ9ZmFrZXBhc3MxMjM0CkdBVEVfU0lQX1BFRVJfVE9LRU49cGVlcjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5CkdBVEVfU0lQX1RPS0VOPU9XTkVSU0VDUkVULW11c3QtbmV2ZXItYmUtcmVhZC0wMDAwCk9USEVSPXgK",
+   "env": {
+    "PORTICO_IPC_TOKEN": "explicit-token-0123456789abcdef",
+    "PORTICO_SIP_PASSWORD": "explicitpw1",
+    "PORTICO_SIP_USER": "9000"
+   },
+   "loaded": {
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "explicit-token-0123456789abcdef",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "explicitpw1",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "9000"
+   }
+  },
+  {
+   "name": "explicit variables are not validated",
+   "content_b64": "IyBib3ggZW52CkdBVEVfU0lQX1VTRVI9ODAwMQpHQVRFX1NJUF9SRUFMTT1WRFAKR0FURV9TSVBfUEFTU1dPUkQ9ZmFrZXBhc3MxMjM0CkdBVEVfU0lQX1BFRVJfVE9LRU49cGVlcjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5CkdBVEVfU0lQX1RPS0VOPU9XTkVSU0VDUkVULW11c3QtbmV2ZXItYmUtcmVhZC0wMDAwCk9USEVSPXgK",
+   "env": {
+    "PORTICO_IPC_TOKEN": "y",
+    "PORTICO_SIP_PASSWORD": "x"
+   },
+   "loaded": {
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "y",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "x",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "an empty explicit variable counts as unset",
+   "content_b64": "IyBib3ggZW52CkdBVEVfU0lQX1VTRVI9ODAwMQpHQVRFX1NJUF9SRUFMTT1WRFAKR0FURV9TSVBfUEFTU1dPUkQ9ZmFrZXBhc3MxMjM0CkdBVEVfU0lQX1BFRVJfVE9LRU49cGVlcjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5CkdBVEVfU0lQX1RPS0VOPU9XTkVSU0VDUkVULW11c3QtbmV2ZXItYmUtcmVhZC0wMDAwCk9USEVSPXgK",
+   "env": {
+    "PORTICO_SIP_PASSWORD": "",
+    "PORTICO_SIP_USER": ""
+   },
+   "loaded": {
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "",
+    "OTHER": "",
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_LISTEN": "",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "a variable the file never sets",
+   "content_b64": "IyBib3ggZW52CkdBVEVfU0lQX1VTRVI9ODAwMQpHQVRFX1NJUF9SRUFMTT1WRFAKR0FURV9TSVBfUEFTU1dPUkQ9ZmFrZXBhc3MxMjM0CkdBVEVfU0lQX1BFRVJfVE9LRU49cGVlcjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5CkdBVEVfU0lQX1RPS0VOPU9XTkVSU0VDUkVULW11c3QtbmV2ZXItYmUtcmVhZC0wMDAwCk9USEVSPXgK",
+   "env": {
+    "GATE_SIP_TOKEN": "env-owner",
+    "OTHER": "from-env",
+    "PORTICO_SIP_LISTEN": "127.0.0.1:5060"
+   },
+   "loaded": {
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   },
+   "view": {
+    "GATE_SIP_TOKEN": "env-owner",
+    "OTHER": "from-env",
+    "PORTICO_IPC_TOKEN": "peer0123456789abcdef0123456789",
+    "PORTICO_SIP_LISTEN": "127.0.0.1:5060",
+    "PORTICO_SIP_PASSWORD": "fakepass1234",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_USER": "8001"
+   }
+  },
+  {
+   "name": "missing file",
+   "load_err": "-secrets-env: cannot open the file: open {DIR}/absent: no such file or directory",
+   "view_err": "-secrets-env: cannot open the file: open {DIR}/absent: no such file or directory"
+  },
+  {
+   "name": "a directory",
+   "load_err": "-secrets-env: reading the file: read {DIR}: is a directory",
+   "view_err": "-secrets-env: reading the file: read {DIR}: is a directory"
+  }
+ ],
+ "sip_env": [
+  {
+   "name": "maps every variable",
+   "env": {
+    "PORTICO_SIP_ALLOW_FROM": "10.8.0.39",
+    "PORTICO_SIP_ALLOW_NON_LOOPBACK": "false",
+    "PORTICO_SIP_DEVICE_ID": "gate-sa",
+    "PORTICO_SIP_DIAL_ENABLED": "true",
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_ORPHAN_SECONDS": "60",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_REALM": "VDP",
+    "PORTICO_SIP_RING_SECONDS": "30",
+    "PORTICO_SIP_RTP_PORT": "0",
+    "PORTICO_SIP_USER": "8001"
+   },
+   "cfg": "{\"allow_from\":\"10.8.0.39\",\"allow_non_loopback\":false,\"device_id\":\"gate-sa\",\"dial_enabled\":true,\"orphan_seconds\":60,\"password\":\"s3cretpass\",\"realm\":\"VDP\",\"ring_seconds\":30,\"rtp_port\":0,\"sip_listen\":\"127.0.0.1:0\",\"user\":\"8001\"}"
+  },
+  {
+   "name": "minimum",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"s3cretpass\",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "default device id is made explicit",
+   "env": {
+    "PORTICO_SIP_LISTEN": "0.0.0.0:5060"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:0.0.0.0:5060\",\"password\":\"\",\"sip_listen\":\"0.0.0.0:5060\"}"
+  },
+  {
+   "name": "no listen address",
+   "env": {
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "err": "PORTICO_SIP_LISTEN is required (no default: this mode never binds by accident)"
+  },
+  {
+   "name": "blank listen address",
+   "env": {
+    "PORTICO_SIP_LISTEN": "   ",
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "err": "PORTICO_SIP_LISTEN is required (no default: this mode never binds by accident)"
+  },
+  {
+   "name": "values are trimmed",
+   "env": {
+    "PORTICO_SIP_DEVICE_ID": " dev ",
+    "PORTICO_SIP_LISTEN": "  127.0.0.1:5060 ",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_REALM": "\nVDP ",
+    "PORTICO_SIP_USER": " 8001\t"
+   },
+   "cfg": "{\"device_id\":\"dev\",\"password\":\"s3cretpass\",\"realm\":\"VDP\",\"sip_listen\":\"127.0.0.1:5060\",\"user\":\"8001\"}"
+  },
+  {
+   "name": "the password is not trimmed",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": " spaced pw "
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\" spaced pw \",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "no password at all",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"\",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "port not a number",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "x"
+   },
+   "err": "PORTICO_SIP_RTP_PORT must be a number"
+  },
+  {
+   "name": "port with a plus sign",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "+5004"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"s3cretpass\",\"rtp_port\":5004,\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "port negative",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "-1"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"s3cretpass\",\"rtp_port\":-1,\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "port with a decimal point",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "5004.0"
+   },
+   "err": "PORTICO_SIP_RTP_PORT must be a number"
+  },
+  {
+   "name": "port with underscores",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "5_004"
+   },
+   "err": "PORTICO_SIP_RTP_PORT must be a number"
+  },
+  {
+   "name": "port beyond int64",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "99999999999999999999"
+   },
+   "err": "PORTICO_SIP_RTP_PORT must be a number"
+  },
+  {
+   "name": "port with leading zeros",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "0005004"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"s3cretpass\",\"rtp_port\":5004,\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "port hex",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "0x1f"
+   },
+   "err": "PORTICO_SIP_RTP_PORT must be a number"
+  },
+  {
+   "name": "port at int64 max",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "9223372036854775807"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"s3cretpass\",\"rtp_port\":9223372036854776000,\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "ring seconds not a number",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RING_SECONDS": "soon"
+   },
+   "err": "PORTICO_SIP_RING_SECONDS must be a number"
+  },
+  {
+   "name": "orphan seconds not a number",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_ORPHAN_SECONDS": "1e2",
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "err": "PORTICO_SIP_ORPHAN_SECONDS must be a number"
+  },
+  {
+   "name": "bool spellings 1/0",
+   "env": {
+    "PORTICO_SIP_ALLOW_NON_LOOPBACK": "1",
+    "PORTICO_SIP_DIAL_ENABLED": "0",
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "cfg": "{\"allow_non_loopback\":true,\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"dial_enabled\":false,\"password\":\"s3cretpass\",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "bool spellings T/F",
+   "env": {
+    "PORTICO_SIP_ALLOW_NON_LOOPBACK": "T",
+    "PORTICO_SIP_DIAL_ENABLED": "F",
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "cfg": "{\"allow_non_loopback\":true,\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"dial_enabled\":false,\"password\":\"s3cretpass\",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "bool spellings TRUE/False",
+   "env": {
+    "PORTICO_SIP_ALLOW_NON_LOOPBACK": "TRUE",
+    "PORTICO_SIP_DIAL_ENABLED": "False",
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "cfg": "{\"allow_non_loopback\":true,\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"dial_enabled\":false,\"password\":\"s3cretpass\",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "bool yes is refused",
+   "env": {
+    "PORTICO_SIP_DIAL_ENABLED": "yes",
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "err": "PORTICO_SIP_DIAL_ENABLED must be true or false"
+  },
+  {
+   "name": "bool tRuE is refused",
+   "env": {
+    "PORTICO_SIP_ALLOW_NON_LOOPBACK": "tRuE",
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "err": "PORTICO_SIP_ALLOW_NON_LOOPBACK must be true or false"
+  },
+  {
+   "name": "password file wins over the variable",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "envpass888",
+    "PORTICO_SIP_PASSWORD_FILE": "{DIR}/pw"
+   },
+   "files": {
+    "pw": "filepass88\n"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"filepass88\",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "password file keeps interior whitespace and strips every trailing newline",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD_FILE": "{DIR}/pw"
+   },
+   "files": {
+    "pw": " a b \r\n\n\r\n"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\" a b \",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "password file empty",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD_FILE": "{DIR}/pw"
+   },
+   "files": {
+    "pw": ""
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"\",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "password file missing",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_PASSWORD_FILE": "{DIR}/absent"
+   },
+   "err": "reading PORTICO_SIP_PASSWORD_FILE: open {DIR}/absent: no such file or directory"
+  },
+  {
+   "name": "password file is a directory",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_PASSWORD_FILE": "{DIR}"
+   },
+   "err": "reading PORTICO_SIP_PASSWORD_FILE: read {DIR}: is a directory"
+  },
+  {
+   "name": "the password file is read before the numbers are parsed",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_PASSWORD_FILE": "{DIR}/absent",
+    "PORTICO_SIP_RTP_PORT": "x"
+   },
+   "err": "reading PORTICO_SIP_PASSWORD_FILE: open {DIR}/absent: no such file or directory"
+  },
+  {
+   "name": "unicode password",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "pä§§wörd"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"pä§§wörd\",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "unrelated variables are ignored",
+   "env": {
+    "PORTICO_IPC_TOKEN": "0123456789abcdef0123456789abcdef",
+    "PORTICO_SIP_COLOUR": "red",
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass"
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"s3cretpass\",\"sip_listen\":\"127.0.0.1:0\"}"
+  },
+  {
+   "name": "all-space numeric variable counts as unset",
+   "env": {
+    "PORTICO_SIP_LISTEN": "127.0.0.1:0",
+    "PORTICO_SIP_PASSWORD": "s3cretpass",
+    "PORTICO_SIP_RTP_PORT": "   "
+   },
+   "cfg": "{\"device_id\":\"gate-sip-server:127.0.0.1:0\",\"password\":\"s3cretpass\",\"sip_listen\":\"127.0.0.1:0\"}"
+  }
+ ],
+ "tcp": [
+  {
+   "name": "auth then ping",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "wrong token",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6Indyb25nIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "empty token",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IiJ9fQo=",
+     "recv_b64": "eyJpZCI6MSwiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "token that is a prefix of the real one",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGUifX0K",
+     "recv_b64": "eyJpZCI6MSwiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "token with one extra character",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmeCJ9fQo=",
+     "recv_b64": "eyJpZCI6MSwiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "token differing in the last character",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGUwIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "first line is not auth",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "garbage first line",
+   "phases": [
+    {
+     "send_b64": "Z2FyYmFnZQo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "empty first line",
+   "phases": [
+    {
+     "send_b64": "Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "blank-space first line",
+   "phases": [
+    {
+     "send_b64": "ICAgCg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "id is a string",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6IjEiLCJtZXRob2QiOiJhdXRoIiwicGFyYW1zIjp7InRva2VuIjoiMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYifX0K",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "id is fractional",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MS41LCJtZXRob2QiOiJhdXRoIiwicGFyYW1zIjp7InRva2VuIjoiMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYifX0K",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "id with an exponent",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MWUwLCJtZXRob2QiOiJhdXRoIiwicGFyYW1zIjp7InRva2VuIjoiMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYifX0K",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "id beyond int64",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6OTIyMzM3MjAzNjg1NDc3NTgwOCwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "id at int64 max",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6OTIyMzM3MjAzNjg1NDc3NTgwNywibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6OTIyMzM3MjAzNjg1NDc3NTgwNywicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "id negative",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6LTcsIm1ldGhvZCI6ImF1dGgiLCJwYXJhbXMiOnsidG9rZW4iOiIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiJ9fQo=",
+     "recv_b64": "eyJpZCI6LTcsInJlc3VsdCI6eyJvayI6dHJ1ZX19Cg==",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "id null",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6bnVsbCwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "id missing",
+   "phases": [
+    {
+     "send_b64": "eyJtZXRob2QiOiJhdXRoIiwicGFyYW1zIjp7InRva2VuIjoiMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYifX0K",
+     "recv_b64": "eyJpZCI6MCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "id missing and a wrong token",
+   "phases": [
+    {
+     "send_b64": "eyJtZXRob2QiOiJhdXRoIiwicGFyYW1zIjp7InRva2VuIjoibm9wZSJ9fQo=",
+     "recv_b64": "eyJpZCI6MCwiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "params missing",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MywibWV0aG9kIjoiYXV0aCJ9Cg==",
+     "recv_b64": "eyJpZCI6MywiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "params null",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MywibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6bnVsbH0K",
+     "recv_b64": "eyJpZCI6MywiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "params a string",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MywibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6IngifQo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "params an array",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MywibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6W119Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "params a number",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MywibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6NX0K",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "params empty object",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MywibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6e319Cg==",
+     "recv_b64": "eyJpZCI6MywiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "token a number",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MywibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6NX19Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "token null",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MywibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6bnVsbH19Cg==",
+     "recv_b64": "eyJpZCI6MywiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "token an array",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MywibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6W119fQo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "upper-case keys",
+   "phases": [
+    {
+     "send_b64": "eyJJRCI6NCwiTUVUSE9EIjoiYXV0aCIsIlBBUkFNUyI6eyJUT0tFTiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6NCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "mixed-case keys",
+   "phases": [
+    {
+     "send_b64": "eyJJZCI6NCwiTWV0aG9kIjoiYXV0aCIsIlBhcmFtcyI6eyJUb2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6NCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "method in capitals",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiQVVUSCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "method with a trailing space",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiYXV0aCAiLCJwYXJhbXMiOnsidG9rZW4iOiIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiJ9fQo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "method duplicated, auth last",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoicGluZyIsIm1ldGhvZCI6ImF1dGgiLCJwYXJhbXMiOnsidG9rZW4iOiIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiJ9fQo=",
+     "recv_b64": "eyJpZCI6NCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "method duplicated, auth first",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiYXV0aCIsIm1ldGhvZCI6InBpbmciLCJwYXJhbXMiOnsidG9rZW4iOiIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiJ9fQo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "token duplicated, good last",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6ImJhZCIsInRva2VuIjoiMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYifX0K",
+     "recv_b64": "eyJpZCI6NCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "token duplicated, good first",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIiwidG9rZW4iOiJiYWQifX0K",
+     "recv_b64": "eyJpZCI6NCwiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "id duplicated",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwiaWQiOjksIm1ldGhvZCI6ImF1dGgiLCJwYXJhbXMiOnsidG9rZW4iOiIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiJ9fQo=",
+     "recv_b64": "eyJpZCI6OSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "params given twice are merged",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn0sInBhcmFtcyI6eyJvdGhlciI6MX19Cg==",
+     "recv_b64": "eyJpZCI6NCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "params given twice, the second overrides the token",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn0sInBhcmFtcyI6eyJ0b2tlbiI6ImJhZCJ9fQo=",
+     "recv_b64": "eyJpZCI6NCwiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "params given twice, the second is null",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn0sInBhcmFtcyI6bnVsbH0K",
+     "recv_b64": "eyJpZCI6NCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "params given twice, the second is a string",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn0sInBhcmFtcyI6IngifQo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "unknown extra fields",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwieCI6WzEseyJhIjpudWxsfV0sIm1ldGhvZCI6ImF1dGgiLCJwYXJhbXMiOnsidG9rZW4iOiIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiIsInkiOmZhbHNlfSwieiI6InEifQo=",
+     "recv_b64": "eyJpZCI6NCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "unicode-escaped token",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6NCwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6NCwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "leading whitespace",
+   "phases": [
+    {
+     "send_b64": "ICAJeyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "trailing whitespace",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19ICAgCg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "CRLF line ending",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19DQo=",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "two CRs before the newline",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19DQ0K",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "a byte order mark",
+   "phases": [
+    {
+     "send_b64": "77u/eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "trailing garbage after the object",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19eAo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "two objects on one line",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "a JSON array",
+   "phases": [
+    {
+     "send_b64": "W3siaWQiOjEsIm1ldGhvZCI6ImF1dGgifV0K",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "a JSON string",
+   "phases": [
+    {
+     "send_b64": "ImF1dGgiCg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "the JSON literal null",
+   "phases": [
+    {
+     "send_b64": "bnVsbAo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "truncated JSON",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIgo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "a single-quoted JSON",
+   "phases": [
+    {
+     "send_b64": "eydpZCc6MSwnbWV0aG9kJzonYXV0aCd9Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "trailing comma",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIix9fQo=",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "auth and ping in one write",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19CnsiaWQiOjIsIm1ldGhvZCI6InBpbmcifQo=",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0KeyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "auth, ping and a partial third line in one write",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19CnsiaWQiOjIsIm1ldGhvZCI6InBpbmcifQp7ImlkIjozLCJtZXQ=",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0KeyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    },
+    {
+     "send_b64": "aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MywicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "a second auth after the first is an unknown method",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6NSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6NSwiZXJyb3IiOnsiY29kZSI6InVua25vd25fbWV0aG9kIiwibWVzc2FnZSI6ImF1dGgifX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "auth line split across two writes",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXU=",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "send_b64": "dGgiLCJwYXJhbXMiOnsidG9rZW4iOiIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiJ9fQo=",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "auth in 12-byte pieces (well inside the window)",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "send_b64": "aG9kIjoiYXV0aCIs",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "send_b64": "InBhcmFtcyI6eyJ0",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "send_b64": "b2tlbiI6IjAxMjM0",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "send_b64": "NTY3ODlhYmNkZWYw",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "send_b64": "MTIzNDU2Nzg5YWJj",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "send_b64": "ZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "auth with no newline then the client half-closes",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19",
+     "close_write": true,
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": true
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "wrong token with no newline then half-close",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6ImJhZCJ9fQ==",
+     "close_write": true,
+     "recv_b64": "eyJpZCI6MSwiZXJyb3IiOnsiY29kZSI6InVuYXV0aG9yaXplZCIsIm1lc3NhZ2UiOiJiYWQgdG9rZW4ifX0K",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "half-close with nothing sent",
+   "phases": [
+    {
+     "close_write": true,
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "after a good auth a bad line is dropped and the next one served",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "Z2FyYmFnZQp7ImlkIjoyLCJtZXRob2QiOiJwaW5nIn0K",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "after a good auth an unknown method",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6OSwibWV0aG9kIjoibm9wZSJ9Cg==",
+     "recv_b64": "eyJpZCI6OSwiZXJyb3IiOnsiY29kZSI6InVua25vd25fbWV0aG9kIiwibWVzc2FnZSI6Im5vcGUifX0K",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "ping is refused before auth even with a good token in params",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoicGluZyIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "an auth line of 1 MiB minus 1 content bytes",
+   "phases": [
+    {
+     "send_gen": {
+      "prefix_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn0sIngiOiI=",
+      "pad": 1048490,
+      "suffix_b64": "In0K"
+     },
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "an auth line of 1 MiB content bytes",
+   "phases": [
+    {
+     "send_gen": {
+      "prefix_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn0sIngiOiI=",
+      "pad": 1048491,
+      "suffix_b64": "In0K"
+     },
+     "recv_b64": "",
+     "closed": true
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "an auth line of 1 MiB minus 2 content bytes",
+   "phases": [
+    {
+     "send_gen": {
+      "prefix_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn0sIngiOiI=",
+      "pad": 1048489,
+      "suffix_b64": "In0K"
+     },
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "1.1 MiB with no newline",
+   "phases": [
+    {
+     "send_gen": {
+      "prefix_b64": "",
+      "pad": 1148576,
+      "suffix_b64": ""
+     },
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "a short token server",
+   "token": "0123456789abcdef01234567",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2NyJ9fQo=",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "a long token server",
+   "token": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6Imtra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2trayJ9fQo=",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "a token with JSON-special characters",
+   "token": "abc\"def\\ghi<>&ABCDEFGHIJKLM",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6ImFiY1wiZGVmXFxnaGk8PiZBQkNERUZHSElKS0xNIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "a unicode token",
+   "token": "pä§§wörd-Ηome-0123456789abcdef",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6InDDpMKnwqd3w7ZyZC3Ol29tZS0wMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "source inside allow-from",
+   "allow_from": [
+    "127.0.0.0/8"
+   ],
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "source is a single allowed host",
+   "allow_from": [
+    "10.8.0.39/32",
+    "127.0.0.1/32"
+   ],
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "source outside allow-from",
+   "allow_from": [
+    "10.99.0.0/16"
+   ],
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "source outside a v6 allow-from",
+   "allow_from": [
+    "::1/128"
+   ],
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "source outside allow-from, nothing sent",
+   "allow_from": [
+    "10.99.0.0/16"
+   ],
+   "phases": [
+    {
+     "wait_before_ms": 200,
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "a silent client is dropped after the 5 s window",
+   "phases": [
+    {
+     "wait_before_ms": 5600,
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "a slow but in-window client is served",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFt",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "wait_before_ms": 3500,
+     "send_b64": "cyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  },
+  {
+   "name": "the window is absolute: a line dripped over 5.2 s is dropped although no gap is long",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXU=",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "wait_before_ms": 2300,
+     "send_b64": "dGgiLCJwYXJhbXMiOnsidG9rZW4=",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "wait_before_ms": 2300,
+     "send_b64": "IjoiMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYifX0K",
+     "recv_b64": "",
+     "closed": true
+    },
+    {
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "a client that finishes its line after the window is dropped",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFt",
+     "recv_b64": "",
+     "closed": false
+    },
+    {
+     "wait_before_ms": 5600,
+     "send_b64": "cyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "",
+     "closed": true
+    }
+   ]
+  },
+  {
+   "name": "a client idle for longer than the window AFTER auth stays connected",
+   "phases": [
+    {
+     "send_b64": "eyJpZCI6MSwibWV0aG9kIjoiYXV0aCIsInBhcmFtcyI6eyJ0b2tlbiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIn19Cg==",
+     "recv_b64": "eyJpZCI6MSwicmVzdWx0Ijp7Im9rIjp0cnVlfX0K",
+     "closed": false
+    },
+    {
+     "wait_before_ms": 5600,
+     "send_b64": "eyJpZCI6MiwibWV0aG9kIjoicGluZyJ9Cg==",
+     "recv_b64": "eyJpZCI6MiwicmVzdWx0Ijp7InBvbmciOnRydWV9fQo=",
+     "closed": false
+    }
+   ]
+  }
+ ],
+ "view_keys": [
+  "PORTICO_SIP_PASSWORD",
+  "PORTICO_SIP_USER",
+  "PORTICO_SIP_REALM",
+  "PORTICO_IPC_TOKEN",
+  "PORTICO_SIP_LISTEN",
+  "GATE_SIP_TOKEN",
+  "OTHER"
+ ]
+}
