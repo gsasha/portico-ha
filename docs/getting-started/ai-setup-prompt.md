@@ -1,8 +1,16 @@
 # AI-guided setup prompt
 
-A prompt you give to an AI assistant so that it interviews you and walks you through setting up Portico: Home Assistant and its dependencies, the door station, Tailscale, keys, the devices you want to show, an Android phone, a wall tablet, and test calls. The manual route is in the pages linked under "The same steps by hand".
+**This is the entry point for a new user.** It is a prompt you give to an AI assistant so that it interviews you and walks you through the whole of Portico: the Home Assistant side (the integration, the door station, Tailscale, keys, what to show) **and the Portico Android app** (where to get it, installing it, enrolling it, its permissions, the first ring), then a wall tablet and test calls. The assistant gives evidence for each step. The manual route is in the pages linked under "The same steps by hand".
 
-Related: [prerequisites](prerequisites.md), [requirements and installation](install.md), [first run](first-run.md), [door station](../guides/door-station-dahua.md), [Tailscale](../guides/tailscale.md), [keys and secrets](../reference/keys-and-secrets.md), [supported hardware](../reference/supported-hardware.md), [wall tablet](../guides/wall-tablet.md).
+**Shortest start:** paste this into any AI assistant that can read web pages:
+
+```
+Read https://raw.githubusercontent.com/gsasha/portico-ha/main/docs/getting-started/ai-setup-prompt.md and follow it to help me install Portico and its Android app (https://github.com/gsasha/portico-app).
+```
+
+An assistant that cannot open links: copy the text between `PROMPT STARTS` and `PROMPT ENDS` below instead.
+
+Related: the Android app repository, [portico-app](https://github.com/gsasha/portico-app) (its releases page has the APK); [prerequisites](prerequisites.md), [requirements and installation](install.md), [first run](first-run.md), [door station](../guides/door-station-dahua.md), [Tailscale](../guides/tailscale.md), [keys and secrets](../reference/keys-and-secrets.md), [supported hardware](../reference/supported-hardware.md), [wall tablet](../guides/wall-tablet.md).
 
 ## How to use this prompt
 
@@ -15,7 +23,7 @@ Related: [prerequisites](prerequisites.md), [requirements and installation](inst
 5. **Answer its questions.** It will first take an inventory, then propose a plan, then go one stage at a time. Say "stop" at any point. If you get tired, ask it for a one-paragraph summary of where you are, and paste that into a new conversation to continue.
 6. **Check its claims.** The prompt makes the assistant prove each step from something observable (a log line, an entity state, the app on the phone). If it says "done" without that evidence, ask what it looked at.
 
-What the assistant cannot do for you: physical work at the door station, anything on the phone itself, the Tailscale and Firebase consoles, and your router or firewall. It will tell you what to do and ask what you see.
+What the assistant cannot do for you: physical work at the door station, anything on the phone itself (downloading and installing the app, allowing permissions, scanning the QR), the Tailscale and Firebase consoles, and your router or firewall. It will tell you what to do and ask what you see; for the phone it checks the result from Home Assistant (the Phones tab and the entities) and from what you read to it off the app's screen.
 
 Nothing here has been run end to end by the author of the prompt. Treat the first session as a test and tell the maintainers what went wrong (an issue on the repository).
 
@@ -23,7 +31,7 @@ Nothing here has been run end to end by the author of the prompt. Treat the firs
 
 ## PROMPT STARTS
 
-You are helping me set up **Portico**, a Home Assistant custom integration that turns Home Assistant into the door intercom of my house. A visitor presses the button at the door station, Home Assistant knows, my Android phones and a wall tablet ring, someone answers or opens the door. Your job is to guide me through the whole setup, one stage at a time, and to be honest about what you have and have not verified.
+You are helping me set up **Portico**, a Home Assistant custom integration that turns Home Assistant into the door intercom of my house. A visitor presses the button at the door station, Home Assistant knows, my Android phones and a wall tablet ring, someone answers or opens the door. Your job is to guide me through the whole setup, one stage at a time, **including setting up the Portico Android app on my phone** (Stage 6: where to get it, installing it, enrolling it, its permissions, the first ring), with evidence for each step, and to be honest about what you have and have not verified.
 
 ### Sources you work from
 
@@ -127,14 +135,18 @@ Read `guides/content-pages-and-actions.md` and `guides/elements.md`. With the in
 
 ### Stage 6: install and enrol an Android phone
 
-Read `guides/enrolling-phones.md` and the Android section of `getting-started/prerequisites.md`.
+Read `guides/enrolling-phones.md` and the Android section of `getting-started/prerequisites.md`. This stage is the Portico **app**: say so to me, and say which parts only I can do on the phone and which parts you can verify from Home Assistant.
 
-1. **Where the APK comes from** is not settled in the documentation: say so, ask me where I got it, and tell me to check that it is the official one. Ask me to open it only from a source I trust.
-2. Installing an APK from outside the store means allowing "install unknown apps" for the browser or file manager, once. Walk me through it for my Android version, and ask what I see.
-3. The phone should be on the home Wi-Fi when it enrols. I open the Portico panel > Phones > Enrol a device, name the phone, and scan the QR with the app. The QR is good for 10 minutes and one use and carries a one-time code; **you do not ask me to send it to you**.
-4. The app asks for permissions (notifications, full-screen intent over the lock screen, microphone, camera for the QR, unrestricted battery). Go through the app's Settings screen with me: it lists each problem with a fix button. Ask me to read what it says; do not assume.
-5. Verify: the phone appears in the Phones tab as enrolled; the app shows it is connected; for push, the registration state shows registered.
-6. Give me the **order of tests**: ring at home on Wi-Fi first; then locked screen; then, if Tailscale is set up, Wi-Fi off and then mobile data. Each test is a real ring and needs my yes.
+1. **Check the phone first.** Android 8.0 or newer, and a **64-bit ARM (arm64)** processor (a 32-bit or x86 phone refuses the install). Ask me the phone model and Android version, and whether it can reach Home Assistant now (home Wi-Fi is easiest). iOS is not supported.
+2. **Where to get the app.** The app is **Portico app**, in the repository **https://github.com/gsasha/portico-app**. Send me to its **Releases** page, to the newest release, named like `v0.6.84-alpha`. Releases are marked **pre-release** ("alpha"): that is expected, not a warning sign. The release carries one signed APK, `portico-<version>.apk`. Tell me to download it from that page only, not from a link someone sent me or a third-party APK site. There is no Play Store listing. If the release page does not look like this, say so and ask me what I see; do not guess a different source. If I can use a computer, the APK's signature can be checked with `apksigner verify --print-certs`; the expected certificate fingerprint is in the app repository's install page. Offer it, do not insist.
+3. **Sideloading, which only I can do.** Open the downloaded file on the phone. Android asks once to allow "install unknown apps" for the browser or file manager I used: walk me through that for my Android version, and tell me to switch it off again afterwards if I wish. Ask what I see at each step. A phone that already holds a build signed with another key (for example a debug build) must uninstall it first, and then enrol again.
+4. **Open the app.** Until it is enrolled it opens on **Settings**. Ask me to read you the version in the About screen (Home menu) and compare it with the release I chose.
+5. **Enrol it from the Phones tab.** The phone should be on the home Wi-Fi. I open the Portico panel > **Phones** > **Enrol a device**, name the phone, and in the app tap **Scan the QR code** (it asks for the camera, only for the scan). The QR is good for 10 minutes and one use and carries a one-time code, not a token; **you never ask me to send it to you or to describe its contents**. If it expires, I press New code.
+6. **Permissions, on the phone.** The app asks for notifications, the full-screen intent over the lock screen (a separate switch in Android's settings on a sideloaded install), microphone, camera (for the QR) and unrestricted battery use. Go through the app's Settings screen with me: it lists each problem with a fix button. Ask me to read what it says; do not assume.
+7. **What you verify from Home Assistant** (reads only): the phone appears in the Phones tab as enrolled, with its name; the Portico entities or the Phones list show it; for push, the registration state shows registered. **What I verify on the phone and read to you:** the top bar shows a green dot (`LAN` or `Tailscale`) for the connection, and the Settings screen lists no remaining problem. Do not call the app "set up" until you have both.
+8. Give me the **order of tests**: ring at home on Wi-Fi first; then locked screen; then, if Tailscale is set up, Wi-Fi off and then mobile data. Each test is a real ring and needs my yes. When a ring comes, ask me what the phone showed, and check the call-state sensor and the log.
+9. In the Phones tab > **Manage**, ask me which doors this phone may open. Do not set it for me without my yes for each door.
+10. For another phone, repeat from 1 with a new QR.
 
 ### Stage 7: the wall tablet
 
@@ -180,5 +192,6 @@ Begin with Stage 0, question 1 and 2. Do not give me the plan until I have answe
 ## Notes for maintainers of this prompt
 
 - The prompt names pages by path; when a page moves, change the list in "Sources you work from" in the same pull request.
+- Stage 6 covers the Android app as well as enrolment: when the app's releases page, asset name or install steps change, update it with the app repository's install page.
 - It carries the same safety rules as the project's own: reads free, every write confirmed, no door actuation by the assistant, no secrets in chat. Keep them when editing.
 - Keep it free of any one household's addresses, names or hardware.

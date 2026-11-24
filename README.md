@@ -1,8 +1,16 @@
 # Portico for Home Assistant
 
+> **Want help installing it? Paste this into any AI assistant:**
+>
+> ```
+> Read https://raw.githubusercontent.com/gsasha/portico-ha/main/docs/getting-started/ai-setup-prompt.md and follow it to help me install Portico and its Android app.
+> ```
+>
+> The assistant interviews you, then guides you step by step through Home Assistant, the door station and the Portico Android app, and shows evidence for each step; it asks before it changes anything and never opens a door. The prompt page: [AI-guided setup prompt](docs/getting-started/ai-setup-prompt.md). The Android app: [portico-app](https://github.com/gsasha/portico-app) (signed alpha APKs on its Releases page).
+
 Portico turns Home Assistant into the door-and-intercom system of a house. A visitor rings the gate or the front door, Home Assistant knows about it, the phones in the house (and phones that are away) ring, someone answers from the Portico phone app or from a dashboard, and the door can be opened.
 
-This repository holds the Home Assistant side: one custom integration (domain `portico`) plus the small transport process it bundles for the real-time parts (SIP, RTP, WebRTC). The Android phone app lives in a companion repository, **portico-app** (not part of this repository).
+This repository holds the Home Assistant side: one custom integration (domain `portico`) plus the small transport process it bundles for the real-time parts (SIP, RTP, WebRTC). The Android phone app lives in a companion repository, [**portico-app**](https://github.com/gsasha/portico-app) (not part of this repository).
 
 > **Status: alpha.** The integration is at version 0.3.0 (`custom_components/portico/manifest.json`) and has not been published through HACS. It was built for one household and is being prepared for others, so expect rough edges and some documents that still name that household's own setup (they are marked). Nothing in this README has been re-run against real hardware while writing it; statements about hardware are taken from the code and the existing documents.
 
@@ -98,7 +106,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md): branch, run the tests, open a pull reque
 
 ## Related repository
 
-**portico-app**, the Android app, speaks "contract 3" with this integration ([contract fixtures](docs/reference/contract-fixtures.md)). Its location is not recorded in this repository.
+**portico-app**, the Android app, speaks "contract 3" with this integration ([contract fixtures](docs/reference/contract-fixtures.md)). Its repository is <https://github.com/gsasha/portico-app>; the APK is on its Releases page.
 
 ## License
 

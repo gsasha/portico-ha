@@ -121,7 +121,7 @@ Optional. Without a push entry, phones at home or on the tailnet ring over the w
 ## Android phones
 
 - Android 8.0 (API 26) or newer (`minSdk 26`). Tested on a few phones only.
-- The Portico app, installed from an APK. The APK is signed with the project's release key; an APK signed with another key does not install over it. **Where the public APK is downloaded from is not decided yet** (planned: a release asset of the app's repository). Until then see the app repository.
+- The Portico app, installed from an APK. The APK is signed with the project's release key; an APK signed with another key does not install over it. The APK is a release asset (a pre-release, "alpha", arm64 only) on the Releases page of https://github.com/gsasha/portico-app.
 - Permissions the app asks for: notifications, the full-screen intent that shows the ring over the lock screen (on a sideloaded install this is a separate permission switch in Android's settings), microphone (to answer), camera (only to scan the enrolment QR), and unrestricted battery use so Android does not stop the connection. The app's Settings screen lists each problem with a fix button.
 - Phones need to reach Home Assistant at the moment they enrol (home Wi-Fi is easiest).
 

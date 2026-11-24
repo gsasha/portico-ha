@@ -7,7 +7,7 @@ Related: [one-time code and phone entries](enrolment-code-and-phone-entries.md),
 ## Installing the app and enrolling, in order
 
 1. Check the phone: Android 8.0 or newer, and it can reach your Home Assistant address now (home Wi-Fi is easiest).
-2. Install the Portico app from its APK. Where the public APK is downloaded from is not settled yet (see the app repository); download only from the project's own releases. Android asks once to allow "install unknown apps" for the browser or file manager you used. An APK signed with another key does not install over an existing one.
+2. Install the Portico app from its APK. Download the signed `portico-<version>.apk` from the **Releases** page of https://github.com/gsasha/portico-app (releases are marked pre-release, "alpha"; arm64 phones only), and only from there. Android asks once to allow "install unknown apps" for the browser or file manager you used. An APK signed with another key does not install over an existing one.
 3. Open the app. It opens on Settings. Allow notifications when asked.
 4. On a computer, in Home Assistant, open the **Portico** panel (sidebar, administrators) > **Phones** > **Enrol a device**. Give the phone a name. A QR appears; it is good for 10 minutes and one use.
 5. In the app, **Scan the QR code** (this is where it asks for the camera, only for the scan). The app signs in and shows the connection as up.

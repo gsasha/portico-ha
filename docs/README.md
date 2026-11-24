@@ -11,7 +11,7 @@ This is the documentation of the Home Assistant side of Portico. Start with the 
 1. [Prerequisites: Home Assistant, the wheel, network and ports, HTTPS, Tailscale, Frigate, push](getting-started/prerequisites.md)
 2. [Requirements and installation](getting-started/install.md)
 3. [First run: a door, a phone, a first call](getting-started/first-run.md)
-4. [AI-guided setup prompt](getting-started/ai-setup-prompt.md): give it to an AI assistant that walks you through all of the above
+4. [AI-guided setup prompt](getting-started/ai-setup-prompt.md): **the easiest way in.** Give it to an AI assistant (or tell it to read https://raw.githubusercontent.com/gsasha/portico-ha/main/docs/getting-started/ai-setup-prompt.md); it walks you through all of the above and the Portico Android app ([portico-app](https://github.com/gsasha/portico-app))
 
 By hand, in this order: [supported hardware](reference/supported-hardware.md), [prerequisites](getting-started/prerequisites.md), [keys and secrets](reference/keys-and-secrets.md), [install](getting-started/install.md), [configure the door station](guides/door-station-dahua.md), [Tailscale](guides/tailscale.md), [enrol a phone](guides/enrolling-phones.md), [set up a wall tablet](guides/wall-tablet.md), [first run](getting-started/first-run.md).
 
